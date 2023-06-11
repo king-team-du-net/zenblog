@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    {% include "layouts/partials/_head.html.twig" %}
+    <body>
+        {% include "layouts/partials/_header.html.twig" %}
+        <main id="main">
+            {% include "layouts/partials/_flash.html.twig" %}
+            {% block body %}{% endblock %}
+        </main>
+        {% include "layouts/partials/_footer.html.twig" %}
+    </body>
+</html>

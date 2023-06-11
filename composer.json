@@ -1,0 +1,169 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^2.10",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.15",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.22",
+        "symfony/asset": "6.3.*",
+        "symfony/console": "6.3.*",
+        "symfony/doctrine-messenger": "6.3.*",
+        "symfony/dotenv": "6.3.*",
+        "symfony/expression-language": "6.3.*",
+        "symfony/flex": "^2",
+        "symfony/form": "6.3.*",
+        "symfony/framework-bundle": "6.3.*",
+        "symfony/http-client": "6.3.*",
+        "symfony/intl": "6.3.*",
+        "symfony/mailer": "6.3.*",
+        "symfony/mime": "6.3.*",
+        "symfony/monolog-bundle": "^3.0",
+        "symfony/notifier": "6.3.*",
+        "symfony/process": "6.3.*",
+        "symfony/property-access": "6.3.*",
+        "symfony/property-info": "6.3.*",
+        "symfony/runtime": "6.3.*",
+        "symfony/security-bundle": "6.3.*",
+        "symfony/serializer": "6.3.*",
+        "symfony/string": "6.3.*",
+        "symfony/translation": "6.3.*",
+        "symfony/twig-bundle": "6.3.*",
+        "symfony/validator": "6.3.*",
+        "symfony/web-link": "6.3.*",
+        "symfony/yaml": "6.3.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "cp-v": "composer -V",
+        "cp-u": "composer self-update",
+        "cp-r": "composer self-update --rollback",
+        "sf-cli": "scoop update symfony-cli",
+        "php-start": "php -S localhost:8000 -t public",
+        "sf-start": "symfony server:start -d",
+        "sf-stop": "symfony server:stop",
+        "sf-cc": "symfony console cache:clear",
+        "sf-twig": "symfony console cache:pool:clear twig.clear",
+        "composer-i": "composer install",
+        "composer-u": "composer update",
+        "npm": "npm install",
+        "npm-w": "npm run watch",
+        "npm-d": "npm run dev",
+        "npm-b": "npm run build",
+        "npm-i": [
+            "@npm",
+            "@npm-d"
+        ],
+        "install": [
+            "@composer-i",
+            "@npm",
+            "@npm-d"
+        ],
+        "phpcs": "./vendor/bin/phpcs",
+        "phpcbf": "./vendor/bin/phpcbf",
+        "phpstan": "./vendor/bin/phpstan",
+        "fix-cs-fixer": "php-cs-fixer fix",
+        "check": [
+            "phpstan",
+            "php-cs-fixer fix --dry-run --diff"
+        ],
+        "format":  "pint",
+        "db-migration": "symfony console make:migration",
+        "db-init-dev": [
+            "symfony console doctrine:database:drop --if-exists --force -e dev",
+            "symfony console doctrine:database:create -e dev",
+            "symfony console doctrine:migration:migrate --no-interaction --allow-no-migration -e dev"
+        ],
+        "db-fixtures-dev": [
+            "symfony console doctrine:fixtures:load -n -e dev"
+        ],
+        "db-dev": [
+            "@db-init-dev",
+            "@db-fixtures-dev"
+        ],
+        "tests": [
+            "@db-init-test",
+            "php bin/phpunit --testdox tests/Unit/",
+            "php bin/phpunit --testdox tests/Functional/"
+        ],
+        "db-init-test": [
+            "symfony console doctrine:database:drop --if-exists --force -e test",
+            "symfony console doctrine:database:create -e test",
+            "symfony console doctrine:migration:migrate --no-interaction --allow-no-migration -e test",
+            "symfony console doctrine:fixtures:load -n -e test"
+        ],
+        "test1": [
+            "@db-init-test",
+            "php bin/phpunit --testdox tests/Unit/"
+        ],
+        "test2": [
+            "@db-init-test",
+            "php bin/phpunit --testdox tests/Functional/"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.3.*"
+        }
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.7",
+        "symfony/browser-kit": "6.3.*",
+        "symfony/css-selector": "6.3.*",
+        "symfony/debug-bundle": "6.3.*",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/phpunit-bridge": "^6.3",
+        "symfony/stopwatch": "6.3.*",
+        "symfony/web-profiler-bundle": "6.3.*"
+    }
+}
