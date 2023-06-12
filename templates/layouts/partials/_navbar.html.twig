@@ -1,34 +1,38 @@
-<a href="index.html" class="logo d-flex align-items-center">
+{% set routename = app.request.get('_route') %}
+
+<a href="{{ path('blog_index') }}" class="logo d-flex align-items-center">
 	<!-- <img src="assets/img/logo.png" alt=""> -->
     <h1>ZenBlog</h1>
 </a>
 	<nav id="navbar" class="navbar"> <ul>
 		<li>
-			<a href="index.html">Blog</a>
+			<a href="{{ path('blog_index') }}">{{'Blog'|trans}}</a>
 		</li>
-		<li class="dropdown">
-			<a href="">
-				<span>Categories</span>
-				<i class="bi bi-chevron-down dropdown-indicator"></i>
-			</a>
-			<ul>
-				{% for category in categories %}
-                    <li>
-                        <a href="{{ path('blog_category', {slug: category.slug}) }}">
-                            {{ category.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-			</ul>
-		</li>
+		{% if blogCategory()|length > 0 %}
+			<li class="dropdown">
+				<a href="">
+					<span>{{'Categories'|trans}}</span>
+					<i class="bi bi-chevron-down dropdown-indicator"></i>
+				</a>
+				<ul>
+					{% for category in blogCategory() %}
+						<li>
+							<a href="{#{{ path('blog_category', {slug: category.slug}) }} #}">
+								{{ category.name }}
+							</a>
+						</li>
+					{% endfor %}
+				</ul>
+			</li>
+		{% endif %}
 		<li>
-			<a href="{#{{ path('login') }}#}">Member area</a>
+			<a href="{#{{ path('login') }}#}">{{'Member area'|trans}}</a>
 		</li>
         <li>
-			<a href="{#{{ path('about_index') }}#}">About</a>
+			<a href="{#{{ path('about_index') }}#}">{{'About'|trans}}</a>
 		</li>
 		<li>
-			<a href="{#{{ path('contact_index') }}#}">Contact</a>
+			<a href="{#{{ path('contact_index') }}#}">{{'Contact'|trans}}</a>
 		</li>
 	</ul>
 </nav>

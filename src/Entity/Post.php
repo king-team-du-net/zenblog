@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'blog_post')]
 class Post
 {
+    public const NUM_ITEMS_PER_PAGE = 10;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

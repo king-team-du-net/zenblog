@@ -1,20 +1,47 @@
-<!DOCTYPE html>
-
-<title>Hello BlogController!</title>
+{% extends 'layouts/base.html.twig' %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9" data-aos="fade-up">
+					{% if category is defined %}
+                        <h3 class="category-title">{{'Category'|trans}}: {{ category.name }}</h3>
+                    {% endif %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                    {% for post in posts %}
+                        <div class="d-md-flex post-entry-2 half">
+                            <a href="{{ path('blog_show', {slug: post.slug}) }}" class="me-4 thumbnail">
+                                <img src="{# {{ post.attachment }} #}" alt="{{ post.title }}" class="img-fluid">
+                            </a>
+                            <div>
+                                <div class="post-meta">
+                                    <span class="date">{{ post.category.name }}</span>
+                                    <span class="mx-1">&bullet;</span>
+                                    <span>{{ post.createdAt|format_date('long') }}</span>
+                                </div>
+                                <h3>
+                                    <a href="{{ path('blog_show', {slug: post.slug}) }}">{{ post.title }}</a>
+                                </h3>
+                                <p>{{ post.content|html_excerpt(400) }}</p>
+                                <div class="d-flex align-items-center author">
+                                    <div class="photo"><img src="{{ asset('assets/img/default_photo.jpg') }}" alt="{{ post.title }}" class="img-fluid"></div>
+                                    <div class="name">
+                                        <h3 class="m-0 p-0">{{ post.author.nickname }}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/laragon/www/Zenblog/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/laragon/www/Zenblog/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a></code></li>
-    </ul>
-</div>
+					<div class="text-start py-4">
+                        {{ knp_pagination_render(posts) }}
+					</div>
+				</div>
+				<div class="col-md-3">
+                    {% include "blog/partials/_sidebar.html.twig" %}
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}

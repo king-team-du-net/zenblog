@@ -1,0 +1,77 @@
+{% if pageCount > 1 %}
+    <div class="custom-pagination">
+        {% if previous is defined %}
+            <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">
+                {% if app.request.locale == 'ar' %}
+                    <span>&raquo;</span>
+                {% else %}
+                    <span>&laquo;</span>
+                {% endif %}
+            </a>
+        {% else %}
+            <a aria-disabled="true">
+                <span>
+                    {% if app.request.locale == 'ar' %}
+                        <span>&raquo;</span>
+                    {% else %}
+                        <span>&laquo;</span>
+                    {% endif %}
+                </span>
+            </a>
+        {% endif %}
+
+        {% if startPage > 1 %}
+            <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+            {% if startPage == 3 %}
+                <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+            {% elseif startPage != 2 %}
+                <a aria-disabled="true">
+                    <span>&hellip;</span>
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+            {% else %}
+                <a class="active">
+                    <span>{{ page }}</span>
+                </a>
+            {% endif %}
+        {% endfor %}
+
+        {% if pageCount > endPage %}
+            {% if pageCount > (endPage + 1) %}
+                {% if pageCount > (endPage + 2) %}
+                    <a aria-disabled="true">
+                        <span>&hellip;</span>
+                    </a>
+                {% else %}
+                    <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+                {% endif %}
+            {% endif %}
+                <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+        {% endif %}
+
+        {% if next is defined %}
+            <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">
+                {% if app.request.locale == 'ar' %}
+                    <span>&laquo;</span>
+                {% else %}
+                    <span>&raquo;</span>
+                {% endif %}
+            </a>
+        {% else %}
+            <a aria-disabled="true">
+                <span>
+                    {% if app.request.locale == 'ar' %}
+                        <span>&laquo;</span>
+                    {% else %}
+                        <span>&raquo;</span>
+                    {% endif %}
+                </span>
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
