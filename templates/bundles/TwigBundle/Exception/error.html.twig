@@ -2,7 +2,9 @@
 <html lang="{{ app.request.get('_locale') }}">
     <head>
         <title>{% block title %}{% endblock %} | {{ getSetting("website_name") }}</title>
-        {% include "layouts/partials/_head.html.twig" %}
+        {% include "layouts/partials/_meta.html.twig" %}
+        {% include "layouts/partials/_stylesheets.html.twig" %}
+        {% include "layouts/partials/_javascripts.html.twig" %}
     </head>
 	<body class="
         {% block page '' %} {% block layout 'default' %}"
