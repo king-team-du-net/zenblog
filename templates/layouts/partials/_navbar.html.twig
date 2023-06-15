@@ -2,9 +2,10 @@
 
 <a href="{{ path('blog_index') }}" class="logo d-flex align-items-center">
 	<!-- <img src="assets/img/logo.png" alt=""> -->
-    <h1>ZenBlog</h1>
+    <h1>{{ getSetting("website_name") }}</h1>
 </a>
-	<nav id="navbar" class="navbar"> <ul>
+<nav id="navbar" class="navbar"> 
+	<ul>
 		<li>
 			<a href="{{ path('blog_index') }}">{{'Blog'|trans}}</a>
 		</li>
@@ -17,7 +18,7 @@
 				<ul>
 					{% for category in blogCategory() %}
 						<li>
-							<a href="{#{{ path('blog_category', {slug: category.slug}) }} #}">
+							<a href="{{ path('category_show', {slug: category.slug}) }}">
 								{{ category.name }}
 							</a>
 						</li>
@@ -26,13 +27,13 @@
 			</li>
 		{% endif %}
 		<li>
-			<a href="{#{{ path('login') }}#}">{{'Member area'|trans}}</a>
+			<a href="{#{{ path('login', {redirect: app.request.pathInfo}) }}) }}#}">{{'Member area'|trans}}</a>
 		</li>
         <li>
-			<a href="{#{{ path('about_index') }}#}">{{'About'|trans}}</a>
+			<a href="{{ path('about_index') }}">{{'About us'|trans}}</a>
 		</li>
 		<li>
-			<a href="{#{{ path('contact_index') }}#}">{{'Contact'|trans}}</a>
+			<a href="{{ path('contact_index') }}">{{'Contact us'|trans}}</a>
 		</li>
 	</ul>
 </nav>

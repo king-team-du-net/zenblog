@@ -1,0 +1,11 @@
+{% extends "bundles/TwigBundle/Exception/error.html.twig" %}
+
+{% set pagetitle = 'Error 403 - ' ~ 'Forbidden'|trans %}
+{% block title pagetitle %}
+
+{% block body %}
+    <h1 class="display-5">{{ pagetitle }}</h1>
+    <p class="fs-lg pb-2 pb-md-0 mb-4 mb-md-5">
+        {{ "You don't have permission to access this resource"|trans }}
+    </p>
+{% endblock %}

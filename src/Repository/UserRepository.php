@@ -3,11 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -56,28 +57,95 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
-//    /**
-//     * @return User[] Returns an array of User objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * To get the aministrator.
+     */
+    public function getAdministrator()
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :roles')
+            ->setParameter('roles', '%"ROLE_ADMINISTRATOR"%')
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+    
+    /**
+     * Retrieve users according to their roles
+     *
+     * @param  string|null $roles
+     * @return array
+     */
+    public function findUsers(?string $roles): array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.nickname', 'ASC')
+        ;
+        if ($roles) {
+            $query
+                ->andWhere('u.roles LIKE :val')
+                ->setParameter('val', '%' . $roles . '%')
+                ->setMaxResults(3)
+            ;
+        }
+        return $query->getQuery()->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?User
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+
+    public function findAllUser(?string $roles)
+    {
+        if (!$roles) {
+            $query = $this->createQueryBuilder('u')
+                ->orderBy('u.nickname', 'ASC')
+            ;
+            return $query->getQuery()->getResult();
+        } else {
+            $query = $this->createQueryBuilder('u')
+                ->where('u.roles LIKE :val')
+                ->setParameter('val', $roles)
+                ->orderBy('u.nickname', 'ASC')
+            ;
+            return $query->getQuery()->getResult();
+        }
+    }
+
+
+
+    /**
+     * @return User[]
+     */
+    public function clean(): array
+    {
+        $query = $this->createQueryBuilder('u')
+            ->where('u.deletedAt IS NOT NULL')
+            ->andWhere('u.deletedAt < NOW()');
+
+        /** @var User[] $users */
+        $users = $query->getQuery()->getResult();
+        $query->delete(User::class, 'u')->getQuery()->execute();
+
+        return $users;
+    }
+
+    /**
+     * Query used to retrieve a user for the login.
+     */
+    public function findForAuth(string $nickname): ?User
+    {
+        return $this->createQueryBuilder('u')
+            ->where('LOWER(u.email) = :nickname')
+            ->orWhere('LOWER(u.nickname) = :nickname')
+            ->setMaxResults(1)
+            ->setParameter('nickname', mb_strtolower($nickname))
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * List of banned users
+     */
+    public function queryBanned(): QueryBuilder
+    {
+        return $this->createQueryBuilder('u')->where('u.bannedAt IS NOT NULL');
+    }
 }

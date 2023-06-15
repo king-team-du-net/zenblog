@@ -4,12 +4,51 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    # The above parameters are declared here to be catched by the related event subscriber
+    is_website_configured: '%env(IS_WEBSITE_CONFIGURED)%'
+    maintenance_mode: '%env(MAINTENANCE_MODE)%'
+
+    # Date and time
+    date_format: '%env(DATE_FORMAT)%'
+    date_format_simple: '%env(DATE_FORMAT_SIMPLE)%'
+    date_format_date_only: '%env(DATE_FORMAT_DATE_ONLY)%'
+    date_timezone: '%env(DATE_TIMEZONE)%'
+
+    # Language
+    locale: '%env(DEFAULT_LOCALE)%'
+    locales: '%env(APP_LOCALES)%'
+    available_locales: en|fr|es|ar|de|pt|
+
+    # Website configuration
+    website_name: '%env(WEBSITE_NAME)%'
+    website_slug: '%env(WEBSITE_SLUG)%'
+    website_no_reply_email: '%env(WEBSITE_NO_REPLY_EMAIL)%'
+    website_sav: '%env(WEBSITE_SAV)%'
+    website_contact_email: '%env(WEBSITE_CONTACT_EMAIL)%'
+    website_contact_phone: '%env(WEBSITE_CONTACT_PHONE)%'
+    website_contact_fax: '%env(WEBSITE_CONTACT_FAX)%'
+    website_contact_address: '%env(WEBSITE_CONTACT_ADDRESS)%'
+    website_root_url: '%env(WEBSITE_ROOT_URL)%'
+    website_dashboard_path: '%env(WEBSITE_DASHBOARD_PATH)%'
+
+    #google_maps_api_key: '%env(GOOGLE_MAPS_API_KEY)%'
+    router.request_context.host: "%website_root_url%"
+    container.dumper.inline_factories: true
+    container.dumper.inline_class_loader: true
+
+    # Upload
+    uploads_dir: '%kernel.project_dir%/public/uploads'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+        public: false
+
+        bind:
+            string $uploadsDir: '%uploads_dir%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -22,3 +61,25 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # app.services:
+        # alias: App\Service\AppServices
+
+    stof_doctrine_extensions.listener.sluggable:
+        class: "%stof_doctrine_extensions.listener.sluggable.class%"
+        public: false
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [setAnnotationReader, ['@annotation_reader']]
+            - [setTransliterator, [[App\Service\Slugger, transliterate]]]
+            - [setUrlizer, [[App\Service\Slugger, urlize]]]
+
+    _instanceof:
+        App\Interface\Mailer\Mail\MailInterface:
+            tags: [ 'app.mailer.mailInterface' ]
+
+    App\Interface\Mailer\MailSender:
+        arguments:
+            $sender: '%website_no_reply_email%'
+            $container: !tagged_locator app.mailer.mailInterface

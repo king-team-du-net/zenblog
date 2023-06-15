@@ -2,59 +2,37 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\HasTagAndCategoryTrait;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
 #[ORM\Table(name: 'blog_category')]
 class Category
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    use HasTagAndCategoryTrait;
 
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    #[ORM\Column(type: Types::INTEGER, options: ['unsigned' => true])]
+    private int $numberOfPosts = 0;
 
-    #[ORM\Column(length: 255)]
-    private ?string $slug = null;
-
+    /**
+     * @var Collection<int, Post>
+     */
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Post::class)]
     private Collection $posts;
 
-    public function __construct()
+    public function getNumberOfPosts(): int
     {
-        $this->posts = new ArrayCollection();
+        return $this->numberOfPosts;
     }
 
-    public function getId(): ?int
+    public function setNumberOfPosts(int $numberOfPosts): static
     {
-        return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): static
-    {
-        $this->slug = $slug;
+        $this->numberOfPosts = $numberOfPosts;
 
         return $this;
     }

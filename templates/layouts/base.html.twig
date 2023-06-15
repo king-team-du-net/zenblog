@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html>
-    {% include "layouts/partials/_head.html.twig" %}
-    <body>
+<html lang="{{ app.request.get('_locale') }}">
+    <head>
+        <title>{% block title %}{% endblock %} | {{ getSetting("website_name") }}</title>
+        {% include "layouts/partials/_meta.html.twig" %}
+        {% include "layouts/partials/_stylesheets.html.twig" %}
+        {% include "layouts/partials/_javascripts.html.twig" %}
+    </head>
+	<body class="
+        {% block page '' %} {% block layout 'default' %}" 
+        data-timezone="{{ date_timezone }}" 
+        {% if getSetting('show_cookie_policy_bar') == "yes" %} data-cookie-bar-page-link="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" {% endif %} 
+        {% if getEnv('DEMO_MODE') == "1" %} data-demo-mode="1" {% endif %}
+    >
         {% include "layouts/partials/_header.html.twig" %}
         <main id="main">
             {% include "layouts/partials/_flash.html.twig" %}

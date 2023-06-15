@@ -11,10 +11,10 @@ final class TwigContentExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('html_excerpt', [$this, 'htmlExcerpt']),
-            new TwigFilter('html_markdown', [$this, 'htmlMarkdown'], ['is_safe' => ['html']]),
-            new TwigFilter('html_markdown_excerpt', [$this, 'htmlMarkdownExcerpt'], ['is_safe' => ['html']]),
-            new TwigFilter('html_markdown_untrusted', [$this, 'htmlMarkdownUntrusted'], ['is_safe' => ['html']]),
+            new TwigFilter('html_excerpt', $this->htmlExcerpt(...)),
+            new TwigFilter('html_markdown', $this->htmlMarkdown(...), ['is_safe' => ['html']]),
+            new TwigFilter('html_markdown_excerpt', $this->htmlMarkdownExcerpt(...), ['is_safe' => ['html']]),
+            new TwigFilter('html_markdown_untrusted', $this->htmlMarkdownUntrusted(...), ['is_safe' => ['html']]),
         ];
     }
 
@@ -35,7 +35,7 @@ final class TwigContentExtension extends AbstractExtension
             return $content;
         }
 
-        $lastSpace = mb_strpos($content, ' ', $characterLimit);
+        $lastSpace = strpos($content, ' ', $characterLimit);
         if ($lastSpace === false) {
             return $content;
         }
@@ -60,7 +60,13 @@ final class TwigContentExtension extends AbstractExtension
         // We replace YouTube links with an embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<iframe width="560" height="315" src="//www.youtube-nocookie.com/embed/$2" frameborder="0" allowfullscreen=""></iframe>',
+            '<iframe 
+                width="560" 
+                height="315" 
+                src="//www.youtube-nocookie.com/embed/$2" 
+                frameborder="0" 
+                allowfullscreen=""
+            ></iframe>',
             (string) $content
         );
 

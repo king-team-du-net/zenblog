@@ -2,15 +2,23 @@
 	<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         {% include "layouts/partials/_navbar.html.twig" %}
 		<div class="position-relative">
-			<a href="#" class="mx-2">
-				<span class="bi-facebook"></span>
-			</a>
-			<a href="#" class="mx-2">
-				<span class="bi-twitter"></span>
-			</a>
-			<a href="#" class="mx-2">
-				<span class="bi-instagram"></span>
-			</a>
+			{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
+				{% if getSetting("facebook_url") != "" %}
+					<a href="{{ getSetting("facebook_url") }}" class="mx-2">
+						<span class="bi-facebook"></span>
+					</a>
+				{% endif %}
+				{% if getSetting("twitter_url") != "" %}
+					<a href="{{ getSetting("twitter_url") }}" class="mx-2">
+						<span class="bi-twitter"></span>
+					</a>
+				{% endif %}
+				{% if getSetting("instagram_url") != "" %}
+					<a href="{{ getSetting("instagram_url") }}" class="mx-2">
+						<span class="bi-instagram"></span>
+					</a>
+				{% endif %}
+			{% endif %}
 
 			<a href="#" class="mx-2 js-search-open">
 				<span class="bi-search"></span>

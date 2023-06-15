@@ -2,11 +2,13 @@
 
 namespace App\Repository;
 
-use App\Entity\Category;
+use App\Entity\Tag;
 use App\Entity\Post;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
+use App\Entity\Category;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -49,8 +51,8 @@ class PostRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
-            ->where('p.online = true')
-            ->orderBy('p.createdAt', 'DESC')
+            ->where('p.isOnline = true')
+            ->orderBy('p.publishedAt', 'DESC')
         ;
 
         if ($category) {
@@ -63,28 +65,75 @@ class PostRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
-//    /**
-//     * @return Post[] Returns an array of Post objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @param  Post $post
+     * @return Post|null
+     */
+    public function findPreviousPost(Post $post): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.publishedAt < :postPublishedAt')
+            ->setParameter('postPublishedAt', $post->getPublishedAt())
+            ->orderBy('p.publishedAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
-//    public function findOneBySomeField($value): ?Post
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    /**
+     * @param  Post $post
+     * @return Post|null
+     */
+    public function findNextPost(Post $post): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.publishedAt > :postPublishedAt')
+            ->setParameter('postPublishedAt', $post->getPublishedAt())
+            ->orderBy('p.publishedAt', 'ASC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findAllCategory(Category $category): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where(':category MEMBER OF p.category')
+            //->andWhere('p.isPortfolio = TRUE')
+            ->setParameter('category', $category)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findAllTag(Tag $tag): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where(':tag MEMBER OF p.tag')
+            ->setParameter('tag', $tag)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return QueryBuilder<Post>
+     */
+    public function findRecent(int $limit): QueryBuilder
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p')
+            ->where('p.isPublished = true AND p.createdAt < NOW()')
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($limit)
+        ;
+    }
 }

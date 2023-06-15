@@ -1,0 +1,26 @@
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, all"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta property="og:site_name" content="{{ getSetting("website_name") }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@{{ getSetting("website_slug") }}">
+    {% block meta_dynamic_seo %}
+        <meta name="description" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
+        <meta name="keywords" content="{{ getSetting("website_keywords_" ~ app.request.locale) }}">
+        <meta property="og:title" content="{{ getSetting("website_name") }}">
+        {#<meta property="og:image" content="{{ absolute_url(asset(getAppLayoutSettings.getOgImagePath)) }}">#}
+        <meta property="og:description" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
+        <meta name="twitter:title" content="{{ getSetting("website_name") }}">
+        {#<meta name="twitter:image" content="{{ absolute_url(asset(getAppLayoutSettings.getOgImagePath)) }}">#}
+        <meta name="twitter:image:alt" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
+        <meta name="twitter:description" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
+    {% endblock %}
+    <meta name="apple-mobile-web-app-title" content="{{ getSetting("website_name") }}">
+    <meta name="twitter:site" content="@{{ getSetting("website_name") }}">
+    <meta name="application-name" content="{{ getSetting("website_name") }}">
+    <meta name="msapplication-tooltip" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
+
+    {#<link rel="shortcut icon" href="{{ absolute_url(asset(getAppLayoutSettings.getFaviconPath)) }}">#}
+    {#<link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}">#}

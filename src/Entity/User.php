@@ -4,47 +4,66 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\HasIdTrait;
 use App\Repository\UserRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 use function Symfony\Component\String\u;
 
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
+#[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
-    final public const DEFAULT = 'ROLE_USER';
+    use HasIdTrait;
+    use HasTimestampTrait;
+    use HasDeletedAtTrait;
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    final public const DEFAULT = 'ROLE_USER';
+    final public const ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
+    final public const ADMIN = 'ROLE_ADMIN';
+    final public const EDITOR = 'ROLE_EDITOR';
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(['comment:read'])]
+    private ?string $avatar = null;
+
+    #[Assert\NotNull(groups: ['avatar'])]
+    #[ImageConstraint(groups: ['avatar'])]
+    private ?UploadedFile $avatarFile = null;
 
     #[
         Assert\NotBlank,
         Assert\NotNull,
         Assert\Length(min: 4, max: 30)
     ]
-    #[ORM\Column(length: 30, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 30, unique: true)]
     private string $nickname = '';
 
     #[
         Assert\NotBlank,
         Assert\Length(min: 2, max: 20)
     ]
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $firstname = null;
 
     #[
         Assert\NotBlank,
         Assert\Length(min: 2, max: 20)
     ]
-    #[ORM\Column(length: 20, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $lastname = null;
 
     #[
@@ -53,8 +72,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         Assert\NotNull,
         Assert\Email
     ]
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
     private ?string $email = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $about = null;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $designation = null;
 
     #[ORM\Column]
     private array $roles = [User::DEFAULT];
@@ -62,7 +87,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(type: Types::STRING)]
     #[Assert\NotBlank]
     private string $password = '';
 
@@ -79,9 +104,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         return (string) $this->getFullName();
     }
 
-    public function getId(): ?int
+    public function getAvatar(): ?string
     {
-        return $this->id;
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): User
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getAvatarFile(): ?UploadedFile
+    {
+        return $this->avatarFile;
+    }
+
+    public function setAvatarFile(?UploadedFile $avatarFile): User
+    {
+        $this->avatarFile = $avatarFile;
+
+        return $this;
     }
 
     public function getFullName(): string
@@ -133,6 +177,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAbout(): ?string
+    {
+        return $this->about;
+    }
+
+    public function setAbout(?string $about): static
+    {
+        $this->about = $about;
+
+        return $this;
+    }
+
+    public function getDesignation(): ?string
+    {
+        return u($this->designation)->upper()->toString();
+    }
+
+    public function setDesignation(?string $designation): static
+    {
+        $this->designation = $designation;
 
         return $this;
     }

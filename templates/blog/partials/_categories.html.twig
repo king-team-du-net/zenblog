@@ -1,0 +1,8 @@
+{% for category in blogCategory() %}
+    <li>
+        <a href="{{ path('category_show', {slug: category.slug}) }}">
+            <i class="bi bi-chevron-right"></i>
+            {{ category.name }}
+        </a>
+    </li>
+{% endfor %}

@@ -7,14 +7,14 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-class CategoryFixtures extends Fixture
+final class CategoryFixtures extends Fixture
 {
     /**
      * @param EntityManagerInterface $manager
      */
     public function load(ObjectManager $manager): void
     {
-        $cat = [
+        $categories = [
             1 => [
                 'name' => 'Podcasts',
                 'slug' => 'podcasts',
@@ -49,7 +49,7 @@ class CategoryFixtures extends Fixture
             ],
         ];
 
-        foreach ($cat as $key => $value) {
+        foreach ($categories as $key => $value) {
             $category = new Category();
             $category->setName($value['name']);
             $category->setSlug($value['slug']);

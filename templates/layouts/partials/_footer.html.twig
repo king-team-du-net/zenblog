@@ -3,95 +3,63 @@
 		<div class="container">
 			<div class="row g-5">
 				<div class="col-lg-4">
-					<h3 class="footer-heading">About ZenBlog</h3>
-					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
+					<h3 class="footer-heading">{{'About'|trans}} {{ getSetting("website_name") }}</h3>
+					<p>{{ getSetting("footer_about") }}</p>
 					<p>
-						<a href="about.html" class="footer-link-more">Learn More</a>
+						<a href="{#{{ path('about_index') }}#}" class="footer-link-more">{{'Learn More'|trans}}</a>
 					</p>
 				</div>
 				<div class="col-6 col-lg-2">
-					<h3 class="footer-heading">Navigation</h3>
+					<h3 class="footer-heading">{{'Navigation'|trans}}</h3>
 					<ul class="footer-links list-unstyled">
 						<li>
-							<a href="index.html">
+							<a href="{{ path('blog_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								Home</a>
+								{{ "Blog"|trans }}
+							</a>
 						</li>
 						<li>
-							<a href="index.html">
+							<a href="{{ path('category_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								Blog</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Categories</a>
+								{{'Categories'|trans}}
+							</a>
 						</li>
 						<li>
 							<a href="single-post.html">
 								<i class="bi bi-chevron-right"></i>
-								Single Post</a>
+								{{'Single Post'|trans}}
+							</a>
 						</li>
 						<li>
-							<a href="about.html">
+							<a href="{#{{ path('login', {redirect: app.request.pathInfo}) }}) }}#}">
 								<i class="bi bi-chevron-right"></i>
-								About us</a>
+								{{'Member area'|trans}}
+							</a>
 						</li>
 						<li>
-							<a href="contact.html">
+							<a href="{{ path('about_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								Contact</a>
+								{{'About us'|trans}}
+							</a>
+						</li>
+						<li>
+							<a href="{{ path('contact_index') }}">
+								<i class="bi bi-chevron-right"></i>
+								{{'Contact us'|trans}}
+							</a>
 						</li>
 					</ul>
 				</div>
 				<div class="col-6 col-lg-2">
-					<h3 class="footer-heading">Categories</h3>
-					<ul class="footer-links list-unstyled">
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Business</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Culture</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Sport</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Food</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Politics</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Celebrity</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Startups</a>
-						</li>
-						<li>
-							<a href="category.html">
-								<i class="bi bi-chevron-right"></i>
-								Travel</a>
-						</li>
-					</ul>
+					{% if blogCategory()|length > 0 %}
+						<h3 class="footer-heading">{{'Categories'|trans}}</h3>
+						<ul class="footer-links list-unstyled">
+							{% include "blog/partials/_categories.html.twig" with { category: blogCategory()} only %}
+						</ul>
+					{% endif %}
 				</div>
-
 				<div class="col-lg-4">
-					<h3 class="footer-heading">Recent Posts</h3>
+					<h3 class="footer-heading">{{'Recent Posts'|trans}}</h3>
 					<ul class="footer-links footer-blog-entry list-unstyled">
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
@@ -156,41 +124,51 @@
 			<div class="row justify-content-between">
 				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
 					<div class="copyright">
-						© Copyright
+						{{"Copyright"|trans}} &copy; {{ "now"|date('Y') }}
 						<strong>
-							<span>ZenBlog</span>
-						</strong>. All Rights Reserved
+							<span>{{ getSetting("website_name") }}</span>
+						</strong>. {{'All Rights Reserved'|trans}}
 					</div>
-
 					<div class="credits">
-						Designed by<a href="https://bootstrapmade.com/"> BootstrapMade</a>
+						{{'Designed by'|trans}}<a href="{{ getSetting("website_url") }}"> {{ getSetting("website_name") }}</a>
 					</div>
-
 				</div>
-
 				<div class="col-md-6">
-					<div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-						<a href="#" class="twitter">
-							<i class="bi bi-twitter"></i>
-						</a>
-						<a href="#" class="facebook">
-							<i class="bi bi-facebook"></i>
-						</a>
-						<a href="#" class="instagram">
-							<i class="bi bi-instagram"></i>
-						</a>
-						<a href="#" class="google-plus">
-							<i class="bi bi-skype"></i>
-						</a>
-						<a href="#" class="linkedin">
-							<i class="bi bi-linkedin"></i>
-						</a>
-					</div>
+					{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
+						<div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+							{% if getSetting("twitter_url") != "" %}
+								<a href="{{ getSetting("twitter_url") }}" class="twitter">
+									<i class="bi bi-twitter"></i>
+								</a>
+							{% endif %}
+							{% if getSetting("facebook_url") != "" %}
+								<a href="{{ getSetting("facebook_url") }}" class="facebook">
+									<i class="bi bi-facebook"></i>
+								</a>
+							{% endif %}
+							{% if getSetting("instagram_url") != "" %}
+								<a href="{{ getSetting("instagram_url") }}" class="instagram">
+									<i class="bi bi-instagram"></i>
+								</a>
+							{% endif %}
+							{% if getSetting("youtube_url") != "" %}
+								<a href="{{ getSetting("youtube_url") }}" class="youtube">
+									<i class="bi bi-youtube"></i>
+								</a>
+							{% endif %}
+							{% if getSetting("linkedin_url") != "" %}
+								<a href="{{ getSetting("linkedin_url") }}" class="linkedin">
+									<i class="bi bi-linkedin"></i>
+								</a>
+							{% endif %}
+						</div>
+					{% endif %}
 				</div>
-
 			</div>
 		</div>
 	</div>
 </footer>
 
-<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% if getSetting("show_back_to_top_button") == "yes" %}
+	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endif %}

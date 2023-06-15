@@ -9,6 +9,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -20,8 +21,12 @@ class BlogController extends AbstractController
     }
 
     #[Route('/', name: 'blog_index', methods: [Request::METHOD_GET])]
-    public function index(Request $request, PostRepository $postRepository, PaginatorInterface $paginator): Response
-    {
+    public function blogIndex(
+        Request $request,
+        PostRepository $postRepository,
+        PaginatorInterface $paginator,
+        TranslatorInterface $translator
+    ): Response {
         $categories = $this->categoryRepository->findAll();
 
         $page = $request->query->getInt('page', 1);
@@ -33,7 +38,7 @@ class BlogController extends AbstractController
         );
 
         if ($posts->count() === 0) {
-            throw new NotFoundHttpException('No Found Articles');
+            throw new NotFoundHttpException($translator->trans('No Found Articles'));
         }
 
         return $this->render('blog/index.html.twig', [
@@ -42,9 +47,9 @@ class BlogController extends AbstractController
         ]);
     }
 
-    #[Route('/post/{slug}', name: 'blog_show')]
-    public function show(Post $post): Response
+    #[Route('/post/{slug}', name: 'blog_show', methods: [Request::METHOD_GET])]
+    public function blogShow(Post $post): Response
     {
-        return $this->render('blog/show.html.twig', ['post' => $post]);
+        return $this->render('blog/show.html.twig', compact('post'));
     }
 }

@@ -19,6 +19,13 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
 
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
+            softpublishedat:
+                class: App\Doctrine\Filter\SoftPublishedAtFilter
+
 when@test:
     doctrine:
         dbal:
