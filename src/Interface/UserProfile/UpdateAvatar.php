@@ -16,7 +16,7 @@ final class UpdateAvatar implements UpdateAvatarInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly string $uploadsDir
+        private readonly string $uploadsDirUser
     ) {
     }
 
@@ -24,7 +24,7 @@ final class UpdateAvatar implements UpdateAvatarInterface
     {
         if (null !== $user->getAvatar()) {
             $filesystem = new Filesystem();
-            $filesystem->remove(sprintf('%s/%s', $this->uploadsDir, $user->getAvatar()));
+            $filesystem->remove(sprintf('%s/%s', $this->uploadsDirUser, $user->getAvatar()));
         }
 
         /** @var UploadedFile $avatarFile */
@@ -32,7 +32,7 @@ final class UpdateAvatar implements UpdateAvatarInterface
 
         $user->setAvatar(sprintf('%s.%s', Uuid::v4(), $avatarFile->guessClientExtension()));
 
-        $avatarFile->move($this->uploadsDir, $user->getAvatar());
+        $avatarFile->move($this->uploadsDirUser, $user->getAvatar());
 
         $this->em->flush();
     }

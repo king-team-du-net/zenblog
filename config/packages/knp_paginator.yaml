@@ -6,5 +6,5 @@ knp_paginator:
         sort_direction_name: direction
         distinct: true
     template:
-        pagination: 'layouts/partials/_pagination.html.twig'
-        # sortable: 'layouts/partials/_sortable.html.twig'
+        pagination: 'global/_pagination.html.twig'
+        # sortable: 'global/_sortable.html.twig'

@@ -1,0 +1,62 @@
+{% extends "layouts/base.html.twig" %}
+
+{% set pagetitle = 'Share a post'|trans %}
+{% block title pagetitle %}
+
+{% block meta_dynamic_seo %}
+    <meta name="description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    {% if post.tags %}
+        <meta name="keywords" content="{{ post.name }}, {{ post.category.name }}, {% for tag in post.tags|split(',') %}{{ tag }}{{ not loop.last ? ', ' : '' }}{% endfor %}" />
+    {% else %}
+        <meta name="keywords" content="{{ getSetting("website_keywords_" ~ app.request.get('_locale')) }}" />
+    {% endif %}
+    <meta property="og:title" content="{{ post.title }}" />
+    {#<meta property="og:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}"/>#}
+    <meta property="og:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    <meta property="og:created_time" content="{{ post.createdAt|date('c') }}"/>
+    <meta name="twitter:title" content="{{ post.title }}" />
+    {#<meta name="twitter:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}" />#}
+    <meta name="twitter:image:alt" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+{% endblock %}
+
+{% block body %}
+	<section class="single-post-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 post-content" data-aos="fade-up">
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-lg-12">
+                            <h5 class="comment-title">{{ "Share"|trans }} "{{ post.title }}" {{ "via e-mail"|trans }}</h5>
+                            {{ form_start(form, {'method': 'post', 'attr': {'class': 'row'}}) }}
+                                {{ form_errors(form) }}
+                                <div class="col-lg-6 mb-3">
+                                    {{ form_widget(form.sender_name) }}
+                                    {{ form_errors(form.sender_name) }}
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    {{ form_widget(form.sender_email) }}
+                                    {{ form_errors(form.sender_email) }}
+                                </div>
+                                <div class="col-lg-6 mb-3">
+                                    {{ form_widget(form.receiver_email) }}
+                                    {{ form_errors(form.receiver_email) }}
+                                </div>
+                                <div class="col-12 mb-3">
+                                    {{ form_widget(form.sender_comments) }}
+                                    {{ form_errors(form.sender_comments) }}
+                                </div>
+                                <div class="col-12">
+                                    <input type="submit" class="btn btn-primary" value="{{ "Share Post"|trans }}" formnovalidate>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+				</div>
+				<div class="col-md-3">
+					{{ include("global/_sidebar.html.twig") }}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

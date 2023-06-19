@@ -345,9 +345,11 @@ final class SettingFixtures extends Fixture
         ];
 
         foreach ($settings as $key => $label) {
-            $setting = new Setting();
-            $setting->setName($label['name']);
-            $setting->setValue($label['value']);
+            $setting = (new Setting());
+            $setting
+                ->setName($label['name'])
+                ->setValue($label['value'])
+            ;
             $manager->persist($setting);
         }
 

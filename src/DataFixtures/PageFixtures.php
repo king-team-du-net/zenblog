@@ -132,10 +132,12 @@ final class PageFixtures extends Fixture
         ];
 
         foreach ($pages as $key => $value) {
-            $page = new Page();
-            $page->setTitle($value['title']);
-            $page->setSlug($value['slug']);
-            $page->setContent($value['content']);
+            $page = (new Page());
+            $page
+                ->setTitle($value['title'])
+                ->setSlug($value['slug'])
+                ->setContent($value['content'])
+            ;
             $manager->persist($page);
         }
 

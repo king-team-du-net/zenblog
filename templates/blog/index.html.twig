@@ -1,4 +1,4 @@
-{% extends 'layouts/base.html.twig' %}
+{% extends 'layouts/blog.html.twig' %}
 
 {% set pagetitle = 'Blog'|trans %}
 {% block title pagetitle %}
@@ -12,42 +12,16 @@
                         <h3 class="category-title">{{'Category'|trans}}: {{ category.name }}</h3>
                     {% endif %}
 
-                    {% for post in posts %}
-                        {% set link = path('blog_show', {slug: post.slug}) %}
-                        <div class="d-md-flex post-entry-2 half">
-                            <a href="{{ link }}" class="me-4 thumbnail">
-                                <img src="{# {{ post.attachment }} #} {{ asset('assets/img/post-landscape-1.jpg') }}" alt="{{ post.title }}" class="img-fluid">
-                            </a>
-                            <div>
-                                <div class="post-meta">
-                                    <span class="date">{{ post.category.name }}</span>
-                                    <span class="mx-1">&bullet;</span>
-                                    <span>{{ post.publishedAt|ago }}</span>
-                                    <span class="mx-1">&bullet;</span>
-                                    {% if post.readtime %}
-                                        <span>{{ post.readtime }} {{ "min read"|trans }}</span>
-                                    {% endif %}
-                                </div>
-                                <h3>
-                                    <a href="{{ link }}">{{ post.title }}</a>
-                                </h3>
-                                <p>{{ post.excerpt|html_excerpt(400) }}</p>
-                                <div class="d-flex align-items-center author">
-                                    <div class="photo"><img src="{{ asset('uploads/' ~ post.author.avatar) }}" alt="{{ post.title }}" class="img-fluid"></div>
-                                    <div class="name">
-                                        <h3 class="m-0 p-0">{{ post.author.nickname }}</h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    {% for post in pagination.results %}
+                        {{ include('blog/partials/_post.html.twig') }}
+                    {% else %}
+                        <h3>{{'No posts found.'|trans}}</h3>
                     {% endfor %}
 
-					<div class="text-start py-4">
-                        {{ knp_pagination_render(posts) }}
-					</div>
+                    {{ include('blog/partials/_pagination.html.twig') }}
 				</div>
 				<div class="col-md-3">
-                    {% include "blog/partials/_sidebar.html.twig" %}
+                    {{ include("global/_sidebar.html.twig") }}
 				</div>
 			</div>
 		</div>

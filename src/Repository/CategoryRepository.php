@@ -39,28 +39,24 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Category[] Returns an array of Category objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Category[]
+     */
+    public function findCategoryCount(): array
+    {
+        $data = $this->createQueryBuilder('c')
+            ->join('c.posts', 'p')
+            ->where('p.isOnline = true')
+            ->groupBy('c.id')
+            ->select('c', 'COUNT(c.id) as count')
+            ->getQuery()
+            ->getResult()
+        ;
 
-//    public function findOneBySomeField($value): ?Category
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return array_map(function (array $d) {
+            $d[0]->setNumberOfPosts((int) $d['count']);
+
+            return $d[0];
+        }, $data);
+    }
 }

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Interface\Mailer;
 
-use App\Interface\Mailer\Mail\MailInterface;
+use Symfony\Component\Mime\Address;
 use Psr\Container\ContainerInterface;
+use App\Interface\Mailer\Mail\MailInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Address;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class MailSender implements MailSenderInterface
 {
@@ -21,6 +22,7 @@ final class MailSender implements MailSenderInterface
     public function __construct(
         private readonly MailerInterface $mailer,
         private readonly string $sender,
+        private readonly ParameterBagInterface $params,
         private readonly ContainerInterface $container
     ) {
     }
@@ -56,7 +58,10 @@ final class MailSender implements MailSenderInterface
         $options = $resolver->resolve($this->options);
 
         $templatedEmail = (new TemplatedEmail())
-            ->from(new Address($this->sender, $this->container->get('website_name')))
+            ->from(new Address(
+                $this->sender, 
+                $this->params->get('website_name')
+            ))
         ;
 
         $mailInterface->build($templatedEmail, $options);

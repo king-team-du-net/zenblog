@@ -1185,6 +1185,33 @@ section {
 }
 
 /*--------------------------------------------------------------
+# Shared
+--------------------------------------------------------------*/
+.btn-facebook:hover,
+.btn-facebook:focus,
+.btn-facebook:active {
+  border-color: var(--color-blue);
+  background-color: var(--color-blue);
+  color: var(--color-white);
+}
+
+.btn-twitter:hover,
+.btn-twitter:focus,
+.btn-twitter:active {
+  border-color: var(--color-cyan);
+  background-color: var(--color-cyan);
+  color: var(--color-white);
+}
+
+.btn-telegram:hover,
+.btn-telegram:focus,
+.btn-telegram:active {
+  border-color: var(--color-black);
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
 .footer {
@@ -1289,4 +1316,200 @@ section {
 
 .footer .credits a {
   color: var(--color-white);
+}
+
+/*--------------------------------------------------------------
+# Dropzone
+--------------------------------------------------------------*/
+.dropzone-container {
+  border: 1px solid var(--bs-gray-300) !important;
+  border-radius: 0.375rem !important;
+  height: 100%;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.dropzone-container .dropzone-preview {
+  height: 100%;
+  width: 100%;
+}
+
+.dropzone-container .dropzone-preview .dropzone-preview-image {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  object-fit: cover;
+  max-width: unset;
+  flex-basis: unset;
+}
+
+.dropzone-container .dropzone-preview .dropzone-preview-filename {
+  display: none;
+}
+
+.user-avatar {
+  height: 1.5em;
+  width: 1.5em;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.ratio-1x1 {
+  aspect-ratio: 1/1;
+}
+
+.ratio-16x9 {
+  aspect-ratio: 16/9;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+img.ratio-1x1 {
+  object-fit: cover;
+}
+
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.media {
+  margin-bottom: 1rem;
+}
+
+textarea {
+  resize: none;
+}
+
+/*--------------------------------------------------------------
+# Auth login registration form
+--------------------------------------------------------------*/
+.auth .info-item {
+  text-align: center;
+}
+
+.auth .info-item i {
+  font-size: 48px;
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--color-primary);
+}
+
+.auth .info-item address,
+.auth .info-item p {
+  margin-bottom: 0;
+}
+
+.auth .info-item h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.auth .info-item a:hover {
+  color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .auth .info-item-borders {
+    border-left: 1px solid rgba(var(--color-secondary-rgb), 0.2);
+    border-right: 1px solid rgba(var(--color-secondary-rgb), 0.2);
+  }
+}
+
+.auth .php-email-auth {
+  box-shadow: 0 0 30px rgba(var(--color-black-rgb), 0.1);
+  padding: 30px;
+  background: var(--color-white);
+}
+
+@media (max-width: 640px) {
+  .auth .php-email-auth {
+    padding: 20px;
+  }
+}
+
+.auth .php-email-auth .error-message {
+  display: none;
+  color: var(--color-white);
+  background: var(--color-red);
+  text-align: left;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.auth .php-email-auth .error-message br+br {
+  margin-top: 25px;
+}
+
+.auth .php-email-auth .sent-message {
+  display: none;
+  color: var(--color-white);
+  background: var(--color-green);
+  text-align: center;
+  padding: 15px;
+  font-weight: 600;
+}
+
+.auth .php-email-auth .loading {
+  display: none;
+  background: var(--color-white);
+  text-align: center;
+  padding: 15px;
+}
+
+.auth .php-email-auth .loading:before {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px -6px 0;
+  border: 3px solid var(--color-green);
+  border-top-color: var(--color-white);
+  animation: animate-loading 1s linear infinite;
+}
+
+.auth .php-email-auth .form-group {
+  margin-bottom: 20px;
+}
+
+.auth .php-email-auth input,
+.auth .php-email-auth textarea {
+  padding: 10px 14px;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.auth .php-email-auth input::focus,
+.auth .php-email-auth textarea::focus {
+  background-color: var(--color-primary);
+}
+
+.auth .php-email-auth button[type=submit] {
+  background: var(--color-primary);
+  border: 0;
+  padding: 10px 30px;
+  color: #fff;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.auth .php-email-auth button[type=submit]:hover {
+  background: rgba(var(--color-primary-rgb), 0.8);
+}
+
+@keyframes animate-loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

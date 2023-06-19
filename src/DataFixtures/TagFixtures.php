@@ -50,12 +50,14 @@ final class TagFixtures extends Fixture
         ];
 
         foreach ($tags as $key => $value) {
-            $tag = new Tag();
-            $tag->setName($value['name']);
-            $tag->setSlug($value['slug']);
+            $tag = (new Tag());
+            $tag
+                ->setName($value['name'])
+                ->setSlug($value['slug'])
+            ;
             $manager->persist($tag);
 
-            $this->addReference('tag-' . $key, $tag);
+            //$this->addReference('tag-' . $key, $tag);
         }
 
         $manager->flush();

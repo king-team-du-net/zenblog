@@ -1,53 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\HasIdTrait;
 use App\Repository\TagRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\Common\Collections\Collection;
-use App\Entity\Traits\HasTagAndCategoryTrait;
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
 #[ORM\Table(name: 'blog_tag')]
-class Tag
+class Tag implements \Stringable
 {
-    use HasTagAndCategoryTrait;
+    use HasIdTrait;
+    use HasNameAndSlugAndAssertTrait;
+    use HasTimestampTrait;
+    use HasDeletedAtTrait;
 
-    /**
-     * @var Collection<int, Post>
-     */
-    #[ORM\OneToMany(mappedBy: 'tag', targetEntity: Post::class)]
-    private Collection $posts;
-
-    /**
-     * @return Collection<int, Post>
-     */
-    public function getPosts(): Collection
+    public function __toString(): string
     {
-        return $this->posts;
-    }
-
-    public function addPost(Post $post): static
-    {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
-            $post->setTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): static
-    {
-        if ($this->posts->removeElement($post)) {
-            // set the owning side to null (unless already changed)
-            if ($post->getTag() === $this) {
-                $post->setTag(null);
-            }
-        }
-
-        return $this;
+        return (string) $this->getName();
     }
 }

@@ -18,7 +18,7 @@
                             <div class="info-item">
                                 <i class="bi bi-geo-alt"></i>
                                 <h3>{{'Address'|trans}}</h3>
-                                <address>{{ getSetting("website_contact_address") }}</address>
+                                <address>{{ getSetting("website_contact_address")|raw }}</address>
                             </div>
                         </div>
                     {% endif %}

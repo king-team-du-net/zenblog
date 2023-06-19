@@ -36,8 +36,11 @@ parameters:
     container.dumper.inline_factories: true
     container.dumper.inline_class_loader: true
 
-    # Upload
-    uploads_dir: '%kernel.project_dir%/public/uploads'
+    # Upload User
+    uploads_dir_user: '%kernel.project_dir%/public/uploads/user'
+
+    # Upload Post
+    uploads_dir_post: '%kernel.project_dir%/public/uploads/post'
 
 services:
     # default configuration for services in *this* file
@@ -48,7 +51,8 @@ services:
         public: false
 
         bind:
-            string $uploadsDir: '%uploads_dir%'
+            string $uploadsDirUser: '%uploads_dir_user%'
+            string $uploadsDirPost: '%uploads_dir_post%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -76,6 +80,13 @@ services:
             - [setUrlizer, [[App\Service\Slugger, urlize]]]
 
     _instanceof:
+        App\Interface\Messenger\QueryHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: query.bus }
+        App\Interface\Messenger\CommandHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: command.bus }
+
         App\Interface\Mailer\Mail\MailInterface:
             tags: [ 'app.mailer.mailInterface' ]
 

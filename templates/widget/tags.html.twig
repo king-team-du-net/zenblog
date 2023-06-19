@@ -1,0 +1,8 @@
+{% for tag in blogTag() %}
+    <li>
+        <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}">
+            <i class="bi bi-tag"></i>
+            {{ tag.name }}
+        </a>
+    </li>
+{% endfor %}

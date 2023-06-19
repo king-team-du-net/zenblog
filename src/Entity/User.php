@@ -5,29 +5,36 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\UserRepository;
+use App\Entity\Traits\HasProfileTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
+use function Symfony\Component\String\u;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Traits\HasLastLoginAndBannedAtTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
-use function Symfony\Component\String\u;
-
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
+#[UniqueEntity(fields: ['email'], message: 'This email address is already in use.')]
+#[UniqueEntity(fields: ['nickname'], message: 'This nickname is already used.')]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
     use HasIdTrait;
+    use HasLastLoginAndBannedAtTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
@@ -52,17 +59,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     #[ORM\Column(type: Types::STRING, length: 30, unique: true)]
     private string $nickname = '';
 
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 2, max: 20)
-    ]
+    #[Assert\Length(min: 2, max: 20)]
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $firstname = null;
 
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 2, max: 20)
-    ]
+    #[Assert\Length(min: 2, max: 20)]
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
     private ?string $lastname = null;
 
@@ -84,11 +85,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     #[ORM\Column]
     private array $roles = [User::DEFAULT];
 
+    #[Assert\NotBlank(groups: ['password'])]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+        htmlPattern: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
+        groups: ['password']
+    )]
+    private ?string $plainPassword = null;
+
     /**
      * @var string The hashed password
      */
     #[ORM\Column(type: Types::STRING)]
-    #[Assert\NotBlank]
+    //#[Assert\NotBlank]
     private string $password = '';
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
@@ -96,6 +105,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
     public function __construct()
     {
+        $this->is_verified = false;
+        $this->registrationTokenLifeTime = (new \DateTime('now'))->add(new \DateInterval('P1D'));
         $this->posts = new ArrayCollection();
     }
 
@@ -234,6 +245,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -255,7 +278,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
+    }
+
+    /**
+     * @return array{
+     *      id: ?int,
+     *      firstname: ?string,
+     *      lastname: ?string,
+     *      email: string,
+     *      password: string,
+     *      nickname: string,
+     *      avatar: ?string,
+     *      registrationToken: ?string,
+     *      is_verified: ?bool
+     * }
+     */
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'firstname' => $this->firstname,
+            'lastname' => $this->lastname,
+            'email' => $this->email,
+            'password' => $this->password,
+            'nickname' => $this->nickname,
+            'avatar' => $this->avatar,
+            'registrationToken' => null !== $this->registrationToken ? (string) $this->registrationToken : null,
+            'is_verified' => $this->is_verified,
+        ];
+    }
+
+    /**
+     * @param array{
+     *      id: ?int,
+     *      firstname: ?string,
+     *      lastname: ?string,
+     *      email: string,
+     *      password: string,
+     *      nickname: string,
+     *      avatar: ?string,
+     *      registrationToken: ?string,
+     *      is_verified: bool
+     * } $data
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data['id'];
+        $this->firstname = $data['firstname'];
+        $this->lastname = $data['lastname'];
+        $this->email = $data['email'];
+        $this->password = $data['password'];
+        $this->nickname = $data['nickname'];
+        $this->avatar = $data['avatar'];
+        $this->registrationToken = null !== $data['registrationToken']
+            ? Uuid::fromString($data['registrationToken'])
+            : null;
+        $this->is_verified = $data['is_verified'];
     }
 
     /**

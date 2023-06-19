@@ -12,7 +12,7 @@ final class UpdatePassword implements UpdatePasswordInterface
 {
     public function __construct(
         private readonly EntityManagerInterface $em,
-        private readonly UserPasswordHasherInterface $userPasswordHasher
+        private readonly UserPasswordHasherInterface $hasher
     ) {
     }
 
@@ -21,7 +21,7 @@ final class UpdatePassword implements UpdatePasswordInterface
         /** @var string $plainPassword */
         $plainPassword = $user->getPlainPassword();
 
-        $user->setPassword($this->userPasswordHasher->hashPassword($user, $plainPassword));
+        $user->setPassword($this->hasher->hashPassword($user, $plainPassword));
 
         $this->em->flush();
     }

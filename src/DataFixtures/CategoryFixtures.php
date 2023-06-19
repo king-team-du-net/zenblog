@@ -50,12 +50,14 @@ final class CategoryFixtures extends Fixture
         ];
 
         foreach ($categories as $key => $value) {
-            $category = new Category();
-            $category->setName($value['name']);
-            $category->setSlug($value['slug']);
+            $category = (new Category());
+            $category
+                ->setName($value['name'])
+                ->setSlug($value['slug'])
+            ;
             $manager->persist($category);
 
-            $this->addReference('category-' . $key, $category);
+            //$this->addReference('category-' . $key, $category);
         }
 
         $manager->flush();

@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block layout %}{{ parent() }} page{% endblock %}
+
+{% block body %}
+    {{ include("global/_header.html.twig") }}
+    <main id="main">
+        {% if app.request.attributes.get('_route') != 'about' %}
+            <section class="container pt-5 mt-5 mb-md-2 mb-lg-3 mb-xl-4">
+                {% block breadcrumb %}{% endblock %}
+                <div class="row">
+                    <div class="col-lg-8 pb-2 pb-lg-0 mb-4 mb-lg-0">
+                        <h1 class="display-4 pb-2 pb-lg-3">{{ pagetitle }}</h1>
+                        <div class="d-flex flex-wrap align-items-center mt-n2">
+                            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                {% include "global/_message.html.twig" with { type: 'info', icon: 'ai-circle-info', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
+                            {% endif %}
+                            {% include "global/_user-isverified.html.twig" with { user: app.user } %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    {{ include("global/_footer.html.twig") }}
+{% endblock %}

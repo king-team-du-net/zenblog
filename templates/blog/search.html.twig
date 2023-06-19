@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% set pagetitle = 'Search Results'|trans %}
+{% block title pagetitle %}
+
+{% block body %}
+	<!-- ======= Search Results ======= -->
+	<section id="search-result" class="search-result">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<h3 class="category-title">{{ pagetitle }}</h3>
+					{{ component('blog_search', {
+						query: query
+					}) }}
+				</div>
+				<div class="col-md-3">
+					{{ include("global/_sidebar.html.twig") }}
+				</div>
+			</div>
+		</div>
+	</section>
+    <!-- End Search Result -->
+{% endblock %}

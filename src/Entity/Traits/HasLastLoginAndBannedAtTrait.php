@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 trait HasLastLoginAndBannedAtTrait
 {
     use HasIsVerifiedAndSuspendedTrait;
-    use HasTokenRegistrationAndLifeTimeTrait;
+    use HasRegistrationTokenTrait;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true, options: ['default' => null])]
     private ?\DateTimeInterface $lastLogin = null;

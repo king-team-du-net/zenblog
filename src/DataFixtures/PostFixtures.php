@@ -11,50 +11,14 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class PostFixtures extends Fixture implements DependentFixtureInterface
 {
     use FakerTrait;
 
-    /**
-     * @var array<int, User>
-     */
-    private array $administrators = [];
-
     public function __construct(
-        private readonly UserPasswordHasherInterface $hasher,
-        private string $uploadsDir
+        private string $uploadsDirPost
     ) {
-    }
-
-    private function createAdministrators(ObjectManager $manager): void
-    {
-        // User SuperAdmin
-        $filename = sprintf('%s.jpg', Uuid::v4());
-        copy(
-            sprintf('%s/default_photo.jpg', $this->uploadsDir),
-            sprintf('%s/%s', $this->uploadsDir, $filename)
-        );
-
-        $administrator = (new User());
-        $administrator
-            ->setId(1)
-            ->setRoles([User::ADMINISTRATOR])
-            ->setAvatar($filename)
-            ->setNickname('administrator')
-            ->setEmail('administrator@yourdomain.com')
-            ->setLastname('Cameron')
-            ->setFirstname('Williamson')
-            ->setPassword($this->hasher->hashPassword($administrator, 'administrator'))
-            //->setLastLogin(new \DateTimeImmutable()
-            //->setLastLoginIp($this->faker()->ipv4()
-            ->setAbout($this->faker()->realText(254))
-            ->setDesignation('Founder & CEO')
-        ;
-
-        $this->administrators[] = $administrator;
-        $manager->persist($administrator);
     }
 
     /**
@@ -62,8 +26,14 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
      */
     public function load(ObjectManager $manager): void
     {
-        $this->createAdministrators($manager);
-        $manager->flush();
+        /** @var array<array-key, User> $administrators */
+        $administrators = $manager->getRepository(User::class)->findBy(['id' => 1]);
+
+        /** @var array<array-key, Category> $categories */
+        $categories = $manager->getRepository(Category::class)->findAll();
+
+        /** @var array<array-key, Tag> $tags */
+        $tags = $manager->getRepository(Tag::class)->findAll();
 
         /** @var string $content */
         $content = '
@@ -77,7 +47,7 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
             </p>
 
             <figure class="my-4">
-                <img src="assets/img/post-landscape-1.jpg" alt="" class="img-fluid">
+                <img src="../assets/img/post-landscape-1.jpg" alt="" class="img-fluid">
                 <figcaption>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
             </figure>
             <p>
@@ -88,7 +58,7 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
             <p>Dolorum, incidunt! Adipisci harum itaque maxime dolores doloremque porro eligendi quis, doloribus vel sit rerum sunt obcaecati nam suscipit nulla vitae alias blanditiis aliquam debitis atque illo modi et placeat. Ratione iure eveniet provident. Culpa laboriosam sed ad quia. Corrupti, earum, perferendis dolore cupiditate sint nihil maiores iusto tempora nobis porro itaque est. Ut laborum culpa assumenda pariatur et perferendis?</p>
             <p>Est soluta veritatis laboriosam, consequuntur temporibus asperiores, fugit id a ullam sed, expedita sequi doloribus fugiat. Odio et necessitatibus enim nam, iste reprehenderit cupiditate omnis ut iure aliquid obcaecati, repellendus nemo provident eveniet tempora minus! Voluptates aut laboriosam, maiores nihil accusantium, a dolorum quaerat tenetur illo eum culpa cum laudantium sunt doloremque modi possimus magni? Perferendis cum repudiandae corrupti porro.</p>
             <figure class="my-4">
-                <img src="assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
+                <img src="../assets/img/post-landscape-5.jpg" alt="" class="img-fluid">
                 <figcaption>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
             </figure>
             <p>Quis molestiae, dolorem consequuntur labore perferendis enim accusantium commodi optio, sequi magnam ad consectetur iste omnis! Voluptatibus, quia officia esse necessitatibus magnam tempore reprehenderit quo aspernatur! Assumenda, minus dolorem repellendus corporis corrupti quia temporibus repudiandae in. Sit rem aut, consectetur repudiandae perferendis nemo alias, iure ipsam omnis quam soluta, nobis animi quis aliquam blanditiis at. Dicta nemo vero sequi exercitationem.</p>
@@ -97,57 +67,68 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
             <p>Possimus temporibus rerum illo quia repudiandae provident sed quas atque. Ipsam adipisci accusamus iste optio illo aliquam molestias? Voluptatibus, veniam recusandae facilis nobis perspiciatis rem similique, nisi ad explicabo ipsa voluptatum, inventore molestiae natus adipisci? Fuga delectus quia assumenda totam aspernatur. Nobis hic ea rem, quaerat voluptate vero illum laboriosam omnis aspernatur labore, natus ex iusto ducimus exercitationem a officia.</p>
         ';
 
-        foreach ($this->administrators as $administrator) {
-            for ($index = 1; $index < 160; ++$index) {
-                $category = $this->getReference('category-' . $this->faker()->numberBetween(1, 8));
-                $tag = $this->getReference('tag-' . $this->faker()->numberBetween(1, 8));
-                //$user = $this->getReference('user-' . $this->faker()->numberBetween(1, 16));
+        foreach ($administrators as $administrator) {
+            foreach ($categories as $category) {
+                for ($index = 1; $index <= 5; ++$index) {
+                    //$category = $this->getReference('category-' . $this->faker()->numberBetween(1, 8));
+                    //$tag = $this->getReference('tag-' . $this->faker()->numberBetween(1, 8));
+                    //$user = $this->getReference('user-' . $this->faker()->numberBetween(1, 16));
 
-                $states = ['draft', 'reviewed', 'rejected', 'published'];
+                    $states = ['draft', 'reviewed', 'rejected', 'published'];
 
-                $post = new Post();
-                /** @var User $user */
-                $post->setAuthor($administrator);
-                $post->setTitle($this->faker()->unique()->sentence(10));
-                $post->setContent($content);
-                $post->setExcerpt($this->faker()->realText(500));
-                $post->setReadtime(rand(10, 160));
-                /*
-                $post->setPublishedAt(
-                    $this->faker()->boolean(75)
-                    ? \DateTimeImmutable::createFromMutable(
-                        $this->faker()->dateTimeBetween('-50 days', '+10 days')
-                    )
-                    : null
-                );
-                $post->setIsOnline($this->faker()->boolean());
-                */
+                    $filename = sprintf('/%s.jpg', Uuid::v4());
+                    copy(
+                        sprintf('%s/default.jpg', $this->uploadsDirPost),
+                        sprintf('%s/%s', $this->uploadsDirPost, $filename)
+                    );
 
-                $post->setState($states[$index % 4]);
-                if ('published' === $post->getState()) {
-                    $post->setPublishedAt(new \DateTimeImmutable());
-                    $post->setIsOnline(true);
-                    $post->setViews(rand(10, 160));
+                    shuffle($tags);
+
+                    $post = new Post();
+                    $post->setAuthor($administrator);
+                    $post->setImage($this->faker()->image($this->uploadsDirPost, 640, 480, null, false));
+                    $post->setTitle($this->faker()->unique()->sentence(10));
+                    $post->setContent($content);
+                    $post->setExcerpt($this->faker()->realText(500));
+                    $post->setReadtime(rand(10, 160));
+                    /*
+                    $post->setPublishedAt(
+                        $this->faker()->boolean(75)
+                        ? \DateTimeImmutable::createFromMutable(
+                            $this->faker()->dateTimeBetween('-50 days', '+10 days')
+                        )
+                        : null
+                    );
+                    $post->setIsOnline($this->faker()->boolean());
+                    */
+
+                    $post->setState($states[$index % 4]);
+                    if ('published' === $post->getState()) {
+                        $post->setPublishedAt(new \DateTimeImmutable());
+                        $post->setIsOnline(true);
+                        $post->setViews(rand(10, 160));
+                    }
+                    $post->setCategory($category);
+
+                    foreach (array_slice($tags, 0, 2) as $tag) {
+                        $post->getTags()->add($tag);
+                    }
+
+                    $manager->persist($post);
+
+                    // Comment
+                    /*for ($com = 1; $com <= rand(1, 5); ++$com) {
+                        $comment = new Comment;
+                        $comment->setAuthor($user);
+                        $comment->setPost($post);
+                        $comment->setParent(null);
+                        $comment->setIp($this->faker()->ipv4);
+                        $comment->setContent($this->faker()->paragraph(3, true));
+                        $comment->setIsRGPD(true);
+                        $comment->setIsApproved($this->faker()->randomElement([true, false]));
+                        $manager->persist($comment);
+                    }*/
                 }
-                /** @var Category $category */
-                $post->setCategory($category);
-                /** @var Tag $tag */
-                $post->setTag($tag);
-
-                $manager->persist($post);
-
-                // Comment
-                /*for ($com = 1; $com <= rand(1, 5); ++$com) {
-                    $comment = new Comment;
-                    $comment->setAuthor($user);
-                    $comment->setPost($post);
-                    $comment->setParent(null);
-                    $comment->setIp($this->faker()->ipv4);
-                    $comment->setContent($this->faker()->paragraph(3, true));
-                    $comment->setIsRGPD(true);
-                    $comment->setIsApproved($this->faker()->randomElement([true, false]));
-                    $manager->persist($comment);
-                }*/
             }
         }
 

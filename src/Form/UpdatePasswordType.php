@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use App\Form\ResetPasswordType;
 
 final class UpdatePasswordType extends ResetPasswordType
 {
@@ -21,6 +22,7 @@ final class UpdatePasswordType extends ResetPasswordType
                 'empty_data' => '',
                 'mapped' => false,
                 'attr' => [
+                    'class' => 'form-control',
                     'placeholder' => 'Your current password',
                 ],
                 'constraints' => [

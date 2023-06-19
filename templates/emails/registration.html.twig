@@ -1,0 +1,7 @@
+{% extends 'layouts/email.html.twig' %}
+
+{% block body %}
+    <a href="{{ absolute_url(path('auth_confirm_registration', {registrationToken: user.registrationToken})) }}">
+        {{ 'Validate my registration'|trans }}
+    </a>
+{% endblock %}

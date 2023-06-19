@@ -1,0 +1,24 @@
+<div {{ attributes }}>
+    <div class="row justify-content-center mb-5">
+        <div class="col-lg-12">
+            <div class="form-group">
+                <input type="search"
+                    class="form-control search-field"
+                    placeholder="{{'Search for...'|trans}}"
+                    autocomplete="off"
+                    data-model="query"
+                    autofocus
+                >
+            </div>
+        </div>
+    </div>
+    <div class="">
+        {% for post in this.posts %}
+            {{ include('blog/partials/_post.html.twig') }}
+        {% else %}
+            {% if query is not empty %}
+                {{'No results found.'|trans}}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>

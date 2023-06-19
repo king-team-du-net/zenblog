@@ -1,0 +1,55 @@
+{% if pagination.hasToPaginate %}
+    <div class="text-start py-4">
+        <div class="custom-pagination">
+            {% if pagination.hasPreviousPage %}
+                <a class="prev" href="{{ path('blog_index_paginated', {page: pagination.previousPage, tag: tagName}) }}">
+                    {% if app.request.locale == 'ar' %}
+                        <span>&raquo;</span>
+                    {% else %}
+                        <span>&laquo;</span>
+                    {% endif %}
+                </a>
+            {% else %}
+                <a aria-disabled="true">
+                    <span>
+                        {% if app.request.locale == 'ar' %}
+                            <span>&raquo;</span>
+                        {% else %}
+                            <span>&laquo;</span>
+                        {% endif %}
+                    </span>
+                </a>
+            {% endif %}
+
+            {% for i in 1..pagination.lastPage %}
+                {% if i == pagination.currentPage %}
+                    <a class="active">
+                        <span>{{ i }}</span>
+                    </a>
+                {% else %}
+                    <a href="{{ path('blog_index_paginated', {page: i, tag: tagName}) }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagination.hasNextPage %}
+                <a rel="next" class="next" href="{{ path('blog_index_paginated', {page: pagination.nextPage, tag: tagName}) }}">
+                    {% if app.request.locale == 'ar' %}
+                        <span>&laquo;</span>
+                    {% else %}
+                        <span>&raquo;</span>
+                    {% endif %}
+                </a>
+            {% else %}
+                <a aria-disabled="true">
+                    <span>
+                        {% if app.request.locale == 'ar' %}
+                            <span>&laquo;</span>
+                        {% else %}
+                            <span>&raquo;</span>
+                        {% endif %}
+                    </span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

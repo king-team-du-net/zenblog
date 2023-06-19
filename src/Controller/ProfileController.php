@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UpdateAvatarType;
+use App\Form\UpdateProfileType;
 use App\Form\UpdatePasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Interface\UserProfile\UpdateAvatarInterface;
+use App\Interface\UserProfile\UpdateProfileInterface;
 use App\Interface\UserProfile\UpdatePasswordInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -20,6 +22,25 @@ class ProfileController extends Controller
     public function __construct(
         private readonly TranslatorInterface $translator
     ) {
+    }
+
+    #[Route('/update-profile', name: 'update_profile', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    public function updateProfile(Request $request, UpdateProfileInterface $updateProfile): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $form = $this->createForm(UpdateProfileType::class, $user)->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $updateProfile($user);
+
+            $this->addFlash('success', $this->translator->trans('Your profile has been changed successfully.'));
+
+            return $this->redirectToRoute('profile_update_profile');
+        }
+
+        return $this->render('profile/update_profile.html.twig', compact('user', 'form'));
     }
 
     #[Route('/update-avatar', name: 'update_avatar', methods: [Request::METHOD_GET, Request::METHOD_POST])]

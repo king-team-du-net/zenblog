@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+        <title>{{ getSetting("website_name") }}</title>
+        <description>{{ 'Most recent posts published on the site'|trans }} {{ getSetting("website_name") }}</description>
+        <pubDate>{{ 'now'|date('r', timezone='GMT') }}</pubDate>
+        <lastBuildDate>{{ (pagination.results|last).publishedAt|default('now')|date('r', timezone='GMT') }}</lastBuildDate>
+        <link>{{ url('blog_index') }}</link>
+        <language>{{ app.request.locale }}</language>
+
+        {% for post in pagination.results %}
+            <item>
+                <title>{{ post.title }}</title>
+                <description>{{ post.excerpt }}</description>
+                <link>{{ url('blog_show', {'slug': post.slug}) }}</link>
+                <guid>{{ url('blog_show', {'slug': post.slug}) }}</guid>
+                <pubDate>{{ post.publishedAt|date(format='r', timezone='GMT') }}</pubDate>
+                <author>{{ post.author.email }}</author>
+                {% for tag in post.tags %}
+                    <category>{{ tag.name }}</category>
+                {% endfor %}
+            </item>
+        {% endfor %}
+    </channel>
+</rss>

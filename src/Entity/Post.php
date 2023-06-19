@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
@@ -19,6 +21,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Traits\HasTitleAndSlugAndAssertTrait;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -42,14 +45,20 @@ class Post
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Tag $tag = null;
+    /**
+     * @var Collection<int, Tag>
+     */
+    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    #[ORM\JoinTable(name: 'blog_post_tag')]
+    #[ORM\OrderBy(['name' => 'ASC'])]
+    #[Assert\Count(min: 1)]
+    private Collection $tags;
 
     /**
      * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OrderBy(['createdAt' => 'DESC'])]
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
@@ -59,9 +68,17 @@ class Post
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $readtime = null;
 
+    #[ORM\Column(type: Types::STRING)]
+    private string $image;
+
+    #[Assert\Image(maxSize: '1M', maxRatio: 4/3, minRatio: 4/3)]
+    #[Assert\NotNull(groups: ['create'])]
+    private ?UploadedFile $imageFile = null;
+
     public function __construct()
     {
         $this->views = 0;
+        $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
@@ -82,16 +99,14 @@ class Post
         return $this;
     }
 
-    public function getTag(): ?Tag
+    public function getTags(): Collection
     {
-        return $this->tag;
+        return $this->tags;
     }
 
-    public function setTag(?Tag $tag): static
+    public function setTags(Collection $tags): void
     {
-        $this->tag = $tag;
-
-        return $this;
+        $this->tags = $tags;
     }
 
     /**
@@ -141,10 +156,32 @@ class Post
         return $this->readtime;
     }
 
-    public function setReadtime(?int $readtime): self
+    public function setReadtime(?int $readtime): static
     {
         $this->readtime = $readtime;
 
         return $this;
+    }
+
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?UploadedFile
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?UploadedFile $imageFile): void
+    {
+        $this->imageFile = $imageFile;
     }
 }
