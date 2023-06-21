@@ -4,23 +4,6 @@
 {% block title pagetitle %}
 
 {% block content %}
-    {#<section id="auth" class="auth mb-5">
-        <div class="container flex-grow-1" data-aos="fade-up">
-            <div class="row justify-content-center align-items-center h-100">
-                <div class="col-12 col-md-9 col-lg-6 col-xl-5">
-                    <div class="card border-0 shadow">
-                        <div class="card-body p-5">
-                            <h1 class="h3 fw-bold">{{ pagetitle }}</h1>
-                            <div class="form mt-5">
-                                {{ component('registration', {class: 'php-email-auth', user: user.id is null ? null : user, form: form}) }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>#}
-
     <h1 class="h3 fw-bold">{{ pagetitle }}</h1>
     <div class="form mt-5">
         {{ component('registration', {class: 'php-email-auth', user: user.id is null ? null : user, form: form}) }}

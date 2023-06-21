@@ -341,6 +341,10 @@ final class SettingFixtures extends Fixture
             79 => [
                 'name' => 'website_keywords_ar',
                 'value' => '',
+            ],
+            80 => [
+                'name' => 'website_app_version',
+                'value' => '1.03',
             ]
         ];
 

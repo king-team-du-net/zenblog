@@ -14,8 +14,6 @@ use App\Repository\CommentRepository;
 use App\Repository\CategoryRepository;
 use App\Event\Post\CommentCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Interface\Post\PostSharedInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,37 +25,9 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogController extends AbstractController
 {
-    //#[Route('/', name: 'blog_index', methods: [Request::METHOD_GET])]
-    /*public function blogIndex(
-        Request $request, 
-        PostRepository $postRepository, 
-        CategoryRepository $categoryRepository, 
-        PaginatorInterface $paginator
-    ): Response {
-        $categories = $categoryRepository->findAll();
-
-        $page = $request->query->getInt('page', 1);
-        $query = $postRepository->queryAllBlog();
-        $posts = $paginator->paginate(
-            $query,
-            $page,
-            Post::NUM_ITEMS_PER_PAGE
-        );
-
-        if ($posts->count() === 0) {
-            throw new NotFoundHttpException($this->translator->trans('No Found Articles'));
-        }
-
-        return $this->render('blog/index.html.twig', [
-            'categories' => $categories,
-            'posts' => $posts
-        ]);
-    }*/
-
     #[Route('/', name: 'blog_index', defaults: ['page' => '1', '_format' => 'html'], methods: [Request::METHOD_GET])]
     #[Route('/rss.xml', name: 'blog_rss', defaults: ['page' => '1', '_format' => 'xml'], methods: [Request::METHOD_GET])]
     #[Route('/page/{page<[1-9]\d{0,8}>}', name: 'blog_index_paginated', defaults: ['_format' => 'html'], methods: [Request::METHOD_GET])]
@@ -125,10 +95,10 @@ class BlogController extends AbstractController
                         'sender_comments' => $data['sender_comments'],
                     ],
                 );
-                $this->addFlash('success', $translator->trans('🚀 Post successfully shared with your friend!'));
+                $this->addFlash('success', $translator->trans('post.share_successfully'));
                 return $this->redirectToRoute('blog_index');
             } else {
-                $this->addFlash('danger', $translator->trans('The form contains invalid data'));
+                $this->addFlash('danger', $translator->trans('post.invalid_data'));
             }
 
             return $this->redirectToRoute('blog_show_share', ['slug' => $post->getSlug()]);

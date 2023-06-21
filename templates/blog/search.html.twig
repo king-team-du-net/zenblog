@@ -7,27 +7,6 @@
 {% block title pagetitle %}
 
 {% block content %}
-	<!-- ======= Search Results ======= -->
-	{#<section id="search-result" class="search-result">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9">
-					<h3 class="category-title">{{ pagetitle }}</h3>
-					{{ component('blog_search', {
-						query: query
-					}) }}
-				</div>
-				<div class="col-md-3">
-                    {{ render(controller(
-                        'App\\Controller\\BlogController::blogSidebar',
-                        { 'maxResults': 3 }
-                    )) }}
-				</div>
-			</div>
-		</div>
-	</section>#}
-    <!-- End Search Result -->
-
 	<h3 class="category-title">{{ pagetitle }}</h3>
 	{{ component('blog_search', {
 		query: query

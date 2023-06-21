@@ -24,56 +24,6 @@
 {% endblock %}
 
 {% block content %}
-	{# <section class="single-post-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9 post-content" data-aos="fade-up">
-					<!-- ======= Single Post Content ======= -->
-					<div class="single-post">
-						<div class="post-meta">
-							<span class="date">{{ post.category.name }}</span>
-							<span class="mx-1">&bullet;</span>
-							<span>{{ "published"|trans }} {{ post.publishedAt|ago }}</span>
-							<span class="mx-1">&bullet;</span>
-							{% if post.readtime %}
-								<span>{{ post.readtime }} {{ "post.min_read"|trans }}</span>
-							{% endif %}
-							<span class="mx-1">&bullet;</span>
-							<span>{{ post.views }}<i class="bi bi-eye fs-lg ms-1"></i></span>
-							<span class="mx-1">&bullet;</span>
-							<span>{{ post.comments|length }}<i class="bi bi-chat-left fs-lg ms-1"></i></span>
-						</div>
-						<h1 class="mb-5">{{ pagetitle }}</h1>
-						{{ post.content|raw }}
-						{{ include('blog/partials/_post_tags.html.twig') }}
-					</div>
-					<!-- End Single Post Content -->
-
-					<!-- ======= Comments ======= -->
-					{% include "comment/comments.html.twig" with { comments: post.comments } only %}
-					<!-- End Comments -->
-
-					<!-- ======= Comments Form ======= -->
-					{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-						{{ render(controller('App\\Controller\\BlogController::blogCommentForm', {'id': post.id})) }}
-					{% else %}
-						<p>
-							<a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}">
-								<i class="bi bi-door-open"></i> {{ 'action.sign_in'|trans }}
-							</a>
-							{{ 'post.to_publish_a_comment'|trans }}
-						</p>
-					{% endif %}
-					<!-- End Comments Form -->
-
-				</div>
-				<div class="col-md-3">
-					{{ include("global/_sidebar.html.twig") }}
-				</div>
-			</div>
-		</div>
-	</section>#}
-
 	<!-- ======= Single Post Content ======= -->
 	<div class="single-post">
 		<div class="post-meta">

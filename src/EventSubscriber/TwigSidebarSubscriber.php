@@ -20,13 +20,12 @@ class TwigSidebarSubscriber implements EventSubscriberInterface
 
     public function onKernelController(ControllerEvent $event): void
     {
+        // Sidebar
         $totalPosts = $this->cache->get('app.totalPosts', function (ItemInterface $item) {
             $item->expiresAfter(20);
 
             return $this->postRepository->count([]);
         });
-
-        // Sidebar
         $popularPosts = $this->cache->get('app.popularPosts', function (ItemInterface $item) {
             $item->expiresAfter(30);
 
@@ -43,22 +42,11 @@ class TwigSidebarSubscriber implements EventSubscriberInterface
             return $this->postRepository->findBy([], ['publishedAt' => 'DESC'], 6);
         });
 
-        /*
-        $mostCommentedPosts = $this->cache->get('app.mostCommentedPosts', function (ItemInterface $item) {
-            $item->expiresAfter(40);
-
-            return $this->postRepository->findMostCommented(5);
-        });
-        */
-
-        $this->twig->addGlobal('totalPosts', $totalPosts);
-
         // Sidebar
+        $this->twig->addGlobal('totalPosts', $totalPosts);
         $this->twig->addGlobal('popularPosts', $popularPosts);
         $this->twig->addGlobal('trendingPosts', $trendingPosts);
         $this->twig->addGlobal('latestPosts', $latestPosts);
-
-        //$this->twig->addGlobal('mostCommentedPosts', $mostCommentedPosts);
     }
 
     /**

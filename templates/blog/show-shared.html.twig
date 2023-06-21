@@ -24,48 +24,6 @@
 {% endblock %}
 
 {% block content %}
-	{#<section class="single-post-content">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9 post-content" data-aos="fade-up">
-                    <div class="row justify-content-center mt-5">
-                        <div class="col-lg-12">
-                            <h5 class="comment-title">{{ 'title.post_share_mail'|trans({ 'title': post.title }) }}</h5>
-                            {{ form_start(form, {'method': 'post', 'attr': {'class': 'row'}}) }}
-                                {{ form_errors(form) }}
-                                <div class="col-lg-6 mb-3">
-                                    {{ form_widget(form.sender_name) }}
-                                    {{ form_errors(form.sender_name) }}
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    {{ form_widget(form.sender_email) }}
-                                    {{ form_errors(form.sender_email) }}
-                                </div>
-                                <div class="col-lg-6 mb-3">
-                                    {{ form_widget(form.receiver_email) }}
-                                    {{ form_errors(form.receiver_email) }}
-                                </div>
-                                <div class="col-12 mb-3">
-                                    {{ form_widget(form.sender_comments) }}
-                                    {{ form_errors(form.sender_comments) }}
-                                </div>
-                                <div class="col-12">
-                                    <input type="submit" class="btn btn-primary" value="{{ "action.post_share"|trans }}" formnovalidate>
-                                </div>
-                            {{ form_end(form) }}
-                        </div>
-                    </div>
-				</div>
-				<div class="col-md-3">
-                    {{ render(controller(
-                        'App\\Controller\\BlogController::blogSidebar',
-                        { 'maxResults': 3 }
-                    )) }}
-				</div>
-			</div>
-		</div>
-	</section>#}
-
     <div class="row justify-content-center mt-5">
         <div class="col-lg-12">
             <h5 class="comment-title">{{ 'title.post_share_mail'|trans({ 'title': post.title }) }}</h5>

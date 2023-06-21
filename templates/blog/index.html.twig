@@ -4,32 +4,6 @@
 {% block title pagetitle %}
 
 {% block content %}
-	{#<section>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-9" data-aos="fade-up">
-					{% if category is defined %}
-                        <h3 class="category-title">{{'title.post_category'|trans}}: {{ category.name }}</h3>
-                    {% endif %}
-
-                    {% for post in pagination.results %}
-                        {{ include('blog/partials/_post.html.twig') }}
-                    {% else %}
-                        <h3>{{'post.no_posts_found'|trans}}</h3>
-                    {% endfor %}
-
-                    {{ include('blog/partials/_pagination.html.twig') }}
-				</div>
-				<div class="col-md-3">
-                    {{ render(controller(
-                        'App\\Controller\\BlogController::blogSidebar',
-                        { 'maxResults': 3 }
-                    )) }}
-				</div>
-			</div>
-		</div>
-	</section>#}
-
 	{% if category is defined %}
 		<h3 class="category-title">{{'title.post_category'|trans}}: {{ category.name }}</h3>
 	{% endif %}

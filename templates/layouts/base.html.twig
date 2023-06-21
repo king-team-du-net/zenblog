@@ -12,14 +12,10 @@
         {% if getSetting('show_cookie_policy_bar') == "yes" %} data-cookie-bar-page-link="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" {% endif %} 
         {% if getEnv('DEMO_MODE') == "1" %} data-demo-mode="1" {% endif %}
     >
-        {#{{ include("global/_header.html.twig") }}#}
-        {#<main id="main">#}
-            {% block body %}{% endblock %}
-            {{ component('flash_messages') }}
-            {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {% include "global/_dashboard-items-sidenav.html.twig" %}
-            {% endif %}#}
-        {#</main>#}
-        {#{{ include("global/_footer.html.twig") }}#}
+        {% block body %}{% endblock %}
+        {{ component('flash_messages') }}
+        {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% include "global/_dashboard-items-sidenav.html.twig" %}
+        {% endif %}#}
     </body>
 </html>
