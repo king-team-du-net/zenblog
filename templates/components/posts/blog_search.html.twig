@@ -4,7 +4,7 @@
             <div class="form-group">
                 <input type="search"
                     class="form-control search-field"
-                    placeholder="{{'Search for...'|trans}}"
+                    placeholder="{{'post.search_for'|trans}}"
                     autocomplete="off"
                     data-model="query"
                     autofocus
@@ -17,7 +17,7 @@
             {{ include('blog/partials/_post.html.twig') }}
         {% else %}
             {% if query is not empty %}
-                {{'No results found.'|trans}}
+                {{'post.search_no_results'|trans}}
             {% endif %}
         {% endfor %}
     </div>

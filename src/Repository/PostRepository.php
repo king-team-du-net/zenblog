@@ -217,4 +217,42 @@ class PostRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
         ;
     }
+
+    /**
+     * @return Post[] returns an array of Post objects similar with the given post
+     */
+    public function findSimilar(Post $post, int $maxResults = 4): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.tags', 't')
+            ->addSelect('COUNT(t) AS HIDDEN numberOfTags')
+            ->andWhere('t IN (:tags)')
+            ->andWhere('p != :post')
+            ->setParameters([
+                'tags' => $post->getTags(),
+                'post' => $post,
+            ])
+            ->groupBy('p')
+            ->addOrderBy('numberOfTags', 'DESC')
+            ->addOrderBy('p.publishedAt', 'DESC')
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findMostCommented(int $maxResults): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.comments', 'c')
+            ->addSelect('COUNT(c) AS HIDDEN numberOfComments')
+            ->andWhere('c.isApproved = true')
+            ->groupBy('p')
+            ->orderBy('numberOfComments', 'DESC')
+            ->addOrderBy('p.publishedAt', 'DESC')
+            ->setMaxResults($maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

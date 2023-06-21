@@ -19,13 +19,13 @@ final class ResetPasswordRequestType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('user', EmailType::class, [
-            'label' => 'E-mail address',
+            'label' => 'label.email',
             'empty_data' => '',
             'attr' => [
                 'class' => 'form-control',
-                'placeholder' => 'Your email address',
+                'placeholder' => 'placeholder.email',
             ],
-            'invalid_message' => 'This email address does not exist.',
+            'invalid_message' => 'invalid_message.email',
         ]);
 
         $builder->get('user')->addModelTransformer($this->emailUserTransformer);

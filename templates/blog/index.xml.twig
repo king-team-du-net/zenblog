@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0">
     <channel>
-        <title>{{ getSetting("website_name") }}</title>
-        <description>{{ 'Most recent posts published on the site'|trans }} {{ getSetting("website_name") }}</description>
+        <title>{{ 'rss.title'|trans({ 'website_name': getSetting("website_name") }) }}</title>
+        <description>{{ 'rss.description'|trans({ 'website_name': getSetting("website_name") }) }}</description>
         <pubDate>{{ 'now'|date('r', timezone='GMT') }}</pubDate>
         <lastBuildDate>{{ (pagination.results|last).publishedAt|default('now')|date('r', timezone='GMT') }}</lastBuildDate>
         <link>{{ url('blog_index') }}</link>

@@ -6,6 +6,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use App\Entity\Category;
+use App\Form\DateTimePickerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,42 +26,50 @@ final class PostType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Title',
+                'label' => 'label.title',
                 'empty_data' => '',
                 'attr' => [
+                    'autofocus' => true,
                     'class' => 'form-control',
-                    'placeholder' => "Enter your title",
+                    'placeholder' => "placeholder.title",
                 ],
             ])
             ->add('category', EntityType::class, [
-                'label' => 'Catégorie',
+                'label' => 'label.category',
                 'class' => Category::class,
             ])
             ->add('excerpt', TextareaType::class, [
-                'label' => 'Excerpt',
+                'label' => 'label.excerpt',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your excerpt',
+                    'placeholder' => 'placeholder.excerpt',
                     'rows' => 4,
                     'cols' => 30,
                 ],
+                'help' => 'help.post_excerpt',
             ])
-            ->add('content', TextareaType::class, [
-                'label' => 'Content',
+            ->add('content', null, [
+                'label' => 'label.content',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your content',
+                    'placeholder' => 'placeholder.content',
                     'rows' => 10,
                     'cols' => 30,
                 ],
+                'help' => 'help.post_content',
+            ])
+            ->add('publishedAt', DateTimePickerType::class, [
+                'label' => 'label.published_at',
+                'help' => 'help.post_publication',
             ])
             ->add('tags', TextType::class, [
-                'label' => 'Tags',
+                'label' => 'label.tags',
+                'required' => false,
             ])
             ->add('imageFile', FileType::class, [
-                'label' => 'Image',
+                'label' => 'label.image_file',
                 'required' => in_array('create', $options['validation_groups'] ?? [])
             ]);
 

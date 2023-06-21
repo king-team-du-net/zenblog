@@ -19,41 +19,41 @@ final class UpdateProfileType extends AbstractType
 
         $builder
             ->add('nickname', TextType::class, [
-                'label' => 'Username',
+                'label' => 'label.username',
                 'empty_data' => '',
                 'required' => true,
                 'disabled' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your username',
+                    'placeholder' => 'placeholder.username',
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'label.email',
                 'empty_data' => '',
                 'required' => true,
                 'disabled' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your email address',
+                    'placeholder' => 'placeholder.email',
                 ],
             ])
             ->add('firstname', TextType::class, [
-                'label' => 'First name',
+                'label' => 'label.firstname',
                 'empty_data' => '',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your firstname',
+                    'placeholder' => 'placeholder.firstname',
                 ],
             ])
             ->add('lastname', TextType::class, [
-                'label' => 'Last name',
+                'label' => 'label.lastname',
                 'empty_data' => '',
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your lastname',
+                    'placeholder' => 'placeholder.lastname',
                 ],
             ])
         ;

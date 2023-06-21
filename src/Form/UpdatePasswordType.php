@@ -18,12 +18,12 @@ final class UpdatePasswordType extends ResetPasswordType
 
         $builder
             ->add('currentPassword', PasswordType::class, [
-                'label' => 'Current Password',
+                'label' => 'label.current_password',
                 'empty_data' => '',
                 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your current password',
+                    'placeholder' => 'placeholder.current_password',
                 ],
                 'constraints' => [
                     new UserPassword(),

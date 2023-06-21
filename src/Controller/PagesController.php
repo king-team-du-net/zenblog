@@ -51,7 +51,7 @@ class PagesController extends AbstractController
             $contact = $form->getData();
             $contactService->persistContact($contact);
 
-            $this->addFlash('success', $this->translator->trans('Your message has been successfully sent, thank you.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.contact_successfully'));
 
             return $this->redirectToRoute('contact_index');
         }
@@ -77,7 +77,7 @@ class PagesController extends AbstractController
     public function pages(Page $page): Response
     {
         if (!$page) {
-            $this->addFlash('danger', $this->translator->trans('The page can not be found'));
+            $this->addFlash('danger', $this->translator->trans('flash_danger.page'));
 
             return $this->redirectToRoute('blog_index');
         }

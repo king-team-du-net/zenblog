@@ -1,11 +1,14 @@
-{% extends 'layouts/base.html.twig' %}
+{% extends 'layouts/blog.html.twig' %}
 
-{% set pagetitle = 'Search Results'|trans %}
+{% set sectionId = 'search-result' %}
+{% set sectionClass = 'search-result' %}
+
+{% set pagetitle = 'title.search_result'|trans %}
 {% block title pagetitle %}
 
-{% block body %}
+{% block content %}
 	<!-- ======= Search Results ======= -->
-	<section id="search-result" class="search-result">
+	{#<section id="search-result" class="search-result">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-9">
@@ -15,10 +18,18 @@
 					}) }}
 				</div>
 				<div class="col-md-3">
-					{{ include("global/_sidebar.html.twig") }}
+                    {{ render(controller(
+                        'App\\Controller\\BlogController::blogSidebar',
+                        { 'maxResults': 3 }
+                    )) }}
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>#}
     <!-- End Search Result -->
+
+	<h3 class="category-title">{{ pagetitle }}</h3>
+	{{ component('blog_search', {
+		query: query
+	}) }}
 {% endblock %}

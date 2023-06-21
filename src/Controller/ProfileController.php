@@ -14,6 +14,7 @@ use App\Interface\UserProfile\UpdateProfileInterface;
 use App\Interface\UserProfile\UpdatePasswordInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
 
 #[IsGranted(User::DEFAULT)]
 #[Route('/profile', name: 'profile_')]
@@ -35,7 +36,7 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $updateProfile($user);
 
-            $this->addFlash('success', $this->translator->trans('Your profile has been changed successfully.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.update_profile_successfully'));
 
             return $this->redirectToRoute('profile_update_profile');
         }
@@ -54,7 +55,7 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $updateAvatar($user);
 
-            $this->addFlash('success', $this->translator->trans('Your avatar has been changed successfully.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.update_avatar_successfully'));
 
             return $this->redirectToRoute('profile_update_avatar');
         }
@@ -63,7 +64,7 @@ class ProfileController extends Controller
     }
 
     #[Route('/update-password', name: 'update_password', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function updatePassword(Request $request, UpdatePasswordInterface $updatePassword): Response
+    public function updatePassword(Request $request, UpdatePasswordInterface $updatePassword, LogoutUrlGenerator $logoutUrlGenerator): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -73,9 +74,11 @@ class ProfileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $updatePassword($user);
 
-            $this->addFlash('success', $this->translator->trans('Your password has been changed successfully.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.update_password_successfully'));
 
-            return $this->redirectToRoute('profile_update_password');
+            //return $this->redirectToRoute('profile_update_password');
+
+            return $this->redirect($logoutUrlGenerator->getLogoutPath());
         }
 
         return $this->render('profile/update_password.html.twig', compact('user', 'form'));

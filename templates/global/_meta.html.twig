@@ -24,3 +24,5 @@
 
     {#<link rel="shortcut icon" href="{{ absolute_url(asset(getAppLayoutSettings.getFaviconPath)) }}">#}
     {#<link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}">#}
+    <link rel="alternate" type="application/rss+xml" title="{{ getSetting("website_name") }}" href="{{ path('blog_rss') }}">
+

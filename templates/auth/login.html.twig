@@ -1,57 +1,59 @@
-{% extends 'layouts/blog.html.twig' %}
+{% extends 'layouts/auth.html.twig' %}
 
-{% set pagetitle = 'Log in!'|trans %}
+{% set pagetitle = 'title.sign_in'|trans %}
 {% block title pagetitle %}
 
-{% block body %}
-    <section id="auth" class="auth mb-5">
+{% block content %}
+    {#<section id="auth" class="auth mb-5">
         <div class="container flex-grow-1" data-aos="fade-up">
             <div class="row justify-content-center align-items-center h-100">
                 <div class="col-12 col-md-9 col-lg-6 col-xl-5">
                     <div class="card border-0 shadow">
                         <div class="card-body p-5">
-                            <h1 class="h3 fw-bold">{{ 'Please sign in'|trans }}</h1>
-                            <span>{{ 'Welcome to'|trans }} {{ getSetting("website_name") }} 👋</span>
+                            <h1 class="h3 fw-bold">{{ 'title.please_sign_in'|trans }}</h1>
+                            <span>{{ 'title.welcome'|trans({ 'website_name': getSetting("website_name") }) }} 👋</span>
                             <div class="form mt-5">
                                 <form action="{{ path('auth_login') }}" method="post" class="php-email-auth">
                                     {% if error %}
                                         {% component alert with {type: 'danger'} %}
-                                            {% block body %}
+                                            {% block content %}
                                                 {{ error.messageKey|trans(error.messageData, 'security') }}
                                             {% endblock %}
                                         {% endcomponent %}
                                     {% endif %}
                                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                                     <div class="mb-3">
-                                        <label for="_email" class="form-label">{{ 'Email'|trans }}</label>
+                                        <label for="_email" class="form-label">{{ 'label.email'|trans }}</label>
                                         <input type="email" name="email" id="_email" class="form-control" value="{{ last_username }}" autocomplete="email" required autofocus>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="_password" class="form-label">{{ 'Password'|trans }}</label>
+                                        <label for="_password" class="form-label">{{ 'label.password'|trans }}</label>
                                         <input type="password" name="password" id="_password" class="form-control" autocomplete="current-password" required>
                                     </div>
                                     <div class="mb-3 d-flex flex-column gap-2 gap-sm-0 flex-sm-row justify-content-sm-between">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="_remember_me" value="" id="_remember_me" checked>
                                             <label class="form-check-label" for="_remember_me">
-                                                {{ 'Remember me'|trans }}
+                                                {{ 'label.remember_me'|trans }}
                                             </label>
                                         </div>
                                         <a class="fw-bold" href="{{ path('auth_reset_password_request') }}">
-                                            {{ 'Forgot your password?'|trans }}
+                                            {{ 'action.reset_password_request'|trans }}
                                         </a>
                                     </div>
                                     <div class="d-flex flex-column gap-2 align-items-center">
-                                        <button type="submit" class="btn btn-primary btn-lg w-100 my-3">
+                                        <button type="submit" class="w-100 my-3">
                                             <i class="bi bi-arrow-right-square me-2"></i>
-                                            {{ 'Sign in'|trans }}
+                                            {{ 'action.sign_in'|trans }}
                                         </button>
-                                        <p>
-                                            {{ 'No account yet?'|trans }} <a class="fw-bold" href="{{ path('auth_registration') }}">
-                                                {{ 'Sign up'|trans }}
-                                                <span class="bi bi-arrow-up-right-square"></span>
-                                            </a>
-                                        </p>
+                                        {% if getSetting('users_can_register') == "yes" %}
+                                            <p>
+                                                {{ 'action.no_account_yet'|trans }} <a class="fw-bold" href="{{ path('auth_registration') }}">
+                                                    {{ 'action.sign_up'|trans }}
+                                                    <span class="bi bi-arrow-up-right-square"></span>
+                                                </a>
+                                            </p>
+                                        {% endif %}
                                     </div>
                                 </form>
                             </div>
@@ -60,5 +62,53 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>#}
+
+    <h1 class="h3 fw-bold">{{ 'title.please_sign_in'|trans }}</h1>
+    <span>{{ 'title.welcome'|trans({ 'website_name': getSetting("website_name") }) }} 👋</span>
+    <div class="form mt-5">
+        <form action="{{ path('auth_login') }}" method="post" class="php-email-auth">
+            {% if error %}
+                {% component alert with {type: 'danger'} %}
+                    {% block content %}
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    {% endblock %}
+                {% endcomponent %}
+            {% endif %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <div class="mb-3">
+                <label for="_email" class="form-label">{{ 'label.email'|trans }}</label>
+                <input type="email" name="email" id="_email" class="form-control" value="{{ last_username }}" autocomplete="email" required autofocus>
+            </div>
+            <div class="mb-3">
+                <label for="_password" class="form-label">{{ 'label.password'|trans }}</label>
+                <input type="password" name="password" id="_password" class="form-control" autocomplete="current-password" required>
+            </div>
+            <div class="mb-3 d-flex flex-column gap-2 gap-sm-0 flex-sm-row justify-content-sm-between">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" value="" id="_remember_me" checked>
+                    <label class="form-check-label" for="_remember_me">
+                        {{ 'label.remember_me'|trans }}
+                    </label>
+                </div>
+                <a class="fw-bold" href="{{ path('auth_reset_password_request') }}">
+                    {{ 'action.reset_password_request'|trans }}
+                </a>
+            </div>
+            <div class="d-flex flex-column gap-2 align-items-center">
+                <button type="submit" class="w-100 my-3">
+                    <i class="bi bi-arrow-right-square me-2"></i>
+                    {{ 'action.sign_in'|trans }}
+                </button>
+                {% if getSetting('users_can_register') == "yes" %}
+                    <p>
+                        {{ 'action.no_account_yet'|trans }} <a class="fw-bold" href="{{ path('auth_registration') }}">
+                            {{ 'action.sign_up'|trans }}
+                            <span class="bi bi-arrow-up-right-square"></span>
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        </form>
+    </div>
 {% endblock %}

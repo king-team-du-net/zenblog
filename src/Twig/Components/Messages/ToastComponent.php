@@ -20,10 +20,10 @@ final class ToastComponent
     public function getTitle(): string
     {
         return match ($this->type) {
-            'success' => $this->translator->trans('Success !'),
-            'error' => $this->translator->trans('Error !'),
-            'warning' => $this->translator->trans('Warning !'),
-            default => $this->translator->trans('Info !'),
+            'success' => $this->translator->trans('message.success'),
+            'error' => $this->translator->trans('message.error'),
+            'warning' => $this->translator->trans('message.warning'),
+            default => $this->translator->trans('message.default'),
         };
     }
 
@@ -40,10 +40,10 @@ final class ToastComponent
     public function getIcon(): string
     {
         return match ($this->type) {
-            'success' => 'circle-check',
-            'error' => 'circle-slash',
-            'warning' => 'triangle-alert',
-            default => 'circle-info',
+            'success' => 'check-circle',
+            'error' => 'slash-circle',
+            'warning' => 'exclamation-circle',
+            default => 'info-circle',
         };
     }
 }

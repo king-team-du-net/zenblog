@@ -1,0 +1,27 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% set sectionClass = 'single-post-content' %}
+{% set class = 'post-content' %}
+
+{% set pagetitle = 'title.comment_error'|trans %}
+{% block title pagetitle %}
+
+{% block content %}
+	{#<section class="single-post-content">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9 post-content" data-aos="fade-up">
+                    <h1 class="text-danger">{{ pagetitle }}</h1>
+                    <!-- ======= Comments Form ======= -->
+                    {{ include('comment/form.html.twig', { commentForm }) }}
+                    <!-- End Comments Form -->
+                </div>
+			</div>
+		</div>
+	</section>#}
+
+	<h1 class="text-danger">{{ pagetitle }}</h1>
+	<!-- ======= Comments Form ======= -->
+	{{ include('comment/form.html.twig', { commentForm }) }}
+	<!-- End Comments Form -->
+{% endblock %}

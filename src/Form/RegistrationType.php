@@ -20,27 +20,27 @@ final class RegistrationType extends AbstractType
     {
         $builder
             ->add('nickname', TextType::class, [
-                'label' => 'Username',
+                'label' => 'label.username',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your username',
+                    'placeholder' => 'placeholder.username',
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'label.email',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your email address',
+                    'placeholder' => 'placeholder.email',
                 ],
             ])
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'Password',
+                'label' => 'label.password',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your password',
+                    'placeholder' => 'placeholder.password',
                 ],
             ])
             /*

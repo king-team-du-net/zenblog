@@ -25,7 +25,7 @@ final class ContactType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your Full Name',
+                    'placeholder' => 'placeholder.fullname',
                 ],
             ])
             ->add('email', EmailType::class, [
@@ -34,7 +34,7 @@ final class ContactType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your Email',
+                    'placeholder' => 'placeholder.email',
                 ],
             ])
             ->add('subject', TextType::class, [
@@ -43,7 +43,7 @@ final class ContactType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Subject',
+                    'placeholder' => 'placeholder.subject',
                 ],
             ])
             ->add('message', TextareaType::class, [
@@ -52,7 +52,7 @@ final class ContactType extends AbstractType
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Message',
+                    'placeholder' => 'placeholder.message',
                     'rows' => 5,
                 ],
             ])

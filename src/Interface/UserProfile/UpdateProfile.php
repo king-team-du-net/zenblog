@@ -18,8 +18,6 @@ final class UpdateProfile implements UpdateProfileInterface
 
     public function __invoke(User $user): void
     {
-
-
         $this->em->flush();
     }
 }

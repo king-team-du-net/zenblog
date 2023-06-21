@@ -45,9 +45,8 @@ final class SecurityController extends AbstractController
     #[Route(path: '/signin', name: 'login', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        if ($this->getUser()) {
-            $this->addFlash('danger', $this->translator->trans('Already logged in'));
-
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $this->addFlash('danger', $this->translator->trans('flash_danger.already_logged_in'));
             return $this->redirectToRoute('blog_index');
         }
 
@@ -70,6 +69,7 @@ final class SecurityController extends AbstractController
     public function registration(Request $request, RegistrationInterface $registration): Response
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            $this->addFlash('danger', $this->translator->trans('flash_danger.already_logged_in'));
             return $this->redirectToRoute('blog_index');
         }
 
@@ -79,7 +79,7 @@ final class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $registration($user);
 
-            $this->addFlash('success', $this->translator->trans('Your account has been successfully created.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.create_account_successfully'));
 
             return $this->redirectToRoute('blog_index');
         }
@@ -92,7 +92,7 @@ final class SecurityController extends AbstractController
     {
         $confirmRegistration($user);
 
-        $this->addFlash('success', $this->translator->trans('Your account has been successfully validated, you can now log in.'));
+        $this->addFlash('success', $this->translator->trans('flash_success.validated_account_successfully'));
 
         return $this->redirectToRoute('auth_login');
     }
@@ -107,7 +107,7 @@ final class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $requestResetPassword($resetPasswordRequest);
 
-            $this->addFlash('success', $this->translator->trans('Your password reset request has been successfully registered.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.password_reset_request_successfully'));
 
             return $this->redirectToRoute('blog_index');
         }
@@ -125,7 +125,7 @@ final class SecurityController extends AbstractController
         ResetPasswordInterface $resetPassword
     ): Response {
         if ($resetPasswordRequest->isExpired()) {
-            throw new BadRequestHttpException($this->translator->trans('The password reset link has expired.'));
+            throw new BadRequestHttpException($this->translator->trans('throw.password_reset_link_expired'));
         }
 
         $form = $this->createForm(ResetPasswordType::class, $resetPasswordRequest->getUser())
@@ -134,7 +134,7 @@ final class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $resetPassword($resetPasswordRequest);
 
-            $this->addFlash('success', $this->translator->trans('Your password has been changed successfully.'));
+            $this->addFlash('success', $this->translator->trans('flash_success.reset-password_successfully'));
 
             return $this->redirectToRoute('auth_login');
         }

@@ -20,12 +20,12 @@ final class PostSharedType extends AbstractType
     {
         $builder
             ->add('sender_name', TextType::class, [
-                'label' => 'Name',
+                'label' => 'label.fullname',
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your name',
+                    'placeholder' => 'placeholder.fullname',
                 ],
                 'constraints' => [
                     new NotBlank(),
@@ -33,12 +33,12 @@ final class PostSharedType extends AbstractType
                 ],
             ])
             ->add('sender_email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'label.email',
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your email',
+                    'placeholder' => 'placeholder.email',
                 ],
                 'constraints' => [
                     new NotBlank(),
@@ -46,12 +46,12 @@ final class PostSharedType extends AbstractType
                 ],
             ])
             ->add('receiver_email', EmailType::class, [
-                'label' => "Your friend's email",
+                'label' => "label.receiver_email",
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "Enter your friend's email",
+                    'placeholder' => "placeholder.receiver_email",
                 ],
                 'constraints' => [
                     new NotBlank(),
@@ -59,14 +59,14 @@ final class PostSharedType extends AbstractType
                 ],
             ])
             ->add('sender_comments', TextareaType::class, [
-                'label' => 'Comments',
+                'label' => 'label.sender_comments',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your comment',
+                    'placeholder' => 'placeholder.sender_comments',
                     'rows' => 10,
                     'cols' => 30,
                 ],
-                'help' => 'Leave it blank if you want (optional).',
+                'help' => 'help.sender_comments',
             ])
         ;
     }

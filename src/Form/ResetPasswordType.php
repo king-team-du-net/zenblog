@@ -16,11 +16,11 @@ class ResetPasswordType extends AbstractType
     {
         $builder
             ->add('plainPassword', PasswordType::class, [
-                'label' => 'New Password',
+                'label' => 'label.new_password',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Your password',
+                    'placeholder' => 'placeholder.password',
                 ],
             ]);
     }

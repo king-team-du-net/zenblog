@@ -20,42 +20,45 @@ final class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nickname', TextType::class, [
-                'label' => 'Nickname',
+            /*->add('nickname', TextType::class, [
+                'label' => 'label.username',
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your nickname',
+                    'placeholder' => 'placeholder.username',
                 ],
             ])
             ->add('email', EmailType::class, [
-                'label' => 'Email',
+                'label' => 'label.email',
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Enter your email',
+                    'placeholder' => 'placeholder.email',
                 ],
-            ])
+            ])*/
             ->add('content', TextareaType::class, [
-                'label' => 'Comment',
+                'label' => 'label.comment_content',
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Type your comment here...',
+                    'placeholder' => 'placeholder.comment_content',
                     'rows' => 10,
+                    'cols' => 30,
                 ],
+                'help' => 'help.comment_content',
             ])
             ->add('parentid', HiddenType::class, [
                 'mapped' => false
             ])
-            ->add('isRGPD', CheckboxType::class, [
+            /*->add('isRGPD', CheckboxType::class, [
                 'label' => 'Save my nickname and email',
                 'constraints' => [
                     new NotBlank()
                 ]
             ])
+            */
         ;
     }
 

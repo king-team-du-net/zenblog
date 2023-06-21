@@ -14,6 +14,7 @@ use App\Entity\Traits\HasIsApprovedTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\Table(name: 'blog_comment')]
@@ -22,11 +23,12 @@ class Comment
     use HasIdTrait;
     use HasIPTrait;
     //use HasContentTrait;
-    use HasIsRGPDTrait;
+    //use HasIsRGPDTrait;
     use HasIsApprovedTrait;
 
     public const ITEMS_PER_PAGE = 5;
 
+    /*
     #[ORM\Column(type: Types::STRING, length: 30, nullable: true)]
     #[Assert\Length(min: 4, max: 30)]
     private ?string $nickname = null;
@@ -37,8 +39,11 @@ class Comment
         Assert\Email
     ]
     private ?string $email = null;
+    */
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'comment.blank')]
+    #[Assert\Length(min: 5, minMessage: 'comment.too_short', max: 10000, maxMessage: 'comment.too_long')]
     private string $content = '';
 
     #[ORM\ManyToOne(targetEntity: User::class)]
@@ -71,6 +76,7 @@ class Comment
         $this->createdAt = new \DateTime();
     }
 
+    /*
     public function getNickname(): string
     {
         if (null !== $this->author) {
@@ -98,6 +104,7 @@ class Comment
 
         return $this;
     }
+    */
 
     public function getContent(): string
     {
@@ -201,5 +208,13 @@ class Comment
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    #[Assert\IsTrue(message: 'comment.is_spam')]
+    public function isLegitComment(): bool
+    {
+        $containsInvalidCharacters = null !== u($this->content)->indexOf('@');
+
+        return !$containsInvalidCharacters;
     }
 }

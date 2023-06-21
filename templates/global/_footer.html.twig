@@ -3,63 +3,74 @@
 		<div class="container">
 			<div class="row g-5">
 				<div class="col-lg-4">
-					<h3 class="footer-heading">{{'About'|trans}} {{ getSetting("website_name") }}</h3>
+					<h3 class="footer-heading">{{'title.about'|trans}} {{ getSetting("website_name") }}</h3>
 					<p>{{ getSetting("footer_about") }}</p>
 					<p>
-						<a href="{{ path('about_index') }}" class="footer-link-more">{{'Learn More'|trans}}</a>
+						<a href="{{ path('about_index') }}" class="footer-link-more">{{'action.link-more'|trans}}</a>
 					</p>
 				</div>
 				<div class="col-6 col-lg-2">
-					<h3 class="footer-heading">{{'Navigation'|trans}}</h3>
+					<h3 class="footer-heading">{{'title.navigation'|trans}}</h3>
 					<ul class="footer-links list-unstyled">
 						<li>
 							<a href="{{ path('blog_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								{{ "Blog"|trans }}
+								{{ "menu.blog"|trans }}
 							</a>
 						</li>
 						<li>
 							<a href="{{ path('category_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								{{'Categories'|trans}}
+								{{ "menu.categories"|trans }}
 							</a>
 						</li>
-						<li>
-							<a href="single-post.html">
-								<i class="bi bi-chevron-right"></i>
-								{{'Single Post'|trans}}
-							</a>
-						</li>
-						<li>
-							<a href="{#{{ path('login', {redirect: app.request.pathInfo}) }}) }}#}">
-								<i class="bi bi-chevron-right"></i>
-								{{'Member area'|trans}}
-							</a>
-						</li>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<li>
+								<a href="{# {{ path('dashboard_index') }} #}">
+									<i class="bi bi-chevron-right"></i>
+									{% if is_granted("ROLE_ADMINISTRATOR") %}
+										{{'menu.dashboard_index'|trans}}
+									{% elseif is_granted("ROLE_ADMIN") %}
+										{{'menu.dashboard_index'|trans}}
+									{% elseif is_granted("ROLE_EDITOR") %}
+										{{'menu.dashboard_index'|trans}}
+									{% else %}
+										{{'menu.dashboard_index'|trans}}
+									{% endif %}
+								</a>
+							</li>
+						{% else %}
+							<li>
+								<a href="{{ path('auth_login') }}">
+									<i class="bi bi-chevron-right"></i>
+									{{'menu.auth'|trans}}
+								</a>
+							</li>
+						{% endif %}
 						<li>
 							<a href="{{ path('about_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								{{'About us'|trans}}
+								{{'menu.about'|trans}}
 							</a>
 						</li>
 						<li>
 							<a href="{{ path('contact_index') }}">
 								<i class="bi bi-chevron-right"></i>
-								{{'Contact us'|trans}}
+								{{'menu.contact'|trans}}
 							</a>
 						</li>
 					</ul>
 				</div>
 				<div class="col-6 col-lg-2">
 					{% if blogCategory()|length > 0 %}
-						<h3 class="footer-heading">{{'Categories'|trans}}</h3>
+						<h3 class="footer-heading">{{'title.categories'|trans}}</h3>
 						<ul class="footer-links list-unstyled">
 							{% include "widget/categories.html.twig" with { category: blogCategory()} only %}
 						</ul>
 					{% endif %}
 				</div>
 				<div class="col-lg-4">
-					<h3 class="footer-heading">{{'Recent Posts'|trans}}</h3>
+					<h3 class="footer-heading">{{'title.recent_post'|trans}}</h3>
 					<ul class="footer-links footer-blog-entry list-unstyled">
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
@@ -124,13 +135,13 @@
 			<div class="row justify-content-between">
 				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
 					<div class="copyright">
-						{{"Copyright"|trans}} &copy; {{ "now"|date('Y') }}
+						{{"footer_copyright"|trans}} &copy; {{ "now"|date('Y') }}
 						<strong>
 							<span>{{ getSetting("website_name") }}</span>
-						</strong>. {{'All Rights Reserved'|trans}}
+						</strong>. {{'footer_reserved'|trans}}
 					</div>
 					<div class="credits">
-						{{'Designed by'|trans}}<a href="{{ getSetting("website_url") }}"> {{ getSetting("website_name") }}</a>
+						{{'footer_credits'|trans}}<a href="{{ getSetting("website_url") }}"> {{ getSetting("website_name") }}</a>
 					</div>
 				</div>
 				<div class="col-md-6">

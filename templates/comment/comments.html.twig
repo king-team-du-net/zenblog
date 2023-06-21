@@ -1,57 +1,69 @@
-<div class="comments">
-	<h5 class="comment-title py-4">2 Comments</h5>
-	<div class="comment d-flex mb-4">
-		<div class="flex-shrink-0">
-			<div class="avatar avatar-sm rounded-circle">
-				<img class="avatar-img" src="{{ asset('assets/img/person-5.jpg') }}" alt="" class="img-fluid">
-			</div>
-		</div>
-		<div class="flex-grow-1 ms-2 ms-sm-3">
-			<div class="comment-meta d-flex align-items-baseline">
-				<h6 class="me-2">Jordan Singer</h6>
-				<span class="text-muted">2d</span>
-			</div>
-			<div class="comment-body">
-				Lorem ipsum, dolor sit amet consectetur adipisicing elit. Non minima ipsum at amet doloremque qui magni, placeat deserunt pariatur itaque laudantium impedit aliquam eligendi repellendus excepturi quibusdam nobis esse accusantium.
-			</div>
+<div class="comments" id="comment-list">
+	<h5 class="comment-title py-4">{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h5>
+	{% for c in comments %}
+		{% if c.parent == null %}
+			<div class="comment d-flex mb-4">
+				<div class="flex-shrink-0">
+					<div class="avatar avatar-sm rounded-circle">
+						<img class="avatar-img" src="{{ asset('uploads/user/' ~ c.author.avatar) }}" alt="" class="img-fluid">
+					</div>
+				</div>
+				<div class="flex-grow-1 ms-2 ms-sm-3">
+					<div class="comment-meta d-flex align-items-baseline">
+						<h6 class="me-2">{{ c.author.nickname }}</h6>
+						<span class="text-muted">{{ c.createdAt|ago }}</span>
+					</div>
+					<div class="comment-body">
+						{{ c.content|markdown_to_html|sanitize_html }}
+					</div>
 
-			<div class="comment-replies bg-light p-3 mt-3 rounded">
-				<h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
-				<div class="reply d-flex mb-4">
-					<div class="flex-shrink-0">
-						<div class="avatar avatar-sm rounded-circle">
-							<img class="avatar-img" src="{{ asset('assets/img/person-4.jpg') }}" alt="" class="img-fluid">
-						</div>
-					</div>
-					<div class="flex-grow-1 ms-2 ms-sm-3">
-						<div class="reply-meta d-flex align-items-baseline">
-							<h6 class="mb-0 me-2">Brandon Smith</h6>
-							<span class="text-muted">2d</span>
-						</div>
-						<div class="reply-body">
-							Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-						</div>
-					</div>
-				</div>
-				<div class="reply d-flex">
-					<div class="flex-shrink-0">
-						<div class="avatar avatar-sm rounded-circle">
-							<img class="avatar-img" src="{{ asset('assets/img/person-3.jpg') }}" alt="" class="img-fluid">
-						</div>
-					</div>
-					<div class="flex-grow-1 ms-2 ms-sm-3">
-						<div class="reply-meta d-flex align-items-baseline">
-							<h6 class="mb-0 me-2">James Parsons</h6>
-							<span class="text-muted">1d</span>
-						</div>
-						<div class="reply-body">
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
-						</div>
+					<div class="comment-replies bg-light p-3 mt-3 rounded">
+						<h6 class="comment-replies-title mb-4 text-muted text-uppercase">
+							{{ 'post.num_replies'|trans({ 'count': c.replies|length }) }}
+						</h6>
+						{% for reply in c.replies %}
+							<div class="reply d-flex mb-4">
+								<div class="flex-shrink-0">
+									<div class="avatar avatar-sm rounded-circle">
+										<img class="avatar-img" src="{{ asset('uploads/user/' ~ reply.author.avatar) }}" alt="" class="img-fluid">
+									</div>
+								</div>
+								<div class="flex-grow-1 ms-2 ms-sm-3">
+									<div class="reply-meta d-flex align-items-baseline">
+										<h6 class="mb-0 me-2">{{ reply.author.nickname }}</h6>
+										<span class="text-muted">{{ reply.createdAt|ago }}</span>
+									</div>
+									<div class="reply-body">
+										{{ reply.content|markdown_to_html|sanitize_html }}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						{#<div class="reply d-flex">
+							<div class="flex-shrink-0">
+								<div class="avatar avatar-sm rounded-circle">
+									<img class="avatar-img" src="{{ asset('assets/img/person-3.jpg') }}" alt="" class="img-fluid">
+								</div>
+							</div>
+							<div class="flex-grow-1 ms-2 ms-sm-3">
+								<div class="reply-meta d-flex align-items-baseline">
+									<h6 class="mb-0 me-2">James Parsons</h6>
+									<span class="text-muted">1d</span>
+								</div>
+								<div class="reply-body">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
+								</div>
+							</div>
+							
+						</div>#}
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
+		{% endif %}
+	{% else %}
+		<h5 class="comment-title py-4">{{ 'post.no_comments'|trans }}</h5>
+	{% endfor %}
+	{#
 	<div class="comment d-flex">
 		<div class="flex-shrink-0">
 			<div class="avatar avatar-sm rounded-circle">
@@ -68,4 +80,17 @@
 			</div>
 		</div>
 	</div>
+	#}
 </div>
+
+{% block javascripts %}
+	<script>
+		window.onload = () => {
+			document.querySelectorAll("[data-reply]").forEach(element => {
+				element.addEventListener("click", function(){
+					document.querySelector("#comments_parentid").value = this.dataset.id;
+				});
+			});
+		}
+	</script>
+{% endblock %}

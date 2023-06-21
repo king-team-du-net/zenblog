@@ -1,17 +1,24 @@
-{% extends 'layouts/base.html.twig' %}
+{% extends 'layouts/page.html.twig' %}
 
-{% set pagetitle = 'Access denied'|trans %}
+{% set pagetitle = 'title.access_denied'|trans %}
 {% block title pagetitle %}
 
-{% block body %}
-	<section>
+{% block content %}
+	{#<section>
 		<div class="container" data-aos="fade-up">
 			<div class="row justify-content-between align-items-lg-center">
 				<div class="col-lg-12 mb-4 mb-lg-0">
 					<h2 class="display-4 mb-4">{{ pagetitle }}</h2>
-					{% include "layouts/partials/_message.html.twig" with { type: "danger", message: ('Access is denied. You may not have the appropriate permissions to access this resource.'|trans), icon: "ai-circle-slash" } %}
+					{% include "layouts/partials/_message.html.twig" with { type: "danger", message: ('message.access_denied'|trans), icon: "ai-circle-slash" } %}
 				</div>
 			</div>
 		</div>
-	</section>
+	</section>#}
+
+	<div class="row justify-content-between align-items-lg-center">
+		<div class="col-lg-12 mb-4 mb-lg-0">
+			<h2 class="display-4 mb-4">{{ pagetitle }}</h2>
+			{% include "layouts/partials/_message.html.twig" with { type: "danger", message: ('message.access_denied'|trans), icon: "ai-circle-slash" } %}
+		</div>
+	</div>
 {% endblock %}

@@ -14,10 +14,10 @@ final class AlertComponent
     public function getIcon(): string
     {
         return match ($this->type) {
-            'success' => 'circle-check',
-            'error' => 'circle-slash',
-            'warning' => 'triangle-alert',
-            default => 'circle-info',
+            'success' => 'check-circle',
+            'error' => 'slash-circle',
+            'warning' => 'exclamation-circle',
+            default => 'info-circle',
         };
     }
 }
