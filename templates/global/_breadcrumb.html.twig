@@ -1,0 +1,24 @@
+{% set breadcrumbs = breadcrumbs is not defined ? [] : breadcrumbs %}
+<section class="section-pagetop bg-light">
+    <div class="{{ getSetting("app_layout") }} clearfix">
+        {% for breadcrumb in breadcrumbs %}
+            <h4 class="title-page text-dark fw-bold float-xl-start mb-0">{{ breadcrumb.label }}</h4>
+            <nav class="float-xl-end mt-2 mt-xl-0">
+                <ol class="breadcrumb text-white">
+                    <li class="breadcrumb-item">
+                        <a href="{{ path('blog_index') }}" class="text-dark"><i class="bi bi-house"></i></a>
+                    </li>
+                    {% if breadcrumb.routename is defined %}
+                        <li class="breadcrumb-item">
+                            <a href="{{ path(breadcrumb.routename, breadcrumb.routeParams|default({})) }}" class="text-dark">
+                                {{ breadcrumb.label }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.label }}</li>
+                    {% endif %}
+                </ol>
+            </nav>
+        {% endfor %}
+    </div>
+</section>

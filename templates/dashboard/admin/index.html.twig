@@ -1,0 +1,13 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.admin_index'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {{ include("global/_breadcrumb.html.twig", {breadcrumbs: [{label: pagetitle}]}) }}
+{% endblock %}
+
+{% block content %}
+	<h1 class="h3 fw-bold">{{ pagetitle }}</h1>
+
+{% endblock %}

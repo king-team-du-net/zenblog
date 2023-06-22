@@ -2,7 +2,6 @@ twig:
     default_path: '%kernel.project_dir%/templates'
 
     globals:
-        #services: '@App\Service\AppServices'
         locales: "%locales%"
         #google_maps_api_key: "%google_maps_api_key%"
         date_format: "%date_format%"

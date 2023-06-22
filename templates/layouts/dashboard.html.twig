@@ -5,13 +5,15 @@
 {% block body %}
     {{ include("global/_header.html.twig") }}
     <main id="main">
-        <section id="{{ sectionId is defined ? sectionId : '' }}" class="section-content padding-y bg-white">
-            <div class="container {{ containerClass is defined ? containerClass : '' }}">
-                <div class="row {{ rowClass is defined ? rowClass : '' }}">
-                    <aside class="col-md-3 {{ col3Class is defined ? col3Class : '' }} pt-3 pt-lg-0">
-                        {% include "dashboard/sidebar.html.twig" with { user: user } only %}
+        {% block breadcrumb %}{% endblock %}
+        <section class="section-content padding-y bg-white auth">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md-3 pt-3 pt-lg-0">
+                        {# {% include "dashboard/sidebar.html.twig" with { user: user } only %} #}
+                        {% include "dashboard/sidebar.html.twig" %}
                     </aside>
-                    <div class="col-md-9 {{ col9Class is defined ? col9Class : '' }} mt-4 mt-lg-0" data-aos="fade-up">
+                    <div class="col-md-9 mt-4 mt-lg-0" data-aos="fade-up">
                         {{ include("global/_is_granted.html.twig") }}
                         {# {% include "global/_user-isverified.html.twig" with { user: app.user } %} #}
                         {% block content %}{% endblock %}

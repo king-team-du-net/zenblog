@@ -2,16 +2,16 @@
 {% set random = generateReference(5) %}
 
 {% if not is_granted('ROLE_USER') %}
-    <nav class="nav flex-column pb-2 pb-lg-4 mb-3">
-        <a href="{{ path('dashboard_index') }}" class="nav-link fw-semibold py-2 px-0 {% if routename == "dashboard_administrator_index" or routename == "dashboard_moderator_index" or routename == "dashboard_user_index" %}active{% endif %}">
+    <nav class="nav-item">
+        <a href="{{ path('dashboard_index') }}" class="nav-link {% if routename == "dashboard_administrator_index" or routename == "dashboard_editor_index" or routename == "dashboard_user_index" %}active{% endif %}">
             {% if is_granted("ROLE_USER") %}
-                <i class="ai-settings fs-5 opacity-60 me-2"></i> {{'Dashboard User'|trans}}
+                <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
             {% elseif is_granted("ROLE_ADMINISTRATOR") %}
-                <i class="ai-settings fs-5 opacity-60 me-2"></i> {{'Dashboard Administrator'|trans}}
+                <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
             {% elseif is_granted("ROLE_ADMIN") %}
-                <i class="ai-settings fs-5 opacity-60 me-2"></i> {{'Dashboard Admin'|trans}}
+                <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
             {% elseif is_granted("ROLE_EDITOR") %}
-                <i class="ai-settings fs-5 opacity-60 me-2"></i> {{'Dashboard Editor'|trans}}
+                <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
             {% endif %}
         </a>
     </nav>
@@ -26,11 +26,11 @@
     </li>
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="fas fa-user-cog fa-fw"></i> {{ 'menu.account'|trans}}
+            <i class="bi bi-person-gear fs-5 opacity-60 me-2"></i> {{ 'menu.account'|trans}}
         </a>
         <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>
@@ -60,11 +60,11 @@
     </li>
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="fas fa-user-cog fa-fw"></i> {{ 'menu.account'|trans}}
+            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
         </a>
         <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>
@@ -94,11 +94,11 @@
     </li>
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="fas fa-user-cog fa-fw"></i> {{ 'menu.account'|trans}}
+            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
         </a>
         <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>
@@ -128,11 +128,11 @@
     </li>
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="fas fa-user-cog fa-fw"></i> {{ 'menu.account'|trans}}
+            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
         </a>
         <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>

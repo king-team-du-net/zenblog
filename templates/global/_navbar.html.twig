@@ -26,16 +26,18 @@
 			</li>
 		{% endif %}
 		{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-			<li class="dropdown">
+			<li class="dropdown widget-header">
 				<a href="javascript:void;">
-                    {% if app.user.avatar is null %}
-                        <span class="bi bi-person-circle fs-2"></span>
-                    {% else %}
-                        <img src="{{ asset('uploads/user/' ~ app.user.avatar) }}" class="user-avatar" alt="{{ app.user.nickname }}">
-                    {% endif %}
-					<div class="ps-2">
-						<div class="fs-xs lh-1 opacity-60">{{'menu.hello'|trans}}</div>
-						<div class="fs-6">{{ app.user.nickname }}</div>
+					<span class="avatar">
+						{% if app.user.avatar is null %}
+							<i class="bi bi-person-circle fs-2"></i>
+						{% else %}
+							<img src="{{ asset('uploads/user/' ~ app.user.avatar) }}" class="user-avatar" alt="{{ app.user.nickname }}">
+						{% endif %}
+					</span>
+					<div class="text-wrap ps-2">
+						{#<div class="fs-xs lh-1 opacity-60">{{'menu.hello'|trans}}</div>#}
+						<span class="fs-6">{{ app.user.nickname }}</span>
 					</div>
 					<i class="bi bi-chevron-down dropdown-indicator"></i>
 				</a>
@@ -53,6 +55,7 @@
 							{% endif %}
 						</a>
 					</li>
+					{#
 					<li class="{{ _route == 'profile_update_profile' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_profile') }}">
 							{{ 'menu.user_update_profile'|trans}}
@@ -68,6 +71,7 @@
 							{{ 'menu.user_update_password'|trans}}
 						</a>
 					</li>
+					#}
 					{% if not is_granted('IS_IMPERSONATOR') %}
 						<li>
 							<a href="{{ path('auth_logout') }}">

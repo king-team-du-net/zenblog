@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Entity\User;
 use Twig\TwigFunction;
 use App\Entity\Setting;
 use App\Repository\SettingRepository;
@@ -9,11 +10,24 @@ use Psr\Cache\CacheItemPoolInterface;
 use Twig\Extension\AbstractExtension;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class TwigSettingExtension extends AbstractExtension
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
+        private readonly AuthorizationCheckerInterface $authChecker,
+        private readonly RequestStack $requestStack,
+        private readonly UrlGeneratorInterface $router,
+        private readonly UrlMatcherInterface $urlMatcherInterface,
+        private readonly ParameterBagInterface $params,
+        private readonly TranslatorInterface $translator,
         private readonly CacheItemPoolInterface $cache,
         private readonly KernelInterface $kernel
     ) {
@@ -29,6 +43,10 @@ final class TwigSettingExtension extends AbstractExtension
             new TwigFunction('generateReference', [$this, 'generateReference']),
             new TwigFunction('endsWith', [$this, 'endsWith']),
             new TwigFunction('changeLinkLocale', [$this, 'changeLinkLocale']),
+            new TwigFunction('disableSofDeleteFilterForAdmin', [$this, 'disableSofDeleteFilterForAdmin']),
+            new TwigFunction('redirectToReferer', [$this, 'redirectToReferer']),
+            //new TwigFunction('getAppLayoutSettings', [$this, 'getAppLayoutSettings']),
+            new TwigFunction('getRouteName', [$this, 'getRouteName']),
         ];
     }
 
@@ -182,5 +200,58 @@ final class TwigSettingExtension extends AbstractExtension
         }
 
         return 'x';
+    }
+
+    // Shows the soft deleted entities for ROLE_ADMINISTRATOR
+    public function disableSofDeleteFilterForAdmin(EntityManagerInterface $entityManager, AuthorizationCheckerInterface $authChecker): void
+    {
+        $entityManager->getFilters()->enable('softdeleteable');
+        if ($authChecker->isGranted("ROLE_ADMINISTRATOR")) {
+            $entityManager->getFilters()->disable('softdeleteable');
+        }
+    }
+
+    // Redirects to the referer page when available, if not, redirects to the dashboard index
+    public function redirectToReferer($alt = null) {
+        if ($this->requestStack->getCurrentRequest()->headers->get('referer')) {
+            return new RedirectResponse($this->requestStack->getCurrentRequest()->headers->get('referer'));
+        } else {
+            if ($alt) {
+                if ($this->authChecker->isGranted(User::ADMINISTRATOR)) {
+                    return new RedirectResponse($this->router->generate('dashboard_administrator_' . $alt));
+                } elseif ($this->authChecker->isGranted(User::ADMIN)) {
+                    return new RedirectResponse($this->router->generate('dashboard_admin_' . $alt));
+                } elseif ($this->authChecker->isGranted(User::EDITOR)) {
+                    return new RedirectResponse($this->router->generate('dashboard_editor_' . $alt));
+                } elseif ($this->authChecker->isGranted(User::DEFAULT)) {
+                    return new RedirectResponse($this->router->generate('dashboard_user_' . $alt));
+                } else {
+                    return new RedirectResponse($this->router->generate($alt));
+                }
+            } else {
+                return new RedirectResponse($this->router->generate('dashboard_index'));
+            }
+        }
+    }
+
+    // Returns the layout settings entity to be used in the twig templates
+    /*public function getAppLayoutSettings()
+    {
+        $appLayoutSettings = $this->entityManager->getRepository("App\Entity\AppLayoutSettings")->find(1);
+        return $appLayoutSettings;
+    }*/
+
+    // Get route name from path
+    public function getRouteName($path = null)
+    {
+        try {
+            if ($path) {
+                return $this->urlMatcherInterface->match($path)['_route'];
+            } else {
+                return $this->urlMatcherInterface->match($this->requestStack->getCurrentRequest()->getPathInfo())['_route'];
+            }
+        } catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $e) {
+            return null;
+        }
     }
 }

@@ -93,6 +93,18 @@
                 <target>RSS</target>
             </trans-unit>
 
+            <trans-unit id="title.dashboard_index">
+                <source>title.dashboard_index</source>
+                <target>Tableau de bord</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_index">
+                <source>title.administrator_index</source>
+                <target>Tableau de bord</target>
+            </trans-unit>
+            <trans-unit id="title.admin_index">
+                <source>title.admin_index</source>
+                <target>Tableau de bord</target>
+            </trans-unit>
             <trans-unit id="title.user_index">
                 <source>title.user_index</source>
                 <target>Mon profil</target>
