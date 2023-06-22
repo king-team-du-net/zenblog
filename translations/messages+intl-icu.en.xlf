@@ -93,16 +93,20 @@
                 <target>RSS</target>
             </trans-unit>
 
-            <trans-unit id="title.update_profile">
-                <source>title.update_profile</source>
+            <trans-unit id="title.user_index">
+                <source>title.user_index</source>
+                <target>My profile</target>
+            </trans-unit>
+            <trans-unit id="title.user_update_profile">
+                <source>title.user_update_profile</source>
                 <target>Edit my profile</target>
             </trans-unit>
-            <trans-unit id="title.update_password">
-                <source>title.update_password</source>
+            <trans-unit id="title.user_update_password">
+                <source>title.user_update_password</source>
                 <target>Edit my password</target>
             </trans-unit>
-            <trans-unit id="title.update_avatar">
-                <source>title.update_avatar</source>
+            <trans-unit id="title.user_update_avatar">
+                <source>title.user_update_avatar</source>
                 <target>Edit my avatar</target>
             </trans-unit>
             <trans-unit id="title.sign_in">
@@ -259,6 +263,10 @@
                 <target>Info !</target>
             </trans-unit>
 
+            <trans-unit id="action.account_menu">
+                <source>action.account_menu</source>
+                <target>Account menu</target>
+            </trans-unit>
             <trans-unit id="action.website_contact">
                 <source>action.website_contact</source>
                 <target>Send Message</target>
@@ -624,17 +632,25 @@
                 <source>menu.dashboard_index</source>
                 <target>Dashboard</target>
             </trans-unit>
-            <trans-unit id="menu.update_password">
-                <source>menu.update_password</source>
-                <target>Password</target>
+            <trans-unit id="menu.account">
+                <source>menu.account</source>
+                <target>Account</target>
             </trans-unit>
-            <trans-unit id="menu.update_profile">
-                <source>menu.update_profile</source>
-                <target>Profile</target>
+            <trans-unit id="menu.user_index">
+                <source>menu.user_index</source>
+                <target>My profile</target>
             </trans-unit>
-            <trans-unit id="menu.update_avatar">
-                <source>menu.update_avatar</source>
-                <target>Avatar</target>
+            <trans-unit id="menu.user_update_password">
+                <source>menu.user_update_password</source>
+                <target>Edit my password</target>
+            </trans-unit>
+            <trans-unit id="menu.user_update_profile">
+                <source>menu.user_update_profile</source>
+                <target>Edit my profile</target>
+            </trans-unit>
+            <trans-unit id="menu.user_update_avatar">
+                <source>menu.user_update_avatar</source>
+                <target>Edit my avatar</target>
             </trans-unit>
             <trans-unit id="menu.impersonation_exit_path">
                 <source>menu.impersonation_exit_path</source>

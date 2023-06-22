@@ -14,8 +14,8 @@
     >
         {% block body %}{% endblock %}
         {{ component('flash_messages') }}
-        {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {% include "global/_dashboard-items-sidenav.html.twig" %}
-        {% endif %}#}
+        {% endif %}
     </body>
 </html>

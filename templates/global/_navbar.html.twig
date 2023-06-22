@@ -35,13 +35,13 @@
                     {% endif %}
 					<div class="ps-2">
 						<div class="fs-xs lh-1 opacity-60">{{'menu.hello'|trans}}</div>
-						<div class="fs-sm">{{ app.user.nickname }}</div>
+						<div class="fs-6">{{ app.user.nickname }}</div>
 					</div>
 					<i class="bi bi-chevron-down dropdown-indicator"></i>
 				</a>
 				<ul>
 					<li>
-						<a href="{# {{ path('dashboard_index') }} #}">
+						<a href="{{ path('dashboard_index') }}">
 							{% if is_granted("ROLE_ADMINISTRATOR") %}
 								{{'menu.dashboard_index'|trans}}
 							{% elseif is_granted("ROLE_ADMIN") %}
@@ -55,17 +55,17 @@
 					</li>
 					<li class="{{ _route == 'profile_update_profile' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_profile') }}">
-							{{ 'menu.update_profile'|trans}}
+							{{ 'menu.user_update_profile'|trans}}
 						</a>
 					</li>
 					<li class="{{ _route == 'profile_update_avatar' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_avatar') }}">
-							{{ 'menu.update_avatar'|trans}}
+							{{ 'menu.user_update_avatar'|trans}}
 						</a>
 					</li>
 					<li class="{{ _route == 'profile_update_password' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_password') }}">
-							{{ 'menu.update_password'|trans}}
+							{{ 'menu.user_update_password'|trans}}
 						</a>
 					</li>
 					{% if not is_granted('IS_IMPERSONATOR') %}

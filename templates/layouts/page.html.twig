@@ -7,9 +7,7 @@
     <main id="main">
         <section id="{{ sectionId is defined ? sectionId : '' }}" class="{{ sectionClass is defined ? sectionClass : '' }}">
             <div class="container" data-aos="fade-up">
-                {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                    {% include "global/_message.html.twig" with { type: 'info', icon: 'ai-circle-info', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
-                {% endif %}
+                {{ include("global/_is_granted.html.twig") }}
                 {# {% include "global/_user-isverified.html.twig" with { user: app.user } %} #}
                 {% block content %}{% endblock %}
             </div>

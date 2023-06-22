@@ -16,7 +16,8 @@ final class MainController extends AbstractController
     public function indexDashboardAction(AuthorizationCheckerInterface $authChecker): Response
     {
         if ($authChecker->isGranted(User::ADMINISTRATOR)) {
-            return $this->redirectToRoute('dashboard_administrator_index');
+            //return $this->redirectToRoute('dashboard_administrator_index');
+            return $this->redirectToRoute('dashboard_user_index');
         } elseif ($authChecker->isGranted(User::ADMIN)) {
             return $this->redirectToRoute('dashboard_admin_index');
         } elseif ($authChecker->isGranted(User::EDITOR)) {

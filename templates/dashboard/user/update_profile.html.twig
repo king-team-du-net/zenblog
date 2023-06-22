@@ -1,0 +1,11 @@
+{% extends 'layouts/auth.html.twig' %}
+
+{% set pagetitle = 'title.user_update_profile'|trans %}
+{% block title pagetitle %}
+
+{% block content %}
+    <h1 class="h3 fw-bold">{{ pagetitle }}</h1>
+    <div class="form mt-5">
+        {{ component('update_profile', {class: 'php-email-auth', user: user, form: form}) }}
+    </div>
+{% endblock %}

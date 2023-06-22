@@ -4,6 +4,22 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+body ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+  cursor: pointer
+}
+
+body ::-webkit-scrollbar-thumb {
+  background: #ced4da
+}
+
+body :hover::-webkit-scrollbar-thumb {
+  background: #adb5bd
+}
+
 :root {
   scroll-behavior: smooth;
 }
@@ -1728,769 +1744,1909 @@ textarea {
   font-style: normal;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
 }
+
 .flag-ad {
   background-image: url('../img/icons/flags/ad.svg');
 }
+
 .flag-ae {
   background-image: url('../img/icons/flags/ae.svg');
 }
+
 .flag-af {
   background-image: url('../img/icons/flags/af.svg');
 }
+
 .flag-ag {
   background-image: url('../img/icons/flags/ag.svg');
 }
+
 .flag-ai {
   background-image: url('../img/icons/flags/ai.svg');
 }
+
 .flag-al {
   background-image: url('../img/icons/flags/al.svg');
 }
+
 .flag-am {
   background-image: url('../img/icons/flags/am.svg');
 }
+
 .flag-ao {
   background-image: url('../img/icons/flags/ao.svg');
 }
+
 .flag-aq {
   background-image: url('../img/icons/flags/aq.svg');
 }
+
 .flag-ar {
   background-image: url('../img/icons/flags/ar.svg');
 }
+
 .flag-as {
   background-image: url('../img/icons/flags/as.svg');
 }
+
 .flag-at {
   background-image: url('../img/icons/flags/at.svg');
 }
+
 .flag-au {
   background-image: url('../img/icons/flags/au.svg');
 }
+
 .flag-aw {
   background-image: url('../img/icons/flags/aw.svg');
 }
+
 .flag-ax {
   background-image: url('../img/icons/flags/ax.svg');
 }
+
 .flag-az {
   background-image: url('../img/icons/flags/az.svg');
 }
+
 .flag-ba {
   background-image: url('../img/icons/flags/ba.svg');
 }
+
 .flag-bb {
   background-image: url('../img/icons/flags/bb.svg');
 }
+
 .flag-bd {
   background-image: url('../img/icons/flags/bd.svg');
 }
+
 .flag-be {
   background-image: url('../img/icons/flags/be.svg');
 }
+
 .flag-bf {
   background-image: url('../img/icons/flags/bf.svg');
 }
+
 .flag-bg {
   background-image: url('../img/icons/flags/bg.svg');
 }
+
 .flag-bh {
   background-image: url('../img/icons/flags/bh.svg');
 }
+
 .flag-bi {
   background-image: url('../img/icons/flags/bi.svg');
 }
+
 .flag-bj {
   background-image: url('../img/icons/flags/bj.svg');
 }
+
 .flag-bl {
   background-image: url('../img/icons/flags/bl.svg');
 }
+
 .flag-bm {
   background-image: url('../img/icons/flags/bm.svg');
 }
+
 .flag-bn {
   background-image: url('../img/icons/flags/bn.svg');
 }
+
 .flag-bo {
   background-image: url('../img/icons/flags/bo.svg');
 }
+
 .flag-bq {
   background-image: url('../img/icons/flags/bq.svg');
 }
+
 .flag-br {
   background-image: url('../img/icons/flags/br.svg');
 }
+
 .flag-bs {
   background-image: url('../img/icons/flags/bs.svg');
 }
+
 .flag-bt {
   background-image: url('../img/icons/flags/bt.svg');
 }
+
 .flag-bv {
   background-image: url('../img/icons/flags/bv.svg');
 }
+
 .flag-bw {
   background-image: url('../img/icons/flags/bw.svg');
 }
+
 .flag-by {
   background-image: url('../img/icons/flags/by.svg');
 }
+
 .flag-bz {
   background-image: url('../img/icons/flags/bz.svg');
 }
+
 .flag-ca {
   background-image: url('../img/icons/flags/ca.svg');
 }
+
 .flag-cc {
   background-image: url('../img/icons/flags/cc.svg');
 }
+
 .flag-cd {
   background-image: url('../img/icons/flags/cd.svg');
 }
+
 .flag-cf {
   background-image: url('../img/icons/flags/cf.svg');
 }
+
 .flag-cg {
   background-image: url('../img/icons/flags/cg.svg');
 }
+
 .flag-ch {
   background-image: url('../img/icons/flags/ch.svg');
 }
+
 .flag-ci {
   background-image: url('../img/icons/flags/ci.svg');
 }
+
 .flag-ck {
   background-image: url('../img/icons/flags/ck.svg');
 }
+
 .flag-cl {
   background-image: url('../img/icons/flags/cl.svg');
 }
+
 .flag-cm {
   background-image: url('../img/icons/flags/cm.svg');
 }
+
 .flag-cn {
   background-image: url('../img/icons/flags/cn.svg');
 }
+
 .flag-co {
   background-image: url('../img/icons/flags/co.svg');
 }
+
 .flag-cr {
   background-image: url('../img/icons/flags/cr.svg');
 }
+
 .flag-cu {
   background-image: url('../img/icons/flags/cu.svg');
 }
+
 .flag-cv {
   background-image: url('../img/icons/flags/cv.svg');
 }
+
 .flag-cw {
   background-image: url('../img/icons/flags/cw.svg');
 }
+
 .flag-cx {
   background-image: url('../img/icons/flags/cx.svg');
 }
+
 .flag-cy {
   background-image: url('../img/icons/flags/cy.svg');
 }
+
 .flag-cz {
   background-image: url('../img/icons/flags/cz.svg');
 }
+
 .flag-de {
   background-image: url('../img/icons/flags/de.svg');
 }
+
 .flag-dj {
   background-image: url('../img/icons/flags/dj.svg');
 }
+
 .flag-dk {
   background-image: url('../img/icons/flags/dk.svg');
 }
+
 .flag-dm {
   background-image: url('../img/icons/flags/dm.svg');
 }
+
 .flag-do {
   background-image: url('../img/icons/flags/do.svg');
 }
+
 .flag-dz {
   background-image: url('../img/icons/flags/dz.svg');
 }
+
 .flag-ec {
   background-image: url('../img/icons/flags/ec.svg');
 }
+
 .flag-ee {
   background-image: url('../img/icons/flags/ee.svg');
 }
+
 .flag-eg {
   background-image: url('../img/icons/flags/eg.svg');
 }
+
 .flag-eh {
   background-image: url('../img/icons/flags/eh.svg');
 }
+
 .flag-er {
   background-image: url('../img/icons/flags/er.svg');
 }
+
 .flag-es {
   background-image: url('../img/icons/flags/es.svg');
 }
+
 .flag-et {
   background-image: url('../img/icons/flags/et.svg');
 }
+
 .flag-eu {
   background-image: url('../img/icons/flags/eu.svg');
 }
+
 .flag-fi {
   background-image: url('../img/icons/flags/fi.svg');
 }
+
 .flag-fj {
   background-image: url('../img/icons/flags/fj.svg');
 }
+
 .flag-fk {
   background-image: url('../img/icons/flags/fk.svg');
 }
+
 .flag-fm {
   background-image: url('../img/icons/flags/fm.svg');
 }
+
 .flag-fo {
   background-image: url('../img/icons/flags/fo.svg');
 }
+
 .flag-fr {
   background-image: url('../img/icons/flags/fr.svg');
 }
+
 .flag-ga {
   background-image: url('../img/icons/flags/ga.svg');
 }
+
 .flag-gb-eng {
   background-image: url('../img/icons/flags/gb-eng.svg');
 }
+
 .flag-gb-nir {
   background-image: url('../img/icons/flags/gb-nir.svg');
 }
+
 .flag-gb-sct {
   background-image: url('../img/icons/flags/gb-sct.svg');
 }
+
 .flag-gb-wls {
   background-image: url('../img/icons/flags/gb-wls.svg');
 }
+
 .flag-gb {
   background-image: url('../img/icons/flags/gb.svg');
 }
+
 .flag-gd {
   background-image: url('../img/icons/flags/gd.svg');
 }
+
 .flag-ge {
   background-image: url('../img/icons/flags/ge.svg');
 }
+
 .flag-gf {
   background-image: url('../img/icons/flags/gf.svg');
 }
+
 .flag-gg {
   background-image: url('../img/icons/flags/gg.svg');
 }
+
 .flag-gh {
   background-image: url('../img/icons/flags/gh.svg');
 }
+
 .flag-gi {
   background-image: url('../img/icons/flags/gi.svg');
 }
+
 .flag-gl {
   background-image: url('../img/icons/flags/gl.svg');
 }
+
 .flag-gm {
   background-image: url('../img/icons/flags/gm.svg');
 }
+
 .flag-gn {
   background-image: url('../img/icons/flags/gn.svg');
 }
+
 .flag-gp {
   background-image: url('../img/icons/flags/gp.svg');
 }
+
 .flag-gq {
   background-image: url('../img/icons/flags/gq.svg');
 }
+
 .flag-gr {
   background-image: url('../img/icons/flags/gr.svg');
 }
+
 .flag-gs {
   background-image: url('../img/icons/flags/gs.svg');
 }
+
 .flag-gt {
   background-image: url('../img/icons/flags/gt.svg');
 }
+
 .flag-gu {
   background-image: url('../img/icons/flags/gu.svg');
 }
+
 .flag-gw {
   background-image: url('../img/icons/flags/gw.svg');
 }
+
 .flag-gy {
   background-image: url('../img/icons/flags/gy.svg');
 }
+
 .flag-hk {
   background-image: url('../img/icons/flags/hk.svg');
 }
+
 .flag-hm {
   background-image: url('../img/icons/flags/hm.svg');
 }
+
 .flag-hn {
   background-image: url('../img/icons/flags/hn.svg');
 }
+
 .flag-hr {
   background-image: url('../img/icons/flags/hr.svg');
 }
+
 .flag-ht {
   background-image: url('../img/icons/flags/ht.svg');
 }
+
 .flag-hu {
   background-image: url('../img/icons/flags/hu.svg');
 }
+
 .flag-id {
   background-image: url('../img/icons/flags/id.svg');
 }
+
 .flag-ie {
   background-image: url('../img/icons/flags/ie.svg');
 }
+
 .flag-il {
   background-image: url('../img/icons/flags/il.svg');
 }
+
 .flag-im {
   background-image: url('../img/icons/flags/im.svg');
 }
+
 .flag-in {
   background-image: url('../img/icons/flags/in.svg');
 }
+
 .flag-io {
   background-image: url('../img/icons/flags/io.svg');
 }
+
 .flag-iq {
   background-image: url('../img/icons/flags/iq.svg');
 }
+
 .flag-ir {
   background-image: url('../img/icons/flags/ir.svg');
 }
+
 .flag-is {
   background-image: url('../img/icons/flags/is.svg');
 }
+
 .flag-it {
   background-image: url('../img/icons/flags/it.svg');
 }
+
 .flag-je {
   background-image: url('../img/icons/flags/je.svg');
 }
+
 .flag-jm {
   background-image: url('../img/icons/flags/jm.svg');
 }
+
 .flag-jo {
   background-image: url('../img/icons/flags/jo.svg');
 }
+
 .flag-jp {
   background-image: url('../img/icons/flags/jp.svg');
 }
+
 .flag-ke {
   background-image: url('../img/icons/flags/ke.svg');
 }
+
 .flag-kg {
   background-image: url('../img/icons/flags/kg.svg');
 }
+
 .flag-kh {
   background-image: url('../img/icons/flags/kh.svg');
 }
+
 .flag-ki {
   background-image: url('../img/icons/flags/ki.svg');
 }
+
 .flag-km {
   background-image: url('../img/icons/flags/km.svg');
 }
+
 .flag-kn {
   background-image: url('../img/icons/flags/kn.svg');
 }
+
 .flag-kp {
   background-image: url('../img/icons/flags/kp.svg');
 }
+
 .flag-kr {
   background-image: url('../img/icons/flags/kr.svg');
 }
+
 .flag-kw {
   background-image: url('../img/icons/flags/kw.svg');
 }
+
 .flag-ky {
   background-image: url('../img/icons/flags/ky.svg');
 }
+
 .flag-kz {
   background-image: url('../img/icons/flags/kz.svg');
 }
+
 .flag-la {
   background-image: url('../img/icons/flags/la.svg');
 }
+
 .flag-lb {
   background-image: url('../img/icons/flags/lb.svg');
 }
+
 .flag-lc {
   background-image: url('../img/icons/flags/lc.svg');
 }
+
 .flag-li {
   background-image: url('../img/icons/flags/li.svg');
 }
+
 .flag-lk {
   background-image: url('../img/icons/flags/lk.svg');
 }
+
 .flag-lr {
   background-image: url('../img/icons/flags/lr.svg');
 }
+
 .flag-ls {
   background-image: url('../img/icons/flags/ls.svg');
 }
+
 .flag-lt {
   background-image: url('../img/icons/flags/lt.svg');
 }
+
 .flag-lu {
   background-image: url('../img/icons/flags/lu.svg');
 }
+
 .flag-lv {
   background-image: url('../img/icons/flags/lv.svg');
 }
+
 .flag-ly {
   background-image: url('../img/icons/flags/ly.svg');
 }
+
 .flag-ma {
   background-image: url('../img/icons/flags/ma.svg');
 }
+
 .flag-mc {
   background-image: url('../img/icons/flags/mc.svg');
 }
+
 .flag-md {
   background-image: url('../img/icons/flags/md.svg');
 }
+
 .flag-me {
   background-image: url('../img/icons/flags/me.svg');
 }
+
 .flag-mf {
   background-image: url('../img/icons/flags/mf.svg');
 }
+
 .flag-mg {
   background-image: url('../img/icons/flags/mg.svg');
 }
+
 .flag-mh {
   background-image: url('../img/icons/flags/mh.svg');
 }
+
 .flag-mk {
   background-image: url('../img/icons/flags/mk.svg');
 }
+
 .flag-ml {
   background-image: url('../img/icons/flags/ml.svg');
 }
+
 .flag-mm {
   background-image: url('../img/icons/flags/mm.svg');
 }
+
 .flag-mn {
   background-image: url('../img/icons/flags/mn.svg');
 }
+
 .flag-mo {
   background-image: url('../img/icons/flags/mo.svg');
 }
+
 .flag-mp {
   background-image: url('../img/icons/flags/mp.svg');
 }
+
 .flag-mq {
   background-image: url('../img/icons/flags/mq.svg');
 }
+
 .flag-mr {
   background-image: url('../img/icons/flags/mr.svg');
 }
+
 .flag-ms {
   background-image: url('../img/icons/flags/ms.svg');
 }
+
 .flag-mt {
   background-image: url('../img/icons/flags/mt.svg');
 }
+
 .flag-mu {
   background-image: url('../img/icons/flags/mu.svg');
 }
+
 .flag-mv {
   background-image: url('../img/icons/flags/mv.svg');
 }
+
 .flag-mw {
   background-image: url('../img/icons/flags/mw.svg');
 }
+
 .flag-mx {
   background-image: url('../img/icons/flags/mx.svg');
 }
+
 .flag-my {
   background-image: url('../img/icons/flags/my.svg');
 }
+
 .flag-mz {
   background-image: url('../img/icons/flags/mz.svg');
 }
+
 .flag-na {
   background-image: url('../img/icons/flags/na.svg');
 }
+
 .flag-nc {
   background-image: url('../img/icons/flags/nc.svg');
 }
+
 .flag-ne {
   background-image: url('../img/icons/flags/ne.svg');
 }
+
 .flag-nf {
   background-image: url('../img/icons/flags/nf.svg');
 }
+
 .flag-ng {
   background-image: url('../img/icons/flags/ng.svg');
 }
+
 .flag-ni {
   background-image: url('../img/icons/flags/ni.svg');
 }
+
 .flag-nl {
   background-image: url('../img/icons/flags/nl.svg');
 }
+
 .flag-no {
   background-image: url('../img/icons/flags/no.svg');
 }
+
 .flag-np {
   background-image: url('../img/icons/flags/np.svg');
 }
+
 .flag-nr {
   background-image: url('../img/icons/flags/nr.svg');
 }
+
 .flag-nu {
   background-image: url('../img/icons/flags/nu.svg');
 }
+
 .flag-nz {
   background-image: url('../img/icons/flags/nz.svg');
 }
+
 .flag-om {
   background-image: url('../img/icons/flags/om.svg');
 }
+
 .flag-pa {
   background-image: url('../img/icons/flags/pa.svg');
 }
+
 .flag-pe {
   background-image: url('../img/icons/flags/pe.svg');
 }
+
 .flag-pf {
   background-image: url('../img/icons/flags/pf.svg');
 }
+
 .flag-pg {
   background-image: url('../img/icons/flags/pg.svg');
 }
+
 .flag-ph {
   background-image: url('../img/icons/flags/ph.svg');
 }
+
 .flag-pk {
   background-image: url('../img/icons/flags/pk.svg');
 }
+
 .flag-pl {
   background-image: url('../img/icons/flags/pl.svg');
 }
+
 .flag-pm {
   background-image: url('../img/icons/flags/pm.svg');
 }
+
 .flag-pn {
   background-image: url('../img/icons/flags/pn.svg');
 }
+
 .flag-pr {
   background-image: url('../img/icons/flags/pr.svg');
 }
+
 .flag-ps {
   background-image: url('../img/icons/flags/ps.svg');
 }
+
 .flag-pt {
   background-image: url('../img/icons/flags/pt.svg');
 }
+
 .flag-pw {
   background-image: url('../img/icons/flags/pw.svg');
 }
+
 .flag-py {
   background-image: url('../img/icons/flags/py.svg');
 }
+
 .flag-qa {
   background-image: url('../img/icons/flags/qa.svg');
 }
+
 .flag-re {
   background-image: url('../img/icons/flags/re.svg');
 }
+
 .flag-ro {
   background-image: url('../img/icons/flags/ro.svg');
 }
+
 .flag-rs {
   background-image: url('../img/icons/flags/rs.svg');
 }
+
 .flag-ru {
   background-image: url('../img/icons/flags/ru.svg');
 }
+
 .flag-rw {
   background-image: url('../img/icons/flags/rw.svg');
 }
+
 .flag-sa {
   background-image: url('../img/icons/flags/sa.svg');
 }
+
 .flag-sb {
   background-image: url('../img/icons/flags/sb.svg');
 }
+
 .flag-sc {
   background-image: url('../img/icons/flags/sc.svg');
 }
+
 .flag-sd {
   background-image: url('../img/icons/flags/sd.svg');
 }
+
 .flag-se {
   background-image: url('../img/icons/flags/se.svg');
 }
+
 .flag-sg {
   background-image: url('../img/icons/flags/sg.svg');
 }
+
 .flag-sh {
   background-image: url('../img/icons/flags/sh.svg');
 }
+
 .flag-si {
   background-image: url('../img/icons/flags/si.svg');
 }
+
 .flag-sj {
   background-image: url('../img/icons/flags/sj.svg');
 }
+
 .flag-sk {
   background-image: url('../img/icons/flags/sk.svg');
 }
+
 .flag-sl {
   background-image: url('../img/icons/flags/sl.svg');
 }
+
 .flag-sm {
   background-image: url('../img/icons/flags/sm.svg');
 }
+
 .flag-sn {
   background-image: url('../img/icons/flags/sn.svg');
 }
+
 .flag-so {
   background-image: url('../img/icons/flags/so.svg');
 }
+
 .flag-sr {
   background-image: url('../img/icons/flags/sr.svg');
 }
+
 .flag-ss {
   background-image: url('../img/icons/flags/ss.svg');
 }
+
 .flag-st {
   background-image: url('../img/icons/flags/st.svg');
 }
+
 .flag-sv {
   background-image: url('../img/icons/flags/sv.svg');
 }
+
 .flag-sx {
   background-image: url('../img/icons/flags/sx.svg');
 }
+
 .flag-sy {
   background-image: url('../img/icons/flags/sy.svg');
 }
+
 .flag-sz {
   background-image: url('../img/icons/flags/sz.svg');
 }
+
 .flag-tc {
   background-image: url('../img/icons/flags/tc.svg');
 }
+
 .flag-td {
   background-image: url('../img/icons/flags/td.svg');
 }
+
 .flag-tf {
   background-image: url('../img/icons/flags/tf.svg');
 }
+
 .flag-tg {
   background-image: url('../img/icons/flags/tg.svg');
 }
+
 .flag-th {
   background-image: url('../img/icons/flags/th.svg');
 }
+
 .flag-tj {
   background-image: url('../img/icons/flags/tj.svg');
 }
+
 .flag-tk {
   background-image: url('../img/icons/flags/tk.svg');
 }
+
 .flag-tl {
   background-image: url('../img/icons/flags/tl.svg');
 }
+
 .flag-tm {
   background-image: url('../img/icons/flags/tm.svg');
 }
+
 .flag-tn {
   background-image: url('../img/icons/flags/tn.svg');
 }
+
 .flag-to {
   background-image: url('../img/icons/flags/to.svg');
 }
+
 .flag-tr {
   background-image: url('../img/icons/flags/tr.svg');
 }
+
 .flag-tt {
   background-image: url('../img/icons/flags/tt.svg');
 }
+
 .flag-tv {
   background-image: url('../img/icons/flags/tv.svg');
 }
+
 .flag-tw {
   background-image: url('../img/icons/flags/tw.svg');
 }
+
 .flag-tz {
   background-image: url('../img/icons/flags/tz.svg');
 }
+
 .flag-ua {
   background-image: url('../img/icons/flags/ua.svg');
 }
+
 .flag-ug {
   background-image: url('../img/icons/flags/ug.svg');
 }
+
 .flag-um {
   background-image: url('../img/icons/flags/um.svg');
 }
+
 .flag-un {
   background-image: url('../img/icons/flags/un.svg');
 }
+
 .flag-us {
   background-image: url('../img/icons/flags/us.svg');
 }
+
 .flag-uy {
   background-image: url('../img/icons/flags/uy.svg');
 }
+
 .flag-uz {
   background-image: url('../img/icons/flags/uz.svg');
 }
+
 .flag-va {
   background-image: url('../img/icons/flags/va.svg');
 }
+
 .flag-vc {
   background-image: url('../img/icons/flags/vc.svg');
 }
+
 .flag-ve {
   background-image: url('../img/icons/flags/ve.svg');
 }
+
 .flag-vg {
   background-image: url('../img/icons/flags/vg.svg');
 }
+
 .flag-vi {
   background-image: url('../img/icons/flags/vi.svg');
 }
+
 .flag-vn {
   background-image: url('../img/icons/flags/vn.svg');
 }
+
 .flag-vu {
   background-image: url('../img/icons/flags/vu.svg');
 }
+
 .flag-wf {
   background-image: url('../img/icons/flags/wf.svg');
 }
+
 .flag-ws {
   background-image: url('../img/icons/flags/ws.svg');
 }
+
 .flag-ye {
   background-image: url('../img/icons/flags/ye.svg');
 }
+
 .flag-yt {
   background-image: url('../img/icons/flags/yt.svg');
 }
+
 .flag-za {
   background-image: url('../img/icons/flags/za.svg');
 }
+
 .flag-zm {
   background-image: url('../img/icons/flags/zm.svg');
 }
+
 .flag-zw {
   background-image: url('../img/icons/flags/zw.svg');
 }
 
+/*--------------------------------------------------------------
+# Dashboard Sidenav
+--------------------------------------------------------------*/
+.dashboard-sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: -250px;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: .5s
+}
+
+.dashboard-sidenav-close {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px
+}
+
+.dashboard-sidenav-username {
+  color: #fff;
+  position: absolute;
+  top: 17px;
+  left: 17px
+}
+
+@media screen and (max-height:450px) {
+  .dashboard-sidenav {
+    padding-top: 15px
+  }
+}
+
+#dashboard-sidenav .nav-pills-vertical-styled .nav-link {
+  background-color: transparent;
+  color: #eee
+}
+
+#dashboard-sidenav .nav-pills-vertical-styled .nav-link.active {
+  color: #f67611 !important
+}
+
+.dashboard-sidebar .badge,
+.dropdown .badge {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 22px;
+  height: 22px;
+  line-height: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center
+}
+
+.nav-pills-vertical-styled {
+  flex-direction: column;
+  margin: 0 0 32px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1)
+}
+
+.nav-pills-vertical-styled .nav-link {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 13px 16px;
+  background-color: #fff;
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0;
+  color: #616161;
+  transition: background-color .2s ease
+}
+
+.nav-pills-vertical-styled .nav-link:hover {
+  background-color: #f6f6f6
+}
+
+.nav-pills-vertical-styled .nav-link.active {
+  background-color: #f1f3f7;
+  font-weight: 600;
+  color: #f67611
+}
+
+.nav-pills-vertical-styled .nav-link:last-of-type {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-bottom: 0
+}
+
+.nav-pills-vertical-styled .nav-link.active {
+  font-weight: 400
+}
+
+.nav-pills-vertical-styled {
+  flex-direction: row;
+}
+
+.nav-pills-vertical-styled .nav-item {
+  width: 100%
+}
+
+.overflow-hidden {
+  overflow: hidden !important
+}
+
+.position-static {
+  position: static !important
+}
+
+.position-relative {
+  position: relative !important
+}
+
+.position-absolute {
+  position: absolute !important
+}
+
+.position-fixed {
+  position: fixed !important
+}
+
+.position-sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important
+}
+
+.fixed-top {
+  top: 0
+}
+
+.fixed-bottom,
+.fixed-top {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030
+}
+
+.fixed-bottom {
+  bottom: 0
+}
+
+@supports ((position: -webkit-sticky) or (position:sticky)) {
+  .sticky-top {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020
+  }
+}
+
+.section-content {
+  min-height: 50vh
+}
+
+.padding-y {
+  padding-bottom: 32px
+}
+
+.padding-top,
+.padding-y {
+  padding-top: 32px;
+}
+
+.padding-bottom {
+  padding-bottom: 32px
+}
+
+.padding-y-lg {
+  padding-top: 60px;
+  padding-bottom: 50px
+}
+
+.padding-x-md {
+  padding-right: 30px;
+  padding-left: 30px
+}
+
+.padding-top-lg {
+  padding-top: 60px
+}
+
+.padding-bottom-lg {
+  padding-bottom: 60px
+}
+
+.padding-y-sm {
+  padding-bottom: 16px
+}
+
+.padding-top-sm,
+.padding-y-sm {
+  padding-top: 16px
+}
+
+.padding-bottom-sm {
+  padding-bottom: 16px
+}
+
+.nopadding,
+.p0 {
+  padding: 0
+}
+
+.p5 {
+  padding: 5px
+}
+
+.p7 {
+  padding: 7px
+}
+
+.p10 {
+  padding: 10px
+}
+
+.p15 {
+  padding: 15px
+}
+
+.p20 {
+  padding: 20px
+}
+
+.p30 {
+  padding: 30px
+}
+
+.p40 {
+  padding: 40px
+}
+
+.p50 {
+  padding: 50px
+}
+
+.p60 {
+  padding: 60px
+}
+
+.m0,
+.nomargin {
+  margin: 0
+}
+
+.m5 {
+  margin: 5px
+}
+
+.m7 {
+  margin: 7px
+}
+
+.m10 {
+  margin: 10px
+}
+
+.m15 {
+  margin: 15px
+}
+
+.m30 {
+  margin: 30px
+}
+
+.m40 {
+  margin: 40px
+}
+
+.m50 {
+  margin: 50px
+}
+
+.m60 {
+  margin: 60px
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none
+}
+
+.nav-link {
+  display: block;
+  padding: 1rem
+}
+
+.nav-link:focus,.nav-link:hover {
+  text-decoration: none
+}
+
+.nav-link.disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default
+}
+
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem
+}
+
+.nav-tabs .nav-link:focus,.nav-tabs .nav-link:hover {
+  border-color: #e9ecef #e9ecef #dee2e6
+}
+
+.nav-tabs .nav-link.disabled {
+  color: #6c757d;
+  background-color: transparent;
+  border-color: transparent
+}
+
+.nav-tabs .nav-item.show .nav-link,.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff
+}
+
+.nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0
+}
+
+.nav-pills .nav-link {
+  border-radius: .25rem
+}
+
+.nav-pills .nav-link.active,.nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: #f67611
+}
+
+.nav-fill .nav-item {
+  flex: 1 1 auto;
+  text-align: center
+}
+
+.nav-justified .nav-item {
+  flex-basis: 0;
+  flex-grow: 1;
+  text-align: center
+}
+
+.tab-content>.tab-pane {
+  display: none
+}
+
+.tab-content>.active {
+  display: block
+}
+
+/*--------------------------------------------------------------
+# Card 
+--------------------------------------------------------------*/
+.section-heading {
+  margin-bottom: 30px
+}
+
+.title-section {
+  padding-right: 15px;
+  font-weight: 600
+}
+
+.title-text {
+  margin-top: 45px;
+  margin-bottom: 20px
+}
+
+.title-category {
+  margin: 0;
+  padding: 1rem
+}
+
+.title-bg {
+  padding: 7px 15px;
+  color: #fff
+}
+
+.progress-xs,.progress-xs .progress-bar {
+  height: .25rem;
+}
+
+.progress-sm,.progress-sm .progress-bar {
+  height: .5rem
+}
+
+.box {
+  padding: 1rem 1.2rem;
+  display: block;
+  background: #fff;
+  border-radius: .2rem;
+  box-shadow: 0 1px 3px rgba(51,51,51,.1)
+}
+
+.card {
+  border: none;
+  box-shadow: 0 0 10px 0 rgba(0,0,0,.1)
+}
+
+.card-hover:hover {
+  box-shadow: 0 4px 15px hsla(0,0%,60%,.3);
+  transition: .5s
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #dae2e6;
+  border-radius: .25rem
+}
+
+.card>hr {
+  margin-right: 0;
+  margin-left: 0
+}
+
+.card>.list-group:first-child .list-group-item:first-child {
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem
+}
+
+.card>.list-group:last-child .list-group-item:last-child {
+  border-bottom-right-radius: .25rem;
+  border-bottom-left-radius: .25rem
+}
+
+.card-body {
+  flex: 1 1 auto;
+  padding: 1.25rem
+}
+
+.card-title {
+  margin-bottom: .75rem
+}
+
+.card-subtitle {
+  margin-top: -.375rem
+}
+
+.card-subtitle,.card-text:last-child {
+  margin-bottom: 0
+}
+
+.card-link:hover {
+  text-decoration: none
+}
+
+.card-link+.card-link {
+  margin-left: 1.25rem
+}
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: #f1f3f7;
+  border-bottom: 1px solid #dae2e6
+}
+
+.card-header:first-child {
+  border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
+}
+
+.card-header+.list-group .list-group-item:first-child {
+  border-top: 0
+}
+
+.card-footer {
+  padding: .75rem 1.25rem;
+  background-color: #f1f3f7;
+  border-top: 1px solid #dae2e6
+}
+
+.card-footer:last-child {
+  border-radius: 0 0 calc(.25rem - 1px) calc(.25rem - 1px)
+}
+
+.card-header-tabs {
+  margin-bottom: -.75rem;
+  border-bottom: 0
+}
+
+.card-header-pills,.card-header-tabs {
+  margin-right: -.625rem;
+  margin-left: -.625rem
+}
+
+.card-img-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1.25rem
+}
+
+.card-img {
+  width: 100%;
+  border-radius: calc(.25rem - 1px)
+}
+
+.card-img-top {
+  width: 100%;
+  border-top-left-radius: calc(.25rem - 1px);
+  border-top-right-radius: calc(.25rem - 1px)
+}
+
+.card-img-bottom {
+  width: 100%;
+  border-bottom-right-radius: calc(.25rem - 1px);
+  border-bottom-left-radius: calc(.25rem - 1px)
+}
+
+.card-deck {
+  display: flex;
+  flex-direction: column
+}
+
+.card-deck .card {
+  margin-bottom: 15px
+}
+
+@media (min-width: 576px) {
+  .card-deck {
+      flex-flow:row wrap;
+      margin-right: -15px;
+      margin-left: -15px
+  }
+
+  .card-deck .card {
+      display: flex;
+      flex: 1 0 0%;
+      flex-direction: column;
+      margin-right: 15px;
+      margin-bottom: 0;
+      margin-left: 15px
+  }
+}
+
+.card-group {
+  display: flex;
+  flex-direction: column
+}
+
+.card-group>.card {
+  margin-bottom: 15px
+}
+
+@media (min-width: 576px) {
+  .card-group {
+      flex-flow:row wrap
+  }
+
+  .card-group>.card {
+      flex: 1 0 0%;
+      margin-bottom: 0
+  }
+
+  .card-group>.card+.card {
+      margin-left: 0;
+      border-left: 0
+  }
+
+  .card-group>.card:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0
+  }
+
+  .card-group>.card:not(:last-child) .card-header,.card-group>.card:not(:last-child) .card-img-top {
+      border-top-right-radius: 0
+  }
+
+  .card-group>.card:not(:last-child) .card-footer,.card-group>.card:not(:last-child) .card-img-bottom {
+      border-bottom-right-radius: 0
+  }
+
+  .card-group>.card:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0
+  }
+
+  .card-group>.card:not(:first-child) .card-header,.card-group>.card:not(:first-child) .card-img-top {
+      border-top-left-radius: 0
+  }
+
+  .card-group>.card:not(:first-child) .card-footer,.card-group>.card:not(:first-child) .card-img-bottom {
+      border-bottom-left-radius: 0
+  }
+}
+
+.card-columns .card {
+  margin-bottom: .75rem
+}
+
+@media (min-width: 576px) {
+  .card-columns {
+      -moz-column-count:3;
+      column-count: 3;
+      -moz-column-gap: 1.25rem;
+      column-gap: 1.25rem;
+      orphans: 1;
+      widows: 1
+  }
+
+  .card-columns .card {
+      display: inline-block;
+      width: 100%
+  }
+}
+
+/*--------------------------------------------------------------
+# Table
+--------------------------------------------------------------*/
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  background-color: transparent
+}
+
+.table td,.table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6
+}
+
+.table tbody+tbody {
+  border-top: 2px solid #dee2e6
+}
+
+.table-sm td,.table-sm th {
+  padding: .3rem
+}
+
+.table-bordered,.table-bordered td,.table-bordered th {
+  border: 1px solid #dee2e6
+}
+
+.table-bordered thead td,.table-bordered thead th {
+  border-bottom-width: 2px
+}
+
+.table-borderless tbody+tbody,.table-borderless td,.table-borderless th,.table-borderless thead th {
+  border: 0
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05)
+}
+
+.table-hover tbody tr:hover {
+  color: #212529;
+  background-color: rgba(0,0,0,.075)
+}
+
+.table-primary,.table-primary>td,.table-primary>th {
+  background-color: #fcd9bc
+}
+
+.table-primary tbody+tbody,.table-primary td,.table-primary th,.table-primary thead th {
+  border-color: #fab883
+}
+
+.table-hover .table-primary:hover,.table-hover .table-primary:hover>td,.table-hover .table-primary:hover>th {
+  background-color: #fbcba4
+}
+
+.table-secondary,.table-secondary>td,.table-secondary>th {
+  background-color: #d5bcfc
+}
+
+.table-secondary tbody+tbody,.table-secondary td,.table-secondary th,.table-secondary thead th {
+  border-color: #b183fa
+}
+
+.table-hover .table-secondary:hover,.table-hover .table-secondary:hover>td,.table-hover .table-secondary:hover>th {
+  background-color: #c6a4fb
+}
+
+.table-success,.table-success>td,.table-success>th {
+  background-color: #b8ece7
+}
+
+.table-success tbody+tbody,.table-success td,.table-success th,.table-success thead th {
+  border-color: #7adcd3
+}
+
+.table-hover .table-success:hover,.table-hover .table-success:hover>td,.table-hover .table-success:hover>th {
+  background-color: #a4e7e0
+}
+
+.table-info,.table-info>td,.table-info>th {
+  background-color: #c5d7e0
+}
+
+.table-info tbody+tbody,.table-info td,.table-info th,.table-info thead th {
+  border-color: #94b5c5
+}
+
+.table-hover .table-info:hover,.table-hover .table-info:hover>td,.table-hover .table-info:hover>th {
+  background-color: #b4ccd7
+}
+
+.table-warning,.table-warning>td,.table-warning>th {
+  background-color: #fcecd4
+}
+
+.table-warning tbody+tbody,.table-warning td,.table-warning th,.table-warning thead th {
+  border-color: #f9dcaf
+}
+
+.table-hover .table-warning:hover,.table-hover .table-warning:hover>td,.table-hover .table-warning:hover>th {
+  background-color: #fae1bc
+}
+
+.table-danger,.table-danger>td,.table-danger>th {
+  background-color: #f9d1c6
+}
+
+.table-danger tbody+tbody,.table-danger td,.table-danger th,.table-danger thead th {
+  border-color: #f4aa96
+}
+
+.table-hover .table-danger:hover,.table-hover .table-danger:hover>td,.table-hover .table-danger:hover>th {
+  background-color: #f7beaf
+}
+
+.table-light,.table-light>td,.table-light>th {
+  background-color: #fdfdfe
+}
+
+.table-light tbody+tbody,.table-light td,.table-light th,.table-light thead th {
+  border-color: #fbfcfc
+}
+
+.table-hover .table-light:hover,.table-hover .table-light:hover>td,.table-hover .table-light:hover>th {
+  background-color: #ececf6
+}
+
+.table-dark,.table-dark>td,.table-dark>th {
+  background-color: #c6c8ca
+}
+
+.table-dark tbody+tbody,.table-dark td,.table-dark th,.table-dark thead th {
+  border-color: #95999c
+}
+
+.table-hover .table-dark:hover,.table-hover .table-dark:hover>td,.table-hover .table-dark:hover>th {
+  background-color: #b9bbbe
+}
+
+.table-active,.table-active>td,.table-active>th,.table-hover .table-active:hover,.table-hover .table-active:hover>td,.table-hover .table-active:hover>th {
+  background-color: rgba(0,0,0,.075)
+}
+
+.table .thead-dark th {
+  color: #fff;
+  background-color: #212529;
+  border-color: #32383e
+}
+
+.table .thead-light th {
+  color: #495057;
+  background-color: #e9ecef;
+  border-color: #dee2e6
+}
+
+.table-dark {
+  color: #fff;
+  background-color: #212529
+}
+
+.table-dark td,.table-dark th,.table-dark thead th {
+  border-color: #32383e
+}
+
+.table-dark.table-bordered {
+  border: 0
+}
+
+.table-dark.table-striped tbody tr:nth-of-type(odd) {
+  background-color: hsla(0,0%,100%,.05)
+}
+
+.table-dark.table-hover tbody tr:hover {
+  color: #fff;
+  background-color: hsla(0,0%,100%,.075)
+}
+
+@media (max-width: 575.98px) {
+  .table-responsive-sm {
+      display:block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch
+  }
+
+  .table-responsive-sm>.table-bordered {
+      border: 0
+  }
+}
+
+@media (max-width: 767.98px) {
+  .table-responsive-md {
+      display:block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch
+  }
+
+  .table-responsive-md>.table-bordered {
+      border: 0
+  }
+}
+
+@media (max-width: 991.98px) {
+  .table-responsive-lg {
+      display:block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch
+  }
+
+  .table-responsive-lg>.table-bordered {
+      border: 0
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .table-responsive-xl {
+      display:block;
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch
+  }
+
+  .table-responsive-xl>.table-bordered {
+      border: 0
+  }
+}
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch
+}
+
+.table-responsive>.table-bordered {
+  border: 0
+}
+
+/*--------------------------------------------------------------
+# 
+--------------------------------------------------------------*/

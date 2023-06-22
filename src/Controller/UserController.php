@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 final class UserController extends Controller
 {
     #[Route(
-        path: '/%website_dashboard_path%/profil/{slug}',
+        path: '/%website_dashboard_path%/profile/{slug}',
         name: 'dashboard_user_show',
         methods: [Request::METHOD_GET]
     )]
