@@ -1,5 +1,7 @@
-# Creation of a blog from A to Z (CMS WORDPRESS) with Symfony 6.3.*, Bootstrap 5, Template Perso
-# Création d'un blog de A à Z (CMS WORDPRESS) avec Symfony 6.3.*, Bootstrap 5, Template Perso
+# In progress
+
+# Creation of a blog from A to Z (CMS WORDPRESS) with Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.2.0
+# Création d'un blog de A à Z (CMS WORDPRESS) avec Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.2.0
 
 ## Development environment
 ## Environnement de développement
