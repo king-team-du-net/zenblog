@@ -92,17 +92,86 @@
                 <source>sidebar.title_rss</source>
                 <target>RSS</target>
             </trans-unit>
+            <trans-unit id="sidebar.title_newsletter">
+                <source>sidebar.title_newsletter</source>
+                <target>Abonnez-vous à notre newsletter</target>
+            </trans-unit>
 
-            <trans-unit id="title.dashboard_index">
-                <source>title.dashboard_index</source>
-                <target>Tableau de bord</target>
+            <trans-unit id="title.administrator_layout_settings_index">
+                <source>title.administrator_layout_settings_index</source>
+                <target>Paramètres de mise en page</target>
             </trans-unit>
-            <trans-unit id="title.administrator_index">
-                <source>title.administrator_index</source>
-                <target>Tableau de bord</target>
+
+            <trans-unit id="title.administrator_recaptcha_index">
+                <source>title.administrator_recaptcha_index</source>
+                <target>Paramètres Google Recaptcha</target>
             </trans-unit>
-            <trans-unit id="title.admin_index">
-                <source>title.admin_index</source>
+
+            <trans-unit id="title.administrator_gmaps_index">
+                <source>title.administrator_gmaps_index</source>
+                <target>Paramètres Google Maps</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_mail_server_index">
+                <source>title.administrator_mail_server_index</source>
+                <target>Paramètres du serveur de messagerie</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_newsletter_index">
+                <source>title.administrator_newsletter_index</source>
+                <target>Paramètres de la newsletter</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_user_index">
+                <source>title.administrator_user_index</source>
+                <target>Gérer les utilisateurs</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_post_glightbox">
+                <source>title.administrator_post_glightbox</source>
+                <target>Agrandir</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_blog_index">
+                <source>title.administrator_blog_index</source>
+                <target>Gérer les articles de blog</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_blog_add">
+                <source>title.administrator_blog_add</source>
+                <target>Ajouter un nouvel article de blog</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_blog_edit">
+                <source>title.administrator_blog_edit</source>
+                <target>Mettre à jour l'article du blog</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_blog_category_index">
+                <source>title.administrator_blog_category_index</source>
+                <target>Gérer les catégories d'articles de blog</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_blog_category_add">
+                <source>title.administrator_blog_category_add</source>
+                <target>Ajouter une nouvelle catégorie d'articles de blog</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_blog_category_edit">
+                <source>title.administrator_blog_category_edit</source>
+                <target>Mettre à jour la catégorie des articles de blog</target>
+            </trans-unit>
+
+            <trans-unit id="title.administrator_page_index">
+                <source>title.administrator_page_index</source>
+                <target>Gérer les pages</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_page_add">
+                <source>title.administrator_page_add</source>
+                <target>Ajouter une nouvelle page</target>
+            </trans-unit>
+            <trans-unit id="title.administrator_page_edit">
+                <source>title.administrator_page_edit</source>
+                <target>Mettre à jour la page</target>
+            </trans-unit>
+
+            <trans-unit id="title.dashboard">
+                <source>title.dashboard</source>
                 <target>Tableau de bord</target>
             </trans-unit>
             <trans-unit id="title.user_index">
@@ -245,6 +314,22 @@
                 <source>title.about</source>
                 <target>À propos</target>
             </trans-unit>
+            <trans-unit id="title.profile_of">
+                <source>title.profile_of</source>
+                <target><![CDATA[Profil de {title}]]></target>
+            </trans-unit>
+            <trans-unit id="title.maintenance">
+                <source>title.maintenance</source>
+                <target>Mode de Maintenance</target>
+            </trans-unit>
+            <trans-unit id="title.mail_server_test">
+                <source>title.mail_server_test</source>
+                <target>E-mail de test du serveur de messagerie</target>
+            </trans-unit>
+            <trans-unit id="title.a_new_email">
+                <source>title.a_new_email</source>
+                <target>Reçu un nouveau mail</target>
+            </trans-unit>
 
             <trans-unit id="message.access_denied">
                 <source>message.access_denied</source>
@@ -253,6 +338,10 @@
             <trans-unit id="message.update_avatar">
                 <source>message.update_avatar</source>
                 <target>Vous n'avez pas encore d'avatar.</target>
+            </trans-unit>
+            <trans-unit id="message.post_no_covers">
+                <source>message.post_no_covers</source>
+                <target>Vous n'avez pas encore ajouté d'image de couverture.</target>
             </trans-unit>
             <trans-unit id="message.change_password">
                 <source>message.change_password</source>
@@ -275,6 +364,90 @@
                 <target>Info !</target>
             </trans-unit>
 
+            <trans-unit id="action.addImage">
+                <source>action.addImage</source>
+                <target>Ajouter une image</target>
+            </trans-unit>
+            <trans-unit id="action.addVideo">
+                <source>action.addVideo</source>
+                <target>Ajouter une vidéo</target>
+            </trans-unit>
+            <trans-unit id="action.save_and_create_new">
+                <source>action.save_and_create_new</source>
+                <target>Enregistrer et créer un nouveau</target>
+            </trans-unit>
+            <trans-unit id="action.newsletter-subscribe">
+                <source>action.newsletter-subscribe</source>
+                <target>S'abonner</target>
+            </trans-unit>
+            <trans-unit id="action.search-filters">
+                <source>action.search-filters</source>
+                <target>Basculer l'affichage des filtres de recherche</target>
+            </trans-unit>
+            <trans-unit id="action.settings_mail_server_test">
+                <source>action.settings_mail_server_test</source>
+                <target>Tester la configuration du serveur de messagerie</target>
+            </trans-unit>
+            <trans-unit id="action.user_info">
+                <source>action.user_info</source>
+                <target>Plus d'information</target>
+            </trans-unit>
+            <trans-unit id="action.search">
+                <source>action.search</source>
+                <target>Recherche</target>
+            </trans-unit>
+            <trans-unit id="action.delete_post_confirmation">
+                <source>action.delete_post_confirmation</source>
+                <target>Vous êtes sur le point de supprimer définitivement l'article de blog</target>
+            </trans-unit>
+            <trans-unit id="action.delete_category_confirmation">
+                <source>action.delete_category_confirmation</source>
+                <target>Vous êtes sur le point de supprimer définitivement la catégorie d'article de blog</target>
+            </trans-unit>
+            <trans-unit id="action.delete_page_confirmation">
+                <source>action.delete_page_confirmation</source>
+                <target>Vous êtes sur le point de supprimer définitivement la page</target>
+            </trans-unit>
+            <trans-unit id="action.delete_user_confirmation">
+                <source>action.delete_user_confirmation</source>
+                <target>Vous êtes sur le point de supprimer définitivement l'utilisateur et toutes ses informations associées (commandes, événements...)</target>
+            </trans-unit>
+            <trans-unit id="action.deletedAt">
+                <source>action.deletedAt</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            <trans-unit id="action.enabled">
+                <source>action.enabled</source>
+                <target>Activé</target>
+            </trans-unit>
+            <trans-unit id="action.impersonate">
+                <source>action.impersonate</source>
+                <target>Usurper l'identité</target>
+            </trans-unit>
+            <trans-unit id="action.disabled">
+                <source>action.disabled</source>
+                <target>Désactivé</target>
+            </trans-unit>
+            <trans-unit id="action.isOnline_hidden">
+                <source>action.isOnline_hidden</source>
+                <target>Caché</target>
+            </trans-unit>
+            <trans-unit id="action.isOnline_visible">
+                <source>action.isOnline_visible</source>
+                <target>Visible</target>
+            </trans-unit>
+            <trans-unit id="action.hidden">
+                <source>action.hidden</source>
+                <target>Caché</target>
+            </trans-unit>
+            <trans-unit id="action.visible">
+                <source>action.visible</source>
+                <target>Visible</target>
+            </trans-unit>
             <trans-unit id="action.account_menu">
                 <source>action.account_menu</source>
                 <target>Menu du compte</target>
@@ -295,9 +468,21 @@
                 <source>action.link-more</source>
                 <target>En savoir plus</target>
             </trans-unit>
+            <trans-unit id="action.disable">
+                <source>action.disable</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            <trans-unit id="action.restore">
+                <source>action.restore</source>
+                <target>Restaurer</target>
+            </trans-unit>
             <trans-unit id="action.show">
                 <source>action.show</source>
                 <target>Voir</target>
+            </trans-unit>
+            <trans-unit id="action.hide">
+                <source>action.hide</source>
+                <target>Cacher</target>
             </trans-unit>
             <trans-unit id="action.show_post">
                 <source>action.show_post</source>
@@ -311,10 +496,6 @@
                 <source>action.edit</source>
                 <target>Editer</target>
             </trans-unit>
-            <trans-unit id="action.edit_post">
-                <source>action.edit_post</source>
-                <target>Modifier l'article</target>
-            </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
                 <target>Enregistrer</target>
@@ -323,34 +504,13 @@
                 <source>action.delete_post</source>
                 <target>Supprimer l'article</target>
             </trans-unit>
-
-            <trans-unit id="delete_post_modal.title">
-                <source>delete_post_modal.title</source>
-                <target>Êtes-vous sûr de vouloir supprimer ce post ?</target>
+            <trans-unit id="action.user_show">
+                <source>action.user_show</source>
+                <target>Voir mon profil</target>
             </trans-unit>
-            <trans-unit id="delete_post_modal.body">
-                <source>delete_post_modal.body</source>
-                <target>Cette action ne peut pas être annulée.</target>
-            </trans-unit>
-            <trans-unit id="label.delete_post">
-                <source>label.delete_post</source>
-                <target>Supprimer l'article</target>
-            </trans-unit>
-            <trans-unit id="label.cancel">
-                <source>label.cancel</source>
-                <target>Annuler</target>
-            </trans-unit>
-            <trans-unit id="label.create_post">
-                <source>label.create_post</source>
-                <target>Créer un article</target>
-            </trans-unit>
-            <trans-unit id="action.create_post">
-                <source>action.create_post</source>
-                <target>Créer un nouvel article</target>
-            </trans-unit>
-            <trans-unit id="label.save_and_create_new">
-                <source>label.save_and_create_new</source>
-                <target>Enregistrer et créer un nouveau</target>
+            <trans-unit id="action.create">
+                <source>action.create</source>
+                <target>Créer</target>
             </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
@@ -408,15 +568,44 @@
                 <source>action.reset</source>
                 <target>Réinitialiser</target>
             </trans-unit>
+            <trans-unit id="action.delete_media">
+                <source>action.delete_media</source>
+                <target>Supprimer le média</target>
+            </trans-unit>
+            <trans-unit id="action.post_add">
+                <source>action.post_add</source>
+                <target>Ajouter un article</target>
+            </trans-unit>
 
             <trans-unit id="invalid_message.email">
                 <source>invalid_message.email</source>
                 <target>Cette adresse e-mail n'existe pas.</target>
             </trans-unit>
 
-            <trans-unit id="placeholder.avatar_file">
-                <source>placeholder.avatar_file</source>
-                <target>Faites glisser et déposez un fichier ou cliquez pour sélectionner un fichier</target>
+            <trans-unit id="delete_post_modal.title">
+                <source>delete_post_modal.title</source>
+                <target>Êtes-vous sûr de vouloir supprimer ce post ?</target>
+            </trans-unit>
+            <trans-unit id="delete_post_modal.body">
+                <source>delete_post_modal.body</source>
+                <target>Cette action ne peut pas être annulée.</target>
+            </trans-unit>
+
+            <trans-unit id="placeholder.alt">
+                <source>placeholder.alt</source>
+                <target>Texte alternatif de l'image</target>
+            </trans-unit>
+            <trans-unit id="placeholder.dropzone">
+                <source>placeholder.dropzone</source>
+                <target>Glisser et déposer un fichier ou cliquer pour sélectionner un fichier</target>
+            </trans-unit>
+            <trans-unit id="placeholder.category_name">
+                <source>placeholder.category_name</source>
+                <target>Nom de la catégorie</target>
+            </trans-unit>
+            <trans-unit id="placeholder.name">
+                <source>placeholder.name</source>
+                <target>Nom</target>
             </trans-unit>
             <trans-unit id="placeholder.email">
                 <source>placeholder.email</source>
@@ -476,9 +665,301 @@
             </trans-unit>
             <trans-unit id="placeholder.comment_content">
                 <source>placeholder.comment_content</source>
-                <target>Tapez votre commentaire ici...</target>
+                <target>Rédigez un commentaire ou avis avec autant de details que possible</target>
+            </trans-unit>
+            <trans-unit id="placeholder.comment_rating">
+                <source>placeholder.comment_rating</source>
+                <target>Donnez une note entre 0 et 5</target>
             </trans-unit>
 
+            <trans-unit id="label.delete">
+                <source>label.delete</source>
+                <target>Supprimer</target>
+            </trans-unit>
+            <trans-unit id="label.cancel">
+                <source>label.cancel</source>
+                <target>Annuler</target>
+            </trans-unit>
+            <trans-unit id="label.create">
+                <source>label.create</source>
+                <target>Créer</target>
+            </trans-unit>
+            <trans-unit id="label.save_and_create_new">
+                <source>label.save_and_create_new</source>
+                <target>Enregistrer et créer un nouveau</target>
+            </trans-unit>
+            <trans-unit id="label.save">
+                <source>label.save</source>
+                <target>Enregistrer</target>
+            </trans-unit>
+            <trans-unit id="label.addImage">
+                <source>label.addImage</source>
+                <target>Ajouter une image</target>
+            </trans-unit>
+            <trans-unit id="label.addVideo">
+                <source>label.addVideo</source>
+                <target>Ajouter une vidéo</target>
+            </trans-unit>
+            <trans-unit id="label.url">
+                <source>label.url</source>
+                <target>URL de la vidéo</target>
+            </trans-unit>
+            <trans-unit id="label.alt">
+                <source>label.alt</source>
+                <target>Texte alternatif</target>
+            </trans-unit>
+            <trans-unit id="label.maintenance_back">
+                <source>label.maintenance_back</source>
+                <target>Nous revenons bientôt.</target>
+            </trans-unit>
+            <trans-unit id="label.last_comments">
+                <source>label.last_comments</source>
+                <target>Ses derniers commentaires</target>
+            </trans-unit>
+            <trans-unit id="label.null">
+                <source>label.null</source>
+                <target>Aucun</target>
+            </trans-unit>
+            <trans-unit id="label.ssl">
+                <source>label.ssl</source>
+                <target>SSL</target>
+            </trans-unit>
+            <trans-unit id="label.tls">
+                <source>label.tls</source>
+                <target>TLS</target>
+            </trans-unit>
+            <trans-unit id="label.smtp">
+                <source>label.smtp</source>
+                <target>SMTP</target>
+            </trans-unit>
+            <trans-unit id="label.gmail">
+                <source>label.gmail</source>
+                <target>Gmail</target>
+            </trans-unit>
+            <trans-unit id="label.sendmail">
+                <source>label.sendmail</source>
+                <target>Sendmail</target>
+            </trans-unit>
+            <trans-unit id="label.facebook_comments">
+                <source>label.facebook_comments</source>
+                <target>Commentaires Facebook</target>
+            </trans-unit>
+            <trans-unit id="label.disqus_comments">
+                <source>label.disqus_comments</source>
+                <target>Disqus commentaires</target>
+            </trans-unit>
+            <trans-unit id="label.yes">
+                <source>label.yes</source>
+                <target>Oui</target>
+            </trans-unit>
+            <trans-unit id="label.no">
+                <source>label.no</source>
+                <target>Non</target>
+            </trans-unit>
+            <trans-unit id="label.stats_post">
+                <source>label.stats_post</source>
+                <target>Article</target>
+            </trans-unit>
+            <trans-unit id="label.stats_author">
+                <source>label.stats_author</source>
+                <target>Auteur</target>
+            </trans-unit>
+            <trans-unit id="label.stats_note">
+                <source>label.stats_note</source>
+                <target>Moyenne</target>
+            </trans-unit>
+            <trans-unit id="label.stats_worst">
+                <source>label.stats_worst</source>
+                <target>Les pires articles</target>
+            </trans-unit>
+            <trans-unit id="label.stats_best">
+                <source>label.stats_best</source>
+                <target>Les meilleurs articles</target>
+            </trans-unit>
+            <trans-unit id="label.stats_tags">
+                <source>label.stats_tags</source>
+                <target>Mots-clés publiés</target>
+            </trans-unit>
+            <trans-unit id="label.stats_categories">
+                <source>label.stats_categories</source>
+                <target>Catégories publiées</target>
+            </trans-unit>
+            <trans-unit id="label.stats_posts">
+                <source>label.stats_posts</source>
+                <target>Articles publiés</target>
+            </trans-unit>
+            <trans-unit id="label.stats_pages">
+                <source>label.stats_pages</source>
+                <target>Pages publiées</target>
+            </trans-unit>
+            <trans-unit id="label.stats_users">
+                <source>label.stats_users</source>
+                <target>Utilisateurs enregistrés</target>
+            </trans-unit>
+            <trans-unit id="label.stats_comments">
+                <source>label.stats_comments</source>
+                <target>Avis d'utilisateurs</target>
+            </trans-unit>
+            <trans-unit id="label.stats_contacts">
+                <source>label.stats_contacts</source>
+                <target>Demande de contact</target>
+            </trans-unit>
+            <trans-unit id="label.statistics">
+                <source>label.statistics</source>
+                <target>Statistiques</target>
+            </trans-unit>
+            <trans-unit id="label.hello">
+                <source>label.hello</source>
+                <target>Salut</target>
+            </trans-unit>
+            <trans-unit id="label.google_maps_api_key">
+                <source>label.google_maps_api_key</source>
+                <target>Clé API Google Maps</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_transport">
+                <source>label.mail_server_transport</source>
+                <target>Transport</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_host">
+                <source>label.mail_server_host</source>
+                <target>Host</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_port">
+                <source>label.mail_server_port</source>
+                <target>Port</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_encryption">
+                <source>label.mail_server_encryption</source>
+                <target>Chiffrement</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_username">
+                <source>label.mail_server_username</source>
+                <target>Nom d'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="label.mail_server_password">
+                <source>label.mail_server_password</source>
+                <target>Mot de passe</target>
+            </trans-unit>
+            <trans-unit id="label.website_no_reply_email">
+                <source>label.website_no_reply_email</source>
+                <target>Pas d'adresse e-mail de réponse</target>
+            </trans-unit>
+            <trans-unit id="label.website_contact_email">
+                <source>label.website_contact_email</source>
+                <target>E-mail de contact</target>
+            </trans-unit>
+            <trans-unit id="label.newsletter_enabled">
+                <source>label.newsletter_enabled</source>
+                <target>Activer la newsletter</target>
+            </trans-unit>
+            <trans-unit id="label.mailchimp_api_key">
+                <source>label.mailchimp_api_key</source>
+                <target>Identifiant de l'application Mailchimp</target>
+            </trans-unit>
+            <trans-unit id="label.mailchimp_list_id">
+                <source>label.mailchimp_list_id</source>
+                <target>Identifiant de la liste Mailchimp</target>
+            </trans-unit>
+            <trans-unit id="label.blog_posts_per_page">
+                <source>label.blog_posts_per_page</source>
+                <target>Nombre d'articles de blog par page</target>
+            </trans-unit>
+            <trans-unit id="label.blog_comments_enabled">
+                <source>label.blog_comments_enabled</source>
+                <target>Activer les commentaires</target>
+            </trans-unit>
+            <trans-unit id="label.facebook_app_id">
+                <source>label.facebook_app_id</source>
+                <target>Identifiant de l'application Facebook</target>
+            </trans-unit>
+            <trans-unit id="label.disqus_subdomain">
+                <source>label.disqus_subdomain</source>
+                <target>Sous-domaine Disqus</target>
+            </trans-unit>
+            <trans-unit id="label.google_recaptcha_enabled">
+                <source>label.google_recaptcha_enabled</source>
+                <target>Activer Google Recaptcha</target>
+            </trans-unit>
+            <trans-unit id="label.google_recaptcha_site_key">
+                <source>label.google_recaptcha_site_key</source>
+                <target>Clé du site</target>
+            </trans-unit>
+            <trans-unit id="label.google_recaptcha_secret_key">
+                <source>label.google_recaptcha_secret_key</source>
+                <target>Clef secrète</target>
+            </trans-unit>
+            <trans-unit id="label.account_info">
+                <source>label.account_info</source>
+                <target>Information sur le compte</target>
+            </trans-unit>
+            <trans-unit id="label.user_role">
+                <source>label.user_role</source>
+                <target>Rôle</target>
+            </trans-unit>
+            <trans-unit id="label.registration_date">
+                <source>label.registration_date</source>
+                <target>Date d'inscription</target>
+            </trans-unit>
+            <trans-unit id="label.registered">
+                <source>label.registered</source>
+                <target>Inscrit</target>
+            </trans-unit>
+            <trans-unit id="label.user_update_date">
+                <source>label.user_update_date</source>
+                <target>Date de mise à jour</target>
+            </trans-unit>
+            <trans-unit id="label.user_avatar">
+                <source>label.user_avatar</source>
+                <target>Avatar</target>
+            </trans-unit>
+            <trans-unit id="label.user_info">
+                <source>label.user_info</source>
+                <target>Informations de l'utilisateur</target>
+            </trans-unit>
+            <trans-unit id="label.last_login">
+                <source>label.last_login</source>
+                <target>Dernière connexion</target>
+            </trans-unit>
+            <trans-unit id="label.numberOfPosts">
+                <source>label.numberOfPosts</source>
+                <target>Nombre d'articles par catégorie</target>
+            </trans-unit>
+            <trans-unit id="label.posts_count">
+                <source>label.posts_count</source>
+                <target>Nombre d'articles</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Nom</target>
+            </trans-unit>
+            <trans-unit id="label.category_name">
+                <source>label.category_name</source>
+                <target>Nom de la categorie</target>
+            </trans-unit>
+            <trans-unit id="label.keyword">
+                <source>label.keyword</source>
+                <target>Mot-clé</target>
+            </trans-unit>
+            <trans-unit id="label.search">
+                <source>label.search</source>
+                <target>Recherche</target>
+            </trans-unit>
+            <trans-unit id="label.sortable-select-option">
+                <source>label.sortable-select-option</source>
+                <target>Choisir une option</target>
+            </trans-unit>
+            <trans-unit id="label.sortable-select">
+                <source>label.sortable-select</source>
+                <target>Trier par</target>
+            </trans-unit>
+            <trans-unit id="label.status">
+                <source>label.status</source>
+                <target>Statut</target>
+            </trans-unit>
+            <trans-unit id="label.views">
+                <source>label.views</source>
+                <target>Vues</target>
+            </trans-unit>
             <trans-unit id="label.update_avatar">
                 <source>label.update_avatar</source>
                 <target>Avatar actuel</target>
@@ -495,6 +976,14 @@
                 <source>label.image_file</source>
                 <target>Image</target>
             </trans-unit>
+            <trans-unit id="label.cover_file">
+                <source>label.cover_file</source>
+                <target>Image de couverture</target>
+            </trans-unit>
+            <trans-unit id="label.medias">
+                <source>label.medias</source>
+                <target>Médias</target>
+            </trans-unit>
             <trans-unit id="label.avatar_file">
                 <source>label.avatar_file</source>
                 <target>Avatar</target>
@@ -502,6 +991,14 @@
             <trans-unit id="label.title">
                 <source>label.title</source>
                 <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="label.link">
+                <source>label.link</source>
+                <target>Lien</target>
+            </trans-unit>
+            <trans-unit id="label.slug">
+                <source>label.slug</source>
+                <target>Slug</target>
             </trans-unit>
             <trans-unit id="label.author">
                 <source>label.author</source>
@@ -565,7 +1062,11 @@
             </trans-unit>
             <trans-unit id="label.comment_content">
                 <source>label.comment_content</source>
-                <target>Commentaire</target>
+                <target>Commentaire ou avis</target>
+            </trans-unit>
+            <trans-unit id="label.comment_rating">
+                <source>label.comment_rating</source>
+                <target>Notation</target>
             </trans-unit>
             <trans-unit id="label.content">
                 <source>label.content</source>
@@ -581,7 +1082,11 @@
             </trans-unit>
             <trans-unit id="label.tags">
                 <source>label.tags</source>
-                <target>Tags</target>
+                <target>Mots clés</target>
+            </trans-unit>
+            <trans-unit id="label.readtime">
+                <source>label.readtime</source>
+                <target>Temps de lecture en minutes</target>
             </trans-unit>
             <trans-unit id="label.actions">
                 <source>label.actions</source>
@@ -596,6 +1101,70 @@
                 <target>Modifier le contenu</target>
             </trans-unit>
 
+            <trans-unit id="menu.terms_of_service_page">
+                <source>menu.terms_of_service_page</source>
+                <target>Conditions d'utilisation</target>
+            </trans-unit>
+            <trans-unit id="menu.privacy_policy_page">
+                <source>menu.privacy_policy_page</source>
+                <target>Politique de confidentialité</target>
+            </trans-unit>
+            <trans-unit id="menu.cookie_policy_page">
+                <source>menu.cookie_policy_page</source>
+                <target>Politique de cookies</target>
+            </trans-unit>
+            <trans-unit id="menu.gdpr_compliance_page">
+                <source>menu.gdpr_compliance_page</source>
+                <target>Conformité GDPR</target>
+            </trans-unit>
+            <trans-unit id="menu.blog_category_index">
+                <source>menu.blog_category_index</source>
+                <target>Catégorie de blogs</target>
+            </trans-unit>
+            <trans-unit id="menu.blog_index">
+                <source>menu.blog_index</source>
+                <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="menu.page_index">
+                <source>menu.page_index</source>
+                <target>Pages</target>
+            </trans-unit>
+            <trans-unit id="menu.settings">
+                <source>menu.settings</source>
+                <target>Paramètres</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_layout">
+                <source>menu.settings_layout</source>
+                <target>Mise en page, paramètres et SEO</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_homepage">
+                <source>menu.settings_homepage</source>
+                <target>Accueil</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_mail_server">
+                <source>menu.settings_mail_server</source>
+                <target>Serveur de courrier</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_google_recaptcha">
+                <source>menu.settings_google_recaptcha</source>
+                <target>Google Recaptcha</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_google_maps">
+                <source>menu.settings_google_maps</source>
+                <target>Google Maps</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_blog">
+                <source>menu.settings_blog</source>
+                <target>Paramètres du blog</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_newsletter">
+                <source>menu.settings_newsletter</source>
+                <target>Lettre d'information</target>
+            </trans-unit>
+            <trans-unit id="menu.settings_sitemap">
+                <source>menu.settings_sitemap</source>
+                <target>Plan du site</target>
+            </trans-unit>
             <trans-unit id="menu.toggle_nav">
                 <source>menu.toggle_nav</source>
                 <target>Activer ou désactiver la navigation</target>
@@ -689,6 +1258,11 @@
                 <target>Catégories</target>
             </trans-unit>
 
+            <trans-unit id="resultsCount">
+                <source>resultsCount</source>
+                <target>{count, plural, one {# résultat trouvé} other {# résultats trouvé}}</target>
+            </trans-unit>
+
             <trans-unit id="post.previous_post">
                 <source>post.previous_post</source>
                 <target>Article précédent</target>
@@ -709,9 +1283,68 @@
                 <source>post.to_publish_a_comment</source>
                 <target>pour publier un commentaire</target>
             </trans-unit>
+
+            <trans-unit id="comment.overall_rating">
+                <source>comment.overall_rating</source>
+                <target>Note globale de cet article</target>
+            </trans-unit>
+            <trans-unit id="comment.label_rating">
+                <source>comment.label_rating</source>
+                <target>Note</target>
+            </trans-unit>
+            <trans-unit id="comment.nb_rating">
+                <source>comment.nb_rating</source>
+                <target>étoile</target>
+            </trans-unit>
+            <trans-unit id="comment.label_on">
+                <source>comment.label_on</source>
+                <target>Sur</target>
+            </trans-unit>
+            <trans-unit id="comment.num_comments">
+                <source>comment.num_comments</source>
+                <target><![CDATA[(Sur la base de <strong>{count, plural, one {# commentaire} other {# commentaires}}</strong>)]]></target>
+            </trans-unit>
+            <trans-unit id="comment.no_comments">
+                <source>comment.no_comments</source>
+                <target>Aucun commentaire trouvé.</target>
+            </trans-unit>
+
+            <trans-unit id="mail.server_settings">
+                <source>mail.server_settings</source>
+                <target>Cet e-mail est envoyé pour tester la configuration des paramètres du serveur de messagerie.</target>
+            </trans-unit>
+            <trans-unit id="mail.see_you_soon">
+                <source>mail.not_reply_to_it</source>
+                <target>A bientôt sur notre site</target>
+            </trans-unit>
+            <trans-unit id="mail.not_reply_to_it">
+                <source>mail.not_reply_to_it</source>
+                <target>Ceci est un e-mail automatisé, merci de ne pas y répondre.</target>
+            </trans-unit>
+            <trans-unit id="mail.best_regards">
+                <source>mail.best_regards</source>
+                <target><![CDATA[Bien cordialement, l'équipe de {title}]]></target>
+            </trans-unit>
+            <trans-unit id="mail.the_details">
+                <source>mail.the_details</source>
+                <target>Voici les détails</target>
+            </trans-unit>
+            <trans-unit id="mail.a_new_email">
+                <source>mail.a_new_email</source>
+                <target>Vous avez reçu un nouveau mail</target>
+            </trans-unit>
+            <trans-unit id="mail.welcome">
+                <source>mail.welcome</source>
+                <target>Bienvenu</target>
+            </trans-unit>
+
+            <trans-unit id="post.resultsCount">
+                <source>post.resultsCount</source>
+                <target>{count, plural, one {# résultat trouvé} other {# résultats trouvé}}</target>
+            </trans-unit>
             <trans-unit id="post.num_comments">
                 <source>post.num_comments</source>
-                <target>{count, plural, one {# commentaire} other {# commentaires}}</target>
+                <target>{count, plural, one {# avis et commentaire laissé par un utilisateur} other {# avis et commentaires laissés par nos utilisateurs}}</target>
             </trans-unit>
             <trans-unit id="post.num_replies">
                 <source>post.num_replies</source>
@@ -721,9 +1354,17 @@
                 <source>post.commented_on</source>
                 <target>commenté le</target>
             </trans-unit>
+            <trans-unit id="post.no_ratings">
+                <source>post.no_ratings</source>
+                <target>Pas encore note</target>
+            </trans-unit>
             <trans-unit id="post.no_comments">
                 <source>post.no_comments</source>
                 <target>Soyez le premier à commenter cet article.</target>
+            </trans-unit>
+            <trans-unit id="post.add_medias">
+                <source>post.add_medias</source>
+                <target>Ajouter un ou plusieurs médias à votre article.</target>
             </trans-unit>
             <trans-unit id="post.no_posts_found">
                 <source>post.no_posts_found</source>
@@ -733,22 +1374,178 @@
                 <source>post.share_successfully</source>
                 <target><![CDATA[🚀 Article partagé avec succès avec votre ami !]]></target>
             </trans-unit>
-            <trans-unit id="post.invalid_data">
-                <source>post.invalid_data</source>
+
+            <trans-unit id="content.is_visible">
+                <source>content.is_visible</source>
+                <target>Le contenu est visible</target>
+            </trans-unit>
+            <trans-unit id="content.is_hidden">
+                <source>content.is_hidden</source>
+                <target>Le contenu est caché</target>
+            </trans-unit>
+            <trans-unit id="content.invalid_data">
+                <source>content.invalid_data</source>
                 <target>Le formulaire contient des données invalides</target>
             </trans-unit>
+            <trans-unit id="content.na">
+                <source>content.na</source>
+                <target>N/A</target>
+            </trans-unit>
+
+            <trans-unit id="role.super_administrator">
+                <source>role.super_administrator</source>
+                <target>Super administrateur</target>
+            </trans-unit>
+            <trans-unit id="role.administrator">
+                <source>role.administrator</source>
+                <target>Administrateur</target>
+            </trans-unit>
+            <trans-unit id="role.editor">
+                <source>role.editor</source>
+                <target>Éditeur</target>
+            </trans-unit>
+            <trans-unit id="role.user">
+                <source>role.user</source>
+                <target>Membre</target>
+            </trans-unit>
+
+            <trans-unit id="setting.updated_successfully">
+                <source>setting.updated_successfully</source>
+                <target>Les paramètres ont été mis à jour avec succès!</target>
+            </trans-unit>
+            <trans-unit id="setting.app_locales">
+                <source>setting.app_locales</source>
+                <target>Vous devez spécifier au moins une langue</target>
+            </trans-unit>
+            <trans-unit id="setting.default_locale">
+                <source>setting.default_locale</source>
+                <target>Les paramètres régionaux par défaut doivent être sélectionnés dans les langues disponibles</target>
+            </trans-unit>
+            <trans-unit id="setting.layout_loaded">
+                <source>setting.layout_loaded</source>
+                <target>Les paramètres de mise en page n'ont pas pu être chargés</target>
+            </trans-unit>
+            <trans-unit id="setting.mailer_send_test_danger">
+                <source>setting.mailer_send_test_danger</source>
+                <target>L'e-mail n'a pas pu être envoyé</target>
+            </trans-unit>
+            <trans-unit id="setting.mailer_send_test_success">
+                <source>setting.mailer_send_test_success</source>
+                <target>L'e-mail de test a été envoyé, veuillez vérifier la boîte de réception de</target>
+            </trans-unit>
+            <trans-unit id="setting.mailer_send_test_subject">
+                <source>setting.mailer_send_test_subject</source>
+                <target>E-mail de test du serveur de messagerie</target>
+            </trans-unit>
+            <trans-unit id="setting.mail-server_mode_demo_disabled">
+                <source>setting.mail-server_mode_demo_disabled</source>
+                <target>Cette fonctionnalité est désactivée en mode démo</target>
+            </trans-unit>
+
+            <trans-unit id="user.created_successfully">
+                <source>user.created_successfully</source>
+                <target>L'utilisateur a été créée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.updated_successfully">
+                <source>user.updated_successfully</source>
+                <target>L'utilisateur a été mise à jour avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.deleted_successfully">
+                <source>user.deleted_successfully</source>
+                <target>L'utilisateur a été supprimée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.permanently_deleted_successfully">
+                <source>user.permanently_deleted_successfully</source>
+                <target>L'utilisateur a été définitivement supprimé avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.restored_successfully">
+                <source>user.restored_successfully</source>
+                <target>L'utilisateur a été restaurée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.enabled_successfully">
+                <source>user.enabled_successfully</source>
+                <target>L'utilisateur a été activée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.disabled_successfully">
+                <source>user.disabled_successfully</source>
+                <target>L'utilisateur a été désactivée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="user.no_users_found">
+                <source>user.no_users_found</source>
+                <target>L'utilisateur est introuvable</target>
+            </trans-unit>
+
+            <trans-unit id="page.created_successfully">
+                <source>page.created_successfully</source>
+                <target>La page a été créée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="page.updated_successfully">
+                <source>page.updated_successfully</source>
+                <target>La page a été mise à jour avec succès!</target>
+            </trans-unit>
+            <trans-unit id="page.deleted_successfully">
+                <source>page.deleted_successfully</source>
+                <target>La page a été supprimée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="page.disabled_successfully">
+                <source>page.disabled_successfully</source>
+                <target>La page a été désactivée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="page.restored_successfully">
+                <source>page.restored_successfully</source>
+                <target>La page a été restaurée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="page.no_pages_found">
+                <source>page.no_pages_found</source>
+                <target>La page est introuvable</target>
+            </trans-unit>
+
+            <trans-unit id="category.created_successfully">
+                <source>category.created_successfully</source>
+                <target>La catégorie d'articles de blog a été créée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="category.updated_successfully">
+                <source>category.updated_successfully</source>
+                <target>La catégorie d'articles de blog a été mise à jour avec succès!</target>
+            </trans-unit>
+            <trans-unit id="category.deleted_successfully">
+                <source>category.deleted_successfully</source>
+                <target>La catégorie d'article de blog a été supprimée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="category.disabled_successfully">
+                <source>category.disabled_successfully</source>
+                <target>La catégorie d'article de blog a été désactivée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="category.restored_successfully">
+                <source>category.restored_successfully</source>
+                <target>La catégorie d'article de blog a été restaurée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="category.no_categories_found">
+                <source>category.no_categories_found</source>
+                <target>La catégorie d'article de blog est introuvable</target>
+            </trans-unit>
+
             <trans-unit id="post.created_successfully">
                 <source>post.created_successfully</source>
-                <target>Article créé avec succès !</target>
+                <target>Le blog a été créée avec succès!</target>
             </trans-unit>
             <trans-unit id="post.updated_successfully">
                 <source>post.updated_successfully</source>
-                <target>Article mis à jour avec succès !</target>
+                <target>Le blog a été mis à jour avec succès!</target>
             </trans-unit>
             <trans-unit id="post.deleted_successfully">
                 <source>post.deleted_successfully</source>
-                <target>Article supprimé avec succès !</target>
+                <target>Le blog a été supprimée avec succès!</target>
             </trans-unit>
+            <trans-unit id="post.disabled_successfully">
+                <source>post.disabled_successfully</source>
+                <target>Le blog a été désactivée avec succès!</target>
+            </trans-unit>
+            <trans-unit id="post.restored_successfully">
+                <source>post.restored_successfully</source>
+                <target>Le blog a été restaurée avec succès!</target>
+            </trans-unit>
+
             <trans-unit id="post.search_for">
                 <source>post.search_for</source>
                 <target>Rechercher...</target>
@@ -756,11 +1553,6 @@
             <trans-unit id="post.search_no_results">
                 <source>post.search_no_results</source>
                 <target>Aucun résultat</target>
-            </trans-unit>
-
-            <trans-unit id="user.updated_successfully">
-                <source>user.updated_successfully</source>
-                <target>Informations mises à jour avec succès !</target>
             </trans-unit>
 
             <trans-unit id="notification.comment_created">
@@ -835,6 +1627,46 @@
             <trans-unit id="help.sender_comments">
                 <source>help.sender_comments</source>
                 <target>Laissez-le vide si vous le souhaitez (facultatif).</target>
+            </trans-unit>
+            <trans-unit id="help.post_category">
+                <source>help.post_category</source>
+                <target>Assurez-vous de sélectionner la bonne catégorie pour permettre aux utilisateurs de la trouver rapidement</target>
+            </trans-unit>
+            <trans-unit id="help.post_tags">
+                <source>help.post_tags</source>
+                <target>Pour aider les participants à trouver votre événement rapidement, entrez des mots-clés qui identifient votre événement (appuyez sur Entrée après chaque entrée)</target>
+            </trans-unit>
+            <trans-unit id="help.mailchimp_api_key">
+                <source>help.mailchimp_api_key</source>
+                <target>Accédez à la documentation pour obtenir de l'aide sur l'obtention d'une clé API</target>
+            </trans-unit>
+            <trans-unit id="help.mailchimp_list_id">
+                <source>help.mailchimp_list_id</source>
+                <target>Accédez à la documentation pour obtenir de l'aide sur l'obtention d'un identifiant de liste</target>
+            </trans-unit>
+            <trans-unit id="help.newsletter_enabled">
+                <source>help.newsletter_enabled</source>
+                <target>SSL doit être activé sur votre serveur d'hébergement pour pouvoir utiliser Mailchimp</target>
+            </trans-unit>
+            <trans-unit id="help.website_contact_email">
+                <source>help.website_contact_email</source>
+                <target>Cette adresse email recevra les messages du formulaire de contact</target>
+            </trans-unit>
+            <trans-unit id="help.website_no_reply_email">
+                <source>help.website_no_reply_email</source>
+                <target>Cette adresse e-mail sera utilisée comme expéditeur de tous les e-mails envoyés par la plateforme, dans presque tous les cas, c'est la même que le nom d'utilisateur ci-dessus</target>
+            </trans-unit>
+            <trans-unit id="help.google_maps_api_key">
+                <source>help.google_maps_api_key</source>
+                <target>Laissez la clé API vide pour désactiver l'ensemble du projet Google Maps</target>
+            </trans-unit>
+            <trans-unit id="help.disqus_subdomain">
+                <source>help.disqus_subdomain</source>
+                <target>Accédez à la documentation pour obtenir de l'aide sur la configuration de Disqus</target>
+            </trans-unit>
+            <trans-unit id="help.facebook_app_id">
+                <source>help.facebook_app_id</source>
+                <target>Accédez à la documentation pour obtenir de l'aide sur l'obtention d'un ID d'application</target>
             </trans-unit>
 
             <trans-unit id="rss.title">

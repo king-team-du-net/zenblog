@@ -1,0 +1,15 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.user_update_profile'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans),  "dashboard_user_account_settings_index": ('title.user_index'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+        {{ component('update_profile', {class: 'php-type-form', user: user, form: form}) }}
+    </div>
+{% endblock %}

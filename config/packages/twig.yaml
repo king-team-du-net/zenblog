@@ -1,12 +1,22 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    form_themes: ['global/bootstrap_5_layout.html.twig']
 
     globals:
+        # Language
         locales: "%locales%"
+
+        # Google
         #google_maps_api_key: "%google_maps_api_key%"
+
+        # Date and time
         date_format: "%date_format%"
         date_format_date_only: "%date_format_date_only%"
         date_timezone: "%date_timezone%"
+
+        # Delete & Update Post
+        delete_post_by_owner_only: '%post.delete.by_owner_only%'
+        update_post_by_owner_only: '%post.update.by_owner_only%'
 
     date:
         format: "%date_format%"

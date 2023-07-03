@@ -20,7 +20,7 @@ class MainController extends AbstractController
         } elseif ($authChecker->isGranted(User::EDITOR)) {
             return $this->redirectToRoute('dashboard_editor_index');
         } elseif ($authChecker->isGranted(User::DEFAULT)) {
-            return $this->redirectToRoute('dashboard_user_index');
+            return $this->redirectToRoute('dashboard_user_account_settings_index');
         }
 
         return $this->redirectToRoute('auth_login');

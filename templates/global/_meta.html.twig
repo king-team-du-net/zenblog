@@ -6,6 +6,7 @@
     <meta property="og:url" content="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@{{ getSetting("website_slug") }}">
+    {# In progress #}
     {% block meta_dynamic_seo %}
         <meta name="description" content="{{ getSetting("website_description_" ~ app.request.locale) }}">
         <meta name="keywords" content="{{ getSetting("website_keywords_" ~ app.request.locale) }}">
@@ -24,5 +25,24 @@
 
     {#<link rel="shortcut icon" href="{{ absolute_url(asset(getAppLayoutSettings.getFaviconPath)) }}">#}
     {#<link rel="canonical" href="{{ app.request.schemeAndHttpHost ~ app.request.requestUri }}">#}
+
+    <!-- Favicons -->
+    <link href="{{ asset('build/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('build/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
     <link rel="alternate" type="application/rss+xml" title="{{ getSetting("website_name") }}" href="{{ path('blog_rss') }}">
 
+    {# Google analytics code added in the app parameters #}
+    {% if getSetting('google_analytics_code') != "" and getSetting('google_analytics_code') is not null %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ getSetting('google_analytics_code') }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', '{{ getSetting('google_analytics_code') }}');
+        </script>
+    {% endif %}

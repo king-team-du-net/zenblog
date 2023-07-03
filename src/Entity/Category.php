@@ -8,13 +8,14 @@ use App\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasHiddenTrait;
 use App\Repository\CategoryRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\Traits\HasTagAndCategoryTrait;
 use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\Traits\HasBackgroundAndColorTrait;
 use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -23,9 +24,13 @@ use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 class Category implements \Stringable
 {
     use HasIdTrait;
+    use HasBackgroundAndColorTrait;
     use HasNameAndSlugAndAssertTrait;
+    use HasHiddenTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
+
+    public const NUM_ITEMS_PER_PAGE = 10;
 
     #[ORM\Column(type: Types::INTEGER, options: ['unsigned' => true])]
     private int $numberOfPosts = 0;

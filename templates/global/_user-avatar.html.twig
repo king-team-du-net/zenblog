@@ -1,0 +1,5 @@
+{% if app.user.avatar is null %}
+    <i class="bi bi-person-circle fs-2"></i>
+{% else %}
+    <img src="{{ asset('uploads/user/' ~ app.user.avatar) }}" class="user-avatar" alt="{{ app.user.nickname }}">
+{% endif %}

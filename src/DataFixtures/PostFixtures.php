@@ -6,6 +6,8 @@ use App\Entity\Tag;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Entity\Category;
+use App\Entity\Image\Image;
+use App\Entity\Image\Video;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -67,9 +69,11 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
             <p>Possimus temporibus rerum illo quia repudiandae provident sed quas atque. Ipsam adipisci accusamus iste optio illo aliquam molestias? Voluptatibus, veniam recusandae facilis nobis perspiciatis rem similique, nisi ad explicabo ipsa voluptatum, inventore molestiae natus adipisci? Fuga delectus quia assumenda totam aspernatur. Nobis hic ea rem, quaerat voluptate vero illum laboriosam omnis aspernatur labore, natus ex iusto ducimus exercitationem a officia.</p>
         ';
 
+        $index = 1;
+
         foreach ($administrators as $administrator) {
             foreach ($categories as $category) {
-                for ($index = 1; $index <= 5; ++$index) {
+                for ($i = 1; $i <= 5; ++$i) {
                     //$category = $this->getReference('category-' . $this->faker()->numberBetween(1, 8));
                     //$tag = $this->getReference('tag-' . $this->faker()->numberBetween(1, 8));
                     //$user = $this->getReference('user-' . $this->faker()->numberBetween(1, 16));
@@ -80,6 +84,19 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                     copy(
                         sprintf('%s/default.jpg', $this->uploadsDirPost),
                         sprintf('%s/%s', $this->uploadsDirPost, $filename)
+                    );
+
+                    [$cover, $image1, $image2, $image3] = array_map(
+                        function (): string {
+                            $filename = sprintf('%s.png', Uuid::v4());
+                            copy(
+                                sprintf('%s/image.png', $this->uploadsDirPost),
+                                sprintf('%s/%s', $this->uploadsDirPost, $filename)
+                            );
+
+                            return $filename;
+                        },
+                        array_fill(0, 4, ''),
                     );
 
                     shuffle($tags);
@@ -99,13 +116,13 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                         )
                         : null
                     );
-                    $post->setIsOnline($this->faker()->boolean());
+                    $post->setHidden($this->faker()->boolean());
                     */
 
                     $post->setState($states[$index % 4]);
                     if ('published' === $post->getState()) {
                         $post->setPublishedAt(new \DateTimeImmutable());
-                        $post->setIsOnline(true);
+                        $post->setHidden(true);
                         $post->setViews(rand(10, 160));
                     }
                     $post->setCategory($category);
@@ -113,6 +130,38 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                     foreach (array_slice($tags, 0, 2) as $tag) {
                         $post->getTags()->add($tag);
                     }
+
+                    $post->setCover($cover);
+                    $post->addMedia(
+                        (new Image())
+                            ->setFilename($image1)
+                            ->setAlt(sprintf('Post %d', $index))
+                    );
+                    $post->addMedia(
+                        (new Image())
+                            ->setFilename($image2)
+                            ->setAlt(sprintf('Post %d', $index))
+                    );
+                    $post->addMedia(
+                        (new Image())
+                            ->setFilename($image3)
+                            ->setAlt(sprintf('Post %d', $index))
+                    );
+                    $post->addMedia(
+                        (new Video())
+                            ->setUrl('https://www.youtube.com/watch?v=ScMzIvxBSi4')
+                    );
+                    $post->addMedia(
+                        (new Video())
+                            ->setUrl('https://www.dailymotion.com/video/x26p65s')
+                    );
+                    $post->addMedia(
+                        (new Video())
+                            ->setUrl('https://vimeo.com/63655754')
+                    );
+
+                    $reflectionProperty = new \ReflectionProperty(Post::class, 'createdAt');
+                    $reflectionProperty->setValue($post, new \DateTimeImmutable('2023-06-29 00:00:00'));
 
                     $manager->persist($post);
 
@@ -128,6 +177,8 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                         $comment->setIsApproved($this->faker()->randomElement([true, false]));
                         $manager->persist($comment);
                     }*/
+
+                    ++$index;
                 }
             }
         }

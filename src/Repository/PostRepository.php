@@ -53,7 +53,7 @@ class PostRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
-            ->where('p.isOnline = true')
+            ->where('p.hidden = true')
             ->orderBy('p.publishedAt', 'DESC')
         ;
 
@@ -77,7 +77,7 @@ class PostRepository extends ServiceEntityRepository
             ->leftJoin('p.tags', 't')
             //->leftJoin('p.category', 'c')
             ->andWhere('p.publishedAt <= :now')
-            ->andWhere('p.isOnline = true')
+            ->andWhere('p.hidden = true')
             ->orderBy('p.publishedAt', 'DESC')
             ->setParameter('now', new \DateTime())
         ;
@@ -254,5 +254,44 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * Returns number of "Posts" per day
+     * @return void 
+     */
+    public function countByDate()
+    {
+        // $query = $this->createQueryBuilder('p')
+        //     ->select('SUBSTRING(p.publishedAt, 1, 10) as datePosts, COUNT(p) as count')
+        //     ->groupBy('datePosts')
+        // ;
+        // return $query->getQuery()->getResult();
+        $query = $this->getEntityManager()->createQuery("
+            SELECT SUBSTRING(p.publishedAt, 1, 10) as datePosts, COUNT(p) as count FROM App\Entity\Post p GROUP BY datePosts
+        ");
+        return $query->getResult();
+    }
+
+    /**
+     * @return array<array-key, Post>
+     */
+    public function getPostsByPage(int $page, int $maxResults = 10): array
+    {
+        /** @var array<array-key, Post> $posts */
+        $posts = $this->createQueryBuilder('p')
+            ->addSelect('c', 't')
+            ->join('p.category', 'c')
+            ->leftJoin('p.tags', 't')
+            ->orderBy('p.publishedAt', 'DESC')
+            ->andWhere('p.publishedAt <= :now')
+            ->andWhere('p.hidden = true')
+            ->setMaxResults($maxResults)
+            ->setFirstResult(($page - 1) * $maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $posts;
     }
 }

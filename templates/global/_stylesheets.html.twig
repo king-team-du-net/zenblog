@@ -7,21 +7,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@400;500&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap/css/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/select2-bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/jquery.timepicker.css') }}" rel="stylesheet">
 
     <!-- Template Main CSS Files -->
     <link href="{{ asset('assets/css/variables.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+    {{ encore_entry_link_tags('app') }}
+
+    {# i18n lang specific styles #}
+    {#
+    {% if app.request.locale == "fr" %}
+        {{ encore_entry_link_tags('app.fr') }}
+    {% elseif app.request.locale == "ar" %}
+        {{ encore_entry_link_tags('app.ar') }}
+    {% elseif app.request.locale == "es" %}
+        {{ encore_entry_link_tags('app.es') }}
+    {% elseif app.request.locale == "de" %}
+        {{ encore_entry_link_tags('app.de') }}
+    {% elseif app.request.locale == "pt" %}
+        {{ encore_entry_link_tags('app.pt') }}
+    {% endif %}
+    #}
+
+    {# Application theme #}
+    {# {{ encore_entry_link_tags('app.'~getSetting('app_theme')) }} #}
+
+    {% block stylesheets %}{% endblock %}
 
     {# Custom css code added in the app parameters #}
     {% if getSetting('custom_css') != "" and getSetting('custom_css') is not null %}

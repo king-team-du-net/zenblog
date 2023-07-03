@@ -27,5 +27,7 @@ abstract class DataComment
 
     public ?int $parent = 0;
 
+    public ?int $rating = 0;
+
     public ?Comment $entity = null;
 }

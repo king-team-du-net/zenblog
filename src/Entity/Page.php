@@ -18,4 +18,6 @@ class Page
     use HasTitleAndSlugAndAssertTrait;
     use HasContentTrait;
     use HasTimestampTrait;
+
+    public const NUM_ITEMS_PER_PAGE = 10;
 }

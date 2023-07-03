@@ -1,0 +1,196 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.dashboard'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{"current": (pagetitle)}] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <h3 class="h6 fw-bold">{{'label.statistics'|trans}}</h3>
+    <!-- Box Start -->
+    <div class="row dashboard-page">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_users'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.users }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-people fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_posts'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.posts }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-newspaper fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_categories'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.categories }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-list fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_tags'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.tags }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-tags fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_comments'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.comments }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-star fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_contacts'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.contacts }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-envelope fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row g-2 align-items-center">
+                        <div class="col me-2">
+                            <div class="h4 fw-bold text-success mb-1">{{'label.stats_pages'|trans}}</div>
+                            <div class="h5 mb-0 fw-bold text-gray-800">{{ stats.pages }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-file fs-2 text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row dashboard-page">
+        <div class="col-md mb-4">
+            <div class="card border-0 border-left-success shadow h-100 py-2 text-white">
+                <div class="card-header">
+                    <h4 class="fw-bold text-success d-flex justify-content-between align-items-center">
+                        <i class="bi bi-arrow-right text-gray-300"></i>{{'label.stats_best'|trans}}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{'label.stats_post'|trans}}</th>
+                                <th>{{'label.stats_author'|trans}}</th>
+                                <th>{{'label.stats_note'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white">
+                            {#{% for post in bestPosts %}
+                                <tr>
+                                    <td>{{ post.title }}</td>
+                                    <td>
+                                        {% if post.author.avatar is null %}
+                                            <i class="bi bi-person-circle fs-2"></i>
+                                        {% else %}
+                                            <img src="{{ asset('uploads/user/' ~ post.author.avatar) }}" class="user-avatar" alt="{{ post.author.nickname }}">
+                                        {% endif %}
+                                        {{ post.firstName }} {{ post.lastName }}
+                                    </td>
+                                    <td>{{ post.note }}</td>
+                                </tr>
+                            {% endfor %}#}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md mb-4">
+            <div class="card border-0 border-left-warning shadow h-100 py-2 text-white">
+                <div class="card-header">
+                    <h4 class="fw-bold text-warning d-flex justify-content-between align-items-center">
+                        <i class="bi bi-arrow-right text-gray-300"></i>{{'label.stats_worst'|trans}}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-stripped table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{'label.stats_post'|trans}}</th>
+                                <th>{{'label.stats_author'|trans}}</th>
+                                <th>{{'label.stats_note'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white">
+                            {#{% for post in worstPosts %}
+                                <tr>
+                                    <td>{{ post.title }}</td>
+                                    <td>
+                                        {% if post.author.avatar is null %}
+                                            <i class="bi bi-person-circle fs-2"></i>
+                                        {% else %}
+                                            <img src="{{ asset('uploads/user/' ~ post.author.avatar) }}" class="user-avatar" alt="{{ post.author.nickname }}">
+                                        {% endif %}
+                                        {{ post.firstName }} {{ post.lastName }}
+                                    </td>
+                                    <td>{{ post.note }}</td>
+                                </tr>
+                            {% endfor %}#}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- // Box End -->
+{% endblock %}

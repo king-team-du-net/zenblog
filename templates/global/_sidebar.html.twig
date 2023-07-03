@@ -61,44 +61,34 @@
 		</p>
 	</div>
 </div>
-<!-- End Video -->
+<!-- End Total Posts -->
 
 <div class="aside-block">
 	<h3 class="aside-title">{{'sidebar.title_video_post'|trans}}</h3>
 	<div class="video-post">
 		<a href="https://www.youtube.com/watch?v=AiFfDjmd0jU" class="glightbox link-video">
 			<span class="bi-play-fill"></span>
-			<img src="{{ asset('assets/img/post-landscape-5.jpg') }}" alt="" class="img-fluid">
+			<img src="{{ asset('build/img/post-landscape-5.jpg') }}" alt="" class="img-fluid">
 		</a>
 	</div>
 </div>
 <!-- End Video -->
 
-{% if app.request.attributes.get('_route') == 'blog_show' %}
-	<div class="aside-block">
-		<h3 class="aside-title">{{'sidebar.title_share_post'|trans}}</h3>
-		<div class="mt-n3 ms-n3 mb-4 pb-3 pb-lg-0">
-			{% include "widget/shared.html.twig" with { post: post} only %}
-		</div>
-	</div>
-	<!-- End Shareds -->
-{% endif %}
-
 <div class="aside-block">
-	{% if blogCategory()|length > 0 %}
+	{% if widgetCategory()|length > 0 %}
 		<h3 class="aside-title">{{'sidebar.title_categories'|trans}}</h3>
 		<ul class="aside-links list-unstyled">
-			{% include "widget/categories.html.twig" with { category: blogCategory()} only %}
+			{% include "widget/categories.html.twig" with { category: widgetCategory()} only %}
 		</ul>
 	{% endif %}
 </div>
 <!-- End Categories -->
 
 <div class="aside-block">
-	{% if blogTag()|length > 0 %}
+	{% if widgetTag()|length > 0 %}
 		<h3 class="aside-title">{{'sidebar.title_tags'|trans}}</h3>
 		<ul class="aside-tags list-unstyled">
-			{% include "widget/tags.html.twig" with { tag: blogTag()} only %}
+			{% include "widget/tags.html.twig" with { tag: widgetTag()} only %}
 		</ul>
 	{% endif %}
 </div>
@@ -111,3 +101,8 @@
 	</ul>
 </div>
 <!-- End RSS -->
+
+{% if getSetting("newsletter_enabled") == "yes" and getSetting("mailchimp_api_key") and getSetting("mailchimp_list_id") %}
+	{% include "widget/newsletter-box.html.twig" %}
+{% endif %}
+<!-- End Newsletter -->

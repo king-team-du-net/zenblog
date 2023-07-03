@@ -3,7 +3,7 @@
 
 {% if not is_granted('ROLE_USER') %}
     <nav class="nav-item">
-        <a href="{{ path('dashboard_index') }}" class="nav-link {% if routename == "dashboard_administrator_index" or routename == "dashboard_editor_index" or routename == "dashboard_user_index" %}active{% endif %}">
+        <a href="{{ path('dashboard_index') }}" class="nav-link {% if routename == "dashboard_administrator_index" or routename == "dashboard_editor_index" or routename == "dashboard_user_account_settings_index" %}active{% endif %}">
             {% if is_granted("ROLE_USER") %}
                 <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
             {% elseif is_granted("ROLE_ADMINISTRATOR") %}
@@ -24,28 +24,95 @@
             <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
         </a>
     </li>
+
+    <li class="nav-item">
+        <a href="#settings-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
+            <i class="bi bi-sliders2-vertical fs-5"></i> {{ 'menu.settings'|trans}}
+        </a>
+        <ul id="settings-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_administrator_settings_homepage" or routename == "dashboard_administrator_settings_newsletter" or routename == "dashboard_administrator_settings_layout" or routename == "dashboard_administrator_settings_blog" or routename == "dashboard_administrator_settings_mail_server" or routename == "dashboard_administrator_settings_google_recaptcha" or routename == "dashboard_administrator_settings_google_maps" %}show{% endif %}">
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_layout" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_layout') }}">{{ "menu.settings_layout"|trans }}</a>
+            </li>
+            {#
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_homepage" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_homepage') }}">{{ "menu.settings_homepage"|trans }}</a>
+            </li>
+            #}
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_mail_server" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_mail_server') }}">{{ "menu.settings_mail_server"|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_google_recaptcha" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_google_recaptcha') }}">{{ "menu.settings_google_recaptcha"|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_google_maps" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_google_maps') }}">{{ "menu.settings_google_maps"|trans }}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_blog" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_blog') }}">{{'menu.settings_blog'|trans}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if routename == "dashboard_administrator_settings_newsletter" %}active{% endif %}" href="{{ path('dashboard_administrator_settings_newsletter') }}">{{ "menu.settings_newsletter"|trans }}</a>
+            </li>
+            {#
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('PrestaSitemapBundle_section', {'_format': 'xml', 'name': 'default'}) }}" target="_blank">{{ "menu.settings_sitemap"|trans }}</a>
+            </li>
+            #}
+        </ul>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ path('dashboard_administrator_user_index') }}" class="nav-link {% if routename == "dashboard_administrator_user_index" %}active{% endif %}">
+            <i class="bi bi-person-gear fs-5"></i> {{'menu.user_index'|trans}}
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="{{ path('dashboard_administrator_page_index') }}" class="nav-link {% if routename == "dashboard_administrator_page_index" %}active{% endif %}">
+            <i class="bi bi-file fs-5"></i> {{'menu.page_index'|trans}}
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="#blog-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
+            <i class="bi bi-newspaper fs-5"></i> {{'menu.blog'|trans}}
+        </a>
+        <ul id="blog-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_administrator_blog_index" or routename == "dashboard_administrator_blog_add" or routename == "dashboard_administrator_blog_edit" or routename == "dashboard_administrator_blog_category_index" or routename == "dashboard_administrator_blog_category_add" or routename == "dashboard_administrator_blog_category_edit" %}show{% endif %}">
+            <li class="nav-item">
+                <a href="{{ path('dashboard_administrator_blog_index') }}" class="nav-link {% if routename == "dashboard_administrator_blog_index" or routename == "dashboard_administrator_blog_add" or routename == "dashboard_administrator_blog_edit" %}active{% endif %}">
+                    {{'menu.blog_index'|trans}}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('dashboard_administrator_blog_category_index') }}" class="nav-link {% if routename == "dashboard_administrator_blog_category_index" or routename == "dashboard_administrator_blog_category_add" or routename == "dashboard_administrator_blog_category_edit" %}active{% endif %}">
+                    {{'menu.blog_category_index'|trans}}
+                </a>
+            </li>
+        </ul>
+    </li>
+
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
             <i class="bi bi-person-gear fs-5 opacity-60 me-2"></i> {{ 'menu.account'|trans}}
         </a>
-        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
+        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_account_settings_index" or routename == "dashboard_user_account_settings_profile" or routename == "dashboard_user_account_settings_avatar" or routename == "dashboard_user_account_settings_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_index') }}" class="nav-link {% if routename == "dashboard_user_account_settings_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_profile') }}" class="nav-link {% if routename == "dashboard_user_update_profile" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_profile') }}" class="nav-link {% if routename == "dashboard_user_account_settings_profile" %}active{% endif %}">
                     {{ 'menu.user_update_profile'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_avatar') }}" class="nav-link {% if routename == "dashboard_user_update_avatar" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_avatar') }}" class="nav-link {% if routename == "dashboard_user_account_settings_avatar" %}active{% endif %}">
                     {{ 'menu.user_update_avatar'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_password') }}" class="nav-link {% if routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_password') }}" class="nav-link {% if routename == "dashboard_user_account_settings_password" %}active{% endif %}">
                     {{ 'menu.user_update_password'|trans}}
                 </a>
             </li>
@@ -58,33 +125,8 @@
             <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
         </a>
     </li>
-    <li class="nav-item">
-        <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
-        </a>
-        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
-                    {{'menu.user_index'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_profile') }}" class="nav-link {% if routename == "dashboard_user_update_profile" %}active{% endif %}">
-                    {{ 'menu.user_update_profile'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_avatar') }}" class="nav-link {% if routename == "dashboard_user_update_avatar" %}active{% endif %}">
-                    {{ 'menu.user_update_avatar'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_password') }}" class="nav-link {% if routename == "dashboard_user_update_password" %}active{% endif %}">
-                    {{ 'menu.user_update_password'|trans}}
-                </a>
-            </li>
-        </ul>
-    </li>
+
+
 {# Editor role sidebar links #}
 {% elseif is_granted('ROLE_EDITOR') %}
     <li class="nav-item">
@@ -92,33 +134,8 @@
             <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
         </a>
     </li>
-    <li class="nav-item">
-        <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
-        </a>
-        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
-                    {{'menu.user_index'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_profile') }}" class="nav-link {% if routename == "dashboard_user_update_profile" %}active{% endif %}">
-                    {{ 'menu.user_update_profile'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_avatar') }}" class="nav-link {% if routename == "dashboard_user_update_avatar" %}active{% endif %}">
-                    {{ 'menu.user_update_avatar'|trans}}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_password') }}" class="nav-link {% if routename == "dashboard_user_update_password" %}active{% endif %}">
-                    {{ 'menu.user_update_password'|trans}}
-                </a>
-            </li>
-        </ul>
-    </li>
+
+
 {# User role sidebar links #}
 {% elseif is_granted('ROLE_USER') %}
     <li class="nav-item">
@@ -126,28 +143,29 @@
             <i class="bi bi-house fs-5 opacity-60 me-2"></i> {{ 'menu.dashboard_index'|trans}}
         </a>
     </li>
+
     <li class="nav-item">
         <a href="#account-submenu-{{random}}" data-bs-toggle="collapse" data-bs-parent="#dashboard-menu" class="nav-link dropdown-toggle">
-            <i class="bi bi-person-gear"></i> {{ 'menu.account'|trans}}
+            <i class="bi bi-person-gear fs-5 opacity-60 me-2"></i> {{ 'menu.account'|trans}}
         </a>
-        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_index" or routename == "dashboard_user_update_profile" or routename == "dashboard_user_update_avatar" or routename == "dashboard_user_update_password" %}show{% endif %}">
+        <ul id="account-submenu-{{random}}" class="nav flex-column ml-3 collapse {% if routename == "dashboard_user_account_settings_index" or routename == "dashboard_user_account_settings_profile" or routename == "dashboard_user_account_settings_avatar" or routename == "dashboard_user_account_settings_password" %}show{% endif %}">
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_index') }}" class="nav-link {% if routename == "dashboard_user_index" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_index') }}" class="nav-link {% if routename == "dashboard_user_account_settings_index" %}active{% endif %}">
                     {{'menu.user_index'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_profile') }}" class="nav-link {% if routename == "dashboard_user_update_profile" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_profile') }}" class="nav-link {% if routename == "dashboard_user_account_settings_profile" %}active{% endif %}">
                     {{ 'menu.user_update_profile'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_avatar') }}" class="nav-link {% if routename == "dashboard_user_update_avatar" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_avatar') }}" class="nav-link {% if routename == "dashboard_user_account_settings_avatar" %}active{% endif %}">
                     {{ 'menu.user_update_avatar'|trans}}
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ path('dashboard_user_update_password') }}" class="nav-link {% if routename == "dashboard_user_update_password" %}active{% endif %}">
+                <a href="{{ path('dashboard_user_account_settings_password') }}" class="nav-link {% if routename == "dashboard_user_account_settings_password" %}active{% endif %}">
                     {{ 'menu.user_update_password'|trans}}
                 </a>
             </li>

@@ -3,7 +3,12 @@
 {% set pagetitle = 'title.about'|trans %}
 {% block title pagetitle %}
 
-{% block body %}
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
 	<section>
 		<div class="container" data-aos="fade-up">
 			<div class="row">

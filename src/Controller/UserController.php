@@ -18,15 +18,11 @@ final class UserController extends Controller
         name: 'dashboard_user_show',
         methods: [Request::METHOD_GET]
     )]
-    public function profilUser(
-        User $user,
-        CommentRepository $commentRepository
-    ): Response {
-        $lastComments = $commentRepository->findLastByUser($user, 4);
-
+    public function profilUser(User $user, CommentRepository $commentRepository): Response
+    {
         return $this->render('user/profil.html.twig', [
             'user' => $user,
-            'last_comments' => $lastComments,
+            'last_comments' => $commentRepository->findLastByUser($user, 4),
         ]);
     }
 }

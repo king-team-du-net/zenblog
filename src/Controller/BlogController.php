@@ -33,7 +33,7 @@ class BlogController extends AbstractController
     #[Route('/page/{page<[1-9]\d{0,8}>}', name: 'blog_index_paginated', defaults: ['_format' => 'html'], methods: [Request::METHOD_GET])]
     #[Cache(smaxage: 10)]
     public function blogIndex(
-        Request $request, 
+        Request $request,
         int $page, 
         string $_format, 
         PostRepository $postRepository,
@@ -42,7 +42,7 @@ class BlogController extends AbstractController
     ): Response {
         $tag = null;
         if ($request->query->has('tag')) {
-            $tag = $tagRepository->findOneBy(['name' => $request->query->get('tag')]);
+            $tag = $tagRepository->findOneBy(['slug' => $request->query->get('tag')]);
         }
 
         $posts = $postRepository->findAllPost($page, $tag);
@@ -181,10 +181,11 @@ class BlogController extends AbstractController
         $totalPosts = $postRepository->count([]);
         $latestPosts = $postRepository->findBy([], ['publishedAt' => 'DESC'], $maxResults);
         $mostCommentedPosts = $postRepository->findMostCommented($maxResults);
+        $postTags= $postRepository->findBy([], ['createdAt' => 'DESC'], $maxResults);
 
         return $this->render(
             'global/_sidebar.html.twig',
-            compact('totalPosts', 'latestPosts', 'mostCommentedPosts')
+            compact('totalPosts', 'latestPosts', 'mostCommentedPosts', 'postTags')
         )->setSharedMaxAge(50);
     }
 

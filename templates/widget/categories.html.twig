@@ -1,8 +1,16 @@
-{% for category in blogCategory() %}
+{% for category in widgetCategory() %}
     <li>
         <a href="{{ path('category_show', {slug: category.slug}) }}">
-            <i class="bi bi-chevron-right"></i>
+            {% if app.request.locale != 'ar' %}
+                <i class="bi bi-chevron-right"></i>
+            {% endif %}
             {{ category.name }}
+            {% if app.request.locale == 'ar' %}
+                <i class="bi bi-chevron-left"></i>
+            {% endif %}
+            <span class="float-end form-check-label">
+                <span class="badge bg-primary">{{ category.posts|length }}</span>
+            </span>
         </a>
     </li>
 {% endfor %}

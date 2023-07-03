@@ -9,7 +9,6 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\UserRepository;
-use App\Entity\Traits\HasProfileTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
@@ -43,6 +42,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     final public const ADMIN = 'ROLE_ADMIN';
     final public const EDITOR = 'ROLE_EDITOR';
 
+    public const NUM_ITEMS_PER_PAGE = 10;
+
     #[ORM\Column(type: Types::STRING, nullable: true)]
     #[Groups(['comment:read'])]
     private ?string $avatar = null;
@@ -57,7 +58,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         Assert\Length(min: 4, max: 30)
     ]
     #[ORM\Column(type: Types::STRING, length: 30, unique: true)]
+    #[Groups(['post:read', 'comment:read'])]
     private string $nickname = '';
+
+    #[ORM\Column(length: 30, unique: true)]
+    #[Gedmo\Slug(fields: ['nickname'], unique: true, updatable: true)]
+    private ?string $slug = null;
 
     #[Assert\Length(min: 2, max: 20)]
     #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
@@ -103,11 +109,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Collection $posts;
 
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: "users")]
+    private Collection $userRoles;
+
     public function __construct()
     {
         $this->is_verified = false;
         $this->registrationTokenLifeTime = (new \DateTime('now'))->add(new \DateInterval('P1D'));
         $this->posts = new ArrayCollection();
+        $this->userRoles = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -180,6 +190,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         return $this;
     }
 
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -237,6 +259,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
         return array_unique($roles);
     }
+
+    /*
+    public function getRoles()
+    {
+        $roles = $this->userRoles->map(function($role) {
+            return $role->getName();
+        })->toArray();
+        // guarantee every user at least has ROLE_USER
+        $roles[] = User::DEFAULT;
+
+        return array_unique($roles);
+    }
+    */
 
     public function setRoles(array $roles): static
     {
@@ -362,6 +397,34 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
             if ($post->getAuthor() === $this) {
                 $post->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Role>
+     */
+    public function getUserRoles(): Collection
+    {
+        return $this->userRoles;
+    }
+
+    public function addUserRole(Role $userRole): static
+    {
+        if (!$this->userRoles->contains($userRole)) {
+            $this->userRoles->add($userRole);
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): static
+    {
+        if ($this->userRoles->contains($userRole)) {
+            $this->userRoles->removeElement($userRole);
+            $userRole->removeUser($this);
         }
 
         return $this;

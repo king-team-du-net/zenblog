@@ -1,0 +1,479 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <i class="fas fa-file-alt fa-fw text-muted"></i>  {{ "label.account_info"|trans }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="30%">{{ "label.user_role"|trans }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {% if role == "ROLE_ADMINISTRATOR" %}
+                                    {% set name = "role.super_administrator"|trans %}
+                                    {% set color = "dark" %}
+                                {% elseif role == "ROLE_ADMIN" %}
+                                    {% set name = "role.administrator"|trans %}
+                                    {% set color = "danger" %}
+                                {% elseif role == "ROLE_EDITOR" %}
+                                    {% set name = "role.editor"|trans %}
+                                    {% set color = "warning" %}
+                                {% else %}
+                                    {% set name = "role.user"|trans %}
+                                    {% set color = "success" %}
+                                {% endif %}
+                                <span class="badge bg-{{ color }}">{{ name }}</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">{{ "label.status"|trans }}</td>
+                        <td>
+                            {% if user.isIsVerified %}
+                                <span class="badge bg-success"><i class="bi bi-person-check"></i> {{ "action.enabled"|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-danger"><i class="bi bi-person-slash"></i> {{ "action.disabled"|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {#
+                    {% if user.gender %}
+                        <tr>
+                            <td width="30%">{{ "Gender"|trans }}</td>
+                            <td>
+                                {{ user.gender }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    #}
+                    {% if user.firstname %}
+                        <tr>
+                            <td width="30%">{{ "label.firstname"|trans }}</td>
+                            <td>
+                                {{ user.firstname }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if user.lastname %}
+                        <tr>
+                            <td width="30%">{{ "label.lastname"|trans }}</td>
+                            <td>
+                                {{ user.lastname }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td width="30%">{{ "label.email"|trans }}</td>
+                        <td>
+                            {{ user.email }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">{{ "label.username"|trans }}</td>
+                        <td>
+                            {{ user.nickname }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">{{ "registration_date"|trans }}</td>
+                        <td>
+                            {{ user.createdAt|ago }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">{{ "user_update_date"|trans }}</td>
+                        <td>
+                            {{ user.updatedAt|ago }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="30%">{{ "label.last_login"|trans }}</td>
+                        <td>
+                            {{ user.lastLogin|ago }}
+                        </td>
+                    </tr>
+                    {#
+                    {% if user.phone %}
+                        <tr>
+                            <td width="30%">{{ "Phone number"|trans }}</td>
+                            <td>
+                                {{ user.phone }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    #}
+                    {% if user.avatar is null %}
+                        <tr>
+                            <td width="30%">{{ "label.user_avatar"|trans }}</td>
+                            <td>
+                                <i class="bi bi-person-circle fs-2 img-thumbnail img-50-50"></i>>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td width="30%">{{ "label.user_avatar"|trans }}</td>
+                            <td>
+                                <img src="{{ asset('uploads/user/' ~ user.avatar) }}" class="img-thumbnail img-50-50" alt="{{ user.nickname }}">
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {#
+                    {% if user.facebookId %}
+                        <tr>
+                            <td width="30%">{{ "Registered using Facebook"|trans }} <i class="fab fa-facebook-f fa-sm btn-facebook ml-2 p-2"></i></td>
+                            <td>
+                                Facebook Id: {{ user.facebookId }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if user.googleId %}
+                        <tr>
+                            <td width="30%">{{ "Registered using Google"|trans }} <i class="fab fa-google fa-sm btn-youtube ml-2 p-2"></i></td>
+                            <td>
+                                Google Id: {{ user.googleId }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if user.facebookProfilePicture %}
+                        <tr>
+                            <td width="30%">{{ "Facebook profile picture"|trans }}</td>
+                            <td>
+                                <a class="fancybox" href="{{ user.facebookProfilePicture }}" data-toggle="tooltip" title="{{ "Enlarge"|trans }}">
+                                    <img src="{{ user.facebookProfilePicture }}" class="img-thumbnail img-50-50" />
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if user.birthdate %}
+                        <tr>
+                            <td width="30%">{{ "Birthdate"|trans }}</td>
+                            <td>
+                                {{ user.birthdate|date(date_format_date_only) }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if user.stringifyAddress %}
+                        <tr>
+                            <td width="30%">{{ "Address"|trans }}</td>
+                            <td>
+                                {{ user.stringifyAddress }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    #}
+                </tbody>
+                </thead>
+            </table>
+        </div>
+    </div>
+    {#
+    {% if user.hasRole('ROLE_ATTENDEE') %}
+        <div class="col-lg-6">
+            <div class="table-responsive">
+                <table class="table table-borderless table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <i class="far fa-user fa-fw text-muted"></i>  {{ "Attendee information"|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">{{ "Cart elements"|trans }}</td>
+                            <td>
+                                {{ user.cartelements|length }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Bought tickets"|trans }}</td>
+                            <td>
+                                {{ user.getOrdersQuantitySum }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Reviews"|trans }}</td>
+                            <td>
+                                {{ user.reviews|length }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Favorites"|trans }}</td>
+                            <td>
+                                {{ user.favorites|length }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Following"|trans }}</td>
+                            <td>
+                                {{ user.following|length }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    {% elseif user.hasRole('ROLE_ORGANIZER') %}
+        <div class="col-lg-6">
+            <div class="table-responsive">
+                <table class="table table-borderless table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <i class="far fa-calendar-plus fa-fw text-muted"></i>  {{ "Organizer information"|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">{{ "Name"|trans }}</td>
+                            <td>
+                                {{ user.organizer.name}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Profile views"|trans }}</td>
+                            <td>
+                                {{ user.organizer.views}}
+                            </td>
+                        </tr>
+                        {% if user.organizer.description %}
+                            <tr>
+                                <td width="30%">{{ "Description"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.description|striptags}}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.country %}
+                            <tr>
+                                <td width="30%">{{ "Country"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.country.name}}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.logoName %}
+                            <tr>
+                                <td width="30%">{{ "Logo"|trans }}</td>
+                                <td>
+                                    <a class="fancybox" href="{{ asset(user.organizer.getLogoPath) }}" data-toggle="tooltip" title="{{ "Enlarge"|trans }}">
+                                        <img src="{{ asset(user.organizer.getLogoPath) }}" class="img-thumbnail img-50-50" />
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.coverName %}
+                            <tr>
+                                <td width="30%">{{ "Cover picture"|trans }}</td>
+                                <td>
+                                    <a class="fancybox" href="{{ asset(user.organizer.getCoverPath) }}" data-toggle="tooltip" title="{{ "Enlarge"|trans }}">
+                                        <img src="{{ asset(user.organizer.getCoverPath) }}" class="img-thumbnail img-50-50" />
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endif %}
+                        <tr>
+                            <td width="30%">{{ "Is featured on the homepage slider?"|trans }}</td>
+                            <td>
+                                {{ user.isorganizeronhomepageslider ? "Yes"|trans : "No"|trans }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Events"|trans }}</td>
+                            <td>
+                                {{ user.organizer.events|length}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Venues"|trans }}</td>
+                            <td>
+                                {{ user.organizer.venues|length}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Scanners"|trans }}</td>
+                            <td>
+                                {{ user.organizer.scanners|length}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Points of sale"|trans }}</td>
+                            <td>
+                                {{ user.organizer.pointofsales|length}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Followed by"|trans }}</td>
+                            <td>
+                                {{ user.organizer.followedby|length}}
+                            </td>
+                        </tr>
+                        {% if user.organizer.categories|length %}
+                            <tr>
+                                <td width="30%">{{ "Main categories"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.displayCategories }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.website %}
+                            <tr>
+                                <td width="30%">{{ "Website"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.website }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.phone %}
+                            <tr>
+                                <td width="30%">{{ "Phone number"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.phone }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.facebook %}
+                            <tr>
+                                <td width="30%">{{ "Facebook"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.facebook }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.twitter %}
+                            <tr>
+                                <td width="30%">{{ "Twitter"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.twitter }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.instagram %}
+                            <tr>
+                                <td width="30%">{{ "Instagram"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.instagram }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.googleplus %}
+                            <tr>
+                                <td width="30%">{{ "Google plus"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.googleplus }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.linkedin %}
+                            <tr>
+                                <td width="30%">{{ "LinkedIn"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.linkedin }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.youtubeurl %}
+                            <tr>
+                                <td width="30%">{{ "Youtube video"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.youtubeurl }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.showvenuesmap %}
+                            <tr>
+                                <td width="30%">{{ "Show venues map"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.showvenuesmap ? "Yes"|trans : "No"|trans }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.showfollowers %}
+                            <tr>
+                                <td width="30%">{{ "Show followers"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.showfollowers ? "Yes"|trans : "No"|trans }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        {% if user.organizer.showreviews %}
+                            <tr>
+                                <td width="30%">{{ "Show reviews"|trans }}</td>
+                                <td>
+                                    {{ user.organizer.showreviews ? "Yes"|trans : "No"|trans }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    {% elseif user.hasRole('ROLE_SCANNER') %}
+        <div class="col-lg-6">
+            <div class="table-responsive">
+                <table class="table table-borderless table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <i class="fas fa-qrcode fa-fw text-muted"></i>  {{ "Scanner information"|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">{{ "Name"|trans }}</td>
+                            <td>
+                                {{ user.scanner.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Assigned events"|trans }}</td>
+                            <td>
+                                {{ user.scanner.eventdates|length }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    {% elseif user.hasRole('ROLE_POINTOFSALE') %}
+        <div class="col-lg-6">
+            <div class="table-responsive">
+                <table class="table table-borderless table-striped table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th colspan="2">
+                                <i class="fas fa-print fa-fw text-muted"></i>  {{ "Point of sale information"|trans }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="30%">{{ "Name"|trans }}</td>
+                            <td>
+                                {{ user.pointofsale.name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="30%">{{ "Assigned events"|trans }}</td>
+                            <td>
+                                {{ user.pointofsale.eventdates|length }}
+                            </td>
+                        </tr>
+                    </tbody>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+    #}
+</div>

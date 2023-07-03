@@ -18,34 +18,58 @@ final class CategoryFixtures extends Fixture
             1 => [
                 'name' => 'Podcasts',
                 'slug' => 'podcasts',
+                'hidden' => true,
+                'numberOfPosts' => 0,
+                'color' => 'success',
             ],
             2 => [
                 'name' => 'Discussions',
                 'slug' => 'discussions',
+                'hidden' => true,
+                'numberOfPosts' => 0,
+                'color' => 'danger',
             ],
             3 => [
                 'name' => 'Astuces',
                 'slug' => 'astuces',
+                'hidden' => true,
+                'numberOfPosts' => 0,
+                'color' => 'primary',
             ],
             4 => [
                 'name' => 'News',
                 'slug' => 'news',
+                'hidden' => true,
+                'numberOfPosts' => 0,
+                'color' => 'secondary',
             ],
             5 => [
                 'name' => 'Challenges',
                 'slug' => 'challenges',
+                'hidden' => false,
+                'numberOfPosts' => 0,
+                'color' => 'dark',
             ],
             6 => [
                 'name' => 'Développement',
                 'slug' => 'developpement',
+                'hidden' => false,
+                'numberOfPosts' => 0,
+                'color' => 'info',
             ],
             7 => [
                 'name' => 'Web Design',
                 'slug' => 'web-design',
+                'hidden' => false,
+                'numberOfPosts' => 0,
+                'color' => 'light',
             ],
             8 => [
                 'name' => 'Text Design',
                 'slug' => 'text-design',
+                'hidden' => false,
+                'numberOfPosts' => 0,
+                'color' => 'default',
             ],
         ];
 
@@ -54,6 +78,8 @@ final class CategoryFixtures extends Fixture
             $category
                 ->setName($value['name'])
                 ->setSlug($value['slug'])
+                ->setHidden($value['hidden'])
+                ->setNumberOfPosts($value['numberOfPosts'])
             ;
             $manager->persist($category);
 

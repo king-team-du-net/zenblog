@@ -26,9 +26,9 @@ final class UserFixtures extends Fixture
     private function createAdministrator(ObjectManager $manager): void
     {
         // User SuperAdmin
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = sprintf('/%s.jpg', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
+            sprintf('%s/default.jpg', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
@@ -39,6 +39,7 @@ final class UserFixtures extends Fixture
             ->setIsVerified(true)
             ->setAvatar($filename)
             ->setNickname('administrator')
+            ->setSlug('administrator')
             ->setEmail('administrator@yourdomain.com')
             ->setLastname('Cameron')
             ->setFirstname('Williamson')
@@ -56,9 +57,9 @@ final class UserFixtures extends Fixture
     private function createAdmin(ObjectManager $manager): void
     {
         // User Admin
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = sprintf('/%s.jpg', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
+            sprintf('%s/default.jpg', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
@@ -69,6 +70,7 @@ final class UserFixtures extends Fixture
             ->setIsVerified(true)
             ->setAvatar($filename)
             ->setNickname('admin')
+            ->setSlug('admin')
             ->setEmail('admin@yourdomain.com')
             ->setLastname('Wade')
             ->setFirstname('Warren')
@@ -86,9 +88,9 @@ final class UserFixtures extends Fixture
     private function createEditor(ObjectManager $manager): void
     {
         // User Editor
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = sprintf('/%s.jpg', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
+            sprintf('%s/default.jpg', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
@@ -99,6 +101,7 @@ final class UserFixtures extends Fixture
             ->setIsVerified(true)
             ->setAvatar($filename)
             ->setNickname('editor')
+            ->setSlug('editor')
             ->setEmail('editor@yourdomain.com')
             ->setLastname('Jane')
             ->setFirstname('Cooper')
@@ -130,9 +133,9 @@ final class UserFixtures extends Fixture
         $genre = $this->faker()->randomElement($genres);
 
         for ($usr = 1; $usr <= 15; ++$usr) {
-            $filename = sprintf('/%s.png', Uuid::v4());
+            $filename = sprintf('/%s.jpg', Uuid::v4());
             copy(
-                sprintf('%s/default.png', $this->uploadsDirUser),
+                sprintf('%s/default.jpg', $this->uploadsDirUser),
                 sprintf('%s/%s', $this->uploadsDirUser, $filename)
             );
 

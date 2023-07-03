@@ -3,8 +3,21 @@
     <head>
         <title>{% block title %}{% endblock %} | {{ getSetting("website_name") }}</title>
         {{ include("global/_meta.html.twig") }}
-        {{ include("global/_stylesheets.html.twig") }}
-        {{ include("global/_javascripts.html.twig") }}
+
+        {{ encore_entry_link_tags('app') }}
+
+        {% block stylesheets %}{% endblock %}
+
+        {# Custom css code added in the app parameters #}
+        {% if getSetting('custom_css') != "" and getSetting('custom_css') is not null %}
+            <style>
+                {{getSetting('custom_css')|raw}}
+            </style>
+        {% endif %}
+
+        {{ encore_entry_script_tags('app') }}
+
+        {% block javascripts %}{% endblock %}
     </head>
 	<body class="
         {% block blog '' %} {% block page '' %} {% block layout 'default' %}" 

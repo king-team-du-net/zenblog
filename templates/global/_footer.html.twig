@@ -26,7 +26,7 @@
 						</li>
 						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 							<li>
-								<a href="{# {{ path('dashboard_index') }} #}">
+								<a href="{{ path('dashboard_index') }}">
 									<i class="bi bi-chevron-right"></i>
 									{% if is_granted("ROLE_ADMINISTRATOR") %}
 										{{'menu.dashboard_index'|trans}}
@@ -62,10 +62,17 @@
 					</ul>
 				</div>
 				<div class="col-6 col-lg-2">
-					{% if blogCategory()|length > 0 %}
+					{% if categoryFooter()|length > 0 %}
 						<h3 class="footer-heading">{{'title.categories'|trans}}</h3>
 						<ul class="footer-links list-unstyled">
-							{% include "widget/categories.html.twig" with { category: blogCategory()} only %}
+							{% for category in categoryFooter() %}
+								<li>
+									<a href="{{ path('category_show', {slug: category.slug}) }}">
+										<i class="bi bi-chevron-right"></i>
+										{{ category.name }}
+									</a>
+								</li>
+							{% endfor %}
 						</ul>
 					{% endif %}
 				</div>
@@ -74,7 +81,7 @@
 					<ul class="footer-links footer-blog-entry list-unstyled">
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('assets/img/post-sq-1.jpg') }}" alt="" class="img-fluid me-3">
+								<img src="{{ asset('build/img/post-sq-1.jpg') }}" alt="" class="img-fluid me-3">
 								<div>
 									<div class="post-meta d-block">
 										<span class="date">Culture</span>
@@ -87,7 +94,7 @@
 						</li>
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('assets/img/post-sq-2.jpg') }}" alt="" class="img-fluid me-3">
+								<img src="{{ asset('build/img/post-sq-2.jpg') }}" alt="" class="img-fluid me-3">
 								<div>
 									<div class="post-meta d-block">
 										<span class="date">Culture</span>
@@ -100,7 +107,7 @@
 						</li>
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('assets/img/post-sq-3.jpg') }}" alt="" class="img-fluid me-3">
+								<img src="{{ asset('build/img/post-sq-3.jpg') }}" alt="" class="img-fluid me-3">
 								<div>
 									<div class="post-meta d-block">
 										<span class="date">Culture</span>
@@ -113,7 +120,7 @@
 						</li>
 						<li>
 							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('assets/img/post-sq-4.jpg') }}" alt="" class="img-fluid me-3">
+								<img src="{{ asset('build/img/post-sq-4.jpg') }}" alt="" class="img-fluid me-3">
 								<div>
 									<div class="post-meta d-block">
 										<span class="date">Culture</span>
@@ -125,6 +132,25 @@
 							</a>
 						</li>
 					</ul>
+				</div>
+				<div class="col-lg-12 footer-links-p">
+					<p class="text-center">
+						{% if getSetting('show_terms_of_service_page') == "yes" %}
+							<a href="{{ path('page', { slug : getSetting('terms_of_service_page_slug') }) }}" class="">{{ "menu.terms_of_service_page"|trans }}</a>
+							<span>|</span>
+						{% endif %}
+						{% if getSetting('show_privacy_policy_page') == "yes" %}
+							<a href="{{ path('page', { slug : getSetting('privacy_policy_page_slug') }) }}" class="">{{ "menu.privacy_policy_page"|trans }}</a>
+							<span>|</span>
+						{% endif %}
+						{% if getSetting('show_cookie_policy_page') == "yes" %}
+							<a href="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" class="">{{ "menu.cookie_policy_page"|trans }}</a>
+							<span>|</span>
+						{% endif %}
+						{% if getSetting('show_gdpr_compliance_page') == "yes" %}
+							<a href="{{ path('page', { slug : getSetting('gdpr_compliance_page_slug') }) }}" class="">{{ "menu.gdpr_compliance_page"|trans }}</a>
+						{% endif %}
+					</p>
 				</div>
 			</div>
 		</div>

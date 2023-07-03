@@ -1,6 +1,6 @@
-{% for tag in blogTag() %}
+{% for tag in widgetTag() %}
     <li>
-        <a href="{{ path('blog_index', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}">
+        <a href="{{ path('blog_index', {'tag': tag.slug == app.request.query.get('tag') ? null : tag.slug}) }}">
             <i class="bi bi-tag"></i>
             {{ tag.name }}
         </a>

@@ -1,0 +1,24 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_mail_server_index'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="card box form border-0 shadow">
+        <div class="card-body">
+            <div class="card-header text-right bg-transparent border-0">
+                <button data-target="{{ path('dashboard_administrator_settings_mail_server_test') }}" class="btn btn-primary send-test-email-button" data-confirmation-text="{{ "action.settings_mail_server_test_confirmation"|trans }}">
+                    <i class="bi bi-envelope-paper"></i> {{ "action.settings_mail_server_test"|trans }}
+                </button>
+            </div>
+            {{ form_start(form, {'attr': {class: 'php-type-form', 'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

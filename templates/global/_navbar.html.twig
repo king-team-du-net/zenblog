@@ -1,22 +1,23 @@
-{% set _route = app.request.get('_route') %}
+{% set routename = app.request.get('_route') %}
+{% set routeparams = app.request.get('_route_params') %}
 
 <a href="{{ path('blog_index') }}" class="logo d-flex align-items-center">
     <h1>{{ getSetting("website_name") }}</h1>
 </a>
 <nav id="navbar" class="navbar"> 
 	<ul>
-		<li class="{{ _route == 'blog_index' ? ' active' : '' }}">
+		<li class="{{ routename == 'blog_index' ? ' active' : '' }}">
 			<a href="{{ path('blog_index') }}">{{'menu.blog'|trans}}</a>
 		</li>
-		{% if blogCategory()|length > 0 %}
+		{% if categoryDropdown()|length > 0 %}
 			<li class="dropdown">
 				<a href="javascript:void;">
 					<span>{{'menu.categories'|trans}}</span>
 					<i class="bi bi-chevron-down dropdown-indicator"></i>
 				</a>
 				<ul>
-					{% for category in blogCategory() %}
-						<li class="{{ _route == 'category_show' ? ' active' : '' }}">
+					{% for category in categoryDropdown() %}
+						<li class="{{ routename == 'category_show' ? ' active' : '' }}">
 							<a href="{{ path('category_show', {slug: category.slug}) }}">
 								{{ category.name }}
 							</a>
@@ -29,11 +30,7 @@
 			<li class="dropdown widget-header">
 				<a href="javascript:void;">
 					<span class="avatar">
-						{% if app.user.avatar is null %}
-							<i class="bi bi-person-circle fs-2"></i>
-						{% else %}
-							<img src="{{ asset('uploads/user/' ~ app.user.avatar) }}" class="user-avatar" alt="{{ app.user.nickname }}">
-						{% endif %}
+						{% include "global/_user-avatar.html.twig" with { user: app.user } only %}
 					</span>
 					<div class="text-wrap ps-2">
 						{#<div class="fs-xs lh-1 opacity-60">{{'menu.hello'|trans}}</div>#}
@@ -56,17 +53,17 @@
 						</a>
 					</li>
 					{#
-					<li class="{{ _route == 'profile_update_profile' ? ' active' : '' }}">
+					<li class="{{ routename == 'profile_update_profile' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_profile') }}">
 							{{ 'menu.user_update_profile'|trans}}
 						</a>
 					</li>
-					<li class="{{ _route == 'profile_update_avatar' ? ' active' : '' }}">
+					<li class="{{ routename == 'profile_update_avatar' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_avatar') }}">
 							{{ 'menu.user_update_avatar'|trans}}
 						</a>
 					</li>
-					<li class="{{ _route == 'profile_update_password' ? ' active' : '' }}">
+					<li class="{{ routename == 'profile_update_password' ? ' active' : '' }}">
 						<a href="{{ path('profile_update_password') }}">
 							{{ 'menu.user_update_password'|trans}}
 						</a>
@@ -88,20 +85,20 @@
 				</ul>
 			</li>
 		{% else %}
-			<li class="{{ _route == 'auth_login' ? ' active' : '' }}">
+			<li class="{{ routename == 'auth_login' ? ' active' : '' }}">
 				<a href="{{ path('auth_login') }}">{{ 'menu.auth'|trans }}</a>
 			</li>
 		{% endif %}
-        <li class="{{ _route == 'about_index' ? ' active' : '' }}">
+        <li class="{{ routename == 'about_index' ? ' active' : '' }}">
 			<a href="{{ path('about_index') }}">{{ 'menu.about'|trans }}</a>
 		</li>
-		<li class="{{ _route == 'contact_index' ? ' active' : '' }}">
+		<li class="{{ routename == 'contact_index' ? ' active' : '' }}">
 			<a href="{{ path('contact_index') }}">{{ 'menu.contact'|trans }}</a>
 		</li>
-		<li class="{{ _route == 'blog_search' ? ' active' : '' }}">
+		<li class="{{ routename == 'blog_search' ? ' active' : '' }}">
 			<a href="{{ path('blog_search') }}">{{ 'menu.search'|trans }}</a>
 		</li>
-        {% if app.request.get('_route') and locales|split('|')|length > 2 %}
+        {% if routename and locales|split('|')|length > 2 %}
             <li class="dropdown">
                 <a href="javascript:void;">
                     <span class="flag flag-{{ app.request.locale|getLangFlag }} me-2"></span>
@@ -112,7 +109,7 @@
                     {% for locale in locales|split('|') %}
                         <li>
                             {% if locale != "" and locale != app.request.locale %}
-                                <a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale' : locale})) }}">
+                                <a href="{{ path(routename, routeparams|merge({'_locale' : locale})) }}">
                                     <span class="flag flag-{{ locale|getLangFlag }} me-2"></span>
                                     {{ locale|getLangName }}
                                 </a>

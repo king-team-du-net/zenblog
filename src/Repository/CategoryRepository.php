@@ -46,7 +46,7 @@ class CategoryRepository extends ServiceEntityRepository
     {
         $data = $this->createQueryBuilder('c')
             ->join('c.posts', 'p')
-            ->where('p.isOnline = true')
+            ->where('p.hidden = true')
             ->groupBy('c.id')
             ->select('c', 'COUNT(c.id) as count')
             ->getQuery()

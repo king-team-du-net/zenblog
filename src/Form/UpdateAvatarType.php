@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Type\DropzoneType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\UX\Dropzone\Form\DropzoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,9 +17,6 @@ final class UpdateAvatarType extends AbstractType
         $builder
             ->add('avatarFile', DropzoneType::class, [
                 'label' => 'label.avatar_file',
-                'attr' => [
-                    'placeholder' => 'placeholder.avatar_file',
-                ],
             ]);
     }
 

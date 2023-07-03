@@ -76,7 +76,7 @@
 						<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 							<div class="thumb">
 								<a href="{{ path('blog_show', { slug: previousPost.slug }) }}">
-									<img class="img-fluid" src="{{ asset('uploads/post/' ~ previousPost.image) }}" alt="">
+									<img class="img-fluid img-100-100" src="{{ asset('uploads/post/' ~ previousPost.image) }}" alt="">
 								</a>
 							</div>
 							<div class="arrow">
@@ -87,7 +87,7 @@
 							<div class="detials">
 								<p>{{ "post.previous_post"|trans }}</p>
 								<a href="{{ path('blog_show', { slug: previousPost.slug }) }}">
-									<h4>{{ previousPost.title }}</h4>
+									<h4>{{ previousPost.title|html_excerpt(22) }}</h4>
 								</a>
 							</div>
 						</div>
@@ -100,7 +100,7 @@
 							<div class="detials">
 								<p>{{ "post.next_post"|trans }}</p>
 								<a href="{{ path('blog_show', { slug: nextPost.slug }) }}">
-									<h4>{{ nextPost.title }}</h4>
+									<h4>{{ nextPost.title|html_excerpt(22) }}</h4>
 								</a>
 							</div>
 							<div class="arrow">
@@ -110,7 +110,7 @@
 							</div>
 							<div class="thumb">
 								<a href="{{ path('blog_show', { slug: nextPost.slug }) }}">
-									<img class="img-fluid" src="{{ asset('uploads/post/' ~ nextPost.image) }}" alt="">
+									<img class="img-fluid img-100-100" src="{{ asset('uploads/post/' ~ nextPost.image) }}" alt="">
 								</a>
 							</div>
 						</div>
@@ -119,25 +119,11 @@
 				</div>
 			</div>
 		</div>
-
-		{#
-		<!-- ======= Previous Post ======= -->
-		{% if previousPost %}
-			<a href="{{ path('blog_show', { slug: previousPost.slug }) }}">{{ "post.previous_post"|trans }}</a>
-		{% endif %}
-		<!-- End Previous Post -->
-
-		<!-- ======= Next Post ======= -->
-		{% if nextPost %}
-			<a href="{{ path('blog_show', { slug: nextPost.slug }) }}">{{ "post.next_post"|trans }}</a>
-		{% endif %}
-		<!-- End Next Post -->
-		#}
 	</div>
 	<!-- End Single Post Content -->
 
 	<!-- ======= Comments ======= -->
-	{% include "comment/comments.html.twig" with { comments: post.comments } only %}
+	{% include "comment/comments.html.twig" with { comments: post.comments } %}
 	<!-- End Comments -->
 
 	<!-- ======= Comments Form ======= -->

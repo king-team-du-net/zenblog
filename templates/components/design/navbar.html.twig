@@ -1,49 +1,15 @@
-<header id="header" class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-        <a href="{{ path('blog_index') }}" class="logo d-flex align-items-center">
+<header class="navbar navbar-expand-lg bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">
             {% block brand %}{% endblock %}
         </a>
-        <nav id="navbar" class="navbar"> 
-            <ul>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
                 {% block nav %}{% endblock %}
-            </ul>
+            </div>
         </nav>
-		<div class="position-relative">
-			{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
-				{% if getSetting("facebook_url") != "" %}
-					<a target="_blank" href="{{ getSetting("facebook_url") }}" class="mx-2">
-						<span class="bi-facebook"></span>
-					</a>
-				{% endif %}
-				{% if getSetting("twitter_url") != "" %}
-					<a target="_blank" href="{{ getSetting("twitter_url") }}" class="mx-2">
-						<span class="bi-twitter"></span>
-					</a>
-				{% endif %}
-				{% if getSetting("instagram_url") != "" %}
-					<a target="_blank" href="{{ getSetting("instagram_url") }}" class="mx-2">
-						<span class="bi-instagram"></span>
-					</a>
-				{% endif %}
-			{% endif %}
-
-			<a href="#" class="mx-2 js-search-open">
-				<span class="bi-search"></span>
-			</a>
-			<i class="bi bi-list mobile-nav-toggle"></i>
-
-			<!-- ======= Search Form ======= -->
-			<div class="search-form-wrap js-search-form-wrap">
-				<form action="{{ path('blog_search') }}" class="search-form">
-					<span class="icon bi-search"></span>
-					<input type="text" placeholder="{{'Search'|trans}}" class="form-control">
-					<button class="btn js-search-close">
-						<span class="bi-x"></span>
-					</button>
-				</form>
-			</div>
-			<!-- End Search Form -->
-
-		</div>
     </div>
 </header>

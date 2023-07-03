@@ -47,6 +47,10 @@ parameters:
     # Upload Post
     uploads_dir_post: '%kernel.project_dir%/public/uploads/post'
 
+    # Delete & Update Post
+    post.delete.by_owner_only: true
+    post.update.by_owner_only: false
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -56,9 +60,16 @@ services:
         public: false
 
         bind:
+            # Upload
             string $uploadsDirUser: '%uploads_dir_user%'
             string $uploadsDirPost: '%uploads_dir_post%'
+
+            # Website email
             string $emailSender: '%website_no_reply_email%'
+
+            # Delete & Update Post
+            #bool $deletePostByOwnerOnly: '%post.delete.by_owner_only%'
+            #bool $updatePostByOwnerOnly: '%post.update.by_owner_only%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -94,6 +105,9 @@ services:
 
         App\Interface\Mailer\Mail\MailInterface:
             tags: [ 'app.mailer.mailInterface' ]
+
+        App\Doctrine\Type\AbstractEnumType:
+            tags: [ 'app.doctrine.enum_type' ]
 
     App\Interface\Mailer\MailSender:
         arguments:

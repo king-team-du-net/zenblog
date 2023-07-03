@@ -1,0 +1,41 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% set sectionClass = 'section-content padding-y bg-white d-flex h-100' %}
+{% set divClass = 'align-self-center' %}
+
+{% set pagetitle = 'title.maintenance'|trans %}
+{% block title pagetitle %}
+
+{% block stylesheets %}
+    <style>
+        footer .footer-top, footer .footer-bottom > div:first-of-type, header.section-header, .header-search-wrapper, .header-actions-wrapper {
+            display :none;
+        }
+        .header-logo-wrapper {
+            margin: 0 auto;
+        }
+        .section-content {
+            min-height: 85vh;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card box">
+                <div class="card-body">
+                    <div class="row d-block text-center">
+                        {% if customMessage %}
+                            <h6>{{ customMessage }}</h6>
+                        {% else %}
+                            <p class="h3">{{ "%websiteName% is undergoing a scheduled maintenance."|trans({"%websiteName%": getSetting('website_name')}) }}</p>
+                            <p></p>
+                            <p class="h3">{{ "maintenance_back"|trans }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

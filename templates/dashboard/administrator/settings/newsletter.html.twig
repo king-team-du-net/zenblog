@@ -1,0 +1,19 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_newsletter_index'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="card box form border-0 shadow">
+        <div class="card-body">
+            {{ form_start(form, {'attr': {class: 'php-type-form', 'novalidate': 'novalidate'}, 'name': 'newsletter_settings'}) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

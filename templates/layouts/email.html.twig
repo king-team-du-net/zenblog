@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>{{ 'Received a new email'|trans({}, 'messages') }} | {{ getSetting("website_name") }}</title>
+        <title>{{ 'title.a_new_email'|trans({}, 'messages') }} | {{ getSetting("website_name") }}</title>
         <style type="text/css">
             img {
                 max-width: 100%;
@@ -71,17 +71,17 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                {{ "Welcome"|trans({}, 'messages') }},
+                                                {{ "mail.welcome"|trans({}, 'messages') }},
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                {{ "You have received a new email"|trans({}, 'messages') }}
+                                                {{ "mail.a_new_email"|trans({}, 'messages') }}
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                {{ "Here are the details"|trans({}, 'messages') }}
+                                                {{ "mail.the_details"|trans({}, 'messages') }}
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
@@ -91,13 +91,13 @@
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                {{ 'This is an automatic email, please do not reply to it.'|trans({}, 'messages') }} <br/>
-                                                {{ 'See you soon on our website'|trans({}, 'messages') }}
+                                                {{ 'mail.not_reply_to_it'|trans({}, 'messages') }} <br/>
+                                                {{ 'mail.see_you_soon'|trans({}, 'messages') }}
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
                                             <td class="content-block" style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
-                                                &mdash; {{ 'Best regards, the %website_name% team'|trans({'%website_name%': getSetting("website_name")}) }}
+                                                &mdash; {{ 'mail.best_regards'|trans({ 'title': getSetting("website_name") }) }}
                                             </td>
                                         </tr>
                                     </table>

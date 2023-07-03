@@ -1,0 +1,57 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_user_index'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{"dashboard_index": ('title.dashboard'|trans), "current": (pagetitle)}] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="box shadow-none bg-gray mb-4">
+        <div class="row">
+            <div class="col-sm-12 col-lg-4 text-center text-lg-start mb-3 mb-lg-0">
+                <span class="center-lg-y text-muted">
+                    {{ 'resultsCount'|trans({ 'count': users.getTotalItemCount }) }}
+                </span>
+            </div>
+            <div class="col-sm-12 col-lg-6 text-center text-lg-end">
+                <label for="sortable-select" class="d-inline">{{ "label.sortable-select"|trans }}
+                    <select id="sortable-select" class="form-control d-inline-block bg-white select2 ms-3" data-placeholder="{{ "label.sortable-select-option"|trans }}" style="width: 50%;">
+                        {#
+                        {{ knp_pagination_sortable(users, "Registration date"|trans ~ ' (' ~ "desc"|trans ~ ')', "u.createdAt", {"direction": "desc", "criteria": "u.createdAt"}) }}
+                        {{ knp_pagination_sortable(users, "Registration date"|trans ~ ' (' ~ "asc"|trans ~ ')', "u.createdAt", {"direction": "asc", "criteria": "u.createdAt"}) }}
+                        {{ knp_pagination_sortable(users, "Last login"|trans ~ ' (' ~ "desc"|trans ~ ')', "u.lastLogin", {"direction": "desc", "criteria": "u.lastLogin"}) }}
+                        {{ knp_pagination_sortable(users, "Last login"|trans ~ ' (' ~ "asc"|trans ~ ')', "u.lastLogin", {"direction": "asc", "criteria": "u.lastLogin"}) }}
+                        #}
+                    </select>
+                </label>
+            </div>
+            <div class="col-sm-12 col-lg-2 text-center text-lg-end">
+                <a href="#search-filters" class="btn btn-primary has-tooltip" data-toggle="collapse" title="{{ "action.search-filters"|trans }}" aria-expanded="false" aria-controls="search-filters"><i class="bi bi-search"></i></a>
+            </div>
+            <div id="search-filters" class="col-sm-12 col-lg-12 text-center mb-3 mb-lg-0 collapse show">
+                <hr>
+                <form>
+                    <div class="row">
+                    
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% if users.getTotalItemCount > 0 %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    {% include "dashboard/administrator/user/manage-users-table.html.twig" with {users: users} %}
+                </div>
+                {{ knp_pagination_render(users, null, {}, {'align': 'center'}) }}
+            </div>
+        </div>
+    {% else %}
+        {% include "global/_message.html.twig" with { type: "info", message: ('user.no_users_found'|trans), icon: "fas fa-exclamation-circle" } %}
+    {% endif %}
+{% endblock %}

@@ -47,6 +47,7 @@ final class TwigSettingExtension extends AbstractExtension
             new TwigFunction('redirectToReferer', [$this, 'redirectToReferer']),
             //new TwigFunction('getAppLayoutSettings', [$this, 'getAppLayoutSettings']),
             new TwigFunction('getRouteName', [$this, 'getRouteName']),
+            new TwigFunction('getPages', [$this, 'getPages']),
         ];
     }
 
@@ -212,7 +213,8 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Redirects to the referer page when available, if not, redirects to the dashboard index
-    public function redirectToReferer($alt = null) {
+    public function redirectToReferer($alt = null): \Symfony\Component\HttpFoundation\RedirectResponse
+    {
         if ($this->requestStack->getCurrentRequest()->headers->get('referer')) {
             return new RedirectResponse($this->requestStack->getCurrentRequest()->headers->get('referer'));
         } else {
@@ -253,5 +255,14 @@ final class TwigSettingExtension extends AbstractExtension
         } catch (\Symfony\Component\Routing\Exception\ResourceNotFoundException $e) {
             return null;
         }
+    }
+
+    // Returns the pages after applying the specified search criterias
+    public function getPages($criterias)
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+
+        return $this->entityManager->getRepository("App\Entity\Page")->getPages($slug);
     }
 }

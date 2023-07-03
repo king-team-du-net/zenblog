@@ -42,14 +42,18 @@ final class PageRepository extends ServiceEntityRepository
         }
     }
 
-    public function getPages(string $slug): QueryBuilder
+    public function getPages($slug): QueryBuilder
     {
-        $qb = $this->createQueryBuilder('p');
-        $qb->select('DISTINCT p');
-        $qb->join('p.title', 'title');
+        $qb = $this->createQueryBuilder('p')
+            ->select('p')
+            //->where('p.title', 'title')
+        ;
 
-        if ('all' !== $slug) {
-            $qb->andWhere('title.slug = :slug')->setParameter('slug', $slug);
+        if ($slug !== "all") {
+            $qb
+                ->andWhere('p.slug = :slug')
+                ->setParameter('slug', $slug)
+            ;
         }
 
         return $qb;

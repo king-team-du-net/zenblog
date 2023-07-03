@@ -7,7 +7,7 @@
     <main id="main">
         {% block breadcrumb %}{% endblock %}
         <section class="section-content padding-y bg-white auth">
-            <div class="container">
+            <div class="{{ getSetting("app_layout") }}">
                 <div class="row">
                     <aside class="col-md-3 pt-3 pt-lg-0">
                         {# {% include "dashboard/sidebar.html.twig" with { user: user } only %} #}

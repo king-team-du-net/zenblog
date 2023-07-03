@@ -1,0 +1,40 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_page_add'|trans %}
+{% if page.id %}{% set pagetitle = 'title.administrator_page_edit'|trans({'id': page.id}) %}{% endif %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans),  "dashboard_administrator_page_index": ('title.administrator_page_index'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="card box form border-0 shadow">
+        <div class="card-body">
+            {# {% include "dashboard/administrator/pages/_form.html.twig" with form %} #}
+            {% if app.request.attributes.get('_route') == 'dashboard_administrator_page_add' %}
+                {{ form_start(form, {attr: {class: 'php-type-form', novalidate: 'novalidate'}}) }}
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.content) }}
+                    <div class="col-md-12 text-start">
+                        <button type="submit" class="btn btn-primary btn-lg mb-3">
+                            <i class="bi bi-save me-2"></i> {{ 'action.create'|trans }}
+                        </button>
+                        {{ form_widget(form.saveAndCreateNew, {label: 'action.save_and_create_new', attr: {class: 'btn btn-primary btn-lg mb-3'}}) }}
+                        <a href="{{ path('dashboard_administrator_page_index') }}" class="btn btn-light btn-lg mb-3">
+                            <i class="bi bi-list me-2"></i> {{ 'action.back_to_list'|trans }}
+                        </a>
+                    </div>
+                {{ form_end(form) }}
+            {% else %}
+                {{ include('dashboard/administrator/pages/_form.html.twig', {
+                    form: form,
+                    button_label: 'action.save'|trans,
+                    include_back_to_list: true,
+                }, with_context = false) }}
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

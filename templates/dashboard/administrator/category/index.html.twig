@@ -1,0 +1,115 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_blog_category_index'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{"dashboard_index": ('title.dashboard'|trans), "current": (pagetitle)}] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="box shadow-none bg-gray mb-4">
+        <div class="row">
+            <div class="col-sm-12 col-lg-2 text-center text-lg-start mb-3 mb-lg-0">
+                <span class="center-lg-y text-center text-muted">
+                    {{ 'resultsCount'|trans({ 'count': categories.getTotalItemCount }) }}
+                </span>
+            </div>
+            <div class="col-sm-12 col-lg-4 text-center mb-3 mb-lg-0">
+                <form>
+                    <ul class="list-inline">
+                        <li class="list-inline-item dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "action.search"|trans }}</a>
+                            <div class="dropdown-menu dropdown-menu-arrow p-3" style="min-width:300px;max-width:500px;">
+                                <label for="keyword">{{ "label.keyword"|trans }}</label>
+                                <input id="keyword" name="keyword" type="text" class="form-control" {# value="{{ app.request.get('keyword') }}" #}> 
+                            </div>
+                        </li>
+                        <li class="list-inline-item ml-3"><button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button></li>
+                    </ul>
+                </form>
+            </div>
+            <div class="col-sm-12 col-lg-6 text-center text-lg-end">
+                <label for="sortable-select" class="d-inline">{{ 'label.sortable-select'|trans }}
+                    <select id="sortable-select" class="form-control d-inline-block bg-white select2 ms-3" data-placeholder="{{ "label.sortable-select-option"|trans }}" style="width: 50%;">
+                        {#
+                        {{ knp_pagination_sortable(categories, "Creation date"|trans ~ ' (' ~ "desc"|trans ~ ')', "c.createdAt", {"direction": "desc", "criteria": "c.createdAt"}) }}
+                        {{ knp_pagination_sortable(categories, "Creation date"|trans ~ ' (' ~ "asc"|trans ~ ')', "c.createdAt", {"direction": "asc", "criteria": "c.createdAt"}) }}
+                        #}
+                    </select>
+                </label>
+                <a href="{{ path('dashboard_administrator_blog_category_add') }}" class="btn btn-primary ms-3" data-bs-toggle="tooltip" title="{{'action.create'|trans}}"><i class="bi bi-plus"></i></a>
+            </div>
+        </div>
+    </div>
+
+    {% if categories.getTotalItemCount > 0 %}
+        <div class="row">
+            <div class="col-12">
+                <div class="card box form border-0 shadow">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-vcenter text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>{{ 'label.name'|trans }}</th>
+                                    <th>{{ 'label.numberOfPosts'|trans }}</th>
+                                    <th>{{ 'label.status'|trans }}</th>
+                                    <th class="text-center"><i class="bi bi-gear"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for category in categories %}
+                                    <tr>
+                                        <td>
+                                            {{ category.name }}
+                                        </td>
+                                        <td>
+                                            {{ category.posts|length }}
+                                        </td>
+                                        <td>
+                                            {% if category.hidden == false %}
+                                                <span class="badge bg-danger bg-opacity-10 text-danger mb-2"><i class="bi bi-eye-slash"></i> {{ "action.hidden"|trans }}</span>
+                                            {% else %}
+                                                <span class="badge bg-success bg-opacity-10 text-success mb-2"><i class="bi bi-eye"></i> {{ "action.visible"|trans }}</span>
+                                                <span>{{ "published"|trans }} {{ category.createdAt|ago }}</span>
+                                            {% endif %}
+                                            {% if category.deletedAt %}
+                                                <br>
+                                                <br>
+                                                <span class="badge bg-danger bg-opacity-10 text-danger mb-2"><i class="bi bi-clock"></i> {{ "action.deletedAt"|trans }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="item-action dropdown">
+                                                <a href="javascript:void(0)" data-bs-toggle="dropdown" data-bs-boundary="window" class="icon"><i class="bi bi-three-dots-vertical"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a href="{{ path('dashboard_administrator_blog_category_edit', { slug : category.slug }) }}" class="dropdown-item"><i class="dropdown-icon bi bi-pen text-muted"></i> {{ 'action.edit'|trans }}</a>
+                                                    {% if category.hidden == false %}
+                                                        <a href="{{ path('dashboard_administrator_blog_category_show', { slug : category.slug }) }}" class="dropdown-item"><i class="dropdown-icon bi bi-eye text-muted"></i> {{ 'action.show'|trans }}</a>
+                                                    {% else %}
+                                                        <a href="{{ path('dashboard_administrator_blog_category_hide', { slug : category.slug }) }}" class="dropdown-item"><i class="dropdown-icon bi bi-eye-slash text-muted"></i> {{ 'action.hide'|trans }}</a>
+                                                    {% endif %}
+                                                    {% if category.deletedAt %}
+                                                        <a href="{{ path('dashboard_administrator_blog_category_restore', { slug : category.slug }) }}" class="dropdown-item"><i class="dropdown-icon bi bi-recycle text-muted"></i> {{ "action.restore"|trans }}</a>
+                                                        <span data-target="{{ path('dashboard_administrator_blog_category_delete', { slug : category.slug }) }}" class="dropdown-item text-danger requires-confirmation" data-confirmation-text="{{ "action.delete_category_confirmation"|trans }}">
+                                                            <i class="dropdown-icon bi bi-trash"></i> {{ "action.deletedAt"|trans }}
+                                                        </span>
+                                                    {% else %}
+                                                        <a href="{{ path('dashboard_administrator_blog_category_disable', { slug : category.slug }) }}" class="dropdown-item"><i class="dropdown-icon bi bi-clock text-muted"></i> {{ "action.disable"|trans }}</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{ knp_pagination_render(categories, null, {}, {'align': 'center'}) }}
+            </div>
+        </div>
+    {% else %}
+        {% include "global/_message.html.twig" with { type: "info", message: ('category.no_categories_found'|trans), icon: "bi bi-exclamation-circle" } %}
+    {% endif %}
+{% endblock %}

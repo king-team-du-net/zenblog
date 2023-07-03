@@ -6,6 +6,11 @@
 {% set pagetitle = 'title.contact'|trans %}
 {% block title pagetitle %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
 {% block content %}
     {% if getSetting("website_contact_email") != "" or getSetting("website_contact_phone") != "" or getSetting("website_contact_fax") != "" or getSetting("website_contact_address") != "" %}
         <div class="row">

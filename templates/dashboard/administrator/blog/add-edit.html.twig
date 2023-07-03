@@ -1,0 +1,18 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.administrator_blog_add'|trans %}
+{% if post.id %}{% set pagetitle = 'title.administrator_blog_edit'|trans %}{% endif %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans),  "dashboard_administrator_blog_index": ('title.administrator_blog_index'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="card box form border-0 shadow">
+        <div class="card-body">
+            {% include "dashboard/administrator/blog/_form.html.twig" with form %}
+        </div>
+    </div>
+{% endblock %}

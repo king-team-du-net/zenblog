@@ -1,8 +1,8 @@
 <{{ tag }} class="dropdown {{ class }}">
-    <{{ toggle }} class="{{ toggleClass }} {#dropdown-toggle#}" href="javascript:void;" {#role="button" data-bs-toggle="dropdown" aria-expanded="false"#}>
+    <{{ toggle }} class="{{ toggleClass }} dropdown-toggle" href="javascript:void;" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {% block toggle %}{% endblock %}
     </{{ toggle }}>
-    <ul class="{#dropdown-menu dropdown-menu-{{ direction }}#}">
+    <ul class="dropdown-menu dropdown-menu-{{ direction }}">
         {% block items %}{% endblock %}
     </ul>
 </{{ tag }}>

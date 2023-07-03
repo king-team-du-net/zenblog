@@ -1,0 +1,6 @@
+{% if app.user and app.user.isVerified == false %}
+    <i class="bi bi-person-slash fs-base text-danger"></i>
+{% else %}
+    <i class="bi bi-person-check fs-base text-success"></i>
+{% endif %}
+

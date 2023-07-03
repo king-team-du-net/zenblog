@@ -1,0 +1,95 @@
+{{ form_start(form, {attr: {class: 'php-type-form', novalidate: 'novalidate'}}) }}
+    {{ form_widget(form._token) }}
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {{ form_row(form.title) }}
+        </div>
+        <div class="col-12 col-md-6">
+            {{ form_row(form.category) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {{ form_row(form.readtime) }}
+        </div>
+        <div class="col-12 col-md-6">
+            {{ form_row(form.publishedAt) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            {{ form_row(form.tags) }}
+        </div>
+    </div>
+    <div class="row align-items-stretch mb-3">
+        <div class="col-12 mb-3 col-lg-12 mb-lg-0">
+            <div class="mb-3 d-flex flex-column h-100">
+                {{ form_row(form.content) }}
+            </div>
+        </div>
+        <div class="col-12 mb-3 col-lg-6 mb-lg-0">
+            <div class="mt-3 d-flex flex-column h-100">
+                {{ form_row(form.excerpt) }}
+            </div>
+        </div>
+        <div class="col-12 mt-3 col-lg-6 mb-lg-0">
+            {{ form_label(form.coverFile) }}
+            <div class="row align-items-stretch">
+                <div class="col-12 mb-3 col-sm-6 mb-sm-0">
+                    <div class="ratio-1x1">
+                        {% if post.cover is not empty %}
+                            <img src="{{ asset('uploads/post/' ~ post.cover) }}" width="100%" class="ratio-1x1 rounded border" alt="{{ post.title }}">
+                        {% else %}
+                            {% component alert with {type: 'info', class: 'mb-0 h-100 d-flex align-items-center text-center'} %}
+                                {% block content %}
+                                    {{ 'message.post_no_covers'|trans }}
+                                {% endblock %}
+                            {% endcomponent %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="ratio-1x1">
+                        {{ form_widget(form.coverFile) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3" data-controller="collection" data-prototype="{{ include('components/image/media.html.twig', {form: form.medias.vars.prototype})|e('html') }}">
+        <div class="mb-1 d-flex justify-content-between align-items-center">
+            {{ form_label(form.medias) }}
+            {% component dropdown with {toggleClass: 'btn btn-sm btn-outline-primary'} %}
+                {% block toggle %}
+                    <span class="bi bi-plus" aria-label="{{ 'action.post_add'|trans }}"></span>
+                {% endblock %}
+
+                {% block items %}
+                    {{ component('dropdown_item', {label: 'action.addImage'|trans, 'data-action': 'collection#addImage'}) }}
+                    {{ component('dropdown_item', {label: 'action.addVideo'|trans, 'data-action': 'collection#addVideo'}) }}
+                {% endblock %}
+            {% endcomponent %}
+        </div>
+        <div data-collection-target="items" class="row align-items-stretch">
+            {% for media in form.medias %}
+                <div class="col-12 col-sm-6 col-lg-4 media">
+                    {% include 'components/image/media.html.twig' with {form: media} %}
+                </div>
+            {% else %}
+                <div class="col-12">
+                    {% component alert with {type: 'info'} %}
+                        {% block content %} {{ 'post.add_medias'|trans }} {% endblock %}
+                    {% endcomponent %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-12 text-start">
+        <button type="submit" class="btn btn-primary btn-lg mb-3">
+            <i class="bi bi-save me-2"></i>
+            {{ 'action.create'|trans }}
+        </button>
+        {{ form_widget(form.saveAndCreateNew, {label: 'action.save_and_create_new', attr: {class: 'btn btn-primary btn-lg mb-3'}}) }}
+    </div>
+{{ form_end(form, {render_rest: false}) }}

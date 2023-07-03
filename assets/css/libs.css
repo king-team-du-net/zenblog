@@ -1,0 +1,33 @@
+/*
+ * ZenBloggy | Multipurpose Bootstrap 5 HTML Template
+ * Copyright 2023 Dequidt Robert
+ * Theme styles
+*/
+
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+/*@import '~bootstrap-icons-font/dist/bootstrap-icons-font.min.css';*/
+@import '~swiper/swiper-bundle.min.css';
+@import '~glightbox/dist/css/glightbox.min.css';
+@import '~aos/dist/aos.css';
+@import '~flatpickr/dist/flatpickr.min.css';
+
+@import "~pace-progressbar/themes/black/pace-theme-minimal.css";
+@import "~fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "../vendor/owlcarousel/assets/owl.carousel.min.css";
+@import "../vendor/owlcarousel/assets/owl.theme.default.min.css";
+@import "../vendor/jssocials/jssocials.css";
+@import "../vendor/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css";
+/* @import "~pnotify/dist/PNotifyBrightTheme.css"; */
+@import "~jquery-confirm/dist/jquery-confirm.min.css";
+@import "~select2/dist/css/select2.css";
+@import "~summernote/dist/summernote-bs5.min.css";
+@import "../vendor/select2/select2-bootstrap4.min.css";
+@import '../vendor/photoswipe/photoswipe.css';
+@import '../vendor/photoswipe/default-skin/default-skin.css';
+@import "~nouislider/dist/nouislider.min.css";
+@import "~@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css";
+@import "~jquery-datetimepicker/build/jquery.datetimepicker.min.css";
+@import "~snazzy-info-window/dist/snazzy-info-window.min.css";
+/* @import "~animate.css/animate.min.css"; */
+@import "../vendor/jquery.cookieBar/jquery.cookieBar.min.css";

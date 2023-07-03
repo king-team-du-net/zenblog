@@ -1,13 +1,13 @@
-{% set breadcrumbs = breadcrumbs is not defined ? [] : breadcrumbs %}
+{#{% set breadcrumbs = breadcrumbs is not defined ? [] : breadcrumbs %}
 <section class="section-pagetop bg-light">
     <div class="{{ getSetting("app_layout") }} clearfix">
-        {% for breadcrumb in breadcrumbs %}
-            <h4 class="title-page text-dark fw-bold float-xl-start mb-0">{{ breadcrumb.label }}</h4>
-            <nav class="float-xl-end mt-2 mt-xl-0">
-                <ol class="breadcrumb text-white">
-                    <li class="breadcrumb-item">
-                        <a href="{{ path('blog_index') }}" class="text-dark"><i class="bi bi-house"></i></a>
-                    </li>
+        <h4 class="title-page text-dark fw-bold float-xl-start mb-0">{{ 'title.dashboard_index'|trans }}</h4>
+        <nav class="float-xl-end mt-2 mt-xl-0">
+            <ol class="breadcrumb text-white">
+                <li class="breadcrumb-item">
+                    <a href="{{ path('blog_index') }}" class="text-dark"><i class="bi bi-house"></i></a>
+                </li>
+                {% for breadcrumb in breadcrumbs %}
                     {% if breadcrumb.routename is defined %}
                         <li class="breadcrumb-item">
                             <a href="{{ path(breadcrumb.routename, breadcrumb.routeParams|default({})) }}" class="text-dark">
@@ -17,8 +17,32 @@
                     {% else %}
                         <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb.label }}</li>
                     {% endif %}
-                </ol>
-            </nav>
-        {% endfor %}
+                {% endfor %}
+            </ol>
+        </nav>
+    </div>
+</section>#}
+
+<section class="section-pagetop bg-light">
+    <div class="{{ getSetting("app_layout") }} clearfix">
+        <h4 class="title-page text-dark fw-bold float-xl-start mb-0">{{ breadcrumb|last['current'] }}</h4>
+        <nav class="float-xl-end mt-2 mt-xl-0">
+            <ol class="breadcrumb text-white">
+                <li class="breadcrumb-item"><a href="{{ path('blog_index') }}" class="text-dark"><i class="bi bi-house"></i></a></li>
+                {% for li in breadcrumb%}
+                    {% for routename, pagetitle in li %}
+                        {% if routename != "current" %}
+                            {% if '/' in routename %}
+                                {% set href = routename %}
+                            {% else %}
+                                {% set href = path(routename) %}
+                            {% endif %}
+                            <li class="breadcrumb-item"><a href="{{ href }}" class="text-dark">{{pagetitle}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb|last['current'] }}</li>
+            </ol>
+        </nav>
     </div>
 </section>

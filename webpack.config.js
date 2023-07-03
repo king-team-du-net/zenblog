@@ -20,7 +20,8 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/app.js')
+    .addEntry('app', './assets/js/app.js')
+    //.addEntry('admin', './assets/js/admin.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -57,10 +58,10 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    // .enableSassLoader()
 
     // enables PostCSS and autoprefixing
-    //.enablePostCssLoader()
+    .enablePostCssLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -74,6 +75,12 @@ Encore
 
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
+    .autoProvidejQuery()
+    .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery'
+    })
 
     // each filename will now include a hash that changes whenever the contents of that file change
     .enableVersioning()
@@ -90,4 +97,10 @@ Encore
     })
 ;
 
-module.exports = Encore.getWebpackConfig();
+const path = require('path');
+
+const config = Encore.getWebpackConfig();
+
+config.resolve.alias.jQuery = path.resolve(__dirname, "node_modules/jquery")
+
+module.exports = config;

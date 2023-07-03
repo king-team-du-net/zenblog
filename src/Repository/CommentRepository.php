@@ -136,4 +136,23 @@ class CommentRepository extends ServiceEntityRepository
 
         return $query;
     }
+
+    /**
+     * @return array<array-key, Comment>
+     */
+    public function getCommentsByPostAndPage(Post $post, int $page, int $maxResults = 5): array
+    {
+        /** @var array<array-key, Comment> $posts */
+        $posts = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+            ->where('c.post = :post')
+            ->setParameter('post', $post)
+            ->setMaxResults($maxResults)
+            ->setFirstResult(($page - 1) * $maxResults)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $posts;
+    }
 }

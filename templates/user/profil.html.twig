@@ -1,0 +1,80 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% set sectionClass = 'section-content padding-y bg-white' %}
+
+{% set pagetitle = 'title.profile_of'|trans({ 'title': user.nickname }) %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{ "current":(pagetitle) }] %}
+	{% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+	<div class="mb-4">
+		{% if user.avatar is null %}
+			<i class="bi bi-person-circle fs-2"></i>
+		{% else %}
+			<img src="{{ asset('uploads/user/' ~ user.avatar) }}" class="rounded-circle mb-2" width="80" alt="{{ user.nickname }}">
+		{% endif %}
+		<p class="mb-1 text-muted d-inline-block">
+			{{ user.nickname }}
+			<br>
+			{% if app.user and app.user.isVerified == false %}
+				<i class="bi bi-person-slash fs-base text-danger"></i>
+			{% else %}
+				<i class="bi bi-person-check fs-base text-success"></i>
+			{% endif %}
+			{{ 'label.registered'|trans }}
+			{{ user.createdAt|ago }}
+		</p>
+	</div>
+	<div class="row justify-content-between align-items-lg-center">
+		<div class="col-lg-12 mb-4 mb-lg-0">
+			<div class="card border-dark box">
+				<div class="card-body">
+					{% if last_comments|length > 0 %}
+						<div class="comments">
+							<h5 class="comment-title mb-4">{{ 'label.last_comments'|trans }}</h5>
+                            {% for c in last_comments %}
+                                <div class="comment d-flex mb-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="avatar avatar-sm rounded-circle">
+                                            {% if c.author.avatar is null %}
+                                                <i class="bi bi-person-circle fs-2"></i>
+                                            {% else %}
+                                                <img class="avatar-img" src="{{ asset('uploads/user/' ~ c.author.avatar) }}" alt="" class="img-fluid">
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                                        <div class="comment-meta d-flex align-items-baseline">
+                                            <h6 class="me-2">{{ c.author.nickname }}</h6>
+                                            <span class="text-muted me-2">{{ c.createdAt|ago }}</span>
+											<span class="text-muted me-2">{{ "comment.label_on"|trans }}</span>
+											<a href="{{ path(c.post) }}#c{{ c.id }}">
+												{{ c.post.title }}
+											</a>
+                                        </div>
+                                        <div class="comment-body">
+                                            {{ c.content|markdown_to_html|sanitize_html }}
+                                        </div>
+                                        <div class="rating-wrap mt-3">
+                                            <div class="label-rating">
+                                                {{ "comment.label_rating"|trans }}:
+                                            </div>
+                                            {% include 'global/_rating.html.twig' with {'rating' : c.rating} %}
+                                            <strong>{{ "comment.nb_rating"|trans|lower }}{% if c.rating > 1 %}s{% endif %}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+						</div>
+					{% else %}
+						{% include "global/_message.html.twig" with { type: "info", message: ('comment.no_comments'|trans), icon: "bi bi-exclamation-circle" } %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

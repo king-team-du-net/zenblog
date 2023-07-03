@@ -1,0 +1,22 @@
+<div class="aside-block box bg-primary">
+    <figure class="itemside mb-4">
+        <div class="aside align-self-center">
+            <span class="icon-wrap icon-sm rounded-pill bg-white">
+                <i class="bi bi-envelope text-primary"></i>
+            </span>
+        </div>
+        <figcaption class="text-wrap">
+            <h5 class="title text-white">{{"sidebar.title_newsletter"|trans}}</h5>
+        </figcaption>
+    </figure>
+    <div class="row">
+        <div class="form-group col mb-0">
+            <input id="newsletter-email" type="email" class="newsletter-email form-control rounded-0 border-0 line-height-1" placeholder="{{ "label.email"|trans }}" required="true">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col mb-0">
+            <button id="newsletter-subscribe" data-target="" type="button" class="btn btn-secondary justify-content-center w-100 rounded-0">{{ "action.newsletter-subscribe"|trans|upper }}</button>
+        </div>
+    </div>
+</div>

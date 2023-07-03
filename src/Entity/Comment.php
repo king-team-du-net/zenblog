@@ -8,13 +8,12 @@ use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasIPTrait;
 use App\Entity\Traits\HasIsRGPDTrait;
 use App\Repository\CommentRepository;
-use App\Entity\Traits\HasContentTrait;
-use App\Entity\Traits\HasTimestampTrait;
+use function Symfony\Component\String\u;
 use App\Entity\Traits\HasIsApprovedTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\Table(name: 'blog_comment')]
@@ -22,7 +21,6 @@ class Comment
 {
     use HasIdTrait;
     use HasIPTrait;
-    //use HasContentTrait;
     //use HasIsRGPDTrait;
     use HasIsApprovedTrait;
 
@@ -44,10 +42,15 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'comment.blank')]
     #[Assert\Length(min: 5, minMessage: 'comment.too_short', max: 10000, maxMessage: 'comment.too_long')]
+    #[Groups(['comment:read'])]
     private string $content = '';
+
+    #[ORM\Column(type: Types::INTEGER)]
+    private int $rating;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
+    #[Groups(['comment:read'])]
     private ?User $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
@@ -68,6 +71,7 @@ class Comment
     private Collection $replies;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['comment:read'])]
     private \DateTimeInterface $createdAt;
 
     public function __construct()
@@ -114,6 +118,18 @@ class Comment
     public function setContent(string $content): Comment
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): static
+    {
+        $this->rating = $rating;
 
         return $this;
     }

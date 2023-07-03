@@ -21,12 +21,12 @@ final class PostVoter extends Voter
     }
 
     /**
-     * @phpstan-param object $subject
+     * @phpstan-param object $post
      */
-    protected function supports(string $attribute, $subject): bool
+    protected function supports(string $attribute, $post): bool
     {
         // this voter is only executed on Post objects and for three specific permissions
-        return $subject instanceof Post && \in_array($attribute, [self::SHOW, self::EDIT, self::DELETE], true);
+        return $post instanceof Post && \in_array($attribute, [self::SHOW, self::EDIT, self::DELETE], true);
     }
 
     /**

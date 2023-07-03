@@ -1,0 +1,48 @@
+{% extends 'layouts/dashboard.html.twig' %}
+
+{% set pagetitle = 'title.user_update_avatar'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ "dashboard_index": ('title.dashboard'|trans),  "dashboard_user_account_settings_index": ('title.user_index'|trans), "current":(pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+        {{ form_start(form, {attr: {class: 'php-type-form'}}) }}
+            <div class="mb-3">
+                <div class="row align-items-stretch">
+                    <div class="col-12 mb-3 col-sm-6 mb-sm-0">
+                        <label for="" class="form-label">{{ 'label.update_avatar'|trans }}</label>
+                        <div class="ratio-1x1">
+                            {% if user.avatar is not null %}
+                                <img src="{{ asset('uploads/user/' ~ user.avatar) }}" width="100%" class="ratio-1x1 rounded border" alt="{{ user.nickname }}">
+                            {% else %}
+                                {% component alert with {type: 'info', class: 'h-100 d-flex align-items-center text-center'} %}
+                                    {% block content %}
+                                        {{ "message.update_avatar"|trans }}
+                                    {% endblock %}
+                                {% endcomponent %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="mb-3">
+                            {{ form_label(form.avatarFile) }}
+                            <div class="ratio-1x1">
+                                {{ form_widget(form.avatarFile) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-column gap-2 align-items-center">
+                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                    <i class="bi bi-pencil me-2"></i>
+                    {{ 'action.edit'|trans }}
+                </button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

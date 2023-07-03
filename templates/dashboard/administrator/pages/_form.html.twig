@@ -1,0 +1,15 @@
+{{ form_start(form, {attr: {class: 'php-type-form', novalidate: 'novalidate'}}) }}
+    {{ form_widget(form) }}
+    <div class="col-md-12 text-start">
+        <button type="submit" class="{{ button_css|default("btn btn-primary btn-lg mb-3") }}">
+            <i class="bi bi-save me-2"></i>
+            {{ button_label|default('action.create'|trans) }}
+        </button>
+
+        {% if include_back_to_list|default(false) %}
+            <a href="{{ path('dashboard_administrator_page_index') }}" class="btn btn-light btn-lg mb-3">
+                <i class="bi bi-list me-2"></i> {{ 'action.back_to_list'|trans }}
+            </a>
+        {% endif %}
+    </div>
+{{ form_end(form) }}

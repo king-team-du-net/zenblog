@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -38,6 +39,17 @@ final class CommentType extends AbstractType
                     'placeholder' => 'placeholder.email',
                 ],
             ])*/
+            ->add('rating', IntegerType::class, [
+                'label' => 'label.comment_rating',
+                'empty_data' => '',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'placeholder.comment_rating',
+                    'min' => 0, 
+                    'max' => 5, 
+                    'step' => 1
+                ],
+            ])
             ->add('content', TextareaType::class, [
                 'label' => 'label.comment_content',
                 'empty_data' => '',

@@ -1,0 +1,5 @@
+*
+!.gitignore
+!backup
+!backup/app.js
+!backup/theme.js

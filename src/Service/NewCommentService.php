@@ -40,6 +40,7 @@ class NewCommentService
             //->setNickname($data->nickname)
             ->setCreatedAt(new \DateTime())
             ->setContent($data->content)
+            ->setRating($data->rating)
             ->setParent($parent)
             //->setTarget($target)
             ->setPost($post)

@@ -9,7 +9,7 @@
 	{% endif %}
 
 	{% for post in pagination.results %}
-		{{ include('blog/partials/_post.html.twig') }}
+		{% include "global/_blog-card.html.twig" with {post: post, showdate: 1} %}
 	{% else %}
 		<h3>{{'post.no_posts_found'|trans}}</h3>
 	{% endfor %}
