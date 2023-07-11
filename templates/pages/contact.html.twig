@@ -1,84 +1,100 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% set sectionId = 'contact' %}
-{% set sectionClass = 'contact mb-5' %}
+{% set sectionClass = 'pt-4' %}
 
 {% set pagetitle = 'title.contact'|trans %}
 {% block title pagetitle %}
 
 {% block breadcrumb %}
-    {% set breadcrumb = [{ "current":(pagetitle) }] %}
-    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+	{% set breadcrumb = [{ "current":(pagetitle) }] %}
+	{% include "global/_breadcrumb.html.twig" with breadcrumb %}
 {% endblock %}
 
 {% block content %}
-    {% if getSetting("website_contact_email") != "" or getSetting("website_contact_phone") != "" or getSetting("website_contact_fax") != "" or getSetting("website_contact_address") != "" %}
-        <div class="row">
-            <div class="col-lg-12 text-center mb-5">
-                <h1 class="page-title">{{pagetitle}}</h1>
-            </div>
-        </div>
-        <div class="row gy-4">
-            {% if getSetting("website_contact_address") != "" %}
-                <div class="col-md-4">
-                    <div class="info-item">
-                        <i class="bi bi-geo-alt"></i>
-                        <h3>{{'title.website_contact_address'|trans}}</h3>
-                        <address>{{ getSetting("website_contact_address")|raw }}</address>
-                    </div>
-                </div>
-            {% endif %}
-            {% if getSetting("website_contact_phone") != "" %}
-                <div class="col-md-4">
-                    <div class="info-item info-item-borders">
-                        <i class="bi bi-phone"></i>
-                        <h3>{{'title.website_contact_phone'|trans}}</h3>
-                        <p>
-                            <a href="tel:{{ getSetting("website_contact_phone") }}">{{ getSetting("website_contact_phone") }}</a>
-                        </p>
-                    </div>
-                </div>
-            {% endif %}
-            {% if getSetting("website_contact_email") != "" %}
-                <div class="col-md-4">
-                    <div class="info-item">
-                        <i class="bi bi-envelope"></i>
-                        <h3>{{'title.website_contact_email'|trans}}</h3>
-                        <p>
-                            <a href="mailto:{{ getSetting("website_contact_email") }}">{{ getSetting("website_contact_email") }}</a>
-                        </p>
-                    </div>
-                </div>
-            {% endif %}
-        </div>
-        {% if getSetting("website_contact_email") %}
-            <div class="form mt-5">
-                {{ form_start(form, {'attr': {'class': 'php-email-form', 'role': 'form'}}) }}
-                    {{ form_errors(form) }}
+
+	{% if getSetting("website_contact_email") != "" or getSetting("website_contact_phone") != "" or getSetting("website_contact_fax") != "" or getSetting("website_contact_address") != "" or getSetting("website_google_iframe") != "" %}
+		<div class="row">
+			<div class="col-xl-9 mx-auto">
+				{% if getSetting("website_google_iframe") != "" %}
+					<iframe class="w-100 h-300 grayscale" src="{{ getSetting("website_google_iframe")|raw }}" height="500" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
+				{% endif %}
+				<div class="row mt-5">
+					{% if getSetting("website_contact_address") != "" %}
+						<div class="col-sm-4 mb-5 mb-sm-0">
+							<i class="fas fa-map-marker-alt fs-4"></i>
+							<h3>{{'label.website_contact_address'|trans}}</h3>
+							<address>{{ getSetting("website_contact_address")|raw }}</address>
+						</div>
+					{% endif %}
+					{% if getSetting("website_contact_phone") != "" %}
+						<div class="col-sm-4">
+							<i class="fas fa-phone fs-4"></i>
+							<h3>{{'label.website_contact_phone'|trans}}</h3>
+							<p>
+								<a class="text-reset" href="tel:{{ getSetting(" website_contact_phone") }}"><u>{{ getSetting("website_contact_phone") }}</u></a>
+							</p>
+						</div>
+					{% endif %}
+					{% if getSetting("website_contact_email") != "" %}
+						<div class="col-sm-4">
+							<i class="fas fa-envelope fs-4"></i>
+							<h3>{{'label.website_contact_email'|trans}}</h3>
+							<p>
+								<a class="text-reset" href="mailto:{{ getSetting(" website_contact_email") }}"><u>{{ getSetting("website_contact_email") }}</u></a>
+							</p>
+						</div>
+					{% endif %}
+				</div>
+
+				<hr class="my-5">
+                
+                {% if getSetting("website_contact_email") %}
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.fullname) }}
+                        <div class="col-12">
+                            <h2>{{pagetitle}}</h2>
+                            <p>{{'label.website_contact_message'|trans}}</p>
+                            <!-- Form START -->
+                            {{ form_start(form, {'attr': {'id': 'contact-form', 'class': 'contact-form', 'name': 'contactform'}}) }}
+                                {{ form_errors(form) }}
+                                <!-- Main form -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- Fullname -->
+                                        <div class="mb-3">
+                                            {{ form_row(form.fullname) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <!-- Email -->
+                                        <div class="mb-3">
+                                            {{ form_row(form.email) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- Subject -->
+                                        <div class="mb-3">
+                                            {{ form_row(form.subject) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- Message -->
+                                        <div class="mb-3">
+                                            {{ form_row(form.message) }}
+                                        </div>
+                                    </div>
+                                    <!-- submit button -->
+                                    <div class="col-md-12 text-start">
+                                        <button class="btn btn-primary w-100" type="submit">{{ 'action.website_contact'|trans }}</button>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                            <!-- Form END -->
                         </div>
-                        <div class="form-group col-md-6">
-                            {{ form_row(form.email) }}
-                        </div>
                     </div>
-                    <div class="form-group">
-                        {{ form_row(form.subject) }}
-                    </div>
-                    <div class="form-group">
-                        {{ form_row(form.message) }}
-                    </div>
-                    <div class="my-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your message has been sent. Thank you!</div>
-                    </div>
-                    <div class="text-center">
-                        <button type="submit">{{ 'action.website_contact'|trans }}</button>
-                    </div>
-                {{ form_end(form) }}
-            </div>
-        {% endif %}
-    {% endif %}
+                {% endif %}
+			</div>
+			<!-- Col END -->
+		</div>
+	{% endif %}
+
 {% endblock %}

@@ -39,14 +39,16 @@ security:
         # - { path: '^/(%locales%)/%website_dashboard_path%/administrator', roles: ROLE_ADMINISTRATOR }
         # - { path: '^/(%locales%)/%website_dashboard_path%/user', roles: ROLE_USER }
 
+
+    # The role_hierarchy part contains the role hierarchy
+    # An editor will also be a user
+    # An admin will also be an editor and therefore a user
     role_hierarchy:
         ROLE_EDITOR:
             - ROLE_USER
         ROLE_ADMIN:
             - ROLE_USER
             - ROLE_EDITOR
-            - ROLE_EASYADMIN_ADMIN
-            - ROLE_EASYADMIN_USER_ADMIN_USER_VIEW
         ROLE_SUPER_ADMIN:
             - ROLE_ADMIN
             - ROLE_ALLOWED_TO_SWITCH

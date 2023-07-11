@@ -11,6 +11,11 @@
 @import '~aos/dist/aos.css';
 @import '~flatpickr/dist/flatpickr.min.css';
 
+@import '../vendor/tiny-slider/tiny-slider.css';
+@import '../vendor/plyr/plyr.css';
+@import '../vendor/apexcharts/css/apexcharts.css';
+@import '../vendor/overlay-scrollbar/css/OverlayScrollbars.min.css';
+
 @import "~pace-progressbar/themes/black/pace-theme-minimal.css";
 @import "~fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css";
 @import "~@fortawesome/fontawesome-free/css/all.min.css";

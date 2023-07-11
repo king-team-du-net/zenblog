@@ -18,34 +18,42 @@ final class TagFixtures extends Fixture
             1 => [
                 'name' => 'Podcasts',
                 'slug' => 'podcasts',
+                'color' => 'success',
             ],
             2 => [
                 'name' => 'Discussions',
                 'slug' => 'discussions',
+                'color' => 'danger',
             ],
             3 => [
                 'name' => 'Astuces',
                 'slug' => 'astuces',
+                'color' => 'primary',
             ],
             4 => [
                 'name' => 'News',
                 'slug' => 'news',
+                'color' => 'info',
             ],
             5 => [
                 'name' => 'Challenges',
                 'slug' => 'challenges',
+                'color' => 'secondary',
             ],
             6 => [
                 'name' => 'Développement',
                 'slug' => 'developpement',
+                'color' => 'info',
             ],
             7 => [
                 'name' => 'Web Design',
                 'slug' => 'web-design',
+                'color' => 'warning',
             ],
             8 => [
                 'name' => 'Text Design',
                 'slug' => 'text-design',
+                'color' => 'primary',
             ],
         ];
 
@@ -54,6 +62,7 @@ final class TagFixtures extends Fixture
             $tag
                 ->setName($value['name'])
                 ->setSlug($value['slug'])
+                ->setColor($value['color'])
             ;
             $manager->persist($tag);
 

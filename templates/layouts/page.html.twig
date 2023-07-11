@@ -3,16 +3,11 @@
 {% block layout %}{{ parent() }} page{% endblock %}
 
 {% block body %}
-    {{ include("global/_header.html.twig") }}
-    <main id="main">
-        {% block breadcrumb %}{% endblock %}
-        <section id="{{ sectionId is defined ? sectionId : '' }}" class="{{ sectionClass is defined ? sectionClass : '' }}">
-            <div class="{{ getSetting("app_layout") }} {{ divClass is defined ? divClass : '' }}" data-aos="fade-up">
-                {{ include("global/_is_granted.html.twig") }}
-                {# {% include "global/_user-isverified.html.twig" with { user: app.user } %} #}
-                {% block content %}{% endblock %}
-            </div>
-        </section>
-    </main>
-    {{ include("global/_footer.html.twig") }}
+
+    <section class="{{ sectionClass is defined ? sectionClass : '' }}">
+        <div class="{{ getSetting("app_layout") }} {{ containerClass is defined ? containerClass : '' }}">
+            {% block content %}{% endblock %}
+        </div>
+    </section>
+
 {% endblock %}

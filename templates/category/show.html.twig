@@ -1,5 +1,18 @@
 {% extends 'layouts/blog.html.twig' %}
 
+{% set containerClass = 'position-relative pt-5' %}
+{% set colLg9Class = 'mb-5' %}
+{% set dataSticky = '767' %}
+
+{% set pagetitle = category.name %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{"current": (pagetitle)}] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
 {% block content %}
+
 
 {% endblock %}

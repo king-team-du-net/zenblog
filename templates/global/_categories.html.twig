@@ -1,0 +1,12 @@
+{% for category in categories %}
+    <li>
+        <a class="dropdown-item{{ routename == 'blog_category_show' ? ' active' : '' }} text-{{ category.color }}" href="{{ path(category) }}">
+            <i class="{{ category.icon }} fa-fw"></i> {{ category.name }}
+        </a>
+    </li>
+{% endfor %}
+<li>
+    <a href="{{ path('blog_category_index') }}" class="dropdown-item">
+        <i class="fas fa-folder-open fa-fw"></i> {{ "menu.all_categories"|trans }}
+    </a>
+</li>

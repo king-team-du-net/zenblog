@@ -1,0 +1,115 @@
+{% set reviewscount = getReviews({"count": true, "post": post.slug}).getQuery().getSingleScalarResult() %}
+{% if post.enablereviews %}
+    <section class="pt-md-5">
+        <div class="container">
+            <div class="mb-2">
+                <h2 class="mb-0">{{ "label.title_rating"|trans }}</h2>
+            </div>
+            <div class="row g-4 justify-content-between">
+                <div class="col-md-4">
+                    <div class="bg-primary p-4 rounded-2 mb-4">
+                        <div class="text-center text-white">
+                            <h2 class="mb-0 text-white">{{ post.getRatingAvg }} {{"rating.out-of-5-stars"|trans|lower}}</h2>
+                            <p class="mb-2">{{ 'rating.num_ratings'|trans({ 'count': reviewscount|length})|raw  }}</p>
+                            <!-- Reviews -->
+                            <div class="text-center text-white rating-wrap d-none d-lg-block">
+                                {{ include('global/_rating-stars.html.twig') }}
+                                <div class="label-rating">{{ reviewscount }} {{"rating.reviews-count"|trans|lower}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 align-items-center">
+                        <div class="col-12">
+                            <h6 class="mb-0">{{ reviewscount }} {{"rating.reviews-count"|trans|lower}}</h6>
+                            <div class="rating-wrap">
+                                {{ include('global/_rating-stars.html.twig') }}
+                                <div class="label-rating">{{ post.getRatingAvg }} {{"rating.out-of-5-stars"|trans|lower}}</div>
+                            </div>
+                        </div>
+                        <div class="col-9 col-sm-10">
+                            <span class="ms-auto h6 fw-light mb-0">{{ "rating.5-stars"|trans }}</span>
+                            <div class="progress progress-sm bg-warning bg-opacity-15">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ post.getRatingsPercentageForRating(5) }}%;" aria-valuenow="{{ post.getRatingsPercentageForRating(5) }}" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2">
+                            <span class="ms-auto h6 fw-light mb-0">{{ post.getRatingsPercentageForRating(5) }}%</span>
+                        </div>
+                        <div class="col-9 col-sm-10">
+                            <span class="ms-auto h6 fw-light mb-0">{{ "rating.4-stars"|trans }}</span>
+                            <div class="progress progress-sm bg-warning bg-opacity-15">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ post.getRatingsPercentageForRating(4) }}%;" aria-valuenow="{{ post.getRatingsPercentageForRating(4) }}" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2">
+                            <span class="ms-auto h6 fw-light mb-0">{{ post.getRatingsPercentageForRating(4) }}%</span>
+                        </div>
+                        <div class="col-9 col-sm-10">
+                            <span class="ms-auto h6 fw-light mb-0">{{ "rating.3-stars"|trans }}</span>
+                            <div class="progress progress-sm bg-warning bg-opacity-15">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ post.getRatingsPercentageForRating(3) }}%;" aria-valuenow="{{ post.getRatingsPercentageForRating(3) }}" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2">
+                            <span class="ms-auto h6 fw-light mb-0">{{ post.getRatingsPercentageForRating(3) }}%</span>
+                        </div>
+                        <div class="col-9 col-sm-10">
+                            <span class="ms-auto h6 fw-light mb-0">{{ "rating.2-stars"|trans }}</span>
+                            <div class="progress progress-sm bg-warning bg-opacity-15">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ post.getRatingsPercentageForRating(2) }}%;" aria-valuenow="{{ post.getRatingsPercentageForRating(2) }}" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2">
+                            <span class="ms-auto h6 fw-light mb-0">{{ post.getRatingsPercentageForRating(2) }}%</span>
+                        </div>
+                        <div class="col-9 col-sm-10">
+                            <span class="ms-auto h6 fw-light mb-0">{{ "rating.1-star"|trans }}</span>
+                            <div class="progress progress-sm bg-warning bg-opacity-15">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ post.getRatingsPercentageForRating(1) }}%;" aria-valuenow="{{ post.getRatingsPercentageForRating(1) }}" aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 col-sm-2">
+                            <span class="ms-auto h6 fw-light mb-0">{{ post.getRatingsPercentageForRating(1) }}%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <hr class="my-4">
+                    {% if reviewscount|length %}
+                        <div class="d-flex" id="reviews">
+                            {% for review in getReviews({"post": post.slug, "limit": 8}).getQuery().getResult() %}
+                                {% include "global/_user-review.html.twig" with { review : review, showuser: 1 } %}
+                            {% endfor %}
+                            {% if reviewscount > 8 %}
+                                <a href="{{ path('post_reviews') }}" class="btn btn-outline-primary mx-auto">
+                                    <i class="far fa-star-half-full"></i> 
+                                    {{ 'reviewsCount'|trans({ 'count': reviewscount }) }}
+                                </a>
+                            {% endif %}
+                        </div>
+                        <hr class="my-4">
+                    {% endif %}
+
+                    <div class="mt-4 text-end">
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            {% if is_granted('ROLE_USER') %}
+                                {% if post.isRatedBy(app.user) %}
+                                    <a href="{{ path('dashboard_attendee_reviews', { slug: post.isRatedBy(app.user).slug }) }}" class="btn btn-primary-soft mb-0"><i class="far fa-star me-2"></i> {{ "action.my_review"|trans }}</a>
+                                {% else %}
+                                    <a href="{{ path('dashboard_attendee_reviews_add', { slug: post.slug }) }}" class="btn btn-primary-soft mb-0"><i class="far fa-star me-2"></i> {{ "action.add_review"|trans }}</a>
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}" class="btn btn-primary-soft mb-0"><i class="far fa-star me-2"></i> {{ "action.add_review"|trans }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

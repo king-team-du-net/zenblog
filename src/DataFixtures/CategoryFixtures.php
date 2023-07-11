@@ -21,6 +21,7 @@ final class CategoryFixtures extends Fixture
                 'hidden' => true,
                 'numberOfPosts' => 0,
                 'color' => 'success',
+                'icon' => 'fas fa-podcast',
             ],
             2 => [
                 'name' => 'Discussions',
@@ -28,6 +29,7 @@ final class CategoryFixtures extends Fixture
                 'hidden' => true,
                 'numberOfPosts' => 0,
                 'color' => 'danger',
+                'icon' => 'fab fa-discourse',
             ],
             3 => [
                 'name' => 'Astuces',
@@ -35,20 +37,23 @@ final class CategoryFixtures extends Fixture
                 'hidden' => true,
                 'numberOfPosts' => 0,
                 'color' => 'primary',
+                'icon' => 'fas fa-exclamation',
             ],
             4 => [
                 'name' => 'News',
                 'slug' => 'news',
                 'hidden' => true,
                 'numberOfPosts' => 0,
-                'color' => 'secondary',
+                'color' => 'info',
+                'icon' => 'fas fa-info',
             ],
             5 => [
                 'name' => 'Challenges',
                 'slug' => 'challenges',
                 'hidden' => false,
                 'numberOfPosts' => 0,
-                'color' => 'dark',
+                'color' => 'secondary',
+                'icon' => 'fas fa-chalkboard',
             ],
             6 => [
                 'name' => 'Développement',
@@ -56,20 +61,23 @@ final class CategoryFixtures extends Fixture
                 'hidden' => false,
                 'numberOfPosts' => 0,
                 'color' => 'info',
+                'icon' => 'fab fa-dev',
             ],
             7 => [
                 'name' => 'Web Design',
                 'slug' => 'web-design',
                 'hidden' => false,
                 'numberOfPosts' => 0,
-                'color' => 'light',
+                'color' => 'warning',
+                'icon' => 'fas fa-image',
             ],
             8 => [
                 'name' => 'Text Design',
                 'slug' => 'text-design',
                 'hidden' => false,
                 'numberOfPosts' => 0,
-                'color' => 'default',
+                'color' => 'primary',
+                'icon' => 'fas fa-keyboard',
             ],
         ];
 
@@ -80,6 +88,7 @@ final class CategoryFixtures extends Fixture
                 ->setSlug($value['slug'])
                 ->setHidden($value['hidden'])
                 ->setNumberOfPosts($value['numberOfPosts'])
+                ->setColor($value['color'])
             ;
             $manager->persist($category);
 

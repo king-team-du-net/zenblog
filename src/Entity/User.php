@@ -14,11 +14,14 @@ use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use function Symfony\Component\String\u;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\HasSocialLoggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Traits\HasLastLoginAndBannedAtTrait;
-use Symfony\Component\Serializer\Annotation\Groups;
-use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Entity\Traits\HasContactAndSocialMediaTrait;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Traits\HasReviewsAndFavoritesUsersTrait;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -34,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 {
     use HasIdTrait;
     use HasLastLoginAndBannedAtTrait;
+    use HasContactAndSocialMediaTrait;
+    use HasSocialLoggableTrait;
+    use HasReviewsAndFavoritesUsersTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
@@ -88,6 +94,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     #[ORM\Column(type: Types::STRING, nullable: true)]
     private ?string $designation = null;
 
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
+    #[Assert\NotNull]
+    private bool $team = false;
+
     #[ORM\Column]
     private array $roles = [User::DEFAULT];
 
@@ -118,6 +128,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         $this->registrationTokenLifeTime = (new \DateTime('now'))->add(new \DateInterval('P1D'));
         $this->posts = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -234,6 +246,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     public function setDesignation(?string $designation): static
     {
         $this->designation = $designation;
+
+        return $this;
+    }
+
+    public function isTeam(): bool
+    {
+        return $this->team;
+    }
+
+    public function getTeam(): bool
+    {
+        return $this->team;
+    }
+
+    public function setTeam(bool $team): static
+    {
+        $this->team = $team;
 
         return $this;
     }

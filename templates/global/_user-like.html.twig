@@ -1,0 +1,12 @@
+{% if app.user %}
+    <a href="{{ path('like_blogpost', {id: post.id}) }}" data-action="like" data-nb={{ post.likes|length }} class="nav-link text-muted fs-sm fw-normal">
+{% endif %}
+    <span class="fs-sm fw-normal p-0 mt-2 me-3">
+        {{ post.likes|length }}
+        <i class="far fa-thumbs-up me-1 fs-lg ms-1 fw-bolder {{ app.user in post.likes ? '' : 'd-none' }}" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ 'I no longer love'|trans }}"></i> 
+        <i class="far fa-thumbs-down ms-1 fs-lg ms-1 {{ app.user in post.likes ? 'd-none' : '' }}" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="{{ "I don't like this content"|trans }}"></i> 
+        {{ 'I like'|trans }}
+    </span>
+{% if app.user %}
+    </a>
+{% endif %}

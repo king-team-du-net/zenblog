@@ -1,0 +1,28 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% block title %}
+	{{ getSetting("website_description_" ~ (app.request.get('_locale') ? app.request.get('_locale') : app.request.defaultLocale)) }}
+{% endblock %}
+{% block page 'home' %}
+
+{% block content %}
+
+    HERO SETTINGS
+
+{% if getSetting('homepage_show_search_box') == "yes" %}
+    SEARCH
+{% endif %}
+
+{% if getSetting('homepage_categories_number') > 0 %}
+    CATEGORIES
+{% endif %}
+
+{% if getSetting('homepage_blogposts_number') > 0 %}
+    POSTS
+{% endif %}
+
+{% if getSetting('homepage_show_call_to_action') == "yes" %}
+    CALL TO ACTION
+{% endif %}
+
+{% endblock %}

@@ -1,42 +1,10 @@
-<header id="header" class="header d-flex align-items-center fixed-top">
-	<div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-		{{ include("global/_navbar.html.twig") }}
-		<div class="position-relative">
-			{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
-				{% if getSetting("facebook_url") != "" %}
-					<a target="_blank" href="{{ getSetting("facebook_url") }}" class="mx-2">
-						<span class="bi-facebook"></span>
-					</a>
-				{% endif %}
-				{% if getSetting("twitter_url") != "" %}
-					<a target="_blank" href="{{ getSetting("twitter_url") }}" class="mx-2">
-						<span class="bi-twitter"></span>
-					</a>
-				{% endif %}
-				{% if getSetting("instagram_url") != "" %}
-					<a target="_blank" href="{{ getSetting("instagram_url") }}" class="mx-2">
-						<span class="bi-instagram"></span>
-					</a>
-				{% endif %}
-			{% endif %}
-
-			<a href="#" class="mx-2 js-search-open">
-				<span class="bi-search"></span>
-			</a>
-			<i class="bi bi-list mobile-nav-toggle"></i>
-
-			<!-- ======= Search Form ======= -->
-			<div class="search-form-wrap js-search-form-wrap">
-				<form action="{{ path('blog_search') }}" class="search-form">
-					<span class="icon bi-search"></span>
-					<input type="text" placeholder="{{'menu.search'|trans}}" class="form-control">
-					<button class="btn js-search-close">
-						<span class="bi-x"></span>
-					</button>
-				</form>
-			</div>
-			<!-- End Search Form -->
-
-		</div>
-	</div>
+{% set routename = app.request.get('_route') %}
+{% set routeparams = app.request.get('_route_params') %}
+<!-- =======================
+Header START -->
+<header id="header" class="navbar-light navbar-sticky header-static">
+	{{ include("global/_navbar-top.html.twig") }}
+	{{ include("global/_navbar.html.twig") }}
 </header>
+<!-- =======================
+Header END -->

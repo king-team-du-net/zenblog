@@ -9,10 +9,12 @@ use App\Form\RegistrationType;
 use App\Form\ResetPasswordType;
 use App\Service\SendMailService;
 use App\Repository\UserRepository;
+use App\Service\JWTManagerService;
 use App\Entity\ResetPasswordRequest;
 use Symfony\Component\Form\FormError;
 use App\Form\ResetPasswordRequestType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Interface\Token\JWTManagerInterface;
 use App\Interface\Auth\RegistrationInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Interface\Auth\ResetPasswordInterface;
@@ -143,5 +145,40 @@ final class SecurityController extends AbstractController
             'form' => $form,
             'user' => $resetPasswordRequest->getUser(),
         ]);
+    }
+
+    #[Route('/renvoiverif', name: 'resend_verif', methods: [Request::METHOD_GET])]
+    public function resendVerif(JWTManagerService $jWTManagerService, JWTManagerInterface $jWTManager): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if (!$user) {
+            $this->addFlash('danger', $this->translator->trans('flash_danger.resend_verif'));
+            return $this->redirectToRoute('auth_login');
+        }
+
+        if ($user->getIsVerified()) {
+            $this->addFlash('warning', $this->translator->trans('flash_warning.resend_verif'));
+            return $this->redirectToRoute('dashboard_user_account_settings_profile');
+        }
+
+        $header = ['typ' => 'JWT', 'alg' => 'HS256'];
+        $payload = ['user_id' => $user->getId()];
+        $token = $jWTManagerService->generate($header, $payload, $this->getParameter('website_jwt_secret'));
+
+        /*
+        // On envoie un mail
+        $this->mail->send(
+            'no-reply@monsite.net',
+            $user->getEmail(),
+            'Activation de votre compte sur le site e-commerce',
+            'register',
+            compact('user', 'token')
+        );
+        $this->addFlash('success', 'Email de vérification envoyé');
+        */
+
+        return $this->redirectToRoute('dashboard_user_account_settings_profile');
     }
 }

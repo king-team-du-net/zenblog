@@ -1,0 +1,5 @@
+{% if post.author.avatar is null %}
+    <i class="bi bi-person-circle fs-4"></i>
+{% else %}
+    <img class="avatar-img rounded-circle" src="{{ asset('uploads/user/' ~ post.author.avatar) }}" alt="avatar">
+{% endif %}

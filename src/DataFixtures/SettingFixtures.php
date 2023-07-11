@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class SettingFixtures extends Fixture
 {
+    use FakerTrait;
+
     public function __construct(private readonly ParameterBagInterface $params)
     {
     }
@@ -21,6 +23,9 @@ final class SettingFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
+        /** @var string $content */
+        $content = $this->faker()->realText(236);
+
         $settings = [
             1 => [
                 'name' => 'website_name',
@@ -68,11 +73,11 @@ final class SettingFixtures extends Fixture
             ],
             12 => [
                 'name' => 'blog_posts_per_page',
-                'value' => '8',
+                'value' => '4',
             ],
             13 => [
                 'name' => 'blog_comments_per_page',
-                'value' => '8',
+                'value' => '4',
             ],
             14 => [
                 'name' => 'custom_css',
@@ -88,7 +93,7 @@ final class SettingFixtures extends Fixture
             ],
             17 => [
                 'name' => 'primary_color',
-                'value' => '#f67611',
+                'value' => '#2163e8;',
             ],
             18 => [
                 'name' => 'facebook_url',
@@ -176,11 +181,7 @@ final class SettingFixtures extends Fixture
             ],
             39 => [
                 'name' => 'footer_about',
-                'value' => '
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, 
-                exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. 
-                Explicabo?',
+                'value' => $content,
             ],
             40 => [
                 'name' => 'show_about_page',
@@ -344,7 +345,11 @@ final class SettingFixtures extends Fixture
             ],
             80 => [
                 'name' => 'website_app_version',
-                'value' => '1.03',
+                'value' => '1.04',
+            ],
+            81 => [
+                'name' => 'website_google_iframe',
+                'value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin',
             ]
         ];
 

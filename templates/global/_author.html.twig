@@ -1,0 +1,57 @@
+<div class="d-flex p-2 p-md-4 my-3 bg-primary bg-opacity-10 rounded">
+    <a href="javascript:void;">
+        <div class="avatar avatar-xxl me-2 me-md-4">
+            {% include "global/_avatar-user-blog.html.twig" with { post: post } only %}
+        </div>
+    </a>
+    <div>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div>
+                <h4 class="m-0">
+                    <a href="javascript:void;" class="text-reset">{{ post.author.nickname }}</a>
+                </h4>
+                {% if post.author.designation %}
+                    <small>{{ post.author.designation }}</small>
+                {% endif %}
+            </div>
+            <a href="javascript:void;" class="btn btn-xs btn-primary-soft">{{'action.view-post'|trans}}</a>
+        </div>
+        {% if post.author.about %}
+            <p class="my-2 readmore" data-collapsed-height="150" data-height-margin="20">{{ post.author.about|raw|nl2br }}</p>
+        {% endif %}
+
+        <!-- Social icons -->
+        {% if post.author.hasContactAndSocialMedia %}
+            <ul class="nav">
+                {% if post.author.facebookurl %}
+                    <li class="nav-item">
+                        <a target="_blank" class="nav-link ps-0 pe-2 fs-5" href="{% if 'http://' not in post.author.facebookurl and 'https://' not in post.author.facebookurl %}http://{% endif %}{{ post.author.facebookurl }}">
+                            <i class="fab fa-facebook-square"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if post.author.twitterurl %}
+                    <li class="nav-item">
+                        <a target="_blank" class="nav-link px-2 fs-5" href="{% if 'http://' not in post.author.twitterurl and 'https://' not in post.author.twitterurl %}http://{% endif %}{{ post.author.twitterurl }}">
+                            <i class="fab fa-twitter-square"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if post.author.youtubeurl %}
+                    <li class="nav-item">
+                        <a target="_blank" class="nav-link px-2 fs-5" href="{% if 'http://' not in post.author.youtubeurl and 'https://' not in post.author.youtubeurl %}http://{% endif %}{{ post.author.youtubeurl }}">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if post.author.instagramurl %}
+                    <li class="nav-item">
+                        <a target="_blank" class="nav-link px-2 fs-5" href="{% if 'http://' not in post.author.instagramurl and 'https://' not in post.author.instagramurl %}http://{% endif %}{{ post.author.instagramurl }}">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+</div>

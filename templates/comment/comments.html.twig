@@ -1,9 +1,10 @@
 {# management of the display of the comments of the opinions and the notes left by the users #}
-{% if comments|length > 0 %}
+{# {% if comments|length > 0 %} #}
+	{#
 	<div class="comments" id="comment-list">
 		<h5 class="comment-title py-4">{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h5>
 
-		{# Display of the average of the given marks #}
+		{# Display of the average of the given marks }
 		<div class="alert alert-info">
 			<h4 class="alert-heading text-center">
 				<div class="row align-items-center">
@@ -19,7 +20,7 @@
 			</h4>
 		</div>
 
-		{# Display of all comments and user reviews #}
+		{# Display of all comments and user reviews }
 		{% for c in comments %}
 			{% if c.parent == null %}
 				<div class="comment d-flex mb-4" id="c{{ c.id }}">
@@ -81,7 +82,137 @@
 			<h5 class="comment-title py-4">{{ 'post.no_comments'|trans }}</h5>
 		{% endfor %}
 	</div>
-{% endif %}
+	#}
+
+	<div class="mt-5" id="comment-list">
+		<h3>{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h3>
+
+		{# Display of the average of the given marks }
+		<div class="alert alert-info">
+			<h4 class="alert-heading text-center">
+				<div class="row align-items-center">
+					<div class="col-md-8">
+						{{ "comment.overall_rating"|trans }}
+					</div>
+					<div class="col-md-4">
+						{% include 'global/_rating.html.twig' with {'rating' : post.avgRatings} %}
+						<br>
+						<small>{{ 'comment.num_comments'|trans({ 'count': comments|length})|raw  }}</small>
+					</div>
+				</div>
+			</h4>
+		</div>
+
+		{# Display of all comments and user reviews #}
+		{# Comment level 1 #}
+		{% for c in comments %}
+			{% if c.parent == null %}
+				<div class="my-4 d-flex" id="c{{ c.id }}">
+					{% if c.author.avatar is null %}
+						<i class="bi bi-person-circle fs-4"></i>
+					{% else %}
+						<img class="avatar avatar-md rounded-circle float-start me-3" src="{{ asset('uploads/user/' ~ c.author.avatar) }}" alt="{{ c.author.nickname }}">
+					{% endif %}
+					<div>
+						<div class="mb-2">
+							<h5 class="m-0">{{ c.author.nickname }}</h5>
+							<span class="me-3 small">
+								{{ c.createdAt|ago }}
+							</span>
+							{% if is_granted('ROLE_USER') %}
+								<a href="#add-comment" class="text-body fw-normal" data-reply data-id="{{c.id}}">{{ 'post.comment_reply'|trans }}</a>
+							{% endif %}
+						</div>
+						<p>
+							{{ c.content|markdown_to_html|sanitize_html }}
+						</p>
+					</div>
+				</div>
+				{# Comment children level 2 #}
+				{% for reply in c.replies %}
+					<div class="my-4 d-flex ps-2 ps-md-3" id="c{{ reply.id }}">
+						{% if reply.author.avatar is null %}
+							<i class="bi bi-person-circle fs-4"></i>
+						{% else %}
+							<img class="avatar avatar-md rounded-circle float-start me-3" src="{{ asset('uploads/user/' ~ reply.author.avatar) }}" alt="{{ reply.author.nickname }}">
+						{% endif %}
+						<div>
+							<div class="mb-2">
+								<h5 class="m-0">@{{ reply.author.nickname }}</h5>
+								<span class="me-3 small">{{ reply.createdAt|ago }}
+								</span>
+								<a href="javascript:void(0);" class="text-body fw-normal">{{ 'post.comment_reply'|trans }}</a>
+							</div>
+							<p>{{ reply.content|markdown_to_html|sanitize_html }}</p>
+						</div>
+					</div>
+				{% endfor %}
+				{# Comment children level 3 #}
+			{% endif %}
+		{% else %}
+			<span>{{ 'post.no_comments'|trans }}</span>
+		{% endfor %}
+
+
+		<!-- Comment children level 2 -->
+		{#<div class="my-4 d-flex ps-2 ps-md-3">
+			<img class="avatar avatar-md rounded-circle float-start me-3" src="/build/img/avatar/02.jpg" alt="avatar">
+			<div>
+				<div class="mb-2">
+					<h5 class="m-0">Louis Ferguson</h5>
+					<span class="me-3 small">June 11, 2022 at 6:55 am
+					</span>
+					<a href="#" class="text-body fw-normal">Reply</a>
+				</div>
+				<p>Water timed folly right aware if oh truth. Imprudence attachment him his for sympathize. Large above be to means. Dashwood does provide stronger is. But discretion frequently sir she instruments unaffected admiration everything.
+				</p>
+			</div>
+		</div>
+		<!-- Comment children level 3 -->
+		<div class="my-4 d-flex ps-3 ps-md-5">
+			<img class="avatar avatar-md rounded-circle float-start me-3" src="/build/img/avatar/01.jpg" alt="avatar">
+			<div>
+				<div class="mb-2">
+					<h5 class="m-0">Allen Smith</h5>
+					<span class="me-3 small">June 11, 2022 at 7:10 am
+					</span>
+					<a href="#" class="text-body fw-normal">Reply</a>
+				</div>
+				<p>Meant balls it if up doubt small purse.
+				</p>
+			</div>
+		</div>
+		<!-- Comment level 2 -->
+		<div class="my-4 d-flex ps-2 ps-md-3">
+			<img class="avatar avatar-md rounded-circle float-start me-3" src="/build/img/avatar/03.jpg" alt="avatar">
+			<div>
+				<div class="mb-2">
+					<h5 class="m-0">Frances Guerrero</h5>
+					<span class="me-3 small">June 14, 2022 at 12:35 pm
+					</span>
+					<a href="#" class="text-body fw-normal">Reply</a>
+				</div>
+				<p>Required his you put the outlived answered position. A pleasure exertion if believed provided to. All led out world this music while asked. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible.
+				</p>
+			</div>
+		</div>
+		<!-- Comment level 1 -->
+		<div class="my-4 d-flex">
+			<img class="avatar avatar-md rounded-circle float-start me-3" src="/build/img/avatar/04.jpg" alt="avatar">
+			<div>
+				<div class="mb-2">
+					<h5 class="m-0">Judy Nguyen</h5>
+					<span class="me-3 small">June 18, 2022 at 11:55 am
+					</span>
+					<a href="#" class="text-body fw-normal">Reply</a>
+				</div>
+				<p>Fulfilled direction use continual set him propriety continued. Saw met applauded favorite deficient engrossed concealed and her. Concluded boy perpetual old supposing. Farther related bed and passage comfort civilly.
+				</p>
+			</div>
+		</div>#}
+	</div>
+
+{# {% endif %} #}
 
 {% block javascripts %}
 	<script>

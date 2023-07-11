@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Controller\Controller;
+use App\Repository\PostRepository;
 use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,11 +19,15 @@ final class UserController extends Controller
         name: 'dashboard_user_show',
         methods: [Request::METHOD_GET]
     )]
-    public function profilUser(User $user, CommentRepository $commentRepository): Response
-    {
+    public function profilUser(
+        User $user, 
+        CommentRepository $commentRepository,
+        PostRepository $postRepository
+    ): Response {
         return $this->render('user/profil.html.twig', [
             'user' => $user,
             'last_comments' => $commentRepository->findLastByUser($user, 4),
+            'last_posts' => $postRepository->findLastByUser($user, 9),
         ]);
     }
 }

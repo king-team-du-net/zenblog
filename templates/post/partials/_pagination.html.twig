@@ -1,0 +1,59 @@
+{% if pagination.hasToPaginate %}
+    <nav class="my-5" aria-label="navigation">
+        <ul class="pagination d-inline-block d-md-flex justify-content-center">
+            {% if pagination.hasPreviousPage %}
+                <li class="page-item">
+                    <a class="page-link" rel="prev" href="{{ path('blog_index_paginated', {page: pagination.previousPage, tag: tagName}) }}">
+                        {% if app.request.locale == 'ar' %}
+                            <i class="fas fa-angle-right"></i> {{ 'paginator.previous'|trans }}
+                        {% else %}
+                            <i class="fas fa-angle-left"></i> {{ 'paginator.previous'|trans }}
+                        {% endif %}
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        {% if app.request.locale == 'ar' %}
+                            <i class="fas fa-angle-right"></i> {{ 'paginator.previous'|trans }}
+                        {% else %}
+                            <i class="fas fa-angle-left"></i> {{ 'paginator.previous'|trans }}
+                        {% endif %}
+                    </span>
+                </li>
+            {% endif %}
+
+            {% for i in 1..pagination.lastPage %}
+                {% if i == pagination.currentPage %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ i }} <span class="sr-only">{{ 'paginator.current'|trans }}</span></span>
+                    </li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ path('blog_index_paginated', {page: i, tag: tagName}) }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+
+            {% if pagination.hasNextPage %}
+                <li class="page-item">
+                    <a class="page-link" rel="next" href="{{ path('blog_index_paginated', {page: pagination.nextPage, tag: tagName}) }}">
+                        {% if app.request.locale == 'ar' %}
+                            {{ 'paginator.next'|trans }} <i class="fas fa-angle-left"></i>
+                        {% else %}
+                            {{ 'paginator.next'|trans }} <i class="fas fa-angle-right"></i>
+                        {% endif %}
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">
+                        {% if app.request.locale == 'ar' %}
+                            {{ 'paginator.next'|trans }} <i class="fas fa-angle-left"></i>
+                        {% else %}
+                            {{ 'paginator.next'|trans }} <i class="fas fa-angle-right"></i>
+                        {% endif %}
+                    </span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

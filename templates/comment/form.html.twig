@@ -1,3 +1,4 @@
+{#
 <div class="row justify-content-center mt-5">
     <div class="col-lg-12">
         <h5 class="comment-title">{{'title.add_comment'|trans}}</h5>
@@ -10,7 +11,7 @@
                 <div class="col-lg-6 mb-3">
                     {{ form_row(commentForm.email) }}
                 </div>
-            #}
+            }
             <div class="col-12 mb-3">
                 {{ form_row(commentForm.rating) }}
             </div>
@@ -23,3 +24,38 @@
         {{ form_end(commentForm) }}
     </div>
 </div>
+#}
+
+<div>
+    <h3>{{'title.add_comment'|trans}}</h3>
+    <small>{{ 'message.add_comment'|trans }}</small>
+    {{ form_start(commentForm, {method: 'POST', action: path('blog_comment_create', {'slug': post.slug}), attr: {class: 'row g-3 mt-2'}}) }}
+        {{ form_errors(commentForm) }}
+        {#
+            <div class="col-lg-6">
+                {{ form_row(commentForm.nickname) }}
+            </div>
+            <div class="col-lg-6">
+                {{ form_row(commentForm.email) }}
+            </div>
+        #}
+        <div class="col-12">
+            {{ form_row(commentForm.rating) }}
+        </div>
+        <!-- custom checkbox -->
+        <div class="col-md-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">Save my name and email in this browser for the next time I comment.
+                </label>
+            </div>
+        </div>
+        <div class="col-12">
+            {{ form_row(commentForm.content) }}
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">{{ 'action.publish_comment'|trans }}</button>
+        </div>
+    {{ form_end(commentForm) }}
+</div>
+

@@ -5,6 +5,7 @@ namespace App\Twig;
 use App\Entity\User;
 use Twig\TwigFunction;
 use App\Entity\Setting;
+use Doctrine\ORM\QueryBuilder;
 use App\Repository\SettingRepository;
 use Psr\Cache\CacheItemPoolInterface;
 use Twig\Extension\AbstractExtension;
@@ -48,11 +49,15 @@ final class TwigSettingExtension extends AbstractExtension
             //new TwigFunction('getAppLayoutSettings', [$this, 'getAppLayoutSettings']),
             new TwigFunction('getRouteName', [$this, 'getRouteName']),
             new TwigFunction('getPages', [$this, 'getPages']),
+            new TwigFunction('getReviews', [$this, 'getReviews']),
+            new TwigFunction('getPostCategories', [$this, 'getPostCategories']),
+            new TwigFunction('getPosts', [$this, 'getPosts']),
+            new TwigFunction('getUsers', [$this, 'getUsers']),
         ];
     }
 
     // Gets a setting from the cache / db
-    public function getSetting(string $name)
+    public function getSetting($name)
     {
         $settingcache = $this->cache->getItem('settings_' . $name);
 
@@ -74,7 +79,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Sets a setting from the cache / db
-    public function setSetting(string $name, string $value): int
+    public function setSetting($name, $value): int
     {
         /** @var Setting $setting */
         $setting = $this->entityManager->getRepository(Setting::class)->findOneByKey($name);
@@ -97,7 +102,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Updates the .env name with the choosen value
-    public function updateEnv(string $name, string $value): void
+    function updateEnv($name, $value): void
     {
         if (0 == strlen($name)) {
             return;
@@ -122,7 +127,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Gets the value with the entered name from the .env file
-    public function getEnv(string $name)
+    function getEnv($name)
     {
         if (0 == strlen($name)) {
             return;
@@ -258,11 +263,86 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Returns the pages after applying the specified search criterias
-    public function getPages($criterias)
+    public function getPages($criterias): QueryBuilder
     {
         $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
         $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
 
         return $this->entityManager->getRepository("App\Entity\Page")->getPages($slug);
+    }
+
+    // Returns the reviews after applying the specified search criterias
+    public function getReviews($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $keyword = array_key_exists('keyword', $criterias) ? $criterias['keyword'] : "all";
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+        $user = array_key_exists('user', $criterias) ? $criterias['user'] : "all";
+        $post = array_key_exists('post', $criterias) ? $criterias['post'] : "all";
+        $visible = array_key_exists('visible', $criterias) ? $criterias['visible'] : true;
+        $rating = array_key_exists('rating', $criterias) ? $criterias['rating'] : "all";
+        $minrating = array_key_exists('minrating', $criterias) ? $criterias['minrating'] : "all";
+        $maxrating = array_key_exists('maxrating', $criterias) ? $criterias['maxrating'] : "all";
+        $limit = array_key_exists('limit', $criterias) ? $criterias['limit'] : "all";
+        $count = array_key_exists('count', $criterias) ? $criterias['count'] : false;
+        $sort = array_key_exists('sort', $criterias) ? $criterias['sort'] : "createdAt";
+        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "DESC";
+
+        return $this->entityManager->getRepository("App\Entity\Review")->getReviews($keyword, $slug, $user, $post, $visible, $rating, $minrating, $maxrating, $limit, $count, $sort, $order);
+    }
+
+    // Returns the blog posts categories after applying the specified search criterias
+    public function getPostCategories($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $hidden = array_key_exists('hidden', $criterias) ? $criterias['hidden'] : false;
+        $keyword = array_key_exists('keyword', $criterias) ? $criterias['keyword'] : "all";
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+        $limit = array_key_exists('limit', $criterias) ? $criterias['limit'] : "all";
+        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "translations.name";
+        $sort = array_key_exists('sort', $criterias) ? $criterias['sort'] : "ASC";
+
+        return $this->entityManager->getRepository("App\Entity\Category")->getPostCategories($hidden, $keyword, $slug, $limit, $order, $sort);
+    }
+
+    // Returns the blog posts after applying the specified search criterias
+    public function getPosts($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $state = array_key_exists('state', $criterias) ? $criterias['state'] : "all";
+        $selecttags = array_key_exists('selecttags', $criterias) ? $criterias['selecttags'] : false;
+        $hidden = array_key_exists('hidden', $criterias) ? $criterias['hidden'] : true;
+        $keyword = array_key_exists('keyword', $criterias) ? $criterias['keyword'] : "all";
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+        $category = array_key_exists('category', $criterias) ? $criterias['category'] : "all";
+        $limit = array_key_exists('limit', $criterias) ? $criterias['limit'] : "all";
+        $otherthan = array_key_exists('otherthan', $criterias) ? $criterias['otherthan'] : "all";
+        $sort = array_key_exists('order', $criterias) ? $criterias['order'] : "publishedAt";
+        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "DESC";
+
+        return $this->entityManager->getRepository("App\Entity\Post")->getPosts($state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan);
+    }
+
+    // Returns the users after applying the specified search criterias
+    public function getUsers($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $roles = array_key_exists('roles', $criterias) ? $criterias['roles'] : "all";
+        $keyword = array_key_exists('keyword', $criterias) ? $criterias['keyword'] : "all";
+        $nickname = array_key_exists('nickname', $criterias) ? $criterias['nickname'] : "all";
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+        $email = array_key_exists('email', $criterias) ? $criterias['email'] : "all";
+        $firstname = array_key_exists('firstname', $criterias) ? $criterias['firstname'] : "all";
+        $lastname = array_key_exists('lastname', $criterias) ? $criterias['lastname'] : "all";
+        $about = array_key_exists('about', $criterias) ? $criterias['about'] : "all";
+        $designation = array_key_exists('designation', $criterias) ? $criterias['designation'] : "all";
+        $is_verified = array_key_exists('is_verified', $criterias) ? $criterias['is_verified'] : true;
+        $apiKey = array_key_exists('apikey', $criterias) ? $criterias['apikey'] : "all";
+        $limit = array_key_exists('limit', $criterias) ? $criterias['limit'] : "all";
+        $sort = array_key_exists('sort', $criterias) ? $criterias['sort'] : "u.createdAt";
+        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "DESC";
+        $count = array_key_exists('count', $criterias) ? $criterias['count'] : false;
+
+        return $this->entityManager->getRepository("App\Entity\User")->getUsers($roles, $keyword, $nickname, $slug, $email, $firstname, $lastname, $about,  $designation, $is_verified, $apiKey, $limit, $sort, $order, $count);
     }
 }

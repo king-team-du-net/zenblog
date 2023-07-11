@@ -66,7 +66,11 @@
             </trans-unit>
             <trans-unit id="sidebar.title_latest">
                 <source>sidebar.title_latest</source>
-                <target>Latest</target>
+                <target>Recent posts</target>
+            </trans-unit>
+            <trans-unit id="sidebar.title_most_commented">
+                <source>sidebar.title_most_commented</source>
+                <target>Most commented posts</target>
             </trans-unit>
             <trans-unit id="sidebar.title_total_post">
                 <source>sidebar.title_total_post</source>
@@ -94,7 +98,68 @@
             </trans-unit>
             <trans-unit id="sidebar.title_newsletter">
                 <source>sidebar.title_newsletter</source>
-                <target>Subscribe to our newsletter</target>
+                <target>Subscribe to our mailing list!</target>
+            </trans-unit>
+            <trans-unit id="sidebar.title_newsletter_no_spam">
+                <source>sidebar.title_newsletter_no_spam</source>
+                <target>We don't spam</target>
+            </trans-unit>
+
+            <trans-unit id="footer.title_mobile_app">
+                <source>footer.title_mobile_app</source>
+                <target>Our mobile App</target>
+            </trans-unit>
+            <trans-unit id="footer.content_mobile_app">
+                <source>footer.content_mobile_app</source>
+                <target>Download our App and get the latest Breaking News Alerts and latest headlines and daily articles near you.</target>
+            </trans-unit>
+            <trans-unit id="footer.title_social">
+                <source>footer.title_social</source>
+                <target>Our Social handles</target>
+            </trans-unit>
+            <trans-unit id="footer.title_about">
+                <source>footer.title_about</source>
+                <target>About</target>
+            </trans-unit>
+            <trans-unit id="footer.title_recent_post">
+                <source>footer.title_recent_post</source>
+                <target>Recent post</target>
+            </trans-unit>
+            <trans-unit id="footer.title_navigation">
+                <source>footer.title_navigation</source>
+                <target>Navigation</target>
+            </trans-unit>
+            <trans-unit id="footer.title_tags">
+                <source>footer.title_tags</source>
+                <target>Browse by Tag</target>
+            </trans-unit>
+            <trans-unit id="footer.title_newsletter">
+                <source>footer.title_newsletter</source>
+                <target>By subscribing you agree to our</target>
+            </trans-unit>
+            <trans-unit id="footer.action_privacy_policy">
+                <source>footer.action_privacy_policy</source>
+                <target>Privacy Policy</target>
+            </trans-unit>
+            <trans-unit id="footer.action_facebook">
+                <source>footer.action_facebook</source>
+                <target>Facebook</target>
+            </trans-unit>
+            <trans-unit id="footer.action_twitter">
+                <source>footer.action_twitter</source>
+                <target>Twitter</target>
+            </trans-unit>
+            <trans-unit id="footer.action_instagram">
+                <source>footer.action_instagram</source>
+                <target>Instagram</target>
+            </trans-unit>
+            <trans-unit id="footer.action_youtube">
+                <source>footer.action_youtube</source>
+                <target>YouTube</target>
+            </trans-unit>
+            <trans-unit id="footer.action_rss">
+                <source>footer.action_rss</source>
+                <target>Rss</target>
             </trans-unit>
 
             <trans-unit id="title.administrator_layout_settings_index">
@@ -198,6 +263,10 @@
                 <source>title.sign_up</source>
                 <target>Sign up</target>
             </trans-unit>
+            <trans-unit id="title.sign_up_free">
+                <source>title.sign_up_free</source>
+                <target>Create your free account</target>
+            </trans-unit>
             <trans-unit id="title.reset_password">
                 <source>title.reset_password</source>
                 <target>Reset password</target>
@@ -208,7 +277,7 @@
             </trans-unit>
             <trans-unit id="title.please_sign_in">
                 <source>title.please_sign_in</source>
-                <target>Please sign in</target>
+                <target>Log in to your account</target>
             </trans-unit>
             <trans-unit id="title.welcome">
                 <source>title.welcome</source>
@@ -230,9 +299,9 @@
                 <source>title.blog</source>
                 <target>Blog</target>
             </trans-unit>
-            <trans-unit id="title.post_category">
-                <source>title.post_category</source>
-                <target>Category</target>
+            <trans-unit id="title.all_categories">
+                <source>title.all_categories</source>
+                <target>All Categories</target>
             </trans-unit>
             <trans-unit id="title.navigation">
                 <source>title.navigation</source>
@@ -276,7 +345,7 @@
             </trans-unit>
             <trans-unit id="title.add_comment">
                 <source>title.add_comment</source>
-                <target>Add a comment</target>
+                <target>Leave a comment</target>
             </trans-unit>
             <trans-unit id="title.comment_error">
                 <source>title.comment_error</source>
@@ -293,18 +362,6 @@
             <trans-unit id="title.contact">
                 <source>title.contact</source>
                 <target>Contact us</target>
-            </trans-unit>
-            <trans-unit id="title.website_contact_address">
-                <source>title.website_contact_address</source>
-                <target>Address</target>
-            </trans-unit>
-            <trans-unit id="title.website_contact_phone">
-                <source>title.website_contact_phone</source>
-                <target>Phone Number</target>
-            </trans-unit>
-            <trans-unit id="title.website_contact_email">
-                <source>title.website_contact_email</source>
-                <target>Email</target>
             </trans-unit>
             <trans-unit id="title.access_denied">
                 <source>title.access_denied</source>
@@ -363,7 +420,31 @@
                 <source>message.default</source>
                 <target>Info !</target>
             </trans-unit>
+            <trans-unit id="message.add_comment">
+                <source>message.add_comment</source>
+                <target>Your email address will not be published. Required fields are marked *</target>
+            </trans-unit>
+            <trans-unit id="message.your_account_is_not_activated">
+                <source>message.your_account_is_not_activated</source>
+                <target><![CDATA[Your account is not activated <a href="{link}">Resend activation link</a> to return to your homepage]]></target>
+            </trans-unit>
 
+            <trans-unit id="action.load_more">
+                <source>action.load_more</source>
+                <target>Load more</target>
+            </trans-unit>
+            <trans-unit id="action.add_review">
+                <source>action.add_review</source>
+                <target>Add your review</target>
+            </trans-unit>
+            <trans-unit id="action.my_review">
+                <source>action.my_review</source>
+                <target>My review</target>
+            </trans-unit>
+            <trans-unit id="action.view-post">
+                <source>action.view-post</source>
+                <target>View Articles</target>
+            </trans-unit>
             <trans-unit id="action.addImage">
                 <source>action.addImage</source>
                 <target>Add image</target>
@@ -462,7 +543,7 @@
             </trans-unit>
             <trans-unit id="action.rss">
                 <source>action.rss</source>
-                <target>Blog Posts RSS</target>
+                <target><![CDATA[Blog Posts <br> rss]]></target>
             </trans-unit>
             <trans-unit id="action.post_share">
                 <source>action.post_share</source>
@@ -532,17 +613,21 @@
                 <source>action.sign_in</source>
                 <target>Sign in</target>
             </trans-unit>
+            <trans-unit id="action.sign_me_up">
+                <source>action.sign_me_up</source>
+                <target>Sign me up</target>
+            </trans-unit>
             <trans-unit id="action.sign_up">
                 <source>action.sign_up</source>
                 <target>Sign up</target>
             </trans-unit>
             <trans-unit id="action.no_account_yet">
                 <source>action.no_account_yet</source>
-                <target>No account yet ?</target>
+                <target>Don't have an account?</target>
             </trans-unit>
             <trans-unit id="action.already_registered">
                 <source>action.already_registered</source>
-                <target>Already registered ?</target>
+                <target>Have an account?</target>
             </trans-unit>
             <trans-unit id="action.reset_password_request">
                 <source>action.reset_password_request</source>
@@ -583,6 +668,14 @@
             <trans-unit id="action.post_add">
                 <source>action.post_add</source>
                 <target>Add an article</target>
+            </trans-unit>
+            <trans-unit id="action.signin_facebook">
+                <source>action.signin_facebook</source>
+                <target>Sign in with Facebook</target>
+            </trans-unit>
+            <trans-unit id="action.signin_google">
+                <source>action.signin_google</source>
+                <target>Sign in with google</target>
             </trans-unit>
 
             <trans-unit id="invalid_message.email">
@@ -680,6 +773,79 @@
                 <target>Give a score between 0 and 5</target>
             </trans-unit>
 
+            <trans-unit id="rating.num_ratings">
+                <source>rating.num_ratings</source>
+                <target><![CDATA[Based on {count, plural, one {# review} other {# reviews}}]]></target>
+            </trans-unit>
+            <trans-unit id="rating.out-of-5-stars">
+                <source>rating.out-of-5-stars</source>
+                <target>out of 5 stars</target>
+            </trans-unit>
+            <trans-unit id="rating.reviews-count">
+                <source>rating.reviews-count</source>
+                <target>Review(s)</target>
+            </trans-unit>
+            <trans-unit id="rating.1-star">
+                <source>rating.1-star</source>
+                <target>1 star</target>
+            </trans-unit>
+            <trans-unit id="rating.2-stars">
+                <source>rating.2-stars</source>
+                <target>2 stars</target>
+            </trans-unit>
+            <trans-unit id="rating.3-stars">
+                <source>rating.3-stars</source>
+                <target>3 stars</target>
+            </trans-unit>
+            <trans-unit id="rating.4-stars">
+                <source>rating.4-stars</source>
+                <target>4 stars</target>
+            </trans-unit>
+            <trans-unit id="rating.5-stars">
+                <source>rating.5-stars</source>
+                <target>5 stars</target>
+            </trans-unit>
+
+            <trans-unit id="label.website_contact_address">
+                <source>label.website_contact_address</source>
+                <target>Address</target>
+            </trans-unit>
+            <trans-unit id="label.website_contact_phone">
+                <source>label.website_contact_phone</source>
+                <target>Phone Number</target>
+            </trans-unit>
+            <trans-unit id="label.website_contact_email">
+                <source>label.website_contact_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.website_no_reply_email">
+                <source>label.website_no_reply_email</source>
+                <target>No reply email address</target>
+            </trans-unit>
+            <trans-unit id="label.website_contact_message">
+                <source>label.website_contact_message</source>
+                <target>Please fill in the form below and we will contact you very soon. Your email address will not be published.</target>
+            </trans-unit>
+            <trans-unit id="label.title_story">
+                <source>label.title_story</source>
+                <target>Our story</target>
+            </trans-unit>
+            <trans-unit id="label.title_team">
+                <source>label.title_team</source>
+                <target>Our Team</target>
+            </trans-unit>
+            <trans-unit id="label.title_rating">
+                <source>label.title_rating</source>
+                <target>Rating and Reviews</target>
+            </trans-unit>
+            <trans-unit id="label.breadcrumb-home">
+                <source>label.breadcrumb-home</source>
+                <target>Home</target>
+            </trans-unit>
+            <trans-unit id="label.by">
+                <source>label.by</source>
+                <target>by</target>
+            </trans-unit>
             <trans-unit id="label.delete">
                 <source>label.delete</source>
                 <target>Delete post</target>
@@ -719,10 +885,6 @@
             <trans-unit id="label.maintenance_back">
                 <source>label.maintenance_back</source>
                 <target>We will be back shortly.</target>
-            </trans-unit>
-            <trans-unit id="label.last_comments">
-                <source>label.last_comments</source>
-                <target>His last comments</target>
             </trans-unit>
             <trans-unit id="label.null">
                 <source>label.null</source>
@@ -818,7 +980,7 @@
             </trans-unit>
             <trans-unit id="label.hello">
                 <source>label.hello</source>
-                <target>Hi</target>
+                <target>Hello, I'm </target>
             </trans-unit>
             <trans-unit id="label.google_maps_api_key">
                 <source>label.google_maps_api_key</source>
@@ -847,14 +1009,6 @@
             <trans-unit id="label.mail_server_password">
                 <source>label.mail_server_password</source>
                 <target>Password</target>
-            </trans-unit>
-            <trans-unit id="label.website_no_reply_email">
-                <source>label.website_no_reply_email</source>
-                <target>No reply email address</target>
-            </trans-unit>
-            <trans-unit id="label.website_contact_email">
-                <source>label.website_contact_email</source>
-                <target>Contact email</target>
             </trans-unit>
             <trans-unit id="label.newsletter_enabled">
                 <source>label.newsletter_enabled</source>
@@ -911,6 +1065,10 @@
             <trans-unit id="label.registered">
                 <source>label.registered</source>
                 <target>Registered</target>
+            </trans-unit>
+            <trans-unit id="label.member">
+                <source>label.member</source>
+                <target>Member</target>
             </trans-unit>
             <trans-unit id="label.user_update_date">
                 <source>label.user_update_date</source>
@@ -1100,6 +1258,27 @@
                 <source>label.actions</source>
                 <target>Actions</target>
             </trans-unit>
+            <trans-unit id="label.signin_social">
+                <source>label.signin_social</source>
+                <target>Sign in with your social network for quick access</target>
+            </trans-unit>
+            <trans-unit id="label.last_posts">
+                <source>label.last_posts</source>
+                <target>Post</target>
+            </trans-unit>
+            <trans-unit id="label.title_last_posts">
+                <source>label.title_last_posts</source>
+                <target>His last posts</target>
+            </trans-unit>
+            <trans-unit id="label.last_comments">
+                <source>label.last_comments</source>
+                <target>Comment</target>
+            </trans-unit>
+            <trans-unit id="label.title_last_comments">
+                <source>label.title_last_comments</source>
+                <target>His last comments</target>
+            </trans-unit>
+
             <trans-unit id="title.post_new">
                 <source>title.post_new</source>
                 <target>Post creation</target>
@@ -1109,6 +1288,10 @@
                 <target>Edit contents</target>
             </trans-unit>
 
+            <trans-unit id="menu.all_categories">
+                <source>menu.all_categories</source>
+                <target>All categories</target>
+            </trans-unit>
             <trans-unit id="menu.terms_of_service_page">
                 <source>menu.terms_of_service_page</source>
                 <target>Terms of service</target>
@@ -1265,12 +1448,36 @@
                 <source>menu.categories</source>
                 <target>Categories</target>
             </trans-unit>
+            <trans-unit id="menu.mode-switch">
+                <source>menu.mode-switch</source>
+                <target>mode</target>
+            </trans-unit>
+            <trans-unit id="menu.mode-light">
+                <source>menu.mode-light</source>
+                <target>Light</target>
+            </trans-unit>
+            <trans-unit id="menu.mode-dark">
+                <source>menu.mode-dark</source>
+                <target>Dark</target>
+            </trans-unit>
+            <trans-unit id="menu.mode-auto">
+                <source>menu.mode-auto</source>
+                <target>Auto</target>
+            </trans-unit>
 
             <trans-unit id="resultsCount">
                 <source>resultsCount</source>
                 <target>{count, plural, one {# result found} other {# results found}}</target>
             </trans-unit>
+            <trans-unit id="reviewsCount">
+                <source>reviewsCount</source>
+                <target>{count, plural, one See all {# review} other {# reviews}}</target>
+            </trans-unit>
 
+            <trans-unit id="post.share_post">
+                <source>post.share_post</source>
+                <target>Share on</target>
+            </trans-unit>
             <trans-unit id="post.previous_post">
                 <source>post.previous_post</source>
                 <target>Previous Post</target>
@@ -1287,9 +1494,17 @@
                 <source>post.min_read</source>
                 <target>min read</target>
             </trans-unit>
+            <trans-unit id="post.views">
+                <source>post.views</source>
+                <target>View</target>
+            </trans-unit>
             <trans-unit id="post.to_publish_a_comment">
                 <source>post.to_publish_a_comment</source>
                 <target>to publish a comment</target>
+            </trans-unit>
+            <trans-unit id="post.num_posts">
+                <source>post.num_posts</source>
+                <target>{count, plural, one {# post} other {# posts}}</target>
             </trans-unit>
 
             <trans-unit id="comment.overall_rating">
@@ -1310,11 +1525,25 @@
             </trans-unit>
             <trans-unit id="comment.num_comments">
                 <source>comment.num_comments</source>
-                <target><![CDATA[(Based on <strong>{count, plural, one {# comment} other {# comments}}</strong>)]]></target>
+                <target><![CDATA[Based on {count, plural, one {# Comment} other {# Comments}}]]></target>
             </trans-unit>
             <trans-unit id="comment.no_comments">
                 <source>comment.no_comments</source>
                 <target>No comments found.</target>
+            </trans-unit>
+
+            <trans-unit id="category.no_categories">
+                <source>category.no_categories</source>
+                <target>No categories found.</target>
+            </trans-unit>
+
+            <trans-unit id="like.been_removed">
+                <source>like.been_removed</source>
+                <target>The like has been removed.</target>
+            </trans-unit>
+            <trans-unit id="like.been_added">
+                <source>like.been_added</source>
+                <target>The like has been added.</target>
             </trans-unit>
 
             <trans-unit id="mail.server_settings">
@@ -1374,6 +1603,10 @@
                 <source>post.add_medias</source>
                 <target>Add one or more media to your article.</target>
             </trans-unit>
+            <trans-unit id="post.comment_reply">
+                <source>post.comment_reply</source>
+                <target>Reply</target>
+            </trans-unit>
             <trans-unit id="post.no_posts_found">
                 <source>post.no_posts_found</source>
                 <target>No posts found.</target>
@@ -1381,6 +1614,10 @@
             <trans-unit id="post.share_successfully">
                 <source>post.share_successfully</source>
                 <target><![CDATA[🚀 Post successfully shared with your friend!]]></target>
+            </trans-unit>
+            <trans-unit id="post.no_posts">
+                <source>post.no_posts</source>
+                <target>No posts found</target>
             </trans-unit>
 
             <trans-unit id="content.is_visible">
@@ -1554,6 +1791,14 @@
                 <target>The blog post has been successfully restored!</target>
             </trans-unit>
 
+            <trans-unit id="post.search_action">
+                <source>post.search_action</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="post.search_results_for">
+                <source>post.search_results_for</source>
+                <target>Search results for</target>
+            </trans-unit>
             <trans-unit id="post.search_for">
                 <source>post.search_for</source>
                 <target>Search for...</target>
@@ -1676,6 +1921,10 @@
                 <source>help.facebook_app_id</source>
                 <target>Go to the documentation to get help about getting an app ID</target>
             </trans-unit>
+            <trans-unit id="help.email">
+                <source>help.email</source>
+                <target>We'll never share your email with anyone else.</target>
+            </trans-unit>
 
             <trans-unit id="rss.title">
                 <source>rss.title</source>
@@ -1729,6 +1978,15 @@
                 <source>flash_danger.blog_post</source>
                 <target>The blog post not be found</target>
             </trans-unit>
+            <trans-unit id="flash_danger.resend_verif">
+                <source>flash_danger.resend_verif</source>
+                <target>You must be logged in to access this page.</target>
+            </trans-unit>
+
+            <trans-unit id="flash_warning.resend_verif">
+                <source>flash_warning.resend_verif</source>
+                <target>This user is already activated.</target>
+            </trans-unit>
 
             <trans-unit id="flash_success.create_account_successfully">
                 <source>flash_success.create_account_successfully</source>
@@ -1766,6 +2024,8 @@
                 <source>flash_success.comments_successfully</source>
                 <target>Your comment has been sent, thank you. It will be published after validation by a moderator.</target>
             </trans-unit>
+
+
 
             <trans-unit id="throw.password_reset_link_expired">
                 <source>throw.password_reset_link_expired</source>

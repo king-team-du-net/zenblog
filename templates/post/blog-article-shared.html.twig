@@ -1,0 +1,78 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% set containerClass = 'position-relative pt-5' %}
+{% set colLg9Class = 'mb-5' %}
+{% set dataSticky = '991' %}
+
+{% set pagetitle = 'title.post_share'|trans %}
+{% block title pagetitle %}
+
+{% block meta_dynamic_seo %}
+    <meta name="description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    {% if post.tags %}
+        <meta name="keywords" content="{{ post.name }}, {{ post.category.name }}, {% for tag in post.tags|split(',') %}{{ tag }}{{ not loop.last ? ', ' : '' }}{% endfor %}" />
+    {% else %}
+        <meta name="keywords" content="{{ getSetting("website_keywords_" ~ app.request.get('_locale')) }}" />
+    {% endif %}
+    <meta property="og:title" content="{{ post.title }}" />
+    {#<meta property="og:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}"/>#}
+    <meta property="og:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    <meta property="og:created_time" content="{{ post.createdAt|date('c') }}"/>
+    <meta name="twitter:title" content="{{ post.title }}" />
+    {#<meta name="twitter:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}" />#}
+    <meta name="twitter:image:alt" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [{ (path("blog_show", { slug: post.slug })): post.title, "current" : (pagetitle) }] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h3>{{ 'title.post_share_mail'|trans({ 'title': post.title }) }}</h3>
+        <article>{{ post.excerpt|html_excerpt(263) }}</article>
+    </div>
+
+    <div>
+        <h3></h3>
+        <small></small>
+        {#}
+        {{ form_start(form, {'method': 'post', 'attr': {'class': 'row g-3 mt-2'}}) }}
+            {{ form_errors(form) }}
+            <div class="col-md-6">
+                {{ form_widget(form.sender_name) }}
+                {{ form_errors(form.sender_name) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_widget(form.sender_email) }}
+                {{ form_errors(form.sender_email) }}
+            </div>
+            <div class="col-12">
+                {{ form_widget(form.receiver_email) }}
+                {{ form_errors(form.receiver_email) }}
+            </div>
+            <div class="col-12">
+                {{ form_widget(form.sender_comments) }}
+                {{ form_errors(form.sender_comments) }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary" formnovalidate>{{ "action.post_share"|trans }}</button>
+            </div>
+        {{ form_end(form) }}
+        #}
+
+        {{ component('shared', {form: form}) }}
+    </div>
+
+    {% include "global/_previous-and-next-post.html.twig" with { previousPost: previousPost, nextPost: nextPost } only %}
+
+    {% include "global/_author.html.twig" with { post: post} only %}
+
+    {% include "global/_poll.html.twig" %}
+{% endblock %}
+
+{% block review %}
+	{% include "global/_review.html.twig" %}
+{% endblock %}

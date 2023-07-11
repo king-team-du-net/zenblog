@@ -69,7 +69,7 @@ class PagesController extends AbstractController
     public function aboutIndex(UserRepository $userRepository): Response
     {
         return $this->render('pages/about.html.twig', [
-            'users' => $userRepository->findUsers(User::ADMIN, User::ADMINISTRATOR, User::EDITOR),
+            'users' => $userRepository->findTeam(3),
         ]);
     }
 

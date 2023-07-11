@@ -34,6 +34,8 @@ final class RegistrationType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'placeholder.email',
                 ],
+                'help' => 'help.email',
+                'help_attr' => ['class' => 'form-text'],
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'label.password',

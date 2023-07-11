@@ -3,23 +3,18 @@
 {% block layout 'auth' %}
 
 {% block body %}
-    {{ include("global/_header.html.twig") }}
-    <main id="main">
-        <section id="auth" class="auth mb-5">
-            <div class="container flex-grow-1" data-aos="fade-up">
-                <div class="row justify-content-center align-items-center h-100">
-                    <div class="col-12 col-md-9 col-lg-6 col-xl-5">
-                        <div class="card border-0 shadow">
-                            <div class="card-body p-5">
-                                {{ include("global/_is_granted.html.twig") }}
-                                {# {% include "global/_user-isverified.html.twig" with { user: app.user } %} #}
-                                {% block content %}{% endblock %}
-                            </div>
-                        </div>
+
+    <section class="pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <div class="bg-primary bg-opacity-10 rounded p-4 p-sm-5">
+                        {% block content %}{% endblock %}
+                        {% block social %}{% endblock %}
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-    {{ include("global/_footer.html.twig") }}
+        </div>
+    </section>
+
 {% endblock %}

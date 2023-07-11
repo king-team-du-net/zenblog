@@ -30,6 +30,7 @@ parameters:
     website_contact_address: '%env(WEBSITE_CONTACT_ADDRESS)%'
     website_root_url: '%env(WEBSITE_ROOT_URL)%'
     website_dashboard_path: '%env(WEBSITE_DASHBOARD_PATH)%'
+    website_jwt_secret: '%env(WEBSITE_JWT_SECRET)%'
 
     router.request_context.host: "%website_root_url%"
     # router.request_context.base_url: "%website_root_url%"

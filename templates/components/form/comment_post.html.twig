@@ -1,12 +1,15 @@
 <div {{ attributes }}>
     {{ form_start(form) }}
-    {{ form_row(form.content) }}
-
-    <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary">
-            <i class="bi bi-envelope me-2"></i>
-            {{ 'action.send'|trans }}
-        </button>
-    </div>
+        <!-- Content -->
+        <div class="mb-3">
+            {{ form_row(form.content) }}
+        </div>
+        <!-- Button -->
+        <div class="row align-items-center">
+            <div class="col-sm-4">
+                <button type="submit" class="btn btn-success">{{ 'action.send'|trans }}</button>
+            </div>
+            <div class="col-sm-8 text-sm-end"></div>
+        </div>
     {{ form_end(form) }}
 </div>

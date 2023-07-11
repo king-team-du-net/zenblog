@@ -1,211 +1,233 @@
-<footer id="footer" class="footer">
-	<div class="footer-content">
-		<div class="container">
-			<div class="row g-5">
-				<div class="col-lg-4">
-					<h3 class="footer-heading">{{'title.about'|trans}} {{ getSetting("website_name") }}</h3>
-					<p>{{ getSetting("footer_about") }}</p>
-					<p>
-						<a href="{{ path('about_index') }}" class="footer-link-more">{{'action.link-more'|trans}}</a>
-					</p>
-				</div>
-				<div class="col-6 col-lg-2">
-					<h3 class="footer-heading">{{'title.navigation'|trans}}</h3>
-					<ul class="footer-links list-unstyled">
-						<li>
-							<a href="{{ path('blog_index') }}">
-								<i class="bi bi-chevron-right"></i>
-								{{ "menu.blog"|trans }}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('category_index') }}">
-								<i class="bi bi-chevron-right"></i>
-								{{ "menu.categories"|trans }}
-							</a>
-						</li>
-						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-							<li>
-								<a href="{{ path('dashboard_index') }}">
-									<i class="bi bi-chevron-right"></i>
-									{% if is_granted("ROLE_ADMINISTRATOR") %}
-										{{'menu.dashboard_index'|trans}}
-									{% elseif is_granted("ROLE_ADMIN") %}
-										{{'menu.dashboard_index'|trans}}
-									{% elseif is_granted("ROLE_EDITOR") %}
-										{{'menu.dashboard_index'|trans}}
-									{% else %}
-										{{'menu.dashboard_index'|trans}}
-									{% endif %}
+{% set routename = app.request.get('_route') %}
+{% set routeparams = app.request.get('_route_params') %}
+
+<!-- =======================
+Footer START -->
+<footer class="pb-0 pt-5">
+	<div class="container">
+		<hr>
+		<!-- Widgets START -->
+		<div class="row pt-5">
+			<!-- Footer Widget -->
+			<div class="col-md-6 col-lg-4 mb-4">
+				<p class="h3">{{'footer.title_about'|trans}} {{ getSetting("website_name") }}</p>
+				<p class="mt-3">{{ getSetting("footer_about")|raw|nl2br }}</p>
+			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-md-6 col-lg-3 mb-4">
+				<h5 class="mb-4">{{'footer.title_navigation'|trans}}</h5>
+				<div class="row">
+					<div class="col-6">
+						<ul class="nav flex-column">
+							<li class="nav-item">
+								<a class="nav-link pt-0" href="{{ path('homepage') }}">
+									{{ "menu.homepage"|trans }}
 								</a>
 							</li>
-						{% else %}
-							<li>
-								<a href="{{ path('auth_login') }}">
-									<i class="bi bi-chevron-right"></i>
-									{{'menu.auth'|trans}}
+							<li class="nav-item">
+								<a class="nav-link pt-0" href="{{ path('blog_index') }}">
+									{{ "menu.blog"|trans }}
 								</a>
 							</li>
-						{% endif %}
-						<li>
-							<a href="{{ path('about_index') }}">
-								<i class="bi bi-chevron-right"></i>
-								{{'menu.about'|trans}}
-							</a>
-						</li>
-						<li>
-							<a href="{{ path('contact_index') }}">
-								<i class="bi bi-chevron-right"></i>
-								{{'menu.contact'|trans}}
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-6 col-lg-2">
-					{% if categoryFooter()|length > 0 %}
-						<h3 class="footer-heading">{{'title.categories'|trans}}</h3>
-						<ul class="footer-links list-unstyled">
-							{% for category in categoryFooter() %}
-								<li>
-									<a href="{{ path('category_show', {slug: category.slug}) }}">
-										<i class="bi bi-chevron-right"></i>
-										{{ category.name }}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('blog_category_index') }}">
+									{{ "menu.categories"|trans }}
+								</a>
+							</li>
+							{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('dashboard_index') }}">
+										{% if is_granted("ROLE_ADMINISTRATOR") %}
+											{{'menu.dashboard_index'|trans}}
+										{% elseif is_granted("ROLE_ADMIN") %}
+											{{'menu.dashboard_index'|trans}}
+										{% elseif is_granted("ROLE_EDITOR") %}
+											{{'menu.dashboard_index'|trans}}
+										{% else %}
+											{{'menu.dashboard_index'|trans}}
+										{% endif %}
 									</a>
 								</li>
-							{% endfor %}
+							{% else %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('auth_login') }}">
+										{{'menu.auth'|trans}}
+									</a>
+								</li>
+							{% endif %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('about_index') }}">
+									{{'menu.about'|trans}}
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('contact_index') }}">
+									{{'menu.contact'|trans}}
+								</a>
+							</li>
 						</ul>
-					{% endif %}
-				</div>
-				<div class="col-lg-4">
-					<h3 class="footer-heading">{{'title.recent_post'|trans}}</h3>
-					<ul class="footer-links footer-blog-entry list-unstyled">
-						<li>
-							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('build/img/post-sq-1.jpg') }}" alt="" class="img-fluid me-3">
-								<div>
-									<div class="post-meta d-block">
-										<span class="date">Culture</span>
-										<span class="mx-1">&bullet;</span>
-										<span>Jul 5th '22</span>
-									</div>
-									<span>5 Great Startup Tips for Female Founders</span>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('build/img/post-sq-2.jpg') }}" alt="" class="img-fluid me-3">
-								<div>
-									<div class="post-meta d-block">
-										<span class="date">Culture</span>
-										<span class="mx-1">&bullet;</span>
-										<span>Jul 5th '22</span>
-									</div>
-									<span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('build/img/post-sq-3.jpg') }}" alt="" class="img-fluid me-3">
-								<div>
-									<div class="post-meta d-block">
-										<span class="date">Culture</span>
-										<span class="mx-1">&bullet;</span>
-										<span>Jul 5th '22</span>
-									</div>
-									<span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="single-post.html" class="d-flex align-items-center">
-								<img src="{{ asset('build/img/post-sq-4.jpg') }}" alt="" class="img-fluid me-3">
-								<div>
-									<div class="post-meta d-block">
-										<span class="date">Culture</span>
-										<span class="mx-1">&bullet;</span>
-										<span>Jul 5th '22</span>
-									</div>
-									<span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
-								</div>
-							</a>
-						</li>
-					</ul>
-				</div>
-				<div class="col-lg-12 footer-links-p">
-					<p class="text-center">
-						{% if getSetting('show_terms_of_service_page') == "yes" %}
-							<a href="{{ path('page', { slug : getSetting('terms_of_service_page_slug') }) }}" class="">{{ "menu.terms_of_service_page"|trans }}</a>
-							<span>|</span>
+					</div>
+					<div class="col-6">
+						{% if categoryFooter()|length > 0 %}
+							<ul class="nav flex-column">
+								{% for category in categoryFooter() %}
+									<li class="nav-item">
+										<a class="nav-link pt-0" href="{{ path(category) }}">
+											{{ category.name }}
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
 						{% endif %}
-						{% if getSetting('show_privacy_policy_page') == "yes" %}
-							<a href="{{ path('page', { slug : getSetting('privacy_policy_page_slug') }) }}" class="">{{ "menu.privacy_policy_page"|trans }}</a>
-							<span>|</span>
-						{% endif %}
-						{% if getSetting('show_cookie_policy_page') == "yes" %}
-							<a href="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" class="">{{ "menu.cookie_policy_page"|trans }}</a>
-							<span>|</span>
-						{% endif %}
-						{% if getSetting('show_gdpr_compliance_page') == "yes" %}
-							<a href="{{ path('page', { slug : getSetting('gdpr_compliance_page_slug') }) }}" class="">{{ "menu.gdpr_compliance_page"|trans }}</a>
-						{% endif %}
-					</p>
+					</div>
 				</div>
 			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-sm-6 col-lg-3 mb-4">
+				<h5 class="mb-4">{{'footer.title_tags'|trans}}</h5>
+				{% if widgetTag()|length > 0 %}
+					<ul class="list-inline">
+						{% for tag in widgetTag() %}
+							<li class="list-inline-item">
+								<a 
+									href="{{ path('blog_index', {'tag': tag.slug == app.request.query.get('tag') ? null : tag.slug}) }}"
+									class="btn btn-sm btn-{{ tag.color }}-soft"
+								>
+									{{ tag.name }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			</div>
+
+			<!-- Footer Widget -->
+			<div class="col-sm-6 col-lg-2 mb-4">
+				<h5 class="mb-4">{{'footer.title_social'|trans}}</h5>
+				{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
+					<ul class="nav flex-column">
+                        {% if getSetting("facebook_url") != "" %}
+                            <li class="nav-item">
+                                <a class="nav-link pt-0" href="{{ getSetting("facebook_url") }}" target="_blank">
+									<i class="fab fa-facebook-square fa-fw me-2 text-facebook"></i>
+									{{'footer.action_facebook'|trans}}
+								</a>
+                            </li>
+                        {% endif %}
+                        {% if getSetting("twitter_url") != "" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ getSetting("twitter_url") }}" target="_blank">
+									<i class="fab fa-twitter-square fa-fw me-2 text-twitter"></i>
+									{{'footer.action_twitter'|trans}}
+								</a>
+                            </li>
+                        {% endif %}
+                        {% if getSetting("instagram_url") != "" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ getSetting("instagram_url") }}" target="_blank">
+									<i class="fab fa-instagram fa-fw me-2 text-instagram"></i>
+									{{'footer.action_instagram'|trans}}
+								</a>
+                            </li>
+                        {% endif %}
+                        {% if getSetting("youtube_url") != "" %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ getSetting("youtube_url") }}" target="_blank">
+									<i class="fab fa-youtube-square fa-fw me-2 text-youtube"></i>
+									{{'footer.action_youtube'|trans}}
+								</a>
+                            </li>
+                        {% endif %}
+						{#<li class="nav-item">
+							<a class="nav-link" href="{{ path('blog_rss', app.request.query.all) }}" target="_blank">
+								<i class="fas fa-rss fa-fw me-2 text-secondary"></i>
+								{{'footer.action_rss'|trans}}
+							</a>
+						</li>
+						#}
+					</ul>
+				{% endif %}
+			</div>
 		</div>
+		<!-- Widgets END -->
 	</div>
 
-	<div class="footer-legal">
+	<!-- Footer copyright START -->
+	<div class="mb-3">
 		<div class="container">
-			<div class="row justify-content-between">
-				<div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-					<div class="copyright">
-						{{"footer_copyright"|trans}} &copy; {{ "now"|date('Y') }}
-						<strong>
-							<span>{{ getSetting("website_name") }}</span>
-						</strong>. {{'footer_reserved'|trans}}
-					</div>
-					<div class="credits">
-						{{'footer_credits'|trans}}<a href="{{ getSetting("website_url") }}"> {{ getSetting("website_name") }}</a>
+			<div class="row align-items-center justify-content-md-between py-4">
+				<div class="col-lg-6">
+					<!-- Copyright -->
+					<div class="text-center text-md-start">
+						{{"footer_copyright"|trans}} &copy; {{ "now"|date('Y') }} 
+						<a href="{{ getSetting("website_url") }}" class="text-reset btn-link" target="_blank">{{ getSetting("website_name") }}</a>. {{'footer_reserved'|trans}}
 					</div>
 				</div>
-				<div class="col-md-6">
-					{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
-						<div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-							{% if getSetting("twitter_url") != "" %}
-								<a target="_blank" href="{{ getSetting("twitter_url") }}" class="twitter">
-									<i class="bi bi-twitter"></i>
-								</a>
-							{% endif %}
-							{% if getSetting("facebook_url") != "" %}
-								<a target="_blank" href="{{ getSetting("facebook_url") }}" class="facebook">
-									<i class="bi bi-facebook"></i>
-								</a>
-							{% endif %}
-							{% if getSetting("instagram_url") != "" %}
-								<a target="_blank" href="{{ getSetting("instagram_url") }}" class="instagram">
-									<i class="bi bi-instagram"></i>
-								</a>
-							{% endif %}
-							{% if getSetting("youtube_url") != "" %}
-								<a target="_blank" href="{{ getSetting("youtube_url") }}" class="youtube">
-									<i class="bi bi-youtube"></i>
-								</a>
-							{% endif %}
-							{% if getSetting("linkedin_url") != "" %}
-								<a target="_blank" href="{{ getSetting("linkedin_url") }}" class="linkedin">
-									<i class="bi bi-linkedin"></i>
-								</a>
-							{% endif %}
+				<div class="col-lg-6 d-sm-flex align-items-center justify-content-center justify-content-lg-end">
+					<!-- Language switcher -->
+					{% if routename and locales|split('|')|length > 2 %}
+						<div class="dropup me-0 me-sm-3 mt-3 mt-md-0 text-center text-sm-end">
+							<a class="dropdown-toggle text-body" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="flag flag-{{ app.request.locale|getLangFlag }} me-2"></i>
+								{{ app.request.locale|getLangName }}
+							</a>
+							<ul class="dropdown-menu min-w-auto" aria-labelledby="languageSwitcher">
+								{% for locale in locales|split('|') %}
+									{% if locale != "" and locale != app.request.locale %}
+										<li>
+											<a class="dropdown-item" href="{{ path(routename, routeparams|merge({'_locale' : locale})) }}">
+												<i class="flag flag-{{ locale|getLangFlag }} me-2"></i>
+												{{ locale|getLangName }}
+											</a>
+										</li>
+									{% endif %}
+								{% endfor %}
+							</ul>
 						</div>
 					{% endif %}
+					<!-- Links -->
+					<ul class="nav text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
+						{% if getSetting('show_terms_of_service_page') == "yes" %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('page', { slug : getSetting('terms_of_service_page_slug') }) }}">
+									{{ "menu.terms_of_service_page"|trans }}
+								</a>
+							</li>
+						{% endif %}
+						{% if getSetting('show_privacy_policy_page') == "yes" %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{ path('page', { slug : getSetting('privacy_policy_page_slug') }) }}">
+									{{ "menu.privacy_policy_page"|trans }}
+								</a>
+							</li>
+						{% endif %}
+						{% if getSetting('show_cookie_policy_page') == "yes" %}
+							<li class="nav-item">
+								<a class="nav-link pe-0" href="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}">
+									{{ "menu.cookie_policy_page"|trans }}
+								</a>
+							</li>
+						{% endif %}
+						{% if getSetting('show_gdpr_compliance_page') == "yes" %}
+							<li class="nav-item">
+								<a class="nav-link pe-0" href="{{ path('page', { slug : getSetting('gdpr_compliance_page_slug') }) }}">
+									{{ "menu.gdpr_compliance_page"|trans }}
+								</a>
+							</li>
+						{% endif %}
+					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Footer copyright END -->
 </footer>
+<!-- =======================
+Footer END -->
 
+<!-- Back to top -->
 {% if getSetting("show_back_to_top_button") == "yes" %}
-	<a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<a href="#" class="back-top"><i class="bi bi-arrow-up-short"></i></a>
 {% endif %}

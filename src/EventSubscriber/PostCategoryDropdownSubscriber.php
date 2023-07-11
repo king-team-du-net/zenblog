@@ -12,10 +12,10 @@ use Twig\Environment;
 
 final class PostCategoryDropdownSubscriber implements EventSubscriberInterface
 {
-    public const ROUTES = ['blog', 'category'];
+    public const ROUTES = ['homepage', 'blog_index', 'category_index'];
 
     public function __construct(
-        private readonly CategoryRepository $repository,
+        private readonly CategoryRepository $categoryRepository,
         private readonly Environment $twig
     ) {
     }
@@ -25,7 +25,7 @@ final class PostCategoryDropdownSubscriber implements EventSubscriberInterface
         $route = $event->getRequest()->get('_route');
 
         if (in_array($route, PostCategoryDropdownSubscriber::ROUTES)) {
-            $categories = $this->repository->findAll();
+            $categories = $this->categoryRepository->findAll();
             $this->twig->addGlobal('allCategories', $categories);
         }
     }

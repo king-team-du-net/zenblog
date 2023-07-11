@@ -68,47 +68,45 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getQuery()
             ->getOneOrNullResult();
     }
-    
+
     /**
      * Retrieve users according to their roles
      *
      * @param  string|null $roles
      * @return array
      */
-    public function findUsers(?string $roles): array
+    public function findUser(?string $roles): array
     {
         $query = $this->createQueryBuilder('u')
-            ->orderBy('u.nickname', 'ASC')
+            ->orderBy('u.designation', 'ASC')
         ;
         if ($roles) {
             $query
-                ->andWhere('u.roles LIKE :val')
-                ->setParameter('val', '%' . $roles . '%')
+                ->where('u.roles LIKE :roles')
+                ->andwhere('u.is_verified = :is_verified')
+                ->andwhere('u.team = :team')
+                ->setParameter('roles', '%"'.$roles.'"%')
+                ->setParameter('is_verified', true)
+                ->setParameter('team', true)
                 ->setMaxResults(3)
             ;
         }
         return $query->getQuery()->getResult();
     }
 
-
-    public function findAllUser(?string $roles)
+    public function findTeam(int $limit): array
     {
-        if (!$roles) {
-            $query = $this->createQueryBuilder('u')
-                ->orderBy('u.nickname', 'ASC')
-            ;
-            return $query->getQuery()->getResult();
-        } else {
-            $query = $this->createQueryBuilder('u')
-                ->where('u.roles LIKE :val')
-                ->setParameter('val', $roles)
-                ->orderBy('u.nickname', 'ASC')
-            ;
-            return $query->getQuery()->getResult();
-        }
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.designation', 'DESC')
+            ->andwhere('u.is_verified = :is_verified')
+            ->andwhere('u.team = :team')
+            ->setParameter('is_verified', true)
+            ->setParameter('team', true)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
     }
-
-
 
     /**
      * @return User[]

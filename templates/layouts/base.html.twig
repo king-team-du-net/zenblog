@@ -4,6 +4,55 @@
         <title>{% block title %}{% endblock %} | {{ getSetting("website_name") }}</title>
         {{ include("global/_meta.html.twig") }}
 
+        <!-- Dark mode -->
+        <script>
+            const storedTheme = localStorage.getItem('theme')
+            const getPreferredTheme = () => {
+                if (storedTheme) {
+                    return storedTheme
+                }
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            }
+            const setTheme = function (theme) {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark')
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme)
+                }
+            }
+            setTheme(getPreferredTheme())
+            window.addEventListener('DOMContentLoaded', () => {
+                var el = document.querySelector('.theme-icon-active');
+                if(el != 'undefined' && el != null) {
+                    const showActiveTheme = theme => {
+                    const activeThemeIcon = document.querySelector('.theme-icon-active use')
+                    const btnToActive = document.querySelector(`[data-bs-theme-value="${theme}"]`)
+                    const svgOfActiveBtn = btnToActive.querySelector('.mode-switch use').getAttribute('href')
+                    document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                        element.classList.remove('active')
+                    })
+                    btnToActive.classList.add('active')
+                    activeThemeIcon.setAttribute('href', svgOfActiveBtn)
+                }
+                window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                    if (storedTheme !== 'light' || storedTheme !== 'dark') {
+                        setTheme(getPreferredTheme())
+                    }
+                })
+                showActiveTheme(getPreferredTheme())
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', () => {
+                            const theme = toggle.getAttribute('data-bs-theme-value')
+                            localStorage.setItem('theme', theme)
+                            setTheme(theme)
+                            showActiveTheme(theme)
+                        })
+                    })
+                }
+            })
+        </script>
+
         {{ encore_entry_link_tags('app') }}
 
         {% block stylesheets %}{% endblock %}
@@ -25,10 +74,56 @@
         {% if getSetting('show_cookie_policy_bar') == "yes" %} data-cookie-bar-page-link="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" {% endif %} 
         {% if getEnv('DEMO_MODE') == "1" %} data-demo-mode="1" {% endif %}
     >
-        {% block body %}{% endblock %}
+        {% block top %}
+            {% include "global/_top.html.twig" %}
+        {% endblock %}
+
+        {% block offcanvas %}
+            {% include "global/_offcanvas.html.twig" %}
+        {% endblock %}
+
+        {% block header %}
+            {{ include("global/_header.html.twig") }} 
+            {#{{ render(controller(
+                'App\\Controller\\TwigController::header', { 
+                    'maxResults': 6
+            })) }}#}
+        {% endblock %}
+
+        <!-- **************** MAIN CONTENT START **************** -->
+        <main>
+            {% block intro %}{% endblock %}
+            
+            {% block breadcrumb %}{% endblock %}
+
+            {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                {% include "global/_message.html.twig" with { type: 'info', icon: 'bi bi-info-circle', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
+            {% endif %}
+
+            {% if app.user and app.user.isVerified == false %}
+                {% include "global/_message.html.twig" with { type: 'warning', icon: 'bi bi-info-circle', message: ('message.your_account_is_not_activated'|trans({ 'link': path('auth_resend_verif') }))|raw } %}
+            {% endif %}
+
+            {% block body %}{% endblock %}
+
+            {% block review %}{% endblock %}
+        </main>
+        <!-- **************** MAIN CONTENT END **************** -->
+
+        {% block footer %}
+            {{ include("global/_footer.html.twig") }}
+
+            {# {{ render(controller(
+                'App\\Controller\\TwigController::footer',
+                { 'maxResults': 6 }
+            )) }} #}
+        {% endblock %}
+
         {{ component('flash_messages') }}
+
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {% include "global/_dashboard-items-sidenav.html.twig" %}
         {% endif %}
+
     </body>
 </html>

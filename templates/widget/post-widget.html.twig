@@ -1,0 +1,16 @@
+{% for post in posts %}
+    {% set link = path(post) %}
+    <div class="card mb-3">
+        <div class="row g-3">
+            <div class="col-4">
+                <img class="rounded" src="{{ asset('uploads/post/' ~ post.image) }}" alt="{{ post.title }}">
+            </div>
+            <div class="col-8">
+                <h6>
+                    <a href="{{ link }}" class="btn-link stretched-link text-reset fw-bold">{{ post.title|html_excerpt(36) }}</a>
+                </h6>
+                <div class="small mt-1">{{ post.publishedAt|ago }}</div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

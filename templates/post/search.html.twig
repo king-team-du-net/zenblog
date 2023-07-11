@@ -1,0 +1,10 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% set pagetitle = 'title.search_result'|trans %}
+{% block title pagetitle %}
+
+{% block content %}
+	{{ component('blog_search', {
+		query: query
+	}) }}
+{% endblock %}

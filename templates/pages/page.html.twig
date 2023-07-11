@@ -1,6 +1,6 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% set sectionClass = 'section-content padding-y bg-white' %}
+{% set sectionClass = 'pt-4 pb-0' %}
 
 {% set pagetitle = page.title %}
 {% block title pagetitle %}
@@ -11,13 +11,14 @@
 {% endblock %}
 
 {% block content %}
+
 	<div class="row">
-		<div class="col-sm-12">
-			<div class="card border-0 box">
-				<div class="card-body">
-					{{ page.content|raw|nl2br }}
-				</div>
-			</div>
+		<div class="col-xl-9 mx-auto">
+			<h2>{{ pagetitle }}</h2>
+			<div class="lead">
+				{{ page.content|raw|nl2br }}
+			</p>
 		</div>
 	</div>
+
 {% endblock %}

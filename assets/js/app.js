@@ -4,7 +4,7 @@
  * Theme core scripts
  *
  * @author Dequidt Robert
- * @version 1.2.0
+ * @version 1.3.0
 */
 
 // css & scss
@@ -13,6 +13,12 @@ import '../css/app.css';
 
 
 // Template Main JS File
+
+import '../vendor/tiny-slider/tiny-slider.js';
+//import '../vendor/sticky-js/sticky.min.js';
+import '../vendor/plyr/plyr.js';
+import '../vendor/apexcharts/js/apexcharts.min.js';
+import '../vendor/overlay-scrollbar/js/OverlayScrollbars.min.js';
 
 //require('./theme-like.js');
 import './themes.js';

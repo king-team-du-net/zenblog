@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait HasIsRGPDTrait
 {
-    #[ORM\Column(type: Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
     #[Assert\NotNull]
     private bool $isRGPD = false;
 

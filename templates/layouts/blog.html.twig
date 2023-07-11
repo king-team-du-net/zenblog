@@ -3,26 +3,25 @@
 {% block layout %}{{ parent() }} blog{% endblock %}
 
 {% block body %}
-    {{ include("global/_header.html.twig") }}
-    <main id="main">
-        <section id="{{ sectionId is defined ? sectionId : '' }}" class="{{ sectionClass is defined ? sectionClass : '' }}">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9 {{ class is defined ? class : '' }}" data-aos="fade-up">
-                        {{ include("global/_is_granted.html.twig") }}
-                        {# {% include "global/_user-isverified.html.twig" with { user: app.user } %} #}
-                        {% block content %}{% endblock %}
-                    </div>
-                    <div class="col-md-3">
-                        {{ render(controller(
-                            'App\\Controller\\BlogController::blogSidebar',
-                            { 'maxResults': 3 }
-                        )) }}
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-    {{ include("global/_footer.html.twig") }}
-{% endblock %}
 
+    <section class="{{ sectionClass is defined ? sectionClass : '' }}">
+        <div class="container {{ containerClass is defined ? containerClass : '' }}" data-sticky-container>
+            <div class="row">
+                <div id="main" class="col-lg-9 {{ colLg9Class is defined ? colLg9Class : '' }}">
+                    {% block content %}{% endblock %}
+                </div>
+                <div id="sidebar" class="col-lg-3 {{ colLg3Class is defined ? colLg3Class : '' }}">
+                    {% block sidebar %}
+                        <div data-sticky data-margin-top="80" data-sticky-for="{{ dataSticky is defined ? dataSticky : '' }}">
+                            {{ render(controller(
+                                'App\\Controller\\TwigController::sidebar',
+                                { 'maxResults': 3 }
+                            )) }}
+                        </div>
+                    {% endblock %}
+                </div>
+            </div> 
+        </div>
+    </section>
+
+{% endblock %}

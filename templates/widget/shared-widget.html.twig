@@ -1,0 +1,11 @@
+<a target="_blank" class="btn btn-outline-secondary btn-icon btn-sm btn-facebook rounded-circle" href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path(post)) }}">
+    <i class="bi bi-facebook"></i>
+</a>
+
+<a target="_blank" class="btn btn-outline-secondary btn-icon btn-sm btn-twitter rounded-circle" href="https://twitter.com/intent/tweet?text={{ post.title|url_encode }}%20{{ absolute_url(path(post)) }}%20@{{ getSetting("website_name") }}">
+    <i class="bi bi-twitter"></i>
+</a>
+
+<a target="_blank" class="btn btn-outline-secondary btn-icon btn-sm btn-telegram rounded-circle" href="{{ path('blog_article_shared', {slug: post.slug}) }}">
+    <i class="bi bi-telegram"></i>
+</a>

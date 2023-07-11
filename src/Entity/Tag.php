@@ -10,6 +10,7 @@ use App\Repository\TagRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
+use App\Entity\Traits\HasBackgroundAndColorTrait;
 use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
@@ -18,6 +19,7 @@ use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 class Tag implements \Stringable
 {
     use HasIdTrait;
+    use HasBackgroundAndColorTrait;
     use HasNameAndSlugAndAssertTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;

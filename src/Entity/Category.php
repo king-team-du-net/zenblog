@@ -16,6 +16,7 @@ use App\Entity\Traits\HasTimestampTrait;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use App\Entity\Traits\HasBackgroundAndColorTrait;
+use App\Entity\Traits\HasIconTrait;
 use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -24,7 +25,9 @@ use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 class Category implements \Stringable
 {
     use HasIdTrait;
+    //use HasIsPortfolioTrait;
     use HasBackgroundAndColorTrait;
+    use HasIconTrait;
     use HasNameAndSlugAndAssertTrait;
     use HasHiddenTrait;
     use HasTimestampTrait;

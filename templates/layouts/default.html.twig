@@ -1,11 +1,5 @@
 {% extends 'layouts/base.html.twig' %}
 
 {% block body %}
-    {{ include("global/_header.html.twig") }}
-    <main id="main">
-        {{ include("global/_is_granted.html.twig") }}
-        {% include "global/_user-isverified.html.twig" with { user: app.user } %}
-        {% block content %}{% endblock %}
-    </main>
-    {{ include("global/_footer.html.twig") }}
+    {% block content %}{% endblock %}
 {% endblock %}

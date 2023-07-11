@@ -1,0 +1,66 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% set containerClass = 'position-relative pt-5' %}
+{% set colLg9Class = 'mb-5' %}
+{% set dataSticky = '991' %}
+
+{% set pagetitle = post.title %}
+{% block title pagetitle %}
+
+{% block meta_dynamic_seo %}
+    <meta name="description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    {% if post.tags %}
+        <meta name="keywords" content="{{ post.name }}, {{ post.category.name }}, {% for tag in post.tags|split(',') %}{{ tag }}{{ not loop.last ? ', ' : '' }}{% endfor %}" />
+    {% else %}
+        <meta name="keywords" content="{{ getSetting("website_keywords_" ~ app.request.get('_locale')) }}" />
+    {% endif %}
+    <meta property="og:title" content="{{ post.title }}" />
+    {#<meta property="og:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}"/>#}
+    <meta property="og:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+    <meta property="og:created_time" content="{{ post.createdAt|date('c') }}"/>
+    <meta name="twitter:title" content="{{ post.title }}" />
+    {#<meta name="twitter:image" content="{{ app.request.getUriForPath(urlrawImage(post.image)) }}" />#}
+    <meta name="twitter:image:alt" content="{{ post.title }}" />
+    <meta name="twitter:description" content="{{ post.content|raw|nl2br|striptags|slice(0, 200)|raw }}..." />
+{% endblock %}
+
+{% block intro %}
+	{{ include("global/_intro.html.twig") }}
+{% endblock %}
+
+{% block content %}
+	<article>{{ post.content|raw|nl2br }}</article>
+
+	{% include "global/_previous-and-next-post.html.twig" with { previousPost: previousPost, nextPost: nextPost } only %}
+
+	{% include "global/_author.html.twig" with { post: post} only %}
+
+	<div class="d-md-flex justify-content-between text-center text-md-start my-4">
+		<!-- Tag -->
+		{{ include('blog/partials/_post_tags.html.twig') }}
+		<!-- Info -->
+		<ul class="nav nav-divider align-items-center justify-content-center justify-content-md-end">
+			<li class="nav-item"><a href="javascript:void(0);" class="btn-link"><i class="far fa-comment-alt me-1"></i> {{ 'post.num_comments'|trans({ 'count': post.comments|length }) }}</a></li>
+			<li class="nav-item"><i class="far fa-eye me-1"></i> {{ post.views }} {{ "post.views"|trans }}</li>
+			<li class="nav-item"><a href="#"><i class="fas fa-heart me-1 text-danger"></i></a> 266</li>
+		</ul>
+	</div>
+
+	{% include "global/_poll.html.twig" %}
+
+	{% include "comment/comments.html.twig" with { comments: comments } only %}
+
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		{{ render(controller('App\\Controller\\BlogController::blogCommentForm', {'id': post.id})) }}
+	{% else %}
+		<div>
+			<div class="mt-5">
+				<a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}" class="text-body fw-normal">
+					<i class="bi bi-door-open"></i> {{ 'action.sign_in'|trans }}
+				</a>
+				<span>{{ 'post.to_publish_a_comment'|trans }}</span>
+			</div>
+		</div>
+	{% endif %}
+
+{% endblock %}

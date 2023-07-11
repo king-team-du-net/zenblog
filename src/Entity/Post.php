@@ -20,10 +20,13 @@ use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Entity\Traits\HasPublishedAtTrait;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\HasLikesCollectionTrait;
+use App\Entity\Traits\HasMediaCollectionTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Traits\HasTitleAndSlugAndAssertTrait;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Traits\HasReviewsAndFavoritesPostsTrait;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
@@ -38,6 +41,9 @@ class Post
     use HasViewsTrait;
     use HasStateTrait;
     use HasHiddenTrait;
+    use HasReviewsAndFavoritesPostsTrait;
+    use HasMediaCollectionTrait;
+    //use HasLikesCollectionTrait;
     use HasPublishedAtTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
@@ -86,35 +92,15 @@ class Post
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $readtime = null;
 
-    #[ORM\Column(type: Types::STRING)]
-    private string $image = '';
-
-    #[Assert\Image(maxSize: '1M', maxRatio: 4/3, minRatio: 4/3)]
-    #[Assert\NotNull(groups: ['create'])]
-    private ?UploadedFile $imageFile = null;
-
-    #[ORM\Column(type: Types::STRING)]
-    #[Groups(['post:read'])]
-    private string $cover = '';
-
-    #[Assert\Image(groups: ['cover'], maxSize: '1M', maxRatio: 4/3, minRatio: 4/3)]
-    #[Assert\NotNull(groups: ['cover'])]
-    private ?UploadedFile $coverFile = null;
-
-    /**
-     * @var Collection<int, Media>
-     */
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Media::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
-    #[Assert\Count(min: 1)]
-    #[Assert\Valid]
-    private Collection $medias;
-
     public function __construct()
     {
         $this->views = 0;
         $this->tags = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->medias = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->addedtofavoritesby = new ArrayCollection();
+        //$this->likes = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -267,76 +253,6 @@ class Post
     public function setReadtime(?int $readtime): static
     {
         $this->readtime = $readtime;
-
-        return $this;
-    }
-
-    public function getImage(): string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getImageFile(): ?UploadedFile
-    {
-        return $this->imageFile;
-    }
-
-    public function setImageFile(?UploadedFile $imageFile): void
-    {
-        $this->imageFile = $imageFile;
-    }
-
-    public function getCover(): string
-    {
-        return $this->cover;
-    }
-
-    public function setCover(string $cover): static
-    {
-        $this->cover = $cover;
-
-        return $this;
-    }
-
-    public function getCoverFile(): ?UploadedFile
-    {
-        return $this->coverFile;
-    }
-
-    public function setCoverFile(?UploadedFile $coverFile): static
-    {
-        $this->coverFile = $coverFile;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Media>
-     */
-    public function getMedias(): Collection
-    {
-        return $this->medias;
-    }
-
-    public function addMedia(Media $media): static
-    {
-        $media->setPost($this);
-        $this->medias->add($media);
-
-        return $this;
-    }
-
-    public function removeMedia(Media $media): static
-    {
-        $media->setPost(null);
-        $this->medias->removeElement($media);
 
         return $this;
     }

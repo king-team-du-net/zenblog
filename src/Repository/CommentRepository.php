@@ -80,6 +80,13 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Retrieves the latest comments created by the user.
+     *
+     * @param User $user
+     * @param int $limit
+     * @return Comment[] Returns an array of Comment objects (UserController)
+     */
     public function findLastByUser(User $user, int $limit): array
     {
         return $this->createQueryBuilder('c')

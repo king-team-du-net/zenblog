@@ -1,43 +1,48 @@
-{% set link = path('blog_show', {slug: post.slug}) %}
-<div class="d-md-flex post-entry-2 half">
-    <a href="{{ link }}" class="me-4 thumbnail">
-        <img src="{{ asset('uploads/post/' ~ post.image) }}" alt="{{ post.title }}" class="img-fluid">
-    </a>
-    <div>
-        <div class="post-meta">
-            {% if post.category %}
-                <span class="date">{{ post.category.name }}</span>
-            {% endif %}
-            {% if showdate is defined %}
-                <span class="mx-1">&bullet;</span>
-                <span>{{ post.publishedAt|ago }}</span>
-            {% endif %}
-            {% if post.readtime %}
-                <span class="mx-1">&bullet;</span>
-                <span>{{ post.readtime }} {{ "post.min_read"|trans }}</span>
-            {% endif %}
-            {% if post.comments|length > 0 %}
-                {% include 'global/_rating.html.twig' with {'rating' : post.avgRatings} %}
-            {% else %}
-                <small>{{ "post.no_ratings"|trans }}</small>
-            {% endif %}
+{% set link = path(post) %}
+<!-- Card item START -->
+<div class="card mb-4">
+    <div class="row">
+        <div class="col-md-5">
+            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.image) }}" alt="{{ post.title }}">
         </div>
-        <h3>
-            <a href="{{ link }}">{{ post.title }}</a>
-        </h3>
-        <p>{{ post.excerpt|html_excerpt(400) }}</p>
-        {{ include('blog/partials/_post_tags.html.twig') }}
-        <div class="d-flex align-items-center author">
-            <div class="photo">
-                {% if post.author.avatar is null %}
-                    <i class="bi bi-person-circle fs-2"></i>
-                {% else %}
-                    <img src="{{ asset('uploads/user/' ~ post.author.avatar) }}" class="img-fluid" alt="{{ post.title }}">
+        <div class="col-md-7 mt-3 mt-md-0">
+            {#
+            {% if post.category %}
+                <a href="javascript:void;" class="badge text-bg-{{ post.category.color }} mb-2">
+                    <i class="fas fa-circle me-2 small fw-bold"></i>
+                    {{ post.category.name }}
+                </a>
+            {% endif %}
+            #}
+            {% if post.category %}
+                <a href="{{ path('blog_index', { category: post.category.slug }) }}" class="badge text-bg-{{ post.category.color }} mb-2">
+                    <i class="fas fa-circle me-2 small fw-bold"></i>
+                    {{ post.category.name }}
+                </a>
+            {% endif %}
+            <h3>
+                <a href="{{ link }}" class="btn-link stretched-link text-reset">{{ post.title|html_excerpt(30) }}</a>
+            </h3>
+            <p>{{ post.excerpt|html_excerpt(340) }}</p>
+            <!-- Card info -->
+            <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+                <li class="nav-item">
+                    <div class="nav-link">
+                        <div class="d-flex align-items-center position-relative">
+                            <div class="avatar avatar-xs">
+                                {% include "global/_avatar-user-blog.html.twig" with { post: post } only %}
+                            </div>
+                            <span class="ms-3">{{'label.by'|trans}}
+                                <a href="javascript:void;" class="stretched-link text-reset btn-link">{{ post.author.nickname }}</a>
+                            </span>
+                        </div>
+                    </div>
+                </li>
+                {% if showdate is defined %}
+                    <li class="nav-item">{{ post.publishedAt|ago }}</li>
                 {% endif %}
-            </div>
-            <div class="name">
-                <h3 class="m-0 p-0">{{ post.author.nickname }}</h3>
-            </div>
+            </ul>
         </div>
     </div>
 </div>
+<!-- Card item END -->

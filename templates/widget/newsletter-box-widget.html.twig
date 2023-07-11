@@ -1,0 +1,10 @@
+<div class="bg-light p-4 mt-4 rounded-3 text-center">
+    <h4>{{"sidebar.title_newsletter"|trans}}</h4>
+    <form>
+        <div class="mb-3">
+            <input id="newsletter-email" type="email" class="form-control newsletter-email" placeholder="{{ "label.email"|trans }}" required="true">
+        </div>
+        <button id="newsletter-subscribe" data-target="" type="button" class="btn btn-primary">{{ "action.newsletter-subscribe"|trans|upper }}</button>
+        <div class="form-text">{{"sidebar.title_newsletter_no_spam"|trans}}</div>
+    </form>
+</div>
