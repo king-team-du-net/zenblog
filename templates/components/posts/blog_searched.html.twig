@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 mx-auto text-center py-5">
-                    <h2 class="display-5">{{'post.search_results_for'|trans}}</h2>
+                    <h2 class="display-5">{{'post.searched_results_for'|trans}}</h2>
                     <span class="lead">25 result found</span>
                     <!-- Search -->
                     <div class="row">
@@ -14,8 +14,8 @@
                                 <input 
                                     class="form-control form-control-lg border-success" 
                                     type="search" 
-                                    placeholder="{{'post.search_for'|trans}}" 
-                                    aria-label="{{'post.search_action'|trans}}" 
+                                    placeholder="{{'post.searched_for'|trans}}" 
+                                    aria-label="{{'post.searched_action'|trans}}" 
                                     autocomplete="off" 
                                     data-model="query" 
                                     autofocus
@@ -39,7 +39,7 @@
                 {% if this.posts|length > 0 %}
                     <div class="col-lg-9 mx-auto">
                         {% for post in this.posts %}
-                            {{ include('global/_blog-search-card.html.twig') }}
+                            {% include "global/_blog-searched-card.html.twig" with { post: post } only %} 
                             {# {{ component('blog_post', {'id': post.id}) }} #}
                         {% endfor %}
                         <!-- Load more -->
@@ -49,7 +49,7 @@
                     <div class="col-lg-9 mx-auto text-center py-5">
                         {% if query is not empty %}                            
                             <h2 class="display-5">{{ query }}</h2>
-                            <span class="lead">{{'post.search_no_results'|trans}}</span>
+                            <span class="lead">{{'post.searched_no_results'|trans}}</span>
                         {% endif %}
                     </div>
                 {% endif %}

@@ -4,7 +4,7 @@
 {% set colLg9Class = 'mb-5' %}
 {% set dataSticky = '991' %}
 
-{% set pagetitle = 'title.post_share'|trans %}
+{% set pagetitle = 'title.post_shared'|trans %}
 {% block title pagetitle %}
 
 {% block meta_dynamic_seo %}
@@ -25,13 +25,13 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    {% set breadcrumb = [{ (path("blog_show", { slug: post.slug })): post.title, "current" : (pagetitle) }] %}
+    {% set breadcrumb = [{ (path(post)): post.title, "current" : (pagetitle) }] %}
     {% include "global/_breadcrumb.html.twig" with breadcrumb %}
 {% endblock %}
 
 {% block content %}
     <div>
-        <h3>{{ 'title.post_share_mail'|trans({ 'title': post.title }) }}</h3>
+        <h3>{{ 'title.post_shared_mail'|trans({ 'title': post.title }) }}</h3>
         <article>{{ post.excerpt|html_excerpt(263) }}</article>
     </div>
 
@@ -66,10 +66,13 @@
         {{ component('shared', {form: form}) }}
     </div>
 
+    <!-- Previous & Next Post -->
     {% include "global/_previous-and-next-post.html.twig" with { previousPost: previousPost, nextPost: nextPost } only %}
 
+    <!-- Author -->
     {% include "global/_author.html.twig" with { post: post} only %}
 
+    <!-- Poll -->
     {% include "global/_poll.html.twig" %}
 {% endblock %}
 

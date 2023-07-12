@@ -30,13 +30,13 @@ final class ListPosts implements ListPostsInterface
 
         $links = [
             'self' => [
-                'href' => $this->urlGenerator->generate('api_blog_index_get_collection', ['page' => $page]),
+                'href' => $this->urlGenerator->generate('api_blog_get_collection', ['page' => $page]),
             ],
         ];
 
         if ($page < $pages) {
             $links['next'] = [
-                'href' => $this->urlGenerator->generate('api_blog_index_get_collection', ['page' => $page + 1]),
+                'href' => $this->urlGenerator->generate('api_blog_get_collection', ['page' => $page + 1]),
             ];
         }
 

@@ -1,14 +1,15 @@
 <ul class="nav text-white-force">
     <li class="nav-item">
-        <a target="_blank" class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path('blog_show', {slug: post.slug})) }}">
+        <a target="_blank" class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{ absolute_url(path(post)) }}">
             <i class="fab fa-facebook-square align-middle"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a target="_blank" class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-twitter" href="https://twitter.com/intent/tweet?text={{ post.title|url_encode }}%20{{ absolute_url(path('blog_show', {slug: post.slug})) }}%20@{{ getSetting("website_name") }}">
+        <a target="_blank" class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-twitter" href="https://twitter.com/intent/tweet?text={{ post.title|url_encode }}%20{{ absolute_url(path(post)) }}%20@{{ getSetting("website_name") }}">
             <i class="fab fa-twitter-square align-middle"></i>
         </a>
     </li>
+    {#
     <li class="nav-item">
         <a target="_blank" class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-linkedin" href="#">
             <i class="fab fa-linkedin align-middle"></i>
@@ -19,8 +20,9 @@
             <i class="fab fa-pinterest align-middle"></i>
         </a>
     </li>
+    #}
     <li class="nav-item">
-        <a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-primary" href="{{ path('blog_show_share', {slug: post.slug}) }}">
+        <a class="nav-link icon-md rounded-circle me-2 mb-2 p-0 fs-5 bg-primary" href="{{ path('blog_article_shared', {slug: post.slug}) }}">
             <i class="far fa-envelope align-middle"></i>
         </a>
     </li>

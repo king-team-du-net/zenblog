@@ -3,7 +3,7 @@
         <ul class="pagination d-inline-block d-md-flex justify-content-center">
             {% if pagination.hasPreviousPage %}
                 <li class="page-item">
-                    <a class="page-link" rel="prev" href="{{ path('blog_index_paginated', {page: pagination.previousPage, tag: tagName}) }}">
+                    <a class="page-link" rel="prev" href="{{ path('blog_paginated', {page: pagination.previousPage, tag: tagName}) }}">
                         {% if app.request.locale == 'ar' %}
                             <i class="fas fa-angle-right"></i> {{ 'paginator.previous'|trans }}
                         {% else %}
@@ -29,13 +29,13 @@
                         <span class="page-link">{{ i }} <span class="sr-only">{{ 'paginator.current'|trans }}</span></span>
                     </li>
                 {% else %}
-                    <li class="page-item"><a class="page-link" href="{{ path('blog_index_paginated', {page: i, tag: tagName}) }}">{{ i }}</a></li>
+                    <li class="page-item"><a class="page-link" href="{{ path('blog_paginated', {page: i, tag: tagName}) }}">{{ i }}</a></li>
                 {% endif %}
             {% endfor %}
 
             {% if pagination.hasNextPage %}
                 <li class="page-item">
-                    <a class="page-link" rel="next" href="{{ path('blog_index_paginated', {page: pagination.nextPage, tag: tagName}) }}">
+                    <a class="page-link" rel="next" href="{{ path('blog_paginated', {page: pagination.nextPage, tag: tagName}) }}">
                         {% if app.request.locale == 'ar' %}
                             {{ 'paginator.next'|trans }} <i class="fas fa-angle-left"></i>
                         {% else %}

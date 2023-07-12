@@ -1,11 +1,11 @@
-{% set link = path('blog_show', {slug: post.slug}) %}
+{% set link = path(post) %}
 <!-- Card item START -->
 <div class="card border rounded-3 up-hover p-4 mb-4">
     <div class="row g-3">
         <div class="col-sm-9">
             <!-- Categories -->
             {% if post.category %}
-                <a href="javascript:void;" class="badge text-bg-{{ post.category.color }} mb-2">
+                <a href="{{ path('blog', { category: post.category.slug }) }}" class="badge text-bg-{{ post.category.color }} mb-2">
                     <i class="fas fa-circle me-2 small fw-bold"></i>
                     {{ post.category.name }}
                 </a>

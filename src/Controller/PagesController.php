@@ -22,7 +22,7 @@ class PagesController extends AbstractController
     {
     }
 
-    #[Route(path: '/contact', name: 'contact_index', methods: [Request::METHOD_GET, Request::METHOD_POST])]
+    #[Route(path: '/contact', name: 'contact', methods: [Request::METHOD_GET, Request::METHOD_POST])]
     public function contactIndex(
         Request $request,
         ContactService $contactService,
@@ -53,7 +53,7 @@ class PagesController extends AbstractController
 
             $this->addFlash('success', $this->translator->trans('flash_success.contact_successfully'));
 
-            return $this->redirectToRoute('contact_index');
+            return $this->redirectToRoute('contact');
         }
 
         return $this->render('pages/contact.html.twig', compact('form', 'contact'));
@@ -65,7 +65,7 @@ class PagesController extends AbstractController
         return $this->render('pages/access-denied.html.twig');
     }
 
-    #[Route(path: '/about', name: 'about_index', methods: [Request::METHOD_GET])]
+    #[Route(path: '/about', name: 'about', methods: [Request::METHOD_GET])]
     public function aboutIndex(UserRepository $userRepository): Response
     {
         return $this->render('pages/about.html.twig', [
@@ -79,7 +79,7 @@ class PagesController extends AbstractController
         if (!$page) {
             $this->addFlash('danger', $this->translator->trans('flash_danger.page'));
 
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('pages/page.html.twig', compact('page'));

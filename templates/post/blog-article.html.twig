@@ -31,13 +31,15 @@
 {% block content %}
 	<article>{{ post.content|raw|nl2br }}</article>
 
+	<!-- Previous & Next Post -->
 	{% include "global/_previous-and-next-post.html.twig" with { previousPost: previousPost, nextPost: nextPost } only %}
 
+	<!-- Author -->
 	{% include "global/_author.html.twig" with { post: post} only %}
 
 	<div class="d-md-flex justify-content-between text-center text-md-start my-4">
 		<!-- Tag -->
-		{{ include('blog/partials/_post_tags.html.twig') }}
+		{% include "post/partials/_post_tags.html.twig" with { post: post} only %}
 		<!-- Info -->
 		<ul class="nav nav-divider align-items-center justify-content-center justify-content-md-end">
 			<li class="nav-item"><a href="javascript:void(0);" class="btn-link"><i class="far fa-comment-alt me-1"></i> {{ 'post.num_comments'|trans({ 'count': post.comments|length }) }}</a></li>
@@ -46,10 +48,13 @@
 		</ul>
 	</div>
 
+	<!-- Poll -->
 	{% include "global/_poll.html.twig" %}
 
+	<!-- List Comments -->
 	{% include "comment/comments.html.twig" with { comments: comments } only %}
 
+	<!-- Form Comment -->
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 		{{ render(controller('App\\Controller\\BlogController::blogCommentForm', {'id': post.id})) }}
 	{% else %}

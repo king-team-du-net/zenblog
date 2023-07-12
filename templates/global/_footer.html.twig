@@ -26,12 +26,12 @@ Footer START -->
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link pt-0" href="{{ path('blog_index') }}">
+								<a class="nav-link pt-0" href="{{ path('blog') }}">
 									{{ "menu.blog"|trans }}
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="{{ path('blog_category_index') }}">
+								<a class="nav-link" href="{{ path('blog_categories') }}">
 									{{ "menu.categories"|trans }}
 								</a>
 							</li>
@@ -57,12 +57,12 @@ Footer START -->
 								</li>
 							{% endif %}
 							<li class="nav-item">
-								<a class="nav-link" href="{{ path('about_index') }}">
+								<a class="nav-link" href="{{ path('about') }}">
 									{{'menu.about'|trans}}
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="{{ path('contact_index') }}">
+								<a class="nav-link" href="{{ path('contact') }}">
 									{{'menu.contact'|trans}}
 								</a>
 							</li>
@@ -92,7 +92,7 @@ Footer START -->
 						{% for tag in widgetTag() %}
 							<li class="list-inline-item">
 								<a 
-									href="{{ path('blog_index', {'tag': tag.slug == app.request.query.get('tag') ? null : tag.slug}) }}"
+									href="{{ path('blog', {'tag': tag.slug == app.request.query.get('tag') ? null : tag.slug}) }}"
 									class="btn btn-sm btn-{{ tag.color }}-soft"
 								>
 									{{ tag.name }}

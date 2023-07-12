@@ -8,6 +8,6 @@ use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 #[AsMessageHandler]
-interface QueryHandlerInterface extends MessageHandlerInterface
+interface QueryHandlerInterface /*extends MessageHandlerInterface*/
 {
 }

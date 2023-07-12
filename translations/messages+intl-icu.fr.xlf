@@ -283,13 +283,13 @@
                 <source>title.welcome</source>
                 <target><![CDATA[Bienvenue sur {website_name}]]></target>
             </trans-unit>
-            <trans-unit id="title.post_share_mail">
-                <source>title.post_share_mail</source>
+            <trans-unit id="title.post_shared_mail">
+                <source>title.post_shared_mail</source>
                 <target><![CDATA[Partager {title} par e-mail]]></target>
             </trans-unit>
-            <trans-unit id="title.post_share">
-                <source>title.post_share</source>
-                <target>Partager un article</target>
+            <trans-unit id="title.post_shared">
+                <source>title.post_shared</source>
+                <target>Partagé un article</target>
             </trans-unit>
             <trans-unit id="title.search_result">
                 <source>title.search_result</source>
@@ -1439,7 +1439,7 @@
             </trans-unit>
             <trans-unit id="menu.categories">
                 <source>menu.categories</source>
-                <target>Catégories</target>
+                <target>Toutes les catégories</target>
             </trans-unit>
             <trans-unit id="menu.mode-switch">
                 <source>menu.mode-switch</source>
@@ -1784,20 +1784,20 @@
                 <target>Le blog a été restaurée avec succès!</target>
             </trans-unit>
 
-            <trans-unit id="post.search_action">
-                <source>post.search_action</source>
+            <trans-unit id="post.searched_action">
+                <source>post.searched_action</source>
                 <target>Rechercher</target>
             </trans-unit>
-            <trans-unit id="post.search_results_for">
-                <source>post.search_results_for</source>
+            <trans-unit id="post.searched_results_for">
+                <source>post.searched_results_for</source>
                 <target>Résultats de recherche pour</target>
             </trans-unit>
-            <trans-unit id="post.search_for">
-                <source>post.search_for</source>
+            <trans-unit id="post.searched_for">
+                <source>post.searched_for</source>
                 <target>Rechercher...</target>
             </trans-unit>
-            <trans-unit id="post.search_no_results">
-                <source>post.search_no_results</source>
+            <trans-unit id="post.searched_no_results">
+                <source>post.searched_no_results</source>
                 <target>Aucun résultat</target>
             </trans-unit>
 
@@ -1966,6 +1966,10 @@
             <trans-unit id="flash_danger.blog_post">
                 <source>flash_danger.blog_post</source>
                 <target>L'article du blog est introuvable</target>
+            </trans-unit>
+            <trans-unit id="flash_danger.blog_post_category">
+                <source>flash_danger.blog_post_category</source>
+                <target>La catégorie est introuvable</target>
             </trans-unit>
             <trans-unit id="flash_danger.resend_verif">
                 <source>flash_danger.resend_verif</source>

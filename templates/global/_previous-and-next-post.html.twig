@@ -15,7 +15,7 @@
                 <!-- Title -->
                 <div class="ms-3">
                     <h5 class="m-0">
-                        <a href="{{ path('blog_show', { slug: previousPost.slug }) }}" class="stretched-link btn-link text-reset">{{ previousPost.title|html_excerpt(51) }}</a>
+                        <a href="{{ path('blog_article', { slug: previousPost.slug }) }}" class="stretched-link btn-link text-reset">{{ previousPost.title|html_excerpt(51) }}</a>
                     </h5>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                 <!-- Title -->
                 <div class="me-3">
                     <h5 class="m-0">
-                        <a href="{{ path('blog_show', { slug: nextPost.slug }) }}" class="stretched-link btn-link text-reset">{{ nextPost.title|html_excerpt(51) }}</a>
+                        <a href="{{ path('blog_article', { slug: nextPost.slug }) }}" class="stretched-link btn-link text-reset">{{ nextPost.title|html_excerpt(51) }}</a>
                     </h5>
                 </div>
                 <!-- image -->

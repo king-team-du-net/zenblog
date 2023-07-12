@@ -8,11 +8,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait HasBackgroundAndColorTrait
 {
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true, options: ['default' => 'default'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true, options: ['default' => 'primary'])]
     #[Assert\NotNull]
     private ?string $color = null;
 
-    #[ORM\Column(type: Types::STRING, length: 255, nullable: true, options: ['default' => 'default'])]
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true, options: ['default' => 'primary'])]
     #[Assert\NotNull]
     #[Assert\Length(min: 7)]
     private ?string $background = null;

@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class BlogShowSharedController extends AbstractController
+class BlogSharedController extends AbstractController
 {
     #[Route(path: '/blog-article/{slug}/shared', name: 'blog_article_shared', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function blogShowShared(
+    public function blogShared(
         Request $request,
         Post $post,
         PostRepository $postRepository,
@@ -24,7 +24,7 @@ class BlogShowSharedController extends AbstractController
     ): Response {
         if (!$post) {
             $this->addFlash('danger', $translator->trans('flash_danger.blog_post'));
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('blog');
         }
 
         $form = $this->createForm(PostSharedType::class)->handleRequest($request);
@@ -43,7 +43,7 @@ class BlogShowSharedController extends AbstractController
                     ],
                 );
                 $this->addFlash('success', $translator->trans('post.share_successfully'));
-                return $this->redirectToRoute('blog_index');
+                return $this->redirectToRoute('blog');
             } else {
                 $this->addFlash('danger', $translator->trans('post.invalid_data'));
             }

@@ -49,7 +49,7 @@ final class SecurityController extends AbstractController
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $this->addFlash('danger', $this->translator->trans('flash_danger.already_logged_in'));
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('homepage');
         }
 
         // get the login error if there is one
@@ -72,7 +72,7 @@ final class SecurityController extends AbstractController
     {
         if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $this->addFlash('danger', $this->translator->trans('flash_danger.already_logged_in'));
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('homepage');
         }
 
         $user = new User();
@@ -83,7 +83,7 @@ final class SecurityController extends AbstractController
 
             $this->addFlash('success', $this->translator->trans('flash_success.create_account_successfully'));
 
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('auth/registration.html.twig', compact('form', 'user'));
@@ -111,7 +111,7 @@ final class SecurityController extends AbstractController
 
             $this->addFlash('success', $this->translator->trans('flash_success.password_reset_request_successfully'));
 
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('auth/request_reset_password.html.twig', [

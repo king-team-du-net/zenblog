@@ -33,7 +33,7 @@ final class ListComments implements ListCommentsInterface
         $links = [
             'self' => [
                 'href' => $this->urlGenerator->generate(
-                    'api_blog_index_comments',
+                    'api_blog_comments',
                     ['page' => $page, 'id' => $post->getId()]
                 ),
             ],
@@ -42,7 +42,7 @@ final class ListComments implements ListCommentsInterface
         if ($page < $pages) {
             $links['next'] = [
                 'href' => $this->urlGenerator->generate(
-                    'api_blog_index_comments',
+                    'api_blog_comments',
                     ['page' => $page + 1, 'id' => $post->getId()]
                 ),
             ];

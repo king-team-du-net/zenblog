@@ -3,8 +3,8 @@
         <div class="col-lg-12">
             <div class="form-group">
                 <input type="search"
-                    class="form-control search-field"
-                    placeholder="{{'post.search_for'|trans}}"
+                    class="form-control searched-field"
+                    placeholder="{{'post.searched_for'|trans}}"
                     autocomplete="off"
                     data-model="query"
                     name="query"
@@ -19,7 +19,7 @@
             {{ component('post', {'id': post.id}) }}
         {% else %}
             {% if query is not empty %}
-                {{'post.search_no_results'|trans}}
+                {{'post.searched_no_results'|trans}}
             {% endif %}
         {% endfor %}
     </div>

@@ -4,12 +4,16 @@ namespace App\DataFixtures;
 
 use App\Entity\Page;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 final class PageFixtures extends Fixture
 {
     use FakerTrait;
 
+    /**
+     * @param EntityManagerInterface $manager
+     */
     public function load(ObjectManager $manager): void
     {
         /** @var string $content */

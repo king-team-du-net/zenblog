@@ -15,7 +15,7 @@ class SitemapController extends AbstractController
     {
         $hostname = $request->getSchemeAndHttpHost();
         $urls = [];
-        $urls[] = ['loc' => $this->generateUrl('blog_index')];
+        $urls[] = ['loc' => $this->generateUrl('blog')];
 
         $posts = $postRepository->findBy(['hidden' => true], ['publishedAt' => 'DESC']);
         foreach ($posts as $post) {

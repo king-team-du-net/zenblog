@@ -48,7 +48,7 @@ class Post
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
-    public const NUM_ITEMS_PER_PAGE = 10;
+    public const PAGE_SIZE = 4;
 
     #[ORM\Column(type: Types::STRING, length: 128)]
     #[

@@ -12,7 +12,7 @@ use Twig\Environment;
 
 final class PostCategoryDropdownSubscriber implements EventSubscriberInterface
 {
-    public const ROUTES = ['homepage', 'blog_index', 'category_index'];
+    public const ROUTES = ['homepage', 'blog', 'blog_categories'];
 
     public function __construct(
         private readonly CategoryRepository $categoryRepository,

@@ -10,8 +10,8 @@ use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 
-#[AsLiveComponent(name: 'blog_search', template: 'components/posts/blog_search.html.twig')]
-final class BlogSearchComponent
+#[AsLiveComponent(name: 'blog_searched', template: 'components/posts/blog_searched.html.twig')]
+final class BlogSearchedComponent
 {
     use DefaultActionTrait;
 
@@ -28,6 +28,6 @@ final class BlogSearchComponent
      */
     public function getPosts(): array
     {
-        return $this->postRepository->findBySearchQuery($this->query);
+        return $this->postRepository->findBySearchedQuery($this->query);
     }
 }

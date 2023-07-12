@@ -12,6 +12,6 @@ class BlogSearchedController extends AbstractController
     #[Route('/search', name: 'blog_search', methods: [Request::METHOD_GET])]
     public function blogSearched(Request $request): Response
     {
-        return $this->render('blog/search.html.twig', ['query' => (string) $request->query->get('q', '')]);
+        return $this->render('post/blog-searched.html.twig', ['query' => (string) $request->query->get('q', '')]);
     }
 }

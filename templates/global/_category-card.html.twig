@@ -11,7 +11,7 @@
                 <div class="w-100 mt-auto">
                     <!-- Card category -->
                     {% if category %}
-                        <a href="{{ path('blog_index', { category: category.slug }) }}" class="badge text-bg-{{ category.color }} mb-2">
+                        <a href="{{ path('blog', { category: category.slug }) }}" class="badge text-bg-{{ category.color }} mb-2">
                             <i class="fas fa-circle me-2 small fw-bold"></i>
                             {{ category.name }}
                         </a>

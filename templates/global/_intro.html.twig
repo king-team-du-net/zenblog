@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="col-lg-8 py-md-5 my-lg-5">
 				{% if post.category %}
-					<a href="javascript:void;" class="badge text-bg-{{ post.category.color }} mb-2">
+					<a href="{{ path('blog', { category: post.category.slug }) }}" class="badge text-bg-{{ post.category.color }} mb-2">
 						<i class="fas fa-circle me-2 small fw-bold"></i>
 						{{ post.category.name }}
 					</a>
@@ -21,7 +21,7 @@
 									{% include "global/_avatar-user-blog.html.twig" with { post: post } only %}
 								</div>
 								<span class="ms-3">{{'label.by'|trans}}
-									<a href="javascript:void;" class="stretched-link text-reset btn-link">{{ post.author.nickname }}</a>
+									<a href="javascript:void;" class="stretched-link text-reset btn-link">{{ post.author.nickname|lower|capitalize }}</a>
 								</span>
 							</div>
 						</div>

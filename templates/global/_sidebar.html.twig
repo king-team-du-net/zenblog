@@ -1,45 +1,48 @@
-<!-- Categories -->
-<div class="row g-2">
-	<h5>{{'sidebar.title_categories'|trans}}</h5>
-	{% include "widget/categories-widget.html.twig" with { categories: sidebarCategories} only %}
-</div>
+{% if getSetting("show_post_category") == "yes" %}
+	<!-- Categories -->
+	<div class="row g-2">
+		<h5>{{'sidebar.title_categories'|trans}}</h5>
+		{% set sidebarpostcategories = getPostCategories({ order: "postscount", limit: 5, hidden: true }).getQuery().getResult() %}
+		{% for postcategory in sidebarpostcategories %}
+			<div class="d-flex justify-content-between align-items-center bg-{{ postcategory.color }} bg-opacity-15 rounded p-2 position-relative">
+				<h6 class="m-0 text-{{ postcategory.color }}">{{ postcategory.name }}</h6>
+				<a href="{{ path('blog', { category: postcategory.slug }) }}" class="badge bg-{{ postcategory.color }} text-dark stretched-link">
+					{{ postcategory.posts|length }}
+				</a>
+			</div>
+		{% endfor %}
+	</div>
+{% endif %}
 
 <div class="row">
-	<!-- Total post widget START -->
-	<div class="col-12 col-sm-6 col-lg-12">
-		<h4 class="mt-4 mb-3">{{'sidebar.title_total_post'|trans}}t</h4>
-		<p>
-			{{ 'post.total_post'|trans({ 'totalPosts': totalPosts }) }}
-		</p>
-	</div>
-	<!-- Total post widget END -->
-
-	<!-- Recent posts widget START -->
-	<div class="col-12 col-sm-6 col-lg-12">
-		<h4 class="mt-4 mb-3">{{'sidebar.title_latest'|trans}}</h4>
-		{% include "widget/post-widget.html.twig" with { posts: latestPosts} only %}
-	</div>
-	<!-- Recent posts widget END -->
-
-	<!-- Most commented posts widget START -->
-	<div class="col-12 col-sm-6 col-lg-12">
-		<h4 class="mt-4 mb-3">{{'sidebar.title_most_commented'|trans}}</h4>
-		{% include "widget/post-widget.html.twig" with { posts: mostCommentedPosts} only %}
-	</div>
-	<!-- Most commented posts widget END -->
-
-	<!-- ADV widget START -->
-	<div class="col-12 col-sm-6 col-lg-12 my-4">
-		<a href="#" class="d-block card-img-flash">
-			<img src="build/img/adv.png" alt="">
-		</a>
-		<div class="smaller text-end mt-2">ads via
-			<a href="#" class="text-muted">
-				<u>Bootstrap</u>
-			</a>
+	{% if getSetting("show_total_posts") == "yes" %}
+		<!-- Total post widget START -->
+		<div class="col-12 col-sm-6 col-lg-12">
+			<h4 class="mt-4 mb-3">{{'sidebar.title_total_post'|trans}}t</h4>
+			<p>
+				{{ 'post.total_post'|trans({ 'totalPosts': totalPosts }) }}
+			</p>
 		</div>
-	</div>
-	<!-- ADV widget END -->
+		<!-- Total post widget END -->
+	{% endif %}
+
+	{% if getSetting("show_latest_posts") == "yes" %}
+		<!-- Recent posts widget START -->
+		<div class="col-12 col-sm-6 col-lg-12">
+			<h4 class="mt-4 mb-3">{{'sidebar.title_latest'|trans}}</h4>
+			{% include "widget/post-widget.html.twig" with { posts: latestPosts} only %}
+		</div>
+		<!-- Recent posts widget END -->
+	{% endif %}
+
+	{% if getSetting("show_most_commented") == "yes" %}
+		<!-- Most commented posts widget START -->
+		<div class="col-12 col-sm-6 col-lg-12">
+			<h4 class="mt-4 mb-3">{{'sidebar.title_most_commented'|trans}}</h4>
+			{% include "widget/post-widget.html.twig" with { posts: mostCommentedPosts} only %}
+		</div>
+		<!-- Most commented posts widget END -->
+	{% endif %}
 </div>
 
 <!-- Newsletter START -->
@@ -47,18 +50,3 @@
 	{% include "widget/newsletter-box-widget.html.twig" %}
 {% endif %}
 <!-- Newsletter END -->
-
-{#
-<!-- Advertisement -->
-<div class="mt-4">
-	<a href="#" class="d-block card-img-flash">
-		<img src="build/img/adv.png" alt="">
-	</a>
-</div>
-
-<!-- RSS -->
-<div class="mt-4">
-	<h5 class="mb-3">{{'sidebar.title_rss'|trans}}</h5>
-	{% include "widget/rss-widget.html.twig" %}
-</div>
-#}

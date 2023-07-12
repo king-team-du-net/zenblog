@@ -64,7 +64,7 @@ class BlogCommentController extends AbstractController
                 $this->addFlash('danger', $translator->trans('The form contains invalid data'));
             }
 
-            return $this->redirectToRoute('blog_show', ['slug' => $post->getSlug()]);
+            return $this->redirectToRoute('blog_article', ['slug' => $post->getSlug()]);
         }*/
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
@@ -73,7 +73,7 @@ class BlogCommentController extends AbstractController
             $em->flush();
             $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
             $this->addFlash('success', $translator->trans('flash_success.comments_successfully'));
-            return $this->redirectToRoute('blog_show', ['slug' => $post->getSlug()]);
+            return $this->redirectToRoute('blog_article', ['slug' => $post->getSlug()]);
         }
 
         return $this->render('comment/form_error.html.twig', compact('post', 'commentForm'));

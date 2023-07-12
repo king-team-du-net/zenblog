@@ -309,6 +309,8 @@ final class TwigSettingExtension extends AbstractExtension
     public function getPosts($criterias): QueryBuilder
     {
         $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $isOnHomepageSlider = array_key_exists('isOnHomepageSlider', $criterias) ? $criterias['isOnHomepageSlider'] : "all";
+        $addedtofavoritesby = array_key_exists('addedtofavoritesby', $criterias) ? $criterias['addedtofavoritesby'] : "all";
         $state = array_key_exists('state', $criterias) ? $criterias['state'] : "all";
         $selecttags = array_key_exists('selecttags', $criterias) ? $criterias['selecttags'] : false;
         $hidden = array_key_exists('hidden', $criterias) ? $criterias['hidden'] : true;
@@ -320,7 +322,7 @@ final class TwigSettingExtension extends AbstractExtension
         $sort = array_key_exists('order', $criterias) ? $criterias['order'] : "publishedAt";
         $order = array_key_exists('order', $criterias) ? $criterias['order'] : "DESC";
 
-        return $this->entityManager->getRepository("App\Entity\Post")->getPosts($state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan);
+        return $this->entityManager->getRepository("App\Entity\Post")->getPosts($isOnHomepageSlider, $addedtofavoritesby, $state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan);
     }
 
     // Returns the users after applying the specified search criterias

@@ -5,7 +5,7 @@
         <description>{{ 'rss.description'|trans({ 'website_name': getSetting("website_name") }) }}</description>
         <pubDate>{{ 'now'|date('r', timezone='GMT') }}</pubDate>
         <lastBuildDate>{{ (pagination.results|last).publishedAt|default('now')|date('r', timezone='GMT') }}</lastBuildDate>
-        <link>{{ url('blog_index') }}</link>
+        <link>{{ url('blog') }}</link>
         <language>{{ app.request.locale }}</language>
 
         {% for post in pagination.results %}

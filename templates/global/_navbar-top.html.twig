@@ -4,7 +4,7 @@
             <!-- Top bar left -->
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="nav-link ps-0" href="{{ path('about_index') }}">{{ 'menu.about'|trans }}</a>
+                    <a class="nav-link ps-0" href="{{ path('about') }}">{{ 'menu.about'|trans }}</a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <li class="nav-item">
@@ -28,7 +28,7 @@
 						</li>
 					{% else %}
 						<li class="nav-item">
-							<a class="nav-link" href="{{ impersonation_exit_path(path('blog_index')) }}">
+							<a class="nav-link" href="{{ impersonation_exit_path(path('homepage')) }}">
 								{{ "menu.impersonation_exit_path"|trans }}
 							</a>
 						</li>

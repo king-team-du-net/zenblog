@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Entity\Review;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\HomepageHeroSettings;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,8 +31,8 @@ trait HasReviewsAndFavoritesPostsTrait
     #[ORM\InverseJoinColumn(name: 'user_id', referencedColumnName: 'id')]
     private Collection $addedtofavoritesby;
 
-    //#[ORM\ManyToOne(inversedBy: 'posts', cascade: ['persist'])]
-    //private ?HomepageHeroSettings $isonhomepageslider = null;
+    #[ORM\ManyToOne(inversedBy: 'posts', cascade: ['persist'])]
+    private ?HomepageHeroSettings $isonhomepageslider = null;
 
     public function isEnablereviews(): bool
     {
@@ -194,7 +195,6 @@ trait HasReviewsAndFavoritesPostsTrait
         return $this->addedtofavoritesby->contains($user);
     }
 
-    /*
     public function getIsonhomepageslider(): ?HomepageHeroSettings
     {
         return $this->isonhomepageslider;
@@ -206,5 +206,4 @@ trait HasReviewsAndFavoritesPostsTrait
 
         return $this;
     }
-     */
 }

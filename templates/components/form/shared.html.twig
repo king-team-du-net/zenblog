@@ -1,24 +1,20 @@
 <div {{ attributes }}>
     {{ form_start(form, {'method': 'post', 'attr': {'class': 'row g-3 mt-2'}}) }}
-    {{ form_errors(form) }}
-    <div class="col-md-6">
-        {{ form_widget(form.sender_name) }}
-        {{ form_errors(form.sender_name) }}
-    </div>
-    <div class="col-md-6">
-        {{ form_widget(form.sender_email) }}
-        {{ form_errors(form.sender_email) }}
-    </div>
-    <div class="col-12">
-        {{ form_widget(form.receiver_email) }}
-        {{ form_errors(form.receiver_email) }}
-    </div>
-    <div class="col-12">
-        {{ form_widget(form.sender_comments) }}
-        {{ form_errors(form.sender_comments) }}
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">{{ "action.post_share"|trans }}</button>
-    </div>
+        {{ form_errors(form) }}
+        <div class="col-md-6">
+            {{ form_row(form.sender_name) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.sender_email) }}
+        </div>
+        <div class="col-12">
+            {{ form_row(form.receiver_email) }}
+        </div>
+        <div class="col-12">
+            {{ form_row(form.sender_comments) }}
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">{{ "action.post_share"|trans }}</button>
+        </div>
     {{ form_end(form) }}
 </div>

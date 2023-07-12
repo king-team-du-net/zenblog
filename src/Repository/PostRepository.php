@@ -10,12 +10,14 @@ use App\Entity\Category;
 use App\Helper\Paginator;
 use Doctrine\ORM\QueryBuilder;
 use App\Twig\TwigSettingExtension;
+use App\Entity\HomepageHeroSettings;
+use function Symfony\Component\String\u;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Common\Collections\Collection;
+
 use Knp\Component\Pager\PaginatorInterface;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-
-use function Symfony\Component\String\u;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -166,9 +168,11 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Post[]
+     * Search
+     * 
+     * @return Post[] (BlogController)
      */
-    public function findBySearchQuery(string $query, int $limit = Paginator::PAGE_SIZE): array
+    public function findBySearchedQuery(string $query, int $limit = Paginator::PAGE_SIZE): array
     {
         $searchTerms = $this->extractSearchTerms($query);
 
@@ -424,12 +428,14 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Returns the blog posts after applying the specified search criterias
      *
+     * @param HomepageHeroSettings|null $isOnHomepageSlider
+     * @param $addedtofavoritesby
      * @param string $state
      * @param string $selecttags
      * @param boolean $hidden
      * @param string $keyword
      * @param string $slug
-     * @param $category
+     * @param Category $category
      * @param int $limit
      * @param string $sort
      * @param string $order
@@ -437,12 +443,20 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder<Post> (BlogController)
      */
-    public function getPosts($state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan): QueryBuilder
+    public function getPosts($isOnHomepageSlider, $addedtofavoritesby, $state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan): QueryBuilder
     {
         $qb = $this->createQueryBuilder("p");
 
         if (!$selecttags) {
             $qb->select("p");
+
+            if ($isOnHomepageSlider === true) {
+                $qb->andWhere("p.isonhomepageslider IS NOT NULL");
+            }
+
+            if ($addedtofavoritesby !== "all") {
+                $qb->andWhere(":addedtofavoritesbyuser MEMBER OF p.addedtofavoritesby")->setParameter("addedtofavoritesbyuser", $addedtofavoritesby);
+            }
 
             if ($state !== "all") {
                 $qb->andWhere("p.state LIKE :state or :state LIKE p.state")->setParameter("state", '%published%');

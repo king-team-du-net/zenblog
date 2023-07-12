@@ -29,7 +29,12 @@ final class PostSharedType extends AbstractType
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min' => 3]),
+                    new Length(
+                        [
+                            'min' => 3,
+                            'message' => 'L\'image doit faire {{ max_width }} pixels de large au maximum'
+                        ]
+                    ),
                 ],
             ])
             ->add('sender_email', EmailType::class, [

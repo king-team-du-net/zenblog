@@ -350,7 +350,23 @@ final class SettingFixtures extends Fixture
             81 => [
                 'name' => 'website_google_iframe',
                 'value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin',
-            ]
+            ],
+            82 => [
+                'name' => 'show_post_category',
+                'value' => 'yes',
+            ],
+            83 => [
+                'name' => 'show_total_posts',
+                'value' => 'yes',
+            ],
+            84 => [
+                'name' => 'show_latest_posts',
+                'value' => 'yes',
+            ],
+            85 => [
+                'name' => 'show_most_commented',
+                'value' => 'yes',
+            ],
         ];
 
         foreach ($settings as $key => $label) {

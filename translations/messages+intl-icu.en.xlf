@@ -283,13 +283,13 @@
                 <source>title.welcome</source>
                 <target><![CDATA[Welcome to {website_name}]]></target>
             </trans-unit>
-            <trans-unit id="title.post_share_mail">
-                <source>title.post_share_mail</source>
+            <trans-unit id="title.post_shared_mail">
+                <source>title.post_shared_mail</source>
                 <target><![CDATA[Share {title} via e-mail]]></target>
             </trans-unit>
-            <trans-unit id="title.post_share">
-                <source>title.post_share</source>
-                <target>Share a post</target>
+            <trans-unit id="title.post_shared">
+                <source>title.post_shared</source>
+                <target>Shared a post</target>
             </trans-unit>
             <trans-unit id="title.search_result">
                 <source>title.search_result</source>
@@ -1446,7 +1446,7 @@
             </trans-unit>
             <trans-unit id="menu.categories">
                 <source>menu.categories</source>
-                <target>Categories</target>
+                <target>All Categories</target>
             </trans-unit>
             <trans-unit id="menu.mode-switch">
                 <source>menu.mode-switch</source>
@@ -1791,20 +1791,20 @@
                 <target>The blog post has been successfully restored!</target>
             </trans-unit>
 
-            <trans-unit id="post.search_action">
-                <source>post.search_action</source>
+            <trans-unit id="post.searched_action">
+                <source>post.searched_action</source>
                 <target>Search</target>
             </trans-unit>
-            <trans-unit id="post.search_results_for">
-                <source>post.search_results_for</source>
+            <trans-unit id="post.searched_results_for">
+                <source>post.searched_results_for</source>
                 <target>Search results for</target>
             </trans-unit>
-            <trans-unit id="post.search_for">
-                <source>post.search_for</source>
+            <trans-unit id="post.searched_for">
+                <source>post.searched_for</source>
                 <target>Search for...</target>
             </trans-unit>
-            <trans-unit id="post.search_no_results">
-                <source>post.search_no_results</source>
+            <trans-unit id="post.searched_no_results">
+                <source>post.searched_no_results</source>
                 <target>No results found</target>
             </trans-unit>
 
@@ -1977,6 +1977,10 @@
             <trans-unit id="flash_danger.blog_post">
                 <source>flash_danger.blog_post</source>
                 <target>The blog post not be found</target>
+            </trans-unit>
+            <trans-unit id="flash_danger.blog_post_category">
+                <source>flash_danger.blog_post_category</source>
+                <target>The category can not be found</target>
             </trans-unit>
             <trans-unit id="flash_danger.resend_verif">
                 <source>flash_danger.resend_verif</source>

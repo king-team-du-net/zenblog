@@ -13,10 +13,6 @@
 {% endblock %}
 
 {% block content %}
-	{% if category is defined %}
-		<h3 class="category-title">{{'title.post_category'|trans}}: {{ category.name }}</h3>
-	{% endif %}
-
 	{% if posts.getTotalItemCount > 0 %}
 		{% for post in posts %}
 			{% include "global/_blog-card.html.twig" with {post: post, showdate: 1} only %}
@@ -26,14 +22,4 @@
 	{% endif %}
 
 	{{ knp_pagination_render(posts, null, {}, {'align': 'center'}) }}
-
-	{#
-	{% for post in pagination.results %}
-		{% include "global/_blog-card.html.twig" with {post: post, showdate: 1} %}
-	{% else %}
-		{% include "global/_message.html.twig" with { type: "info", message: ('post.no_posts_found'|trans), icon: "bi bi-exclamation-circle" } %}
-	{% endfor %}
-
-	{{ include('blog/partials/_pagination.html.twig') }}
-	#}
 {% endblock %}

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Interface\Post\Listing\ListCommentsInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/blogs', name: 'blog_index_')]
+#[Route('/blogs', name: 'blog_')]
 final class BlogController extends AbstractController
 {
     #[Route(name: 'get_collection', methods: [Request::METHOD_GET])]
