@@ -1,9 +1,5 @@
 {% extends 'layouts/blog.html.twig' %}
 
-{% set containerClass = 'position-relative pt-5' %}
-{% set colLg9Class = 'mb-5' %}
-{% set dataSticky = '991' %}
-
 {% set pagetitle = post.title %}
 {% block title pagetitle %}
 
@@ -54,18 +50,66 @@
 	<!-- List Comments -->
 	{% include "comment/comments.html.twig" with { comments: comments } only %}
 
-	<!-- Form Comment -->
-	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-		{{ render(controller('App\\Controller\\BlogController::blogCommentForm', {'id': post.id})) }}
-	{% else %}
-		<div>
-			<div class="mt-5">
-				<a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}" class="text-body fw-normal">
-					<i class="bi bi-door-open"></i> {{ 'action.sign_in'|trans }}
-				</a>
-				<span>{{ 'post.to_publish_a_comment'|trans }}</span>
+	<!-- Blog Comments Enabled -->
+	{% set blog_comments_enabled = getSetting("blog_comments_enabled") %}
+	{% if blog_comments_enabled != "no" %}
+		<!-- Blog Comments Enabled Native -->
+		{% if blog_comments_enabled == "native" %}
+			<!-- Form Comment -->
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				{{ render(controller('App\\Controller\\BlogCommentController::blogCommentForm', {'id': post.id})) }}
+			{% else %}
+				<div>
+					<div class="mt-5">
+						<a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}" class="text-body fw-normal">
+							<i class="bi bi-door-open"></i> {{ 'action.sign_in'|trans }}
+						</a>
+						<span>{{ 'post.to_publish_a_comment'|trans }}</span>
+					</div>
+				</div>
+			{% endif %}
+		<!-- Blog Comments Enabled Facebook -->
+		{% elseif blog_comments_enabled == "facebook" and getSetting("facebook_app_id") %}
+			<div id="fb-root"></div>
+			<script async defer crossorigin="anonymous" src="https://connect.facebook.net/{{ app.request.locale|lower~'_'~app.request.locale|upper }}/sdk.js#xfbml=1&version=v4.0&appId={{ getSetting("facebook_app_id") }}&autoLogAppEvents=1"></script>
+			<div class="fb-comments" data-href="{{ app.request.uri }}" data-width="100%" data-numposts="5"></div>
+		<!-- Blog Comments Enabled Disqus -->
+		{% elseif blog_comments_enabled == "disqus" and getSetting("disqus_subdomain") %}
+			<div id="disqus_thread"></div>
+			<script>
+				/**
+				 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+				 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+				var disqus_config = function () {
+					this.page.url = "{{ app.request.uri }}";  // Replace PAGE_URL with your page's canonical URL variable
+					this.page.identifier = "{{ post.slug }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+					this.language = "{{ app.request.locale|lower }}";
+				};
+				(function () { // DON'T EDIT BELOW THIS LINE
+					var d = document, s = d.createElement('script');
+					s.src = 'https://{{ getSetting("disqus_subdomain") }}.disqus.com/embed.js';
+					s.setAttribute('data-timestamp', +new Date());
+					(d.head || d.body).appendChild(s);
+				})();
+			</script>
+			<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		{% endif %}
+	{% endif %}
+
+{% endblock %}
+
+{% block similarposts %}
+	{% set similars = getPosts({limit: 8, category: post.category.slug, otherthan: post.id}).getQuery().getResult() %}
+	{% if similars|length %}
+		<div class="row">
+			<div class="col-12">
+				<h3 class="mt-5 mb-4 text-center">{{ "Related posts"|trans }}</h3>
+				<div class="owl-init owl-carousel" data-margin="15" data-items="4" data-dots="false" data-nav="true" data-autoplay="false">
+					{% for similar in similars %}
+						{% include "global/_blog-card.html.twig" with { post: similar } %}
+					{% endfor %}
+				</div>
 			</div>
 		</div>
 	{% endif %}
-
 {% endblock %}

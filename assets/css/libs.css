@@ -10,8 +10,9 @@
 @import '~glightbox/dist/css/glightbox.min.css';
 @import '~aos/dist/aos.css';
 @import '~flatpickr/dist/flatpickr.min.css';
+@import '~tiny-slider/dist/tiny-slider.css';
 
-@import '../vendor/tiny-slider/tiny-slider.css';
+/*@import '../vendor/tiny-slider/tiny-slider.css';*/
 @import '../vendor/plyr/plyr.css';
 @import '../vendor/apexcharts/css/apexcharts.css';
 @import '../vendor/overlay-scrollbar/css/OverlayScrollbars.min.css';

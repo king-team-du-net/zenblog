@@ -1,8 +1,9 @@
-{% if getSetting("show_post_category") == "yes" %}
+{% set show_post_category_sidebar = getSetting("show_post_category_sidebar") %}
+{% if show_post_category_sidebar != "yes"  %}
 	<!-- Categories -->
 	<div class="row g-2">
 		<h5>{{'sidebar.title_categories'|trans}}</h5>
-		{% set sidebarpostcategories = getPostCategories({ order: "postscount", limit: 5, hidden: true }).getQuery().getResult() %}
+		{% set sidebarpostcategories = getPostCategories({ order: "postscount", limit: 4, hidden: true }).getQuery().getResult() %}
 		{% for postcategory in sidebarpostcategories %}
 			<div class="d-flex justify-content-between align-items-center bg-{{ postcategory.color }} bg-opacity-15 rounded p-2 position-relative">
 				<h6 class="m-0 text-{{ postcategory.color }}">{{ postcategory.name }}</h6>
@@ -18,7 +19,7 @@
 	{% if getSetting("show_total_posts") == "yes" %}
 		<!-- Total post widget START -->
 		<div class="col-12 col-sm-6 col-lg-12">
-			<h4 class="mt-4 mb-3">{{'sidebar.title_total_post'|trans}}t</h4>
+			<h4 class="mt-4 mb-3">{{'sidebar.title_total_post'|trans}}</h4>
 			<p>
 				{{ 'post.total_post'|trans({ 'totalPosts': totalPosts }) }}
 			</p>

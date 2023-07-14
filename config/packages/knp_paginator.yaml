@@ -7,4 +7,4 @@ knp_paginator:
         distinct: true
     template:
         pagination: 'global/_pagination.html.twig'
-        # sortable: 'global/_sortable.html.twig'
+        sortable: 'global/_sortable.html.twig'

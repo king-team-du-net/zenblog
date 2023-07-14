@@ -3,8 +3,9 @@
 
 <!-- =======================
 Footer START -->
-<footer class="pb-0 pt-5">
+<footer class="bg-dark pb-0 pt-5">
 	<div class="container">
+		<!-- Divider -->
 		<hr>
 		<!-- Widgets START -->
 		<div class="row pt-5">
@@ -69,12 +70,26 @@ Footer START -->
 						</ul>
 					</div>
 					<div class="col-6">
-						{% if categoryFooter()|length > 0 %}
+						{# {% if categoryFooter()|length > 0 %}
 							<ul class="nav flex-column">
 								{% for category in categoryFooter() %}
 									<li class="nav-item">
 										<a class="nav-link pt-0" href="{{ path(category) }}">
 											{{ category.name }}
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %} #}
+
+						{% set show_post_category_footer = getSetting("show_post_category_footer") %}
+						{% if show_post_category_footer != "yes" %}
+							<ul class="nav flex-column">
+								{% set footerpostcategories = getPostCategories({ order: "postscount", limit: 6, hidden: true }).getQuery().getResult() %}
+								{% for postcategory in footerpostcategories %}
+									<li class="nav-item">
+										<a class="nav-link pt-0" href="{{ path('blog', { category: postcategory.slug }) }}">
+											{{ postcategory.name }}
 										</a>
 									</li>
 								{% endfor %}
@@ -155,21 +170,21 @@ Footer START -->
 	</div>
 
 	<!-- Footer copyright START -->
-	<div class="mb-3">
+	<div class="bg-dark-overlay-3 mt-5">
 		<div class="container">
 			<div class="row align-items-center justify-content-md-between py-4">
 				<div class="col-lg-6">
 					<!-- Copyright -->
-					<div class="text-center text-md-start">
+					<div class="text-center text-md-start text-primary-hover text-muted">
 						{{"footer_copyright"|trans}} &copy; {{ "now"|date('Y') }} 
 						<a href="{{ getSetting("website_url") }}" class="text-reset btn-link" target="_blank">{{ getSetting("website_name") }}</a>. {{'footer_reserved'|trans}}
 					</div>
 				</div>
-				<div class="col-lg-6 d-sm-flex align-items-center justify-content-center justify-content-lg-end">
+				<div class="col-md-6 d-sm-flex align-items-center justify-content-center justify-content-md-end">
 					<!-- Language switcher -->
 					{% if routename and locales|split('|')|length > 2 %}
 						<div class="dropup me-0 me-sm-3 mt-3 mt-md-0 text-center text-sm-end">
-							<a class="dropdown-toggle text-body" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
+							<a class="dropdown-toggle text-primary-hover" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
 								<i class="flag flag-{{ app.request.locale|getLangFlag }} me-2"></i>
 								{{ app.request.locale|getLangName }}
 							</a>
@@ -188,7 +203,7 @@ Footer START -->
 						</div>
 					{% endif %}
 					<!-- Links -->
-					<ul class="nav text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
+					<ul class="nav text-primary-hover text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
 						{% if getSetting('show_terms_of_service_page') == "yes" %}
 							<li class="nav-item">
 								<a class="nav-link" href="{{ path('page', { slug : getSetting('terms_of_service_page_slug') }) }}">

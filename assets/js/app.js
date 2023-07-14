@@ -11,31 +11,25 @@
 
 import '../css/app.css';
 
+// js
+
+//const $ = require('jquery');
+//global.$ = global.jQuery = $;
+
 
 // Template Main JS File
 
-import '../vendor/tiny-slider/tiny-slider.js';
+//import '../vendor/tiny-slider/tiny-slider.js';
 //import '../vendor/sticky-js/sticky.min.js';
 import '../vendor/plyr/plyr.js';
 import '../vendor/apexcharts/js/apexcharts.min.js';
 import '../vendor/overlay-scrollbar/js/OverlayScrollbars.min.js';
 
-//require('./theme-like.js');
-import './themes.js';
-
-// Start the Stimulus application
-
-import '../bootstrap.js';
-
-// js
-
-const $ = require('jquery');
-global.$ = global.jQuery = $;
 
 // Vendor JS Files & Mode Modules
 
-import 'jquery-confirm/dist/jquery-confirm.min.js';
-import 'select2/dist/js/select2.js';
+//import 'jquery-confirm/dist/jquery-confirm.min.js';
+//import 'select2/dist/js/select2.js';
 import 'summernote/dist/summernote-bs5.min.js';
 
 /* window.Translator = require('bazinga-translator'); */
@@ -51,37 +45,37 @@ import 'waypoints/lib/jquery.waypoints.min.js';
 import '../vendor/jquery-countdown/jquery.countdown.min.js';
 import '../vendor/counter-up/jquery.counterup.min.js';
 import '../vendor/circle-progress/circle-progress.min.js';
-import './translations/config.js';
-import './translations/en.js';
-import './translations/fr.js';
+//import './translations/config.js';
+//import './translations/en.js';
+//import './translations/fr.js';
 
-global.PhotoSwipe = require('../vendor/photoswipe/photoswipe.min.js');
-global.PhotoSwipeUI_Default = require('../vendor/photoswipe/photoswipe-ui-default.min.js');
-import '../vendor/jq-photoswipe/jqPhotoSwipe.min.js';
+//global.PhotoSwipe = require('../vendor/photoswipe/photoswipe.min.js');
+//global.PhotoSwipeUI_Default = require('../vendor/photoswipe/photoswipe-ui-default.min.js');
+//import '../vendor/jq-photoswipe/jqPhotoSwipe.min.js';
 
-import '../vendor/ninsuo-symfony-collection/jquery.collection.js';
-import '../vendor/pugxautocompleter/autocompleter-select2.js';
+//import '../vendor/ninsuo-symfony-collection/jquery.collection.js';
+//import '../vendor/pugxautocompleter/autocompleter-select2.js';
 
-import noUiSlider from 'nouislider/dist/nouislider.min.js';
-import wNumb from 'wnumb/wNumb.js';
+//import noUiSlider from 'nouislider/dist/nouislider.min.js';
+//import wNumb from 'wnumb/wNumb.js';
 
 import '@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js';
 import 'jquery-datetimepicker/build/jquery.datetimepicker.full.min.js';
 
-import Readmore from 'readmore-js/readmore.js';
+//import Readmore from 'readmore-js/readmore.js';
 import Blazy from 'blazy/blazy.min.js';
 import Ouical from 'add-to-calendar-buttons/ouical.min.js';
-import Bloodhound from 'typeahead.js/dist/bloodhound.min.js';
-import 'typeahead.js/dist/typeahead.jquery.min.js';
+//import Bloodhound from 'typeahead.js/dist/bloodhound.min.js';
+//import 'typeahead.js/dist/typeahead.jquery.min.js';
 
-import Handlebars from 'handlebars/dist/handlebars.min.js';
+//import Handlebars from 'handlebars/dist/handlebars.min.js';
 
-import moment from 'moment/moment.js';
-import 'moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js';
-import KnpPaginatorAjax from '../vendor/knppaginator-ajax/knppaginator-ajax.js';
-import 'jquery-parallax.js/parallax.min.js';
-import caleandar from '../vendor/caleandar.js/caleandar.js';
-import bootbox from '../vendor/bootboxjs/bootbox.min.js';
+//import moment from 'moment/moment.js';
+//import 'moment-timezone/builds/moment-timezone-with-data-2012-2022.min.js';
+//import KnpPaginatorAjax from '../vendor/knppaginator-ajax/knppaginator-ajax.js';
+//import 'jquery-parallax.js/parallax.min.js';
+//import caleandar from '../vendor/caleandar.js/caleandar.js';
+//import bootbox from '../vendor/bootboxjs/bootbox.min.js';
 import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
 
 // Declares utility functions
@@ -140,9 +134,10 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
     }
     */
 
-    global.getURLParameter = getURLParameter;
-    global.getURLArrayParameter = getURLArrayParameter;
+    //global.getURLParameter = getURLParameter;
+    //global.getURLArrayParameter = getURLArrayParameter;
 
+    /*
     // Initializes bootstrap components
     $('[data-toggle="popover"], .has-popover').popover();
     $('[data-toggle="tooltip"], .has-tooltip').tooltip({
@@ -212,6 +207,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
     $(".header-main form.search-wrap .input-icon > i").click(function () {
         $(".header-main form.search-wrap").submit();
     });
+    */
 
     // Jssocials share
     if ($('.sharer').length) {
@@ -288,6 +284,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Implements on hover trigger for bootstrap 4/5 dropdowns
     function toggleDropdown(e) {
         const _d = $(e.target).closest('.dropdown'),
@@ -305,6 +302,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         .on('mouseenter mouseleave', '.dropdown-hover', toggleDropdown)
         .on('click', '.dropdown-menu a', toggleDropdown)
     ;
+    */
 
     // Initializes word rotator
     if ($('.rotate-words').length) {
@@ -315,6 +313,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Initializes checkout timer
     if ($('.checkout-timer').length) {
         $('.checkout-timer').each(function () {
@@ -351,7 +350,9 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         });
     }
+    */
 
+    /*
     // Initializes Event start countdown
     if ($('.countdown').length) {
         $('.countdown').each(function () {
@@ -367,6 +368,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         });
     }
+    */
 
     // Initializes counters
     if ($('.counter').length) {
@@ -401,6 +403,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         $('html, body').animate({scrollTop: $($('.form-control.is-invalid')[0]).offset().top - offsettop}, 0);
     }
 
+    /*
     // Initializes Jquery Confirm
     $(document).on('click', '.requires-confirmation', function (e) {
         e.preventDefault();
@@ -440,7 +443,9 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             }
         });
     });
+    */
 
+    /*
     $(document).on('click', '.ajax-loading', function (e) {
         e.preventDefault();
         var $thisElement = $(this);
@@ -482,6 +487,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             }
         });
     });
+    */
 
     // Initializes Font Awesome picker
     if ($('.icon-picker').length) {
@@ -491,6 +497,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Initializes select2
     $('.select2').each(function () {
         if ($(this).data("sort-options") == "1") {
@@ -508,6 +515,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         }
     });
+    
 
     // Sortable select
     if ($('#sortable-select').length) {
@@ -523,7 +531,9 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
     $('#sortable-select').on('select2-selecting', function (e) {
         window.location = e.val;
     });
+    */
 
+    /*
     // Initializes Photoswipe gallery
     if ($('.fancybox').length) {
         $(".fancybox").jqPhotoSwipe();
@@ -533,6 +543,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             forceSingleGallery: true
         });
     }
+    */
 
     // Initializes wysiwyg editor
     if ($('.wysiwyg').length) {
@@ -540,7 +551,8 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             height: 500,
         });
     }
-
+    
+    /*
     // Initializes form collection plugin
     if ($('.form-collection:not(.manual-init)').length) {
         $('.form-collection:not(.manual-init)').each(function () {
@@ -558,6 +570,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         });
     }
+    */
 
     // Initializes range slider
     if ($('.range-slider').length) {
@@ -592,6 +605,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Select2 autocomplete
     if ($('.autocomplete').length) {
         $('.autocomplete').each(function () {
@@ -607,6 +621,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         });
     }
+    */
 
     // Tags input
     if ($(".tags-input").length) {
@@ -638,6 +653,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Post favorites ajax add and remove
     $(document).on("click", ".post-favorites-add, .post-favorites-remove", function () {
         var $thisButton = $(this);
@@ -673,6 +689,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             }
         });
     });
+    */
 
     // Lazy loading images
     var bLazy = new Blazy({
@@ -722,6 +739,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Readmore
     if ($('.readmore').length) {
         $('.readmore').each(function () {
@@ -747,6 +765,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             });
         });
     }
+    */
 
     // Add to calendar
     if ($('#add-to-calendar').length) {
@@ -801,6 +820,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
     });
     */
 
+    /*
     //Newsletter subscribe
     $(document).on("click", "#newsletter-subscribe", function () {
         var $thisButton = $(this);
@@ -839,13 +859,15 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             }
         });
     });
+    */
 
+    /*
     // Initializes Bloodhound Search Engine
     var eventsForTopSearch = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            /*url: location.protocol + '//' + location.host + Routing.generate('get_events', {'_locale': $('html').attr('lang')}, false) + "?q=%QUERY",*/
+            url: location.protocol + '//' + location.host + Routing.generate('get_events', {'_locale': $('html').attr('lang')}, false) + "?q=%QUERY",
             wildcard: '%QUERY'
         },
     });
@@ -890,6 +912,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
     }
     global.openDashboardSideNav = openDashboardSideNav;
     global.closeDashboardSideNav = closeDashboardSideNav;
+    */
 
     // Juqery Cookie Bar
     if (typeof $("body").data('cookie-bar-page-link') !== 'undefined') {
@@ -925,6 +948,7 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
         });
     }
 
+    /*
     // Disables payment related settings modifications on demo mode
     if (typeof $("body").data('demo-mode') !== 'undefined') {
         function disableFormSubmissionOnDemoMode(event) {
@@ -1006,4 +1030,13 @@ import cookieBar from '../vendor/jquery.cookieBar/jquery.cookieBar.min.js';
             }
         });
     });
+    */
 })();
+
+
+//require('./theme-like.js');
+import './themes.js';
+
+// Start the Stimulus application
+
+import '../bootstrap.js';

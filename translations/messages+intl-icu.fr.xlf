@@ -1287,19 +1287,19 @@
             </trans-unit>
             <trans-unit id="menu.terms_of_service_page">
                 <source>menu.terms_of_service_page</source>
-                <target>Conditions d'utilisation</target>
+                <target>Termes</target>
             </trans-unit>
             <trans-unit id="menu.privacy_policy_page">
                 <source>menu.privacy_policy_page</source>
-                <target>Politique de confidentialité</target>
+                <target>Vie privée</target>
             </trans-unit>
             <trans-unit id="menu.cookie_policy_page">
                 <source>menu.cookie_policy_page</source>
-                <target>Politique de cookies</target>
+                <target>Cookie</target>
             </trans-unit>
             <trans-unit id="menu.gdpr_compliance_page">
                 <source>menu.gdpr_compliance_page</source>
-                <target>Conformité GDPR</target>
+                <target>GDPR</target>
             </trans-unit>
             <trans-unit id="menu.blog_category_index">
                 <source>menu.blog_category_index</source>

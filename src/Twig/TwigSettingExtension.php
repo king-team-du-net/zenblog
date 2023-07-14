@@ -57,7 +57,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Gets a setting from the cache / db
-    public function getSetting($name)
+    public function getSetting(string $name)
     {
         $settingcache = $this->cache->getItem('settings_' . $name);
 
@@ -79,7 +79,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Sets a setting from the cache / db
-    public function setSetting($name, $value): int
+    public function setSetting(string $name, string $value): int
     {
         /** @var Setting $setting */
         $setting = $this->entityManager->getRepository(Setting::class)->findOneByKey($name);
@@ -102,7 +102,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Updates the .env name with the choosen value
-    function updateEnv($name, $value): void
+    function updateEnv(string $name, string $value): void
     {
         if (0 == strlen($name)) {
             return;
@@ -127,7 +127,7 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Gets the value with the entered name from the .env file
-    function getEnv($name)
+    function getEnv(string $name)
     {
         if (0 == strlen($name)) {
             return;
@@ -299,8 +299,8 @@ final class TwigSettingExtension extends AbstractExtension
         $keyword = array_key_exists('keyword', $criterias) ? $criterias['keyword'] : "all";
         $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
         $limit = array_key_exists('limit', $criterias) ? $criterias['limit'] : "all";
-        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "translations.name";
-        $sort = array_key_exists('sort', $criterias) ? $criterias['sort'] : "ASC";
+        $order = array_key_exists('order', $criterias) ? $criterias['order'] : "ASC";
+        $sort = array_key_exists('sort', $criterias) ? $criterias['sort'] : "createdAt";
 
         return $this->entityManager->getRepository("App\Entity\Category")->getPostCategories($hidden, $keyword, $slug, $limit, $order, $sort);
     }

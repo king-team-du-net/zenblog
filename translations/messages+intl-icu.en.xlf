@@ -1294,19 +1294,19 @@
             </trans-unit>
             <trans-unit id="menu.terms_of_service_page">
                 <source>menu.terms_of_service_page</source>
-                <target>Terms of service</target>
+                <target>Terms</target>
             </trans-unit>
             <trans-unit id="menu.privacy_policy_page">
                 <source>menu.privacy_policy_page</source>
-                <target>Privacy policy</target>
+                <target>Privacy</target>
             </trans-unit>
             <trans-unit id="menu.cookie_policy_page">
                 <source>menu.cookie_policy_page</source>
-                <target>Cookie policy</target>
+                <target>Cookie</target>
             </trans-unit>
             <trans-unit id="menu.gdpr_compliance_page">
                 <source>menu.gdpr_compliance_page</source>
-                <target>GDPR compliance</target>
+                <target>GDPR</target>
             </trans-unit>
             <trans-unit id="menu.blog_category_index">
                 <source>menu.blog_category_index</source>

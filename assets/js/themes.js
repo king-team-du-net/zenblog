@@ -39,6 +39,7 @@ import 'swiper';
 import 'glightbox';
 import 'flatpickr';
 import Sticky from 'sticky-js';
+import { tns } from "tiny-slider/dist/tiny-slider"
 
 // Theme
 

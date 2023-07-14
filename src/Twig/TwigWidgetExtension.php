@@ -19,7 +19,7 @@ final class TwigWidgetExtension extends AbstractExtension
     {
         return [
             new TwigFunction('widgetTag', [$this, 'widgetTag']),
-            new TwigFunction('latestCategories', [$this, 'latestCategories']),
+            //new TwigFunction('latestCategories', [$this, 'latestCategories']),
         ];
     }
 
@@ -28,8 +28,10 @@ final class TwigWidgetExtension extends AbstractExtension
         return $this->tag->findBy([], ['id' => 'DESC'], $maxResults);
     }
 
+    /*
     public function latestCategories(int $maxResults = 5): array
     {
         return $this->category->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
     }
+    */
 }

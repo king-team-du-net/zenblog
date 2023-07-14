@@ -60,6 +60,7 @@ final class AppServices
         }
     }*/
 
+    /*
     // Generates a random string iwth a specified length
     public function generateReference(int $length): string
     {
@@ -73,6 +74,7 @@ final class AppServices
 
         return strlen($reference) > $length ? substr($reference, 0, $length) : $reference;
     }
+    */
 
     // Gets a setting from the cache / db
     public function getSetting(string $name)
@@ -99,7 +101,7 @@ final class AppServices
     // Sets a setting from the cache / db
     public function setSetting(string $name, string $value): int
     {
-        /** @var Setting $setting */
+        /** @var Setting $setting  */
         $setting = $this->entityManager->getRepository(Setting::class)->findOneByKey($name);
 
         if ($setting) {
@@ -188,6 +190,7 @@ final class AppServices
     }
     */
 
+    /*
     // Get route name from path
     public function getRouteName($path = null)
     {
@@ -250,7 +253,7 @@ final class AppServices
 
         return 'x';
     }
-
+    */
 
     /*
     // Returns the pages after applying the specified search criterias
