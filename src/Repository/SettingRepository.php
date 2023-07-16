@@ -45,7 +45,7 @@ final class SettingRepository extends ServiceEntityRepository
     public function getIndexQueryBuilder(): QueryBuilder
     {
         return $this->createQueryBuilder('s')
-            ->where('s.name IS NOT NULL')
+            ->where('s.key IS NOT NULL')
             ->orderBy('s.value')
         ;
     }

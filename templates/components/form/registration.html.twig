@@ -18,7 +18,7 @@
                 <button type="submit" class="btn btn-success">{{ 'action.sign_me_up'|trans }}</button>
             </div>
             <div class="col-sm-8 text-sm-end">
-                {% if getSetting('users_can_register') == "yes" %}
+                {% if '1' == getSetting('users_can_register') %}
                     <span>
                         {{ 'action.already_registered'|trans }} 
                         <a href="{{ path('auth_login') }}">

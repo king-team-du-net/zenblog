@@ -22,7 +22,7 @@ trait HasIsApprovedTrait
         return $this->isApproved;
     }
 
-    public function setIsApproved(bool $isApproved): self
+    public function setIsApproved(bool $isApproved): static
     {
         $this->isApproved = $isApproved;
 

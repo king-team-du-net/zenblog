@@ -43,13 +43,13 @@
 				{% endif %}
 				{% if getSetting("website_contact_phone") != "" %}
 					<p class="mb-2">{{'label.website_contact_phone'|trans}}: 
-						<a href="tel:{{ getSetting(" website_contact_phone") }}" class="text-body">
+						<a href="tel:{{	getSetting("website_contact_phone") }}" class="text-body">
 							<u>{{ getSetting("website_contact_phone") }}</u>
 						</a>
 					</p>
 				{% endif %}
 				{% if getSetting("website_contact_email") != "" %}
-					<a href="mailto:{{ getSetting(" website_contact_email") }}" class="text-body d-block">{{ getSetting("website_contact_email") }}</a>
+					<a href="mailto:{{ getSetting("website_contact_email") }}" class="text-body d-block">{{ getSetting("website_contact_email") }}</a>
 				{% endif %}
 			</div>
 		{% endif %}

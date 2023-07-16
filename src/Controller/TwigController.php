@@ -30,7 +30,7 @@ class TwigController extends AbstractController
     }
 
     #[Route(path: '/sidebar', name: 'sidebar', methods: [Request::METHOD_GET], priority: 10)]
-    public function sidebar(PostRepository $post, CategoryRepository $category, TagRepository $tag, int $maxResults = 6): Response
+    public function sidebar(PostRepository $post, CategoryRepository $category, int $maxResults = 6): Response
     {
         // Total
         $totalPosts = $post->count([]);
@@ -39,25 +39,24 @@ class TwigController extends AbstractController
         $latestPosts = $post->findBy([], ['publishedAt' => 'DESC'], $maxResults);
         $mostCommentedPosts = $post->findMostCommented($maxResults);
 
-        // Tags
-        $latestTags = $tag->findBy([], ['createdAt' => 'DESC'], $maxResults);
-
         // Category
         $sidebarCategories = $category->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
 
         return $this->render(
             'global/_sidebar.html.twig',
-            compact('totalPosts', 'latestPosts', 'mostCommentedPosts', 'latestTags', 'sidebarCategories')
+            compact('totalPosts', 'latestPosts', 'mostCommentedPosts', 'sidebarCategories')
         )->setSharedMaxAge(50);
     }
 
     #[Route(path: '/footer', name: 'footer', methods: [Request::METHOD_GET], priority: 10)]
-    public function footer(): Response
+    public function footer(TagRepository $tagRepository, int $maxResults = 6): Response
     {
-        # code...
+        // Tags
+        $PostTags = $tagRepository->findBy([], ['id' => 'DESC'], $maxResults);
 
         return $this->render(
             'global/_footer.html.twig',
+            compact('PostTags')
         )->setSharedMaxAge(50);
     }
 }

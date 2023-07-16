@@ -37,7 +37,7 @@ export default class extends Controller {
      *      }
      *  }
      */
-    data = { _links: { next: { href: '/api/blogs' } } };
+    data = { _links: { next: { href: '/en/api/blogs' } } };
 
     /**
      * @type {boolean}

@@ -34,7 +34,7 @@ class BlogController extends Controller
         $posts = $paginator->paginate(
             $query,
             $page,
-            Post::NUM_ITEMS_PER_PAGE
+            Post::POST_LIMIT
         );
 
         return $this->render('dashboard/administrator/blog/index.html.twig', compact('posts'));

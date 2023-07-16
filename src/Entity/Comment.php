@@ -24,7 +24,7 @@ class Comment
     //use HasIsRGPDTrait;
     use HasIsApprovedTrait;
 
-    public const ITEMS_PER_PAGE = 5;
+    public const COMMENT_LIMIT = 3;
 
     /*
     #[ORM\Column(type: Types::STRING, length: 30, nullable: true)]

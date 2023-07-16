@@ -4,7 +4,7 @@
     <div class="row">
         <!-- Image -->
         <div class="col-md-5">
-            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.image) }}" alt="{{ post.title }}">
+            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.cover) }}" alt="{{ post.title }}">
         </div>
         <div class="col-md-7 mt-3 mt-md-0">
             <!-- Categories -->
@@ -19,8 +19,9 @@
                 <a href="{{ link }}" class="btn-link text-reset fw-bold">{{ post.title|html_excerpt(30) }}</a>
             </h3>
             <p>{{ post.excerpt|html_excerpt(340) }}</p>
+            {% include "widget/post-tags-widget.html.twig" with { post: post, class: 'mb-0'} only %}
             <!-- Card info -->
-            <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
+            <ul class="nav nav-divider align-items-center d-none d-sm-inline-block mt-3">
                 <li class="nav-item">
                     <div class="nav-link">
                         <div class="d-flex align-items-center position-relative">

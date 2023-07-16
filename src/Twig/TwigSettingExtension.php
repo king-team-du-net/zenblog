@@ -60,14 +60,12 @@ final class TwigSettingExtension extends AbstractExtension
     public function getSetting(string $name)
     {
         $settingcache = $this->cache->getItem('settings_' . $name);
-
         if ($settingcache->isHit()) {
             return $settingcache->get();
         }
 
         /** @var Setting $setting */
         $setting = $this->entityManager->getRepository(Setting::class)->findOneByName($name);
-
         if (!$setting) {
             return null;
         }
@@ -82,8 +80,7 @@ final class TwigSettingExtension extends AbstractExtension
     public function setSetting(string $name, string $value): int
     {
         /** @var Setting $setting */
-        $setting = $this->entityManager->getRepository(Setting::class)->findOneByKey($name);
-
+        $setting = $this->entityManager->getRepository(Setting::class)->findOneByName($name);
         if ($setting) {
             $setting->setValue($value);
             $this->entityManager->flush();

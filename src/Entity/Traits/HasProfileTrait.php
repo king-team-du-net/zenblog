@@ -2,57 +2,43 @@
 
 namespace App\Entity\Traits;
 
+use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 use function Symfony\Component\String\u;
 
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 
 trait HasProfileTrait
 {
+    use HasLastLoginAndBannedAtTrait;
+    use HasContactAndSocialMediaTrait;
+    use HasSocialLoggableTrait;
+    use HasReviewsAndFavoritesUsersTrait;
+
     #[ORM\Id]
-    #[ORM\GeneratedValue('CUSTOM')]
-    #[ORM\Column(type: 'uuid', unique: true)]
-    #[ORM\CustomIdGenerator('doctrine.uuid_generator')]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: Types::INTEGER)]
     #[Groups(['post:read'])]
-    private ?string $id = null;
+    private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    #[Groups(['comment:read'])]
+    private ?string $avatar = null;
+
+    #[Assert\NotNull(groups: ['avatar'])]
+    #[ImageConstraint(groups: ['avatar'])]
+    private ?UploadedFile $avatarFile = null;
+
     #[Assert\NotBlank]
-    private string $avatar;
-
-    #[ORM\Column(length: 180, unique: true)]
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 5, max: 180),
-        Assert\NotNull,
-        Assert\Email
-    ]
-    private ?string $email = null;
-
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 2, max: 20)
-    ]
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $firstname = null;
-
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 2, max: 20)
-    ]
-    #[ORM\Column(length: 20, nullable: true)]
-    private ?string $lastname = null;
-
-    #[
-        Assert\NotBlank,
-        Assert\NotNull,
-        Assert\Length(min: 4, max: 30)
-    ]
-    #[ORM\Column(length: 30, unique: true)]
+    #[Assert\NotNull]
+    #[Assert\Length(min: 5, max: 30)]
+    #[ORM\Column(type: Types::STRING, length: 30, unique: true)]
     #[Groups(['post:read', 'comment:read'])]
     private string $nickname = '';
 
@@ -60,38 +46,68 @@ trait HasProfileTrait
     #[Gedmo\Slug(fields: ['nickname'], unique: true, updatable: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(length: 2, nullable: true, options: ['default' => 'FR'])]
-    private ?string $country = null;
+    #[Assert\Length(min: 2, max: 20)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
+    private ?string $firstname = null;
 
-    #[ORM\Column(options: ['default' => null], nullable: true)]
-    private ?string $theme = null;
+    #[Assert\Length(min: 2, max: 20)]
+    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
+    private ?string $lastname = null;
+
+    #[Assert\NotBlank]
+    #[Assert\NotNull]
+    #[Assert\Email]
+    #[Assert\Length(min: 5, max: 180)]
+    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
+    private ?string $email = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $about = null;
+
+    #[ORM\Column(type: Types::STRING, nullable: true)]
+    private ?string $designation = null;
+
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
+    #[Assert\NotNull]
+    private bool $team = false;
 
     public function __toString(): string
     {
         return (string) $this->getFullName();
     }
 
-    public function getId(): ?string
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getAvatar(): string
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
-    public function getEmail(): ?string
+    public function setAvatar(?string $avatar): User
     {
-        return $this->email;
+        $this->avatar = $avatar;
+
+        return $this;
     }
 
-    public function setEmail(string $email): self
+    public function getAvatarFile(): ?UploadedFile
     {
-        $this->email = $email;
+        return $this->avatarFile;
+    }
+
+    public function setAvatarFile(?UploadedFile $avatarFile): User
+    {
+        $this->avatarFile = $avatarFile;
 
         return $this;
     }
@@ -106,7 +122,7 @@ trait HasProfileTrait
         return u($this->lastname)->upper()->toString();
     }
 
-    public function setLastname(?string $lastname): self
+    public function setLastname(?string $lastname): static
     {
         $this->lastname = $lastname;
 
@@ -118,7 +134,7 @@ trait HasProfileTrait
         return u($this->firstname)->upper()->toString();
     }
 
-    public function setFirstname(?string $firstname): self
+    public function setFirstname(?string $firstname): static
     {
         $this->firstname = $firstname;
 
@@ -130,7 +146,7 @@ trait HasProfileTrait
         return $this->nickname;
     }
 
-    public function setNickname(?string $nickname): self
+    public function setNickname(?string $nickname): static
     {
         $this->nickname = trim($nickname ?: '');
 
@@ -149,26 +165,14 @@ trait HasProfileTrait
         return $this;
     }
 
-    public function getCountry(): string
+    public function getEmail(): ?string
     {
-        return $this->country ?: 'FR';
+        return $this->email;
     }
 
-    public function setCountry(?string $country): self
+    public function setEmail(string $email): static
     {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    public function getTheme(): ?string
-    {
-        return $this->theme;
-    }
-
-    public function setTheme(?string $theme): self
-    {
-        $this->theme = $theme;
+        $this->email = $email;
 
         return $this;
     }
@@ -178,22 +182,39 @@ trait HasProfileTrait
         return $this->about;
     }
 
-    public function setAbout(?string $about): self
+    public function setAbout(?string $about): static
     {
         $this->about = $about;
 
         return $this;
     }
 
-    #[ORM\PrePersist]
-    public function prePersist(): void
+    public function getDesignation(): ?string
     {
-        $this->avatar = 'https://avatars.dicebear.com/api/initials/'.$this->email.'.svg';
+        return u($this->designation)->upper()->toString();
     }
 
-    #[ORM\PreUpdate]
-    public function preUpdate(): void
+    public function setDesignation(?string $designation): static
     {
-        $this->avatar = 'https://avatars.dicebear.com/api/initials/'.$this->email.'.svg';
+        $this->designation = $designation;
+
+        return $this;
+    }
+
+    public function isTeam(): bool
+    {
+        return $this->team;
+    }
+
+    public function getTeam(): bool
+    {
+        return $this->team;
+    }
+
+    public function setTeam(bool $team): static
+    {
+        $this->team = $team;
+
+        return $this;
     }
 }

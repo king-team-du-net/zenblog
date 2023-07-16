@@ -8,7 +8,7 @@ import userCircle from '@fortawesome/fontawesome-free/svgs/solid/circle-user.svg
 import nl2br from 'nl2br';
 
 /**
- * @class CommentsController
+ * @class BlogCommentController
  */
 export default class extends Controller {
     /**
@@ -41,7 +41,7 @@ export default class extends Controller {
     data = {
         _links: {
             next: {
-                href: `/api/blogs/${this.element.dataset.postId}/comments`,
+                href: `/en/api/blogs/${this.element.dataset.postId}/comments`,
             },
         },
     };
@@ -75,8 +75,8 @@ export default class extends Controller {
         this.data._embedded.comments.forEach((comment) => {
             comment.createdAt = dayjs(comment.createdAt).fromNow();
             comment.content = nl2br(comment.content);
-            comment.user.avatar = comment.user.avatar !== null ?
-                `/uploads/user/${comment.user.avatar}` :
+            comment.author.avatar = comment.author.avatar !== null ?
+                `/uploads/user/${comment.author.avatar}` :
                 userCircle;
             this.listTarget.innerHTML += this.template(comment);
         });

@@ -426,7 +426,7 @@
             </trans-unit>
             <trans-unit id="message.your_account_is_not_activated">
                 <source>message.your_account_is_not_activated</source>
-                <target><![CDATA[Votre compte n'est pas activé <a href="{link}">Renvoyer le lien d'activation</a> pour revenir à votre page d'accueil]]></target>
+                <target><![CDATA[Votre compte n'est pas activé <a href="{link}" class="btn btn-xs btn-dark ms-3 mb-0">Renvoyer le lien d'activation</a> pour revenir à votre page d'accueil]]></target>
             </trans-unit>
 
             <trans-unit id="action.load_more">
@@ -799,6 +799,10 @@
                 <target>5 étoiles</target>
             </trans-unit>
 
+            <trans-unit id="label.related_posts">
+                <source>label.related_posts</source>
+                <target>Articles Similaires</target>
+            </trans-unit>
             <trans-unit id="label.website_contact_address">
                 <source>label.website_contact_address</source>
                 <target>Adresse</target>
@@ -1800,6 +1804,14 @@
                 <source>post.searched_no_results</source>
                 <target>Aucun résultat</target>
             </trans-unit>
+            <trans-unit id="post.searched_results">
+                <source>post.searched_results</source>
+                <target>Résultat</target>
+            </trans-unit>
+            <trans-unit id="post.searched_results_op">
+                <source>post.searched_results_op</source>
+                <target>Oups !</target>
+            </trans-unit>
 
             <trans-unit id="notification.comment_created">
                 <source>notification.comment_created</source>
@@ -2021,6 +2033,10 @@
             <trans-unit id="throw.password_reset_link_expired">
                 <source>throw.password_reset_link_expired</source>
                 <target>Le lien de réinitialisation du mot de passe a expiré.</target>
+            </trans-unit>
+            <trans-unit id="throw.picture_service_uploaded_file_info">
+                <source>throw.picture_service_uploaded_file_info</source>
+                <target>Mauvais format d'image</target>
             </trans-unit>
         </body>
     </file>

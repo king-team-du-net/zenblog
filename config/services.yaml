@@ -48,6 +48,9 @@ parameters:
     # Upload Post
     uploads_dir_post: '%kernel.project_dir%/public/uploads/post'
 
+    # Upload
+    images_directory: '%kernel.project_dir%/public/uploads/'
+
     # Delete & Update Post
     post.delete.by_owner_only: true
     post.update.by_owner_only: false
@@ -117,3 +120,5 @@ services:
 
     App\EventSubscriber\NotificationCommentSubscriber:
         $sender: '%website_no_reply_email%'
+
+    # Searched

@@ -35,7 +35,7 @@ class PagesController extends Controller
         $pages = $paginator->paginate(
             $query,
             $page,
-            Page::NUM_ITEMS_PER_PAGE
+            Page::PAGE_LIMIT
         );
 
         return $this->render('dashboard/administrator/pages/index.html.twig', compact('pages'));

@@ -21,4 +21,9 @@ trait HasPublishedAtTrait
 
         return $this;
     }
+
+    public function isPublished(): bool
+    {
+        return !is_null($this->getPublishedAt()) && $this->getPublishedAt() <= new \DateTimeImmutable();
+    }
 }

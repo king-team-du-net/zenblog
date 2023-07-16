@@ -426,7 +426,7 @@
             </trans-unit>
             <trans-unit id="message.your_account_is_not_activated">
                 <source>message.your_account_is_not_activated</source>
-                <target><![CDATA[Your account is not activated <a href="{link}">Resend activation link</a> to return to your homepage]]></target>
+                <target><![CDATA[Your account is not activated <a href="{link}" class="btn btn-xs btn-dark ms-3 mb-0">Resend activation link</a> to return to your homepage]]></target>
             </trans-unit>
 
             <trans-unit id="action.load_more">
@@ -806,6 +806,10 @@
                 <target>5 stars</target>
             </trans-unit>
 
+            <trans-unit id="label.related_posts">
+                <source>label.related_posts</source>
+                <target>Related posts</target>
+            </trans-unit>
             <trans-unit id="label.website_contact_address">
                 <source>label.website_contact_address</source>
                 <target>Address</target>
@@ -1807,6 +1811,14 @@
                 <source>post.searched_no_results</source>
                 <target>No results found</target>
             </trans-unit>
+            <trans-unit id="post.searched_results">
+                <source>post.searched_results</source>
+                <target>Result</target>
+            </trans-unit>
+            <trans-unit id="post.searched_results_op">
+                <source>post.searched_results_op</source>
+                <target>Ooops !</target>
+            </trans-unit>
 
             <trans-unit id="notification.comment_created">
                 <source>notification.comment_created</source>
@@ -2034,6 +2046,10 @@
             <trans-unit id="throw.password_reset_link_expired">
                 <source>throw.password_reset_link_expired</source>
                 <target>The password reset link has expired.</target>
+            </trans-unit>
+            <trans-unit id="throw.picture_service_uploaded_file_info">
+                <source>throw.picture_service_uploaded_file_info</source>
+                <target>Wrong image format</target>
             </trans-unit>
         </body>
     </file>

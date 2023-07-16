@@ -33,7 +33,7 @@ class Category implements \Stringable
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
-    public const NUM_ITEMS_PER_PAGE = 10;
+    public const CATEGORY_LIMIT = 10;
 
     #[ORM\Column(type: Types::INTEGER, options: ['unsigned' => true])]
     private int $numberOfPosts = 0;

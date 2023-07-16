@@ -1,5 +1,7 @@
 {% extends 'layouts/blog.html.twig' %}
 
+{% set dataSticky = '767' %}
+
 {% set pagetitle = post.title %}
 {% block title pagetitle %}
 
@@ -35,7 +37,7 @@
 
 	<div class="d-md-flex justify-content-between text-center text-md-start my-4">
 		<!-- Tag -->
-		{% include "post/partials/_post_tags.html.twig" with { post: post} only %}
+		{% include "widget/post-tags-widget.html.twig" with { post: post, class: 'mb-0'} only %}
 		<!-- Info -->
 		<ul class="nav nav-divider align-items-center justify-content-center justify-content-md-end">
 			<li class="nav-item"><a href="javascript:void(0);" class="btn-link"><i class="far fa-comment-alt me-1"></i> {{ 'post.num_comments'|trans({ 'count': post.comments|length }) }}</a></li>
@@ -46,9 +48,6 @@
 
 	<!-- Poll -->
 	{% include "global/_poll.html.twig" %}
-
-	<!-- List Comments -->
-	{% include "comment/comments.html.twig" with { comments: comments } only %}
 
 	<!-- Blog Comments Enabled -->
 	{% set blog_comments_enabled = getSetting("blog_comments_enabled") %}
@@ -96,20 +95,90 @@
 		{% endif %}
 	{% endif %}
 
-{% endblock %}
-
-{% block similarposts %}
-	{% set similars = getPosts({limit: 8, category: post.category.slug, otherthan: post.id}).getQuery().getResult() %}
-	{% if similars|length %}
-		<div class="row">
-			<div class="col-12">
-				<h3 class="mt-5 mb-4 text-center">{{ "Related posts"|trans }}</h3>
-				<div class="owl-init owl-carousel" data-margin="15" data-items="4" data-dots="false" data-nav="true" data-autoplay="false">
-					{% for similar in similars %}
-						{% include "global/_blog-card.html.twig" with { post: similar } %}
-					{% endfor %}
-				</div>
+	<!-- Form Comment -->
+	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+		{{ render(controller('App\\Controller\\BlogCommentController::blogCommentForm', {'id': post.id})) }}
+	{% else %}
+		<div>
+			<div class="mt-5">
+				<a href="{{ path('auth_login', {'redirect_to': app.request.pathInfo}) }}" class="text-body fw-normal">
+					<i class="bi bi-door-open"></i> {{ 'action.sign_in'|trans }}
+				</a>
+				<span>{{ 'post.to_publish_a_comment'|trans }}</span>
 			</div>
 		</div>
 	{% endif %}
+
+	<!-- List Comments -->
+	{# {% include "comment/comments.html.twig" with { comments: comments } only %} #}
+	<div class="my-4" data-controller="comments" data-post-id="{{ post.id }}">
+		<h3>{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h3>
+		<template data-comments-target="template">
+			<div class="my-4 d-flex" id="c{{ post.id }}">
+				<img src="${author.avatar}" class="avatar avatar-md rounded-circle float-start me-3" alt="${author.nickname}">
+				<div>
+					<div class="mb-2">
+						<h5 class="m-0">${author.nickname}</h5>
+						<span class="me-3 small">
+							${createdAt}
+						</span>
+						{% if is_granted('ROLE_USER') %}
+							<a href="#add-comment" class="text-body fw-normal" data-reply data-post-id="{{ post.id }}">{{ 'post.comment_reply'|trans }}</a>
+						{% endif %}
+					</div>
+					<p>${content}</p>
+				</div>
+			</div>
+		</template>
+		<div data-comments-target="list"></div>
+		<!-- Load more START -->
+		<div class="d-flex justify-content-center mt-3">
+			<button type="submit" class="btn btn-primary-soft" data-action="comments#next" data-comments-target="loadMore">
+				{{ "action.load_more"|trans }}
+				<i class="bi bi-arrow-down-circle ms-2 align-middle"></i>
+			</button>
+		</div>
+		<!-- Load more END -->
+	</div>
+
+{% endblock %}
+
+{% block similarposts %}
+	<!-- Divider -->
+	<div class="container"><div class="border-bottom border-primary border-2 opacity-1"></div></div>
+
+	<!-- =======================
+	Section START -->
+	<section class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<!-- Title -->
+					<div class="mb-4 d-md-flex justify-content-between align-items-center">
+						<h2 class="m-0"><i class="bi bi-megaphone"></i> {{ "label.related_posts"|trans }}</h2>
+						<a href="#" class="text-body small"><u>Content by: Bootstrap</u></a>
+					</div>
+					<div class="tiny-slider arrow-hover arrow-blur arrow-dark arrow-round">
+						<div class="tiny-slider-inner"
+							data-autoplay="true"
+							data-hoverpause="true"
+							data-gutter="24"
+							data-arrow="true"
+							data-dots="false"
+							data-items-xl="4" 
+							data-items-md="3" 
+							data-items-sm="2" 
+							data-items-xs="1">
+
+							{% for similar in similars %}
+								{% include "global/_blog-similar-card.html.twig" with { post: similar, showdate: 1 } %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =======================
+	Section END -->
 {% endblock %}

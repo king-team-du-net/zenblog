@@ -50,14 +50,14 @@ class TwigNavbarSidebarFooterSubscriber implements EventSubscriberInterface
             return $this->post->findBy([], ['publishedAt' => 'DESC'], 6);
         });
 
-        // Tag
-        $latestTags = $this->cache->get('app.latestTags', function (ItemInterface $item) {
+        // Post Tag
+        $PostTags = $this->cache->get('app.PostTags', function (ItemInterface $item) {
             $item->expiresAfter(40);
 
-            return $this->tag->findBy([], ['createdAt' => 'DESC'], 6);
+            return $this->tag->findBy([], ['id' => 'DESC'], 6);
         });
 
-        // Category
+        // Post Category
         $navbarCategories = $this->cache->get('app.navbarCategories', function (ItemInterface $item) {
             $item->expiresAfter(40);
 
@@ -74,7 +74,7 @@ class TwigNavbarSidebarFooterSubscriber implements EventSubscriberInterface
         $this->twig->addGlobal('popularPosts', $popularPosts);
         $this->twig->addGlobal('trendingPosts', $trendingPosts);
         $this->twig->addGlobal('latestPosts', $latestPosts);
-        $this->twig->addGlobal('latestTags', $latestTags);
+        $this->twig->addGlobal('PostTags', $PostTags);
         $this->twig->addGlobal('navbarCategories', $navbarCategories);
         $this->twig->addGlobal('sidebarCategories', $sidebarCategories);
     }

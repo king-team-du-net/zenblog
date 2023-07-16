@@ -37,7 +37,7 @@ class CategoryController extends Controller
         $categories = $paginator->paginate(
             $query,
             $page,
-            Category::NUM_ITEMS_PER_PAGE
+            Category::CATEGORY_LIMIT
         );
 
         return $this->render('dashboard/administrator/category/index.html.twig', compact('categories'));

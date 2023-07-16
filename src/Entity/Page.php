@@ -19,5 +19,5 @@ class Page
     use HasContentTrait;
     use HasTimestampTrait;
 
-    public const NUM_ITEMS_PER_PAGE = 10;
+    public const PAGE_LIMIT = 10;
 }

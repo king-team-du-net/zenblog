@@ -23,7 +23,7 @@ final class BlogController extends AbstractController
             $listPosts($request->query->getInt('page', 1)),
             Response::HTTP_OK,
             ['Content-Type' => 'application/hal+json'],
-            ['groups' => ['blog:read']]
+            ['groups' => ['post:read']]
         );
     }
 

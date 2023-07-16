@@ -30,7 +30,7 @@ class UserController extends Controller
         $users = $paginator->paginate(
             $query,
             $page,
-            User::NUM_ITEMS_PER_PAGE
+            User::USER_LIMIT
         );
 
         return $this->render('dashboard/administrator/user/index.html.twig', compact('users'));

@@ -10,3 +10,10 @@ controllers:
         _locale: '%locale%'
     #trailing_slash_on_root: false
 
+api:
+    resource: ../src/Controller/Api
+    type: attribute
+    prefix: /{_locale}/api/
+    requirements:
+        _locale: '%locales%'
+    name_prefix: api_

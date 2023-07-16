@@ -32,7 +32,7 @@
 
     <!-- =======================
     Main content START -->
-    <section class="position-relative pt-0">
+    <section class="position-relative pt-0 pb-5">
         <div class="container">
             <div class="row">
                 <!-- Main Post START -->
@@ -43,7 +43,7 @@
                             {# {{ component('blog_post', {'id': post.id}) }} #}
                         {% endfor %}
                         <!-- Load more -->
-                        <button type="button" class="btn btn-primary-soft w-100">{{'action.load_more'|trans}} <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button>
+                        {# <button type="button" class="btn btn-primary-soft w-100">{{'action.load_more'|trans}} <i class="bi bi-arrow-down-circle ms-2 align-middle"></i></button> #}
                     </div>
                 {% else %}
                     <div class="col-lg-9 mx-auto text-center py-5">
@@ -60,5 +60,4 @@
     </section>
     <!-- =======================
     Main content END -->
-
 </div>

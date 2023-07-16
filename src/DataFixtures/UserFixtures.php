@@ -26,15 +26,16 @@ final class UserFixtures extends Fixture
     private function createAdministrator(ObjectManager $manager): void
     {
         // User SuperAdmin
-        $filename = sprintf('/%s.jpg', Uuid::v4());
+        $filename = sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.jpg', $this->uploadsDirUser),
+            sprintf('%s/default.png', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $administrator = (new User());
         $administrator
             ->setId(1)
+            ->setTeam(true)
             ->setRoles([User::ADMINISTRATOR])
             ->setIsVerified(true)
             ->setAvatar($filename)
@@ -43,29 +44,41 @@ final class UserFixtures extends Fixture
             ->setEmail('administrator@yourdomain.com')
             ->setLastname('Cameron')
             ->setFirstname('Williamson')
-            ->setPassword($this->hasher->hashPassword($administrator, 'administrator'))
             ->setLastLogin(new \DateTimeImmutable())
             ->setLastLoginIp($this->faker()->ipv4())
+            ->setYoutubeurl($this->faker()->url())
+            ->setExternallink($this->faker()->url())
+            ->setPhonenumber($this->faker()->phoneNumber())
+            ->setTwitterUrl($this->faker()->url())
+            ->setInstagramUrl($this->faker()->url())
+            ->setFacebookUrl($this->faker()->url())
+            ->setGoogleplusUrl($this->faker()->url())
+            ->setLinkedinUrl($this->faker()->url())
             ->setAbout($this->faker()->realText(254))
             ->setDesignation('Founder & CEO')
             ->setRegistrationToken(null)
         ;
 
-        $manager->persist($administrator);
+        $manager->persist(
+            $administrator->setPassword(
+                $this->hasher->hashPassword($administrator, 'administrator')
+            )
+        );
     }
 
     private function createAdmin(ObjectManager $manager): void
     {
         // User Admin
-        $filename = sprintf('/%s.jpg', Uuid::v4());
+        $filename = sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.jpg', $this->uploadsDirUser),
+            sprintf('%s/default.png', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $admin = (new User());
         $admin
             ->setId(2)
+            ->setTeam(true)
             ->setRoles([User::ADMIN])
             ->setIsVerified(true)
             ->setAvatar($filename)
@@ -74,29 +87,41 @@ final class UserFixtures extends Fixture
             ->setEmail('admin@yourdomain.com')
             ->setLastname('Wade')
             ->setFirstname('Warren')
-            ->setPassword($this->hasher->hashPassword($admin, 'admin'))
             ->setLastLogin(new \DateTimeImmutable())
             ->setLastLoginIp($this->faker()->ipv4())
+            ->setYoutubeurl($this->faker()->url())
+            ->setExternallink($this->faker()->url())
+            ->setPhonenumber($this->faker()->phoneNumber())
+            ->setTwitterUrl($this->faker()->url())
+            ->setInstagramUrl($this->faker()->url())
+            ->setFacebookUrl($this->faker()->url())
+            ->setGoogleplusUrl($this->faker()->url())
+            ->setLinkedinUrl($this->faker()->url())
             ->setAbout($this->faker()->realText(254))
             ->setDesignation('Founder, VP')
             ->setRegistrationToken(null)
         ;
 
-        $manager->persist($admin);
+        $manager->persist(
+            $admin->setPassword(
+                $this->hasher->hashPassword($admin, 'admin')
+            )
+        );
     }
 
     private function createEditor(ObjectManager $manager): void
     {
         // User Editor
-        $filename = sprintf('/%s.jpg', Uuid::v4());
+        $filename = sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.jpg', $this->uploadsDirUser),
+            sprintf('%s/default.png', $this->uploadsDirUser),
             sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $editor = (new User());
         $editor
             ->setId(3)
+            ->setTeam(true)
             ->setRoles([User::EDITOR])
             ->setIsVerified(true)
             ->setAvatar($filename)
@@ -105,15 +130,26 @@ final class UserFixtures extends Fixture
             ->setEmail('editor@yourdomain.com')
             ->setLastname('Jane')
             ->setFirstname('Cooper')
-            ->setPassword($this->hasher->hashPassword($editor, 'editor'))
             ->setLastLogin(new \DateTimeImmutable())
             ->setLastLoginIp($this->faker()->ipv4())
+            ->setYoutubeurl($this->faker()->url())
+            ->setExternallink($this->faker()->url())
+            ->setPhonenumber($this->faker()->phoneNumber())
+            ->setTwitterUrl($this->faker()->url())
+            ->setInstagramUrl($this->faker()->url())
+            ->setFacebookUrl($this->faker()->url())
+            ->setGoogleplusUrl($this->faker()->url())
+            ->setLinkedinUrl($this->faker()->url())
             ->setAbout($this->faker()->realText(254))
             ->setDesignation('Editor Staff')
             ->setRegistrationToken(null)
         ;
 
-        $manager->persist($editor);
+        $manager->persist(
+            $editor->setPassword(
+                $this->hasher->hashPassword($editor, 'editor')
+            )
+        );
     }
 
     /**
@@ -133,9 +169,9 @@ final class UserFixtures extends Fixture
         $genre = $this->faker()->randomElement($genres);
 
         for ($usr = 1; $usr <= 15; ++$usr) {
-            $filename = sprintf('/%s.jpg', Uuid::v4());
+            $filename = sprintf('/%s.png', Uuid::v4());
             copy(
-                sprintf('%s/default.jpg', $this->uploadsDirUser),
+                sprintf('%s/default.png', $this->uploadsDirUser),
                 sprintf('%s/%s', $this->uploadsDirUser, $filename)
             );
 
@@ -148,6 +184,14 @@ final class UserFixtures extends Fixture
                 ->setFirstname($this->faker()->firstName($genre))
                 ->setLastLogin(new \DateTimeImmutable())
                 ->setLastLoginIp($this->faker()->ipv4())
+                ->setYoutubeurl($this->faker()->url())
+                ->setExternallink($this->faker()->url())
+                ->setPhonenumber($this->faker()->phoneNumber())
+                ->setTwitterUrl($this->faker()->url())
+                ->setInstagramUrl($this->faker()->url())
+                ->setFacebookUrl($this->faker()->url())
+                ->setGoogleplusUrl($this->faker()->url())
+                ->setLinkedinUrl($this->faker()->url())
             ;
 
             if ($usr > 10) {
@@ -172,8 +216,6 @@ final class UserFixtures extends Fixture
                 )
             );
             $users[] = $user;
-
-            //$this->addReference('user-' . $usr, $user);
         }
 
         $manager->flush();

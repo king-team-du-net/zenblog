@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Comment;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -25,6 +26,14 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public static function createIsApprovedCriteria(): Criteria
+    {
+        return Criteria::create()
+            ->andWhere(Criteria::expr()->eq('isApproved', true))
+            ->orderBy(['createdAt' => 'ASC'])
+        ;
+    }
+
     /**
      * @return array<array-key, Comment>
      */
@@ -39,8 +48,8 @@ class CommentRepository extends ServiceEntityRepository
             ->andWhere('c.isApproved = true')
             ->setParameter('val', $value->getId())
             ->orderBy('c.id', 'DESC')
-            ->setMaxResults(Comment::ITEMS_PER_PAGE)
-            ->setFirstResult(($page - 1) * Comment::ITEMS_PER_PAGE)
+            ->setMaxResults(Comment::COMMENT_LIMIT)
+            ->setFirstResult(($page - 1) * Comment::COMMENT_LIMIT)
             ->getQuery()
             ->getResult()
         ;
@@ -59,7 +68,7 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findRecentComments($value)
+    public function findRecentComments($value) // (BlogController)
     {
         if ($value instanceof Post) {
             $object = 'post';
@@ -85,9 +94,9 @@ class CommentRepository extends ServiceEntityRepository
      *
      * @param User $user
      * @param int $limit
-     * @return Comment[] Returns an array of Comment objects (UserController)
+     * @return Comment[] Returns an array of Comment objects
      */
-    public function findLastByUser(User $user, int $limit): array
+    public function findLastByUser(User $user, int $limit): array //  (UserController)
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.author = :user')
@@ -161,5 +170,23 @@ class CommentRepository extends ServiceEntityRepository
         ;
 
         return $posts;
+    }
+
+    public function findForPagination(?Post $post = null): Query // (CommentService)
+    {
+        $qb = $this->createQueryBuilder('c')
+            ->orderBy('c.createdAt', 'DESC')
+        ;
+
+        if ($post) {
+            $qb
+                ->leftJoin('c.post', 'post')
+                ->leftJoin('c.answers', 'answers')
+                ->where($qb->expr()->eq('post.id', ':postId'))
+                ->setParameter('postId', $post->getId())
+            ;
+        }
+
+        return $qb->getQuery();
     }
 }

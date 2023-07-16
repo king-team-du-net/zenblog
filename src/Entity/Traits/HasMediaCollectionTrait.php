@@ -12,12 +12,14 @@ use Doctrine\DBAL\Types\Types;
 
 trait HasMediaCollectionTrait
 {
+    /*
     #[ORM\Column(type: Types::STRING)]
     private string $image = '';
 
     #[Assert\Image(maxSize: '1M', maxRatio: 4/3, minRatio: 4/3)]
     #[Assert\NotNull(groups: ['create'])]
     private ?UploadedFile $imageFile = null;
+    */
 
     #[ORM\Column(type: Types::STRING)]
     #[Groups(['post:read'])]
@@ -35,6 +37,7 @@ trait HasMediaCollectionTrait
     #[Assert\Valid]
     private Collection $medias;
 
+    /*
     public function getImage(): string
     {
         return $this->image;
@@ -56,6 +59,7 @@ trait HasMediaCollectionTrait
     {
         $this->imageFile = $imageFile;
     }
+    */
 
     public function getCover(): string
     {

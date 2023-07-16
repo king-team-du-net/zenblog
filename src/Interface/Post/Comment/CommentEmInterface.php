@@ -6,7 +6,7 @@ namespace App\Interface\Post\Comment;
 
 use App\Entity\Comment;
 
-interface CommentPostInterface
+interface CommentEmInterface
 {
     public function __invoke(Comment $comment): void;
 }

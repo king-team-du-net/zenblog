@@ -7,7 +7,7 @@ namespace App\Interface\Post\Comment;
 use App\Entity\Comment;
 use Doctrine\ORM\EntityManagerInterface;
 
-final class CommentPost implements CommentPostInterface
+final class CommentEm implements CommentEmInterface
 {
     public function __construct(private readonly EntityManagerInterface $em)
     {

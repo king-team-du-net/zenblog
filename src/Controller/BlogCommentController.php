@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Repository\CommentRepository;
 use App\Event\Post\CommentCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Interface\Post\Comment\CommentEm;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +33,7 @@ class BlogCommentController extends AbstractController
         EventDispatcherInterface $eventDispatcher,
         EntityManagerInterface $em,
         CommentRepository $commentRepository,
+        CommentEm $commentEm,
         TranslatorInterface $translator
     ): Response {
         // Create a new comment
@@ -53,24 +55,9 @@ class BlogCommentController extends AbstractController
 
         $comment->setParent($parent ?? null);
 
-        /*if ($commentForm->isSubmitted()) {
-            if ($commentForm->isValid()) {
-                //$comment = $commentForm->getData();
-                $em->persist($comment);
-                $em->flush();
-                $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
-                $this->addFlash('success', $translator->trans('Your comment has been sent, thank you. It will be published after validation by a moderator.'));
-            } else {
-                $this->addFlash('danger', $translator->trans('The form contains invalid data'));
-            }
-
-            return $this->redirectToRoute('blog_article', ['slug' => $post->getSlug()]);
-        }*/
-
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment = $commentForm->getData();
-            $em->persist($comment);
-            $em->flush();
+            //$comment = $commentForm->getData();
+            $commentEm($comment);
             $eventDispatcher->dispatch(new CommentCreatedEvent($comment));
             $this->addFlash('success', $translator->trans('flash_success.comments_successfully'));
             return $this->redirectToRoute('blog_article', ['slug' => $post->getSlug()]);

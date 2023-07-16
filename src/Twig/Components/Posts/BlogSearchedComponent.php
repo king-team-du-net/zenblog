@@ -6,6 +6,7 @@ namespace App\Twig\Components\Posts;
 
 use App\Entity\Post;
 use App\Repository\PostRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
@@ -20,6 +21,7 @@ final class BlogSearchedComponent
 
     public function __construct(
         private readonly PostRepository $postRepository,
+        private readonly PaginatorInterface $paginator
     ) {
     }
 
@@ -29,5 +31,10 @@ final class BlogSearchedComponent
     public function getPosts(): array
     {
         return $this->postRepository->findBySearchedQuery($this->query);
+    }
+
+    public function getPostsCount(): int
+    {
+        return $this->postRepository->count([]);
     }
 }

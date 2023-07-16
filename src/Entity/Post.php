@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Entity\Image\Media;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
@@ -12,10 +11,10 @@ use App\Repository\PostRepository;
 use App\Entity\Traits\HasStateTrait;
 use App\Entity\Traits\HasViewsTrait;
 use App\Entity\Traits\HasHiddenTrait;
+use App\Repository\CommentRepository;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasExcerptTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Traits\HasIsOnlineTrait;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Entity\Traits\HasPublishedAtTrait;
@@ -24,10 +23,8 @@ use App\Entity\Traits\HasLikesCollectionTrait;
 use App\Entity\Traits\HasMediaCollectionTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
-use App\Entity\Traits\HasTitleAndSlugAndAssertTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Traits\HasReviewsAndFavoritesPostsTrait;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -35,7 +32,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Post
 {
     use HasIdTrait;
-    //use HasTitleAndSlugAndAssertTrait;
     use HasContentTrait;
     use HasExcerptTrait;
     use HasViewsTrait;
@@ -43,12 +39,12 @@ class Post
     use HasHiddenTrait;
     use HasReviewsAndFavoritesPostsTrait;
     use HasMediaCollectionTrait;
-    //use HasLikesCollectionTrait;
+    use HasLikesCollectionTrait;
     use HasPublishedAtTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
-    public const PAGE_SIZE = 4;
+    public const POST_LIMIT = 4;
 
     #[ORM\Column(type: Types::STRING, length: 128)]
     #[
@@ -100,7 +96,7 @@ class Post
         $this->medias = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->addedtofavoritesby = new ArrayCollection();
-        //$this->likes = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -169,6 +165,11 @@ class Post
     public function removeTag(Tag $tag): void
     {
         $this->tags->removeElement($tag);
+    }
+
+    public function getIsApprovedComments(): Collection
+    {
+        return $this->getComments()->matching(CommentRepository::createIsApprovedCriteria());
     }
 
     /**

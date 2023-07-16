@@ -20,7 +20,7 @@ class SitemapController extends AbstractController
         $posts = $postRepository->findBy(['hidden' => true], ['publishedAt' => 'DESC']);
         foreach ($posts as $post) {
             $urls[] = [
-                'loc' => $this->generateUrl('blog_show', ['slug' => $post->getSlug()]),
+                'loc' => $this->generateUrl('blog_article', ['slug' => $post->getSlug()]),
                 'lastmod' => $post->getUpdatedAt()->format('Y-m-d'),
                 'changefreq' => 'weekly',
                 'priority' => 0.9,

@@ -37,21 +37,21 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
         /** @var array<array-key, Tag> $tags */
         $tags = $manager->getRepository(Tag::class)->findAll();
 
-        /** @var string $content */
-        $content = $this->faker()->paragraphs(10, true);
-
-        $index = 1;
-
-        foreach ($administrators as $administrator) {
-            foreach ($categories as $category) {
-                for ($i = 1; $i <= 5; ++$i) {
+        foreach ($categories as $category) {
+            foreach ($administrators as $administrator) {
+                for ($index = 1; $index < 160; ++$index) {
                     $states = ['draft', 'reviewed', 'rejected', 'published'];
 
+                    /** @var string $content */
+                    $content = $this->faker()->paragraphs(10, true);
+
+                    /*
                     $filename = sprintf('/%s.jpg', Uuid::v4());
                     copy(
                         sprintf('%s/default.jpg', $this->uploadsDirPost),
                         sprintf('%s/%s', $this->uploadsDirPost, $filename)
                     );
+                    */
 
                     [$cover, $image1, $image2, $image3] = array_map(
                         function (): string {
@@ -66,11 +66,9 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                         array_fill(0, 4, ''),
                     );
 
-                    shuffle($tags);
-
                     $post = new Post();
                     $post->setAuthor($administrator);
-                    $post->setImage($this->faker()->image($this->uploadsDirPost, 640, 480, null, false));
+                    //$post->setImage($this->faker()->image($this->uploadsDirPost, 640, 480, null, false));
                     $post->setTitle($this->faker()->unique()->sentence(4));
                     $post->setContent($content);
                     $post->setExcerpt($this->faker()->realText(500));
@@ -84,7 +82,8 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                     }
                     $post->setCategory($category);
 
-                    foreach (array_slice($tags, 0, 3) as $tag) {
+                    shuffle($tags);
+                    foreach (array_slice($tags, 0, 2) as $tag) {
                         $post->getTags()->add($tag);
                     }
 
@@ -118,16 +117,22 @@ final class PostFixtures extends Fixture implements DependentFixtureInterface
                     );
 
                     $reflectionProperty = new \ReflectionProperty(Post::class, 'createdAt');
-                    $reflectionProperty->setValue($post, new \DateTimeImmutable('2023-06-29 00:00:00'));
+                    $reflectionProperty->setValue($post, new \DateTime('2023-06-29 00:00:00'));
 
                     $manager->persist($post);
 
-                    ++$index;
+                    if ($index > 160 - count($tags)) {
+                        $tags[$index % count($tags)];
+                    }
+    
+                    if (0 === $index % 100) {
+                        $manager->flush();
+                    }
                 }
             }
         }
 
-        $manager->flush();
+        //$manager->flush();
     }
 
     /**

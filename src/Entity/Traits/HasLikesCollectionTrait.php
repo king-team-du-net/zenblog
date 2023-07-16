@@ -3,14 +3,13 @@
 namespace App\Entity\Traits;
 
 use App\Entity\User;
-use App\Entity\Image\Media;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
 trait HasLikesCollectionTrait
 {
     /**
-     * @var Collection<int, Media>
+     * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class)]
     #[ORM\JoinTable('user_post_like')]

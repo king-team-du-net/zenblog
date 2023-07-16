@@ -9,6 +9,7 @@ use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\UserRepository;
+use App\Entity\Traits\HasProfileTrait;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasTimestampTrait;
@@ -16,8 +17,8 @@ use function Symfony\Component\String\u;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\Traits\HasSocialLoggableTrait;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Traits\HasLastLoginAndBannedAtTrait;
 
+use App\Entity\Traits\HasLastLoginAndBannedAtTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 use App\Entity\Traits\HasContactAndSocialMediaTrait;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -35,11 +36,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
-    use HasIdTrait;
-    use HasLastLoginAndBannedAtTrait;
-    use HasContactAndSocialMediaTrait;
-    use HasSocialLoggableTrait;
-    use HasReviewsAndFavoritesUsersTrait;
+    use HasProfileTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 
@@ -48,55 +45,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     final public const ADMIN = 'ROLE_ADMIN';
     final public const EDITOR = 'ROLE_EDITOR';
 
-    public const NUM_ITEMS_PER_PAGE = 10;
-
-    #[ORM\Column(type: Types::STRING, nullable: true)]
-    #[Groups(['comment:read'])]
-    private ?string $avatar = null;
-
-    #[Assert\NotNull(groups: ['avatar'])]
-    #[ImageConstraint(groups: ['avatar'])]
-    private ?UploadedFile $avatarFile = null;
-
-    #[
-        Assert\NotBlank,
-        Assert\NotNull,
-        Assert\Length(min: 4, max: 30)
-    ]
-    #[ORM\Column(type: Types::STRING, length: 30, unique: true)]
-    #[Groups(['post:read', 'comment:read'])]
-    private string $nickname = '';
-
-    #[ORM\Column(length: 30, unique: true)]
-    #[Gedmo\Slug(fields: ['nickname'], unique: true, updatable: true)]
-    private ?string $slug = null;
-
-    #[Assert\Length(min: 2, max: 20)]
-    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
-    private ?string $firstname = null;
-
-    #[Assert\Length(min: 2, max: 20)]
-    #[ORM\Column(type: Types::STRING, length: 20, nullable: true)]
-    private ?string $lastname = null;
-
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 5, max: 180),
-        Assert\NotNull,
-        Assert\Email
-    ]
-    #[ORM\Column(type: Types::STRING, length: 180, unique: true)]
-    private ?string $email = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $about = null;
-
-    #[ORM\Column(type: Types::STRING, nullable: true)]
-    private ?string $designation = null;
-
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
-    #[Assert\NotNull]
-    private bool $team = false;
+    public const USER_LIMIT = 10;
 
     #[ORM\Column]
     private array $roles = [User::DEFAULT];
@@ -130,141 +79,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         $this->userRoles = new ArrayCollection();
         $this->reviews = new ArrayCollection();
         $this->favorites = new ArrayCollection();
-    }
-
-    public function __toString(): string
-    {
-        return (string) $this->getFullName();
-    }
-
-    public function getAvatar(): ?string
-    {
-        return $this->avatar;
-    }
-
-    public function setAvatar(?string $avatar): User
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getAvatarFile(): ?UploadedFile
-    {
-        return $this->avatarFile;
-    }
-
-    public function setAvatarFile(?UploadedFile $avatarFile): User
-    {
-        $this->avatarFile = $avatarFile;
-
-        return $this;
-    }
-
-    public function getFullName(): string
-    {
-        return u(sprintf('%s %s', $this->firstname, $this->lastname))->upper()->toString();
-    }
-
-    public function getLastname(): ?string
-    {
-        return u($this->lastname)->upper()->toString();
-    }
-
-    public function setLastname(?string $lastname): static
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return u($this->firstname)->upper()->toString();
-    }
-
-    public function setFirstname(?string $firstname): static
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getNickname(): string
-    {
-        return $this->nickname;
-    }
-
-    public function setNickname(?string $nickname): static
-    {
-        $this->nickname = trim($nickname ?: '');
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getAbout(): ?string
-    {
-        return $this->about;
-    }
-
-    public function setAbout(?string $about): static
-    {
-        $this->about = $about;
-
-        return $this;
-    }
-
-    public function getDesignation(): ?string
-    {
-        return u($this->designation)->upper()->toString();
-    }
-
-    public function setDesignation(?string $designation): static
-    {
-        $this->designation = $designation;
-
-        return $this;
-    }
-
-    public function isTeam(): bool
-    {
-        return $this->team;
-    }
-
-    public function getTeam(): bool
-    {
-        return $this->team;
-    }
-
-    public function setTeam(bool $team): static
-    {
-        $this->team = $team;
-
-        return $this;
     }
 
     /**

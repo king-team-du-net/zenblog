@@ -12,7 +12,7 @@
             {% endif %}
             <!-- Title -->
             <h3 class="card-title">
-                <a href="{{ link }}" class="btn-link text-reset stretched-link">{{ post.title }}</a>
+                <a href="{{ link }}" class="btn-link text-reset">{{ post.title }}</a>
             </h3>
             <!-- Card info -->
             <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
@@ -35,7 +35,7 @@
         </div>
         <!-- Image -->
         <div class="col-sm-3">
-            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.image) }}" alt="{{ post.title }}">
+            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.cover) }}" alt="{{ post.title }}">
         </div>
     </div>
 </div>

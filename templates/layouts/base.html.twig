@@ -75,7 +75,7 @@
         {% if getEnv('DEMO_MODE') == "1" %} data-demo-mode="1" {% endif %}
     >
         {% block top %}
-            {% include "global/_top.html.twig" %}
+            {% include "global/_top.html.twig" with { user: app.user } %}
         {% endblock %}
 
         {% block offcanvas %}
@@ -100,11 +100,9 @@
                 {% include "global/_message.html.twig" with { type: 'info', icon: 'bi bi-info-circle', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
             {% endif %}
 
-            {% if app.user and app.user.isVerified == false %}
-                {% include "global/_message.html.twig" with { type: 'warning', icon: 'bi bi-info-circle', message: ('message.your_account_is_not_activated'|trans({ 'link': path('auth_resend_verif') }))|raw } %}
-            {% endif %}
-
             {% block body %}{% endblock %}
+
+            {% block similarposts %}{% endblock %}
 
             {% block review %}{% endblock %}
         </main>

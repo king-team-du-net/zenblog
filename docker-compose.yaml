@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    database:
+        image: 'mysql:latest'
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: main
+        ports:
+            - '3306'
+
+    phpmyadmin:
+        image: 'phpmyadmin:latest'
+        restart: always
+        depends_on:
+            - database
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: database
+        #networks:
+            #- dev
+
+    mailer:
+        image: schickling/mailcatcher
+        ports: [1025, 1080]
+
+#networks:
+#dev:
