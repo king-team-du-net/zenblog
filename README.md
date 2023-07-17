@@ -1,7 +1,7 @@
 # In progress
 
-# Creation of a blog from A to Z (CMS WORDPRESS) with Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.2.0
-# Création d'un blog de A à Z (CMS WORDPRESS) avec Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.2.0
+# Creation of a blog from A to Z (CMS WORDPRESS) with Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.4.0
+# Création d'un blog de A à Z (CMS WORDPRESS) avec Symfony 6.3.*, ZenBloggy | Multipurpose Bootstrap 5 HTML Template  (Dark/Light) Version 1.4.0
 
 ## Development environment
 ## Environnement de développement
@@ -25,7 +25,7 @@ symfony check:requirements
 ### Lancer l'environnement de développement
 
 ```sh
-doker-compose up -d
+docker-compose up -d
 symfony serve -d
 ```
 
@@ -34,6 +34,16 @@ symfony serve -d
 
 ```sh
 php bin/phpunit --testdox
+```
+
+### Envoie des mails de Contacts
+### Send emails from Contacts
+
+Les emails de contact sont stockés en BDD, pour les envoyer à l'admin par email, il faut mettre en place un cron sur :
+The contact emails are stored in BDD, to send them to the admin by email, you must set up a cron on :
+
+```sh
+symfony console app:send-contact
 ```
 
 ⚙️ Installation

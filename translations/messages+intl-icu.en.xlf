@@ -1292,6 +1292,16 @@
                 <target>Edit contents</target>
             </trans-unit>
 
+            <trans-unit id="command.message_subject">
+                <source>command.message_subject</source>
+                <target>New message from</target>
+            </trans-unit>
+
+            <trans-unit id="mail.subject_resend_verif">
+                <source>mail.subject_resend_verif</source>
+                <target>Activation of your account on the site</target>
+            </trans-unit>
+
             <trans-unit id="menu.all_categories">
                 <source>menu.all_categories</source>
                 <target>All categories</target>
@@ -2004,6 +2014,10 @@
                 <target>This user is already activated.</target>
             </trans-unit>
 
+            <trans-unit id="flash_success.resend_verif_successfully">
+                <source>flash_success.resend_verif_successfully</source>
+                <target>Verification email sent successfully.</target>
+            </trans-unit>
             <trans-unit id="flash_success.create_account_successfully">
                 <source>flash_success.create_account_successfully</source>
                 <target>Your account has been successfully created.</target>

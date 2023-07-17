@@ -45,7 +45,7 @@ final class SendContactCommand extends Command
             $message = (new Email())
                 ->from($mail->getEmail())
                 ->to($address)
-                ->subject($this->translator->trans('New message from ').$mail->getFullname())
+                ->subject($this->translator->trans('command.message_subject') . $mail->getFullname())
                 ->text($mail->getMessage())
             ;
 

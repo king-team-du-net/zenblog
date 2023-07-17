@@ -9,8 +9,6 @@ use App\Repository\TagRepository;
 use App\Repository\PostRepository;
 use App\Twig\TwigSettingExtension;
 use App\Repository\CommentRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,38 +21,16 @@ use Symfony\Component\HttpKernel\EventListener\AbstractSessionListener;
 #[Route(path: '/blog')]
 class BlogController extends AbstractController
 {
-    #[Route(path: '/{category}', name: 'blog', defaults: ['page' => '1', '_format' => 'html'], methods: [Request::METHOD_GET])]
-    //#[Route(path: '/rss.xml', name: 'rss', defaults: ['page' => '1', '_format' => 'xml'], methods: [Request::METHOD_GET])]
-    #[Route(path: '/page/{page<[1-9]\d{0,8}>}', defaults: ['_format' => 'html'], methods: ['GET'])]
+    #[Route(path: '/{category}', name: 'blog', methods: [Request::METHOD_GET])]
     #[Cache(smaxage: 10)]
-    /*
-    public function blog(
-        Request $request,
-        PaginatorInterface $paginator, 
-        TwigSettingExtension $setting,
-        TranslatorInterface $translator,
-        string $_format,
-        $category = "all"
-    ): Response {
-        $keyword = ($request->query->get('keyword')) == "" ? "all" : $request->query->get('keyword');
-        $posts = $paginator->paginate(
-            $setting->getPosts(["category" => $category, "keyword" => $keyword])->getQuery(), 
-            $request->query->getInt('page', 1), Post::POST_LIMIT, 
-            ['wrap-queries' => true]
-        );
-
-        return $this->render('post/blog.'.$_format.'.twig', compact('posts'));
-    }
-    */
-
-    public function blog(Request $request, TagRepository $tagRepository, PostService $postService, string $_format, $category = "all"): Response
+    public function blog(Request $request, TagRepository $tagRepository, PostService $postService, $category = "all"): Response
     {
         $tag = null;
         if ($request->query->has('tag')) {
             $tag = $tagRepository->findOneBy(['slug' => $request->query->get('tag')]);
         }
 
-        $response = $this->render('post/blog.'.$_format.'.twig', [
+        $response = $this->render('post/blog.html.twig', [
             'posts' => $postService->getPaginatedPosts(),
             'tagName' => $tag?->getName(),
         ])->setSharedMaxAge(30);
@@ -69,16 +45,12 @@ class BlogController extends AbstractController
     #[Route(path: '/blog-article/{slug}', name: 'blog_article', methods: [Request::METHOD_GET])]
     public function blogArticle(
         Post $post,
-        string $slug,
         TwigSettingExtension $setting,
         PostRepository $postRepository,
         CommentRepository $commentRepository,
         TranslatorInterface $translator,
         CreateViewInterface $createView
     ): Response {
-        /** @var Post $post */
-        $post = $setting->getPosts(["slug" => $slug])->getQuery()->getOneOrNullResult();
-
         if (!$post) {
             $this->addFlash('danger', $translator->trans('flash_danger.blog_post'));
             return $this->redirectToRoute('blog');
@@ -87,10 +59,7 @@ class BlogController extends AbstractController
         // Number of views
         $createView($post);
 
-        // Find recent comments
         /** @var Comment $comments */
-        //$comments = $commentRepository->findRecentComments($post);
-
         // Find recent comments approved
         $comments = $post->getIsApprovedComments();
 

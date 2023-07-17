@@ -11,10 +11,9 @@ use App\Service\SendMailService;
 use App\Repository\UserRepository;
 use App\Service\JWTManagerService;
 use App\Entity\ResetPasswordRequest;
-use Symfony\Component\Form\FormError;
 use App\Form\ResetPasswordRequestType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Interface\Token\JWTManagerInterface;
+use App\Interface\Auth\ResendVerifInterface;
 use App\Interface\Auth\RegistrationInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Interface\Auth\ResetPasswordInterface;
@@ -38,7 +37,6 @@ final class SecurityController extends AbstractController
     public function __construct(
         private readonly TranslatorInterface $translator,
         private readonly EntityManagerInterface $em,
-        private readonly SendMailService $mail,
         private readonly UserPasswordHasherInterface $hasher,
         private readonly UserRepository $userRepository
     ) {
@@ -147,8 +145,8 @@ final class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route('/renvoiverif', name: 'resend_verif', methods: [Request::METHOD_GET])]
-    public function resendVerif(JWTManagerService $jWTManagerService, JWTManagerInterface $jWTManager): Response
+    #[Route('/resend/{registrationToken}/verif', name: 'resend_verif', methods: [Request::METHOD_GET])]
+    public function resendVerif(JWTManagerService $jWTManagerService, SendMailService $mail, User $user, ResendVerifInterface $resendVerif): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -163,21 +161,20 @@ final class SecurityController extends AbstractController
             return $this->redirectToRoute('dashboard_user_account_settings_profile');
         }
 
+        $resendVerif($user);
+
         $header = ['typ' => 'JWT', 'alg' => 'HS256'];
         $payload = ['user_id' => $user->getId()];
         $token = $jWTManagerService->generate($header, $payload, $this->getParameter('website_jwt_secret'));
 
-        /*
-        // On envoie un mail
-        $this->mail->send(
-            'no-reply@monsite.net',
+        $mail->send(
             $user->getEmail(),
-            'Activation de votre compte sur le site e-commerce',
-            'register',
+            $this->translator->trans('mail.subject_resend_verif'),
+            'registration',
             compact('user', 'token')
         );
-        $this->addFlash('success', 'Email de vérification envoyé');
-        */
+
+        $this->addFlash('success', $this->translator->trans('flash_success.resend_verif_successfully'));
 
         return $this->redirectToRoute('dashboard_user_account_settings_profile');
     }

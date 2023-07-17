@@ -6,9 +6,9 @@ use App\Entity\Page;
 use App\Entity\User;
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Service\AppServices;
 use App\Service\ContactService;
 use App\Repository\UserRepository;
+use App\Twig\TwigSettingExtension;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,10 +23,10 @@ class PagesController extends AbstractController
     }
 
     #[Route(path: '/contact', name: 'contact', methods: [Request::METHOD_GET, Request::METHOD_POST])]
-    public function contactIndex(
+    public function contact(
         Request $request,
         ContactService $contactService,
-        AppServices $services
+        TwigSettingExtension $setting
     ): Response {
         $contact = new Contact();
 
@@ -41,7 +41,7 @@ class PagesController extends AbstractController
 
         $form = $this->createForm(ContactType::class, $contact);
 
-        if ('no' == $services->getSetting('google_recaptcha_enabled')) {
+        if ('no' == $setting->getSetting('google_recaptcha_enabled')) {
             $form->remove('recaptcha');
         }
 
@@ -66,7 +66,7 @@ class PagesController extends AbstractController
     }
 
     #[Route(path: '/about', name: 'about', methods: [Request::METHOD_GET])]
-    public function aboutIndex(UserRepository $userRepository): Response
+    public function about(UserRepository $userRepository): Response
     {
         return $this->render('pages/about.html.twig', [
             'users' => $userRepository->findTeam(3),

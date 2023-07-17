@@ -1,6 +1,6 @@
 {% extends 'layouts/page.html.twig' %}
 
-{% set sectionClass = 'pt-4' %}
+{% set sectionClass = 'py-4' %}
 
 {% set pagetitle = 'title.contact'|trans %}
 {% block title pagetitle %}
@@ -31,7 +31,7 @@
 							<i class="fas fa-phone fs-4"></i>
 							<h3>{{'label.website_contact_phone'|trans}}</h3>
 							<p>
-								<a class="text-reset" href="tel:{{ getSetting(" website_contact_phone") }}"><u>{{ getSetting("website_contact_phone") }}</u></a>
+								<a class="text-reset" href="tel:{{ getSetting("website_contact_phone") }}"><u>{{ getSetting("website_contact_phone") }}</u></a>
 							</p>
 						</div>
 					{% endif %}
@@ -40,7 +40,7 @@
 							<i class="fas fa-envelope fs-4"></i>
 							<h3>{{'label.website_contact_email'|trans}}</h3>
 							<p>
-								<a class="text-reset" href="mailto:{{ getSetting(" website_contact_email") }}"><u>{{ getSetting("website_contact_email") }}</u></a>
+								<a class="text-reset" href="mailto:{{ getSetting("website_contact_email") }}"><u>{{ getSetting("website_contact_email") }}</u></a>
 							</p>
 						</div>
 					{% endif %}
@@ -54,6 +54,8 @@
                             <h2>{{pagetitle}}</h2>
                             <p>{{'label.website_contact_message'|trans}}</p>
                             <!-- Form START -->
+                            {{ component('contact', {class: 'contact-form', contact: contact, form: form}) }}
+                            {#
                             {{ form_start(form, {'attr': {'id': 'contact-form', 'class': 'contact-form', 'name': 'contactform'}}) }}
                                 {{ form_errors(form) }}
                                 <!-- Main form -->
@@ -88,6 +90,7 @@
                                     </div>
                                 </div>
                             {{ form_end(form) }}
+                            #}
                             <!-- Form END -->
                         </div>
                     </div>

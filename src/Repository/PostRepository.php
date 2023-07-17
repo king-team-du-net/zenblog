@@ -264,36 +264,21 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
+
     /**
-     * @return QueryBuilder<Post>
+     * @return Post[] Returns an array of Post objects
      */
-    public function findLatest(int $limit, bool $withPremium = true): QueryBuilder  // (BlogRSSController)
+    public function findLatestPublished(int $limit): array // (BlogRSSController)
     {
-        $qb = $this->createQueryBuilder('p')
-            ->where('p.hidden = true')
+        return $this->createQueryBuilder('p')
+            ->where('p.hidden = true AND p.publishedAt < NOW()')
             ->andWhere('p.state LIKE :state')
             ->setParameter('state', '%published%')
-            ->orderBy('p.createdAt', 'DESC')
+            ->orderBy('p.publishedAt', 'DESC')
             ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
         ;
-
-        if (!$withPremium) {
-            $date = new \DateTimeImmutable('+ 3 days');
-            $qb = $qb
-                ->andWhere('p.createdAt < :publishedAt')
-                ->setParameter('publishedAt', $date, Types::DATETIME_IMMUTABLE)
-            ;
-        }
-
-        return $qb;
-    }
-
-    /**
-     * @return QueryBuilder<Post>
-     */
-    public function findLatestPublished(int $limit): QueryBuilder  // (BlogRSSController)
-    {
-        return $this->findLatest($limit)->andWhere('p.createdAt < NOW()');
     }
 
     /**
@@ -537,24 +522,6 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-
-
-    /**
-     * @return Post[] Returns an array of Post objects (HomePageController)
-     */
-    public function findLastRecent(int $limit): array
-    {
-        return $this->createQueryBuilder('p')
-            ->orderBy('p.id', 'DESC')
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-
-    
-    
     /**
      * Returns the blog posts after applying the specified search criterias
      *

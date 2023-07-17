@@ -1,0 +1,36 @@
+<div {{ attributes }}>
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <!-- Main form -->
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Fullname -->
+                <div class="mb-3">
+                    {{ form_row(form.fullname) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <!-- Email -->
+                <div class="mb-3">
+                    {{ form_row(form.email) }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <!-- Subject -->
+                <div class="mb-3">
+                    {{ form_row(form.subject) }}
+                </div>
+            </div>
+            <div class="col-md-12">
+                <!-- Message -->
+                <div class="mb-3">
+                    {{ form_row(form.message) }}
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="col-md-12 text-start">
+                <button class="btn btn-primary w-100" type="submit">{{ 'action.website_contact'|trans }}</button>
+            </div>
+        </div>
+    {{ form_end(form) }}
+</div>
