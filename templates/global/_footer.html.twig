@@ -83,7 +83,7 @@ Footer START -->
 						{% endif %} #}
 
 						{% set show_post_category_footer = getSetting("show_post_category_footer") %}
-						{% if show_post_category_footer != "yes" %}
+						{% if show_post_category_footer != "1" %}
 							<ul class="nav flex-column">
 								{% set footerpostcategories = getPostCategories({ order: "postscount", limit: 6, hidden: true }).getQuery().getResult() %}
 								{% for postcategory in footerpostcategories %}

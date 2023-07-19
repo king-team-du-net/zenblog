@@ -1,14 +1,22 @@
 version: '3.7'
 
 services:
+
+###> doctrine/doctrine-bundle ###
     database:
         image: 'mysql:latest'
         environment:
+            # You should definitely change the password in production
+            # MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-!ChangeMe!}
+            # MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+
             MYSQL_ROOT_PASSWORD: password
             MYSQL_DATABASE: main
         ports:
             - '3306'
+###< doctrine/doctrine-bundle ###
 
+###> phpmyadmin/phpmyadmin ###
     phpmyadmin:
         image: 'phpmyadmin:latest'
         restart: always
@@ -20,10 +28,19 @@ services:
             PMA_HOST: database
         #networks:
             #- dev
+###< phpmyadmin/phpmyadmin ###
 
+###> symfony/mailer ###
     mailer:
         image: schickling/mailcatcher
         ports: [1025, 1080]
+###< symfony/mailer ###
+
+# volumes:
+
+###> doctrine/doctrine-bundle ###
+    #db-data:
+###< doctrine/doctrine-bundle ###
 
 #networks:
 #dev:

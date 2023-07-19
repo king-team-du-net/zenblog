@@ -280,6 +280,32 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    
+    /**
+     * Find articles by title & content (case insensitive).
+     *
+     * @param string $searchedTerm
+     *
+     * @return array
+     */
+    public function searched(string $searchedTerm): array // (SearchedController)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('LOWER(p.title) LIKE :searchedTerm OR LOWER(p.content) LIKE :searchedTerm')
+            ->setParameter('searchedTerm', '%'.mb_strtolower($searchedTerm).'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
+
+
+
+
+
+    // rector
 
     /**
      * Find articles by title (case insensitive).
@@ -327,24 +353,6 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // rector
 
     /**
      * @return Post[] Returns an array of Post objects

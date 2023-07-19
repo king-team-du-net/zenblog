@@ -48,12 +48,20 @@ parameters:
     # Upload Post
     uploads_dir_post: '%kernel.project_dir%/public/uploads/post'
 
-    # Upload
+    # All Upload
     images_directory: '%kernel.project_dir%/public/uploads/'
 
     # Delete & Update Post
     post.delete.by_owner_only: true
     post.update.by_owner_only: false
+
+    # Resize Picture
+    resize_picture_key: '%env(RESIZE_PICTURE_KEY)%'
+
+    # Generator Password
+    generator_password_default_length: '%env(GENERATOR_PASSWORD_DEFAULT_LENGTH)%'
+    generator_password_min_length: '%env(GENERATOR_PASSWORD_MIN_LENGTH)%'
+    generator_password_max_length: '%env(GENERATOR_PASSWORD_MAX_LENGTH)%'
 
 services:
     # default configuration for services in *this* file
@@ -68,12 +76,22 @@ services:
             string $uploadsDirUser: '%uploads_dir_user%'
             string $uploadsDirPost: '%uploads_dir_post%'
 
+            # All Upload
+            string $imagesDirectory: '%images_directory%'
+
             # Website email
             string $emailSender: '%website_no_reply_email%'
 
             # Delete & Update Post
-            #bool $deletePostByOwnerOnly: '%post.delete.by_owner_only%'
-            #bool $updatePostByOwnerOnly: '%post.update.by_owner_only%'
+            bool $deletePostByOwnerOnly: '%post.delete.by_owner_only%'
+            bool $updatePostByOwnerOnly: '%post.update.by_owner_only%'
+
+            # ResizerPictureController
+            #$projectDir: '%kernel.project_dir%'
+
+            # AdministratorVoter
+            string $appEnvironment: '%kernel.environment%'
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -120,5 +138,16 @@ services:
 
     App\EventSubscriber\NotificationCommentSubscriber:
         $sender: '%website_no_reply_email%'
+
+    # Sign key Resize Picture
+    App\Interface\Uploads\Picture\ResizerPicture:
+        arguments: ['%resize_picture_key%']
+
+    # Vich
+    # App\Interface\Uploads\PropertyGroupedDirectoryNamer:
+        # public: true
+
+    # App\Interface\Uploads\ImageDirectoryNamer:
+        # public: true
 
     # Searched

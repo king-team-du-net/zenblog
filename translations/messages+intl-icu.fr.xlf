@@ -162,6 +162,23 @@
                 <target>Rss</target>
             </trans-unit>
 
+            <trans-unit id="title.generate_password">
+                <source>title.generate_password</source>
+                <target>Générer un mot de passe</target>
+            </trans-unit>
+            <trans-unit id="title.password_generator_tool">
+                <source>title.password_generator_tool</source>
+                <target>Outil de génération de mot de passe</target>
+            </trans-unit>
+            <trans-unit id="title.wouhou">
+                <source>title.wouhou</source>
+                <target>Wouhou</target>
+            </trans-unit>
+            <trans-unit id="title.online_tool">
+                <source>title.online_tool</source>
+                <target>Générez instantanément un mot de passe sécurisé et aléatoire en utilisant l'outil en ligne</target>
+            </trans-unit>
+
             <trans-unit id="title.administrator_layout_settings_index">
                 <source>title.administrator_layout_settings_index</source>
                 <target>Paramètres de mise en page</target>
@@ -294,6 +311,14 @@
             <trans-unit id="title.search_result">
                 <source>title.search_result</source>
                 <target>Résultats de recherche</target>
+            </trans-unit>
+            <trans-unit id="title.searched_result">
+                <source>title.searched_result</source>
+                <target>Résultats de recherche</target>
+            </trans-unit>
+            <trans-unit id="title.searched_do_another_search">
+                <source>title.searched_do_another_search</source>
+                <target>Faire une autre recherche</target>
             </trans-unit>
             <trans-unit id="title.blog">
                 <source>title.blog</source>
@@ -429,6 +454,10 @@
                 <target><![CDATA[Votre compte n'est pas activé <a href="{link}" class="btn btn-xs btn-dark ms-3 mb-0">Renvoyer le lien d'activation</a> pour revenir à votre page d'accueil]]></target>
             </trans-unit>
 
+            <trans-unit id="action.generate_password">
+                <source>action.generate_password</source>
+                <target>Générer un mot de passe</target>
+            </trans-unit>
             <trans-unit id="action.load_more">
                 <source>action.load_more</source>
                 <target>Charger plus</target>
@@ -685,6 +714,15 @@
                 <target>Cette action ne peut pas être annulée.</target>
             </trans-unit>
 
+            <trans-unit id="aria-label.searched">
+                <source>aria-label.searched</source>
+                <target>Recherche</target>
+            </trans-unit>
+
+            <trans-unit id="placeholder.searched">
+                <source>placeholder.searched</source>
+                <target>Entrez votre recherche ici...</target>
+            </trans-unit>
             <trans-unit id="placeholder.alt">
                 <source>placeholder.alt</source>
                 <target>Texte alternatif de l'image</target>
@@ -799,6 +837,22 @@
                 <target>5 étoiles</target>
             </trans-unit>
 
+            <trans-unit id="label.select_password_options">
+                <source>label.select_password_options</source>
+                <target>Sélectionnez les options de mot de passe *</target>
+            </trans-unit>
+            <trans-unit id="label.length">
+                <source>label.length</source>
+                <target>Longueur du mot de passe</target>
+            </trans-unit>
+            <trans-unit id="label.uppercase_letters">
+                <source>label.uppercase_letters</source>
+                <target>Lettres majuscules</target>
+            </trans-unit>
+            <trans-unit id="label.special_characters">
+                <source>label.special_characters</source>
+                <target>Caractères spéciaux</target>
+            </trans-unit>
             <trans-unit id="label.related_posts">
                 <source>label.related_posts</source>
                 <target>Articles Similaires</target>
@@ -1643,6 +1697,10 @@
                 <source>content.na</source>
                 <target>N/A</target>
             </trans-unit>
+            <trans-unit id="content.password_generator_tool">
+                <source>content.password_generator_tool</source>
+                <target>Personnalise ton mot de passe</target>
+            </trans-unit>
 
             <trans-unit id="role.super_administrator">
                 <source>role.super_administrator</source>
@@ -1798,6 +1856,39 @@
                 <target>Le blog a été restaurée avec succès!</target>
             </trans-unit>
 
+            <trans-unit id="searched.action_do_another_search">
+                <source>searched.action_do_another_search</source>
+                <target>Faire une autre recherche</target>
+            </trans-unit>
+            <trans-unit id="searched.action_search">
+                <source>searched.action_search</source>
+                <target>Rechercher</target>
+            </trans-unit>
+            <trans-unit id="searched.results_for">
+                <source>searched.results_for</source>
+                <target>Résultats de recherche pour</target>
+            </trans-unit>
+            <trans-unit id="searched_for">
+                <source>searched_for</source>
+                <target>Rechercher pour...</target>
+            </trans-unit>
+            <trans-unit id="searched_for_articles">
+                <source>searched_for_articles</source>
+                <target>Rechercher des articles</target>
+            </trans-unit>
+            <trans-unit id="searched.no_results">
+                <source>searched.no_results</source>
+                <target>Aucun résultat</target>
+            </trans-unit>
+            <trans-unit id="searched.results_found">
+                <source>searched.results_found</source>
+                <target>résultat trouvé</target>
+            </trans-unit>
+            <trans-unit id="searched.no_results_for_your_query">
+                <source>searched.no_results_for_your_query</source>
+                <target>Aucun résultat ne correspond à votre requête.</target>
+            </trans-unit>
+
             <trans-unit id="post.searched_action">
                 <source>post.searched_action</source>
                 <target>Rechercher</target>
@@ -1814,9 +1905,9 @@
                 <source>post.searched_no_results</source>
                 <target>Aucun résultat</target>
             </trans-unit>
-            <trans-unit id="post.searched_results">
-                <source>post.searched_results</source>
-                <target>Résultat</target>
+            <trans-unit id="post.searched_results_found">
+                <source>post.searched_results_found</source>
+                <target>résultat trouvé</target>
             </trans-unit>
             <trans-unit id="post.searched_results_op">
                 <source>post.searched_results_op</source>

@@ -7,7 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
-final class HeroSettingsFixtures extends Fixture
+final class HeroSettingFixtures extends Fixture
 {
     use FakerTrait;
 

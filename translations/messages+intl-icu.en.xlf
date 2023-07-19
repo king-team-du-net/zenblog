@@ -162,6 +162,23 @@
                 <target>Rss</target>
             </trans-unit>
 
+            <trans-unit id="title.generate_password">
+                <source>title.generate_password</source>
+                <target>Generate Password</target>
+            </trans-unit>
+            <trans-unit id="title.password_generator_tool">
+                <source>title.password_generator_tool</source>
+                <target>Password generation tool</target>
+            </trans-unit>
+            <trans-unit id="title.wouhou">
+                <source>title.wouhou</source>
+                <target>Wouhou</target>
+            </trans-unit>
+            <trans-unit id="title.online_tool">
+                <source>title.online_tool</source>
+                <target>Instantly generate a secure and random password using the online tool</target>
+            </trans-unit>
+
             <trans-unit id="title.administrator_layout_settings_index">
                 <source>title.administrator_layout_settings_index</source>
                 <target>Layout settings</target>
@@ -294,6 +311,14 @@
             <trans-unit id="title.search_result">
                 <source>title.search_result</source>
                 <target>Search Results</target>
+            </trans-unit>
+            <trans-unit id="title.searched_result">
+                <source>title.searched_result</source>
+                <target>Search Results</target>
+            </trans-unit>
+            <trans-unit id="title.searched_do_another_search">
+                <source>title.searched_do_another_search</source>
+                <target>Do another search</target>
             </trans-unit>
             <trans-unit id="title.blog">
                 <source>title.blog</source>
@@ -429,6 +454,10 @@
                 <target><![CDATA[Your account is not activated <a href="{link}" class="btn btn-xs btn-dark ms-3 mb-0">Resend activation link</a> to return to your homepage]]></target>
             </trans-unit>
 
+            <trans-unit id="action.generate_password">
+                <source>action.generate_password</source>
+                <target>Generate Password</target>
+            </trans-unit>
             <trans-unit id="action.load_more">
                 <source>action.load_more</source>
                 <target>Load more</target>
@@ -692,6 +721,15 @@
                 <target>This action cannot be undone.</target>
             </trans-unit>
 
+            <trans-unit id="aria-label.searched">
+                <source>aria-label.searched</source>
+                <target>Search</target>
+            </trans-unit>
+
+            <trans-unit id="placeholder.searched">
+                <source>placeholder.searched</source>
+                <target>Enter your search here...</target>
+            </trans-unit>
             <trans-unit id="placeholder.alt">
                 <source>placeholder.alt</source>
                 <target>Image alt text</target>
@@ -806,6 +844,22 @@
                 <target>5 stars</target>
             </trans-unit>
 
+            <trans-unit id="label.select_password_options">
+                <source>label.select_password_options</source>
+                <target>Select password options *</target>
+            </trans-unit>
+            <trans-unit id="label.length">
+                <source>label.length</source>
+                <target>Password length</target>
+            </trans-unit>
+            <trans-unit id="label.uppercase_letters">
+                <source>label.uppercase_letters</source>
+                <target>Uppercase Letters</target>
+            </trans-unit>
+            <trans-unit id="label.special_characters">
+                <source>label.special_characters</source>
+                <target>Special Characters</target>
+            </trans-unit>
             <trans-unit id="label.related_posts">
                 <source>label.related_posts</source>
                 <target>Related posts</target>
@@ -1650,6 +1704,10 @@
                 <source>content.na</source>
                 <target>N/A</target>
             </trans-unit>
+            <trans-unit id="content.password_generator_tool">
+                <source>content.password_generator_tool</source>
+                <target>Personalize your password</target>
+            </trans-unit>
 
             <trans-unit id="role.super_administrator">
                 <source>role.super_administrator</source>
@@ -1805,6 +1863,39 @@
                 <target>The blog post has been successfully restored!</target>
             </trans-unit>
 
+            <trans-unit id="searched.action_do_another_search">
+                <source>searched.action_do_another_search</source>
+                <target>Do another search</target>
+            </trans-unit>
+            <trans-unit id="searched.action_search">
+                <source>searched.action_search</source>
+                <target>Search</target>
+            </trans-unit>
+            <trans-unit id="searched.results_for">
+                <source>searched.results_for</source>
+                <target>Search results for</target>
+            </trans-unit>
+            <trans-unit id="searched_for">
+                <source>searched_for</source>
+                <target>Search for...</target>
+            </trans-unit>
+            <trans-unit id="searched_for_articles">
+                <source>searched_for_articles</source>
+                <target>Search for articles</target>
+            </trans-unit>
+            <trans-unit id="searched.no_results">
+                <source>searched.no_results</source>
+                <target>No results found</target>
+            </trans-unit>
+            <trans-unit id="searched.results_found">
+                <source>searched.results_found</source>
+                <target>result found</target>
+            </trans-unit>
+            <trans-unit id="searched.no_results_for_your_query">
+                <source>searched.no_results_for_your_query</source>
+                <target>There are no results for your query.</target>
+            </trans-unit>
+
             <trans-unit id="post.searched_action">
                 <source>post.searched_action</source>
                 <target>Search</target>
@@ -1821,9 +1912,9 @@
                 <source>post.searched_no_results</source>
                 <target>No results found</target>
             </trans-unit>
-            <trans-unit id="post.searched_results">
-                <source>post.searched_results</source>
-                <target>Result</target>
+            <trans-unit id="post.searched_results_found">
+                <source>post.searched_results_found</source>
+                <target>result found</target>
             </trans-unit>
             <trans-unit id="post.searched_results_op">
                 <source>post.searched_results_op</source>

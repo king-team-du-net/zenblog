@@ -30,7 +30,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route(name: 'auth_')]
-final class SecurityController extends AbstractController
+final class AuthController extends AbstractController
 {
     use TargetPathTrait;
 

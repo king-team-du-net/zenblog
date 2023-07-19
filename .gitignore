@@ -30,3 +30,28 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+# Liés à l'IDE
+.idea/
+.code/
+
+# Uploads avatars admins and users
+/public/uploads/user/*
+!/public/uploads/user/default.png
+
+# Uploads post
+/public/uploads/post/*
+!/public/uploads/post/image.png
+
+# Uploads homepage
+/public/uploads/home/hero/*
+!/public/uploads/home/hero/5d99d60e41207545475471.jpg // hero
+
+# Uploads layout
+/public/uploads/layout/*
+!/public/uploads/layout/5ecac8821172a412596921.png // favicon
+!/public/uploads/layout/5f626cc22a186068458664.png // Logo
+!/public/uploads/layout/5faadc546e235285098877.jpg // OG
+
+# Uploads categories
+/public/uploads/categories/*

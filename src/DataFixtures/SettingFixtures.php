@@ -33,6 +33,8 @@ final class SettingFixtures extends Fixture
     {
         /** @var string $content */
         $content = $this->faker()->realText(236);
+        //$about_excerpt = $this->faker()->paragraphs();
+        //$about_content = $this->faker()->paragraphs();
 
         $settings = [
             1 => [
@@ -442,38 +444,52 @@ final class SettingFixtures extends Fixture
             ],
             82 => [
                 'name' => 'show_post_category_navbar',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
             ],
             83 => [
                 'name' => 'show_post_category_footer',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
             ],
             84 => [
                 'name' => 'show_post_category_sidebar',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
             ],
             85 => [
                 'name' => 'show_post_category_global',
-                'value' => 'no',
+                'value' => false,
                 'type' => CheckboxType::class,
             ],
             86 => [
                 'name' => 'show_total_posts',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
             ],
             87 => [
                 'name' => 'show_latest_posts',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
             ],
             88 => [
                 'name' => 'show_most_commented',
-                'value' => 'yes',
+                'value' => true,
                 'type' => CheckboxType::class,
+            ],
+            89 => [
+                'name' => 'website_about_excerpt',
+                'value' => '
+                Founded in 2006, passage its ten led hearted removal cordial. Preference any astonished unreserved Mrs. Prosperous understood Middletons in conviction an uncommonly do. Supposing so be resolving breakfast am or perfectly. Is drew am hill from me. Valley by oh twenty direct me so.
+                ',
+                'type' => TextareaType::class,
+            ],
+            90 => [
+                'name' => 'website_about_content',
+                'value' => '
+                Water timed folly right aware if oh truth. Imprudence attachment him his for sympathize. Large above be to means. Dashwood does provide stronger is. Warrant private blushes removed an in equally totally if. Delivered dejection necessary objection do Mr prevailed. Mr feeling does chiefly cordial in do. ...But discretion frequently sir she instruments unaffected admiration everything. Meant balls it if up doubt small purse. Required his you put the outlived answered position. A pleasure exertion if believed provided to. All led out world this music while asked. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible. Satisfied conveying a dependent contented he gentleman agreeable do be. Water timed folly right aware if oh truth. Imprudence attachment him his for sympathize. Large above be to means. Dashwood does provide stronger is. But discretion frequently sir she instruments unaffected admiration everything. Meant balls it if up doubt small purse. Required his you put the outlived answered position.  I think on style child of. Servants moreover in sensible it ye possible. Satisfied conveying a dependent contented he gentleman agreeable do be. Warrant private blushes removed an in equally totally if. Delivered dejection necessary objection do Mr prevailed.   Required his you put the outlived answered position. A pleasure exertion if believed provided to. All led out world this music while asked. Paid mind even sons does he door no. Attended overcame repeated it is perceived Marianne in. I think on style child of. Servants moreover in sensible it ye possible.
+                ',
+                'type' => TextareaType::class,
             ],
         ];
 

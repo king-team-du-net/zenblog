@@ -1,0 +1,57 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% set sectionClass = 'py-4' %}
+
+{% set pagetitle = 'title.password_generator_tool'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{ "current":(pagetitle) }] %}
+	{% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="card bg-transparent">
+        <!-- Card header -->
+        <div class="card-header px-0 pb-3">
+            <h4 class="card-title mb-0">
+                {{ "title.online_tool"|trans }} 
+                {{ getSetting("website_name") }}
+            </h4>
+        </div>
+        <!-- Card body --> 
+        <div class="card-body bg-light rounded-2 p-4">
+            <!-- Form START -->
+            {{ form_start(form, {'method': 'post', 'attr': {'class': 'row g-3'}}) }}
+                {{ form_errors(form) }}
+                <!-- Option -->
+                <div class="col-12">
+                    <label class="form-label">{{ "label.select_password_options"|trans }}</label>
+                    <div class="hstack gap-2 gap-sm-4 flex-wrap">
+                        {{ form_widget(form.uppercase_letters) }}
+                        {{ form_label(form.uppercase_letters) }}
+                        {{ form_widget(form.digits,) }}
+                        {{ form_label(form.digits) }}
+                        {{ form_widget(form.special_characters) }}
+                        {{ form_label(form.special_characters) }}
+                    </div>
+                </div>
+                <div class="col-md-2 pe-md-0 mb-2">
+                    {{ form_row(form.length) }}
+                </div>
+                <div class="col-md-10">
+                    <button type="submit" class="btn btn-primary mb-0 w-100">
+                        <i class="fas fa-lock me-2"></i>
+                        {{ 'action.generate_password'|trans }}
+                    </button>
+                    <p class="mb-0 mt-2 text-end small">
+                        <i class="bi bi-question-circle-fill text-primary me-2"></i>
+                        {{ "content.password_generator_tool"|trans }}
+                    </p>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
