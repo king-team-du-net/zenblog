@@ -1,4 +1,5 @@
-<section class="bg-dark-overlay-4" style="background-image:url({{ asset('uploads/post/' ~ post.cover) }}); background-position: center left; background-size: cover;">
+{% set runtimeConfig = {"thumbnail": {"size": [1920, 1080] }} %}
+<section class="bg-dark-overlay-4" style="background-image:url({{ absolute_url(asset('uploads/post/' ~ post.cover)|imagine_filter('thumbnail', runtimeConfig)) }}); background-position: center left; background-size: cover;">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 py-md-5 my-lg-5">
