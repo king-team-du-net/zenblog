@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Security\Voter;
 
 use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class PostVoter extends Voter
 {
@@ -37,13 +45,17 @@ final class PostVoter extends Voter
         // We retrieve the user from the token
         $user = $token->getUser();
 
-        if(!$user instanceof User) return false;
+        if (!$user instanceof User) {
+            return false;
+        }
 
         // We check if the user is admin
-        if($this->security->isGranted(User::ADMIN)) return true;
+        if ($this->security->isGranted(User::ADMIN)) {
+            return true;
+        }
 
         // We check the permissions
-        switch($attribute){
+        switch ($attribute) {
             case self::EDIT:
                 // We check if the user can edit
                 return $this->canEdit();

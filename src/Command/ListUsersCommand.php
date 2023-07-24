@@ -2,19 +2,27 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Command;
 
 use App\Entity\User;
-use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 #[AsCommand(
     name: 'app:list-users',
@@ -31,9 +39,6 @@ final class ListUsersCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this

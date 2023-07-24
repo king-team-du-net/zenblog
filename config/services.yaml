@@ -15,9 +15,14 @@ parameters:
     date_timezone: '%env(DATE_TIMEZONE)%'
 
     # Language
+    # locale: '%env(DEFAULT_LOCALE)%'
+    # locales: '%env(APP_LOCALES)%'
+    # available_locales: ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu
+
+    # Language
     locale: '%env(DEFAULT_LOCALE)%'
-    locales: '%env(APP_LOCALES)%'
-    available_locales: en|fr|es|ar|de|pt|
+    # This parameter defines the codes of the locales (languages) enabled in the application
+    app_locales: ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu
 
     # Website configuration
     website_name: '%env(WEBSITE_NAME)%'
@@ -33,6 +38,8 @@ parameters:
     website_jwt_secret: '%env(WEBSITE_JWT_SECRET)%'
 
     router.request_context.host: "%website_root_url%"
+    router.request_context.scheme: 'https'
+    asset.request_context.secure: true
     # router.request_context.base_url: "%website_root_url%"
     # asset.request_context.base_path: '%router.request_context.base_url%'
     container.dumper.inline_factories: true
@@ -63,6 +70,15 @@ parameters:
     generator_password_min_length: '%env(GENERATOR_PASSWORD_MIN_LENGTH)%'
     generator_password_max_length: '%env(GENERATOR_PASSWORD_MAX_LENGTH)%'
 
+    # Vich
+    icons: /uploads/icons
+    categories: /uploads/categories
+    homepage_hero_custom_background: /uploads/homepage/hero
+    app_layout: /uploads/layout
+    attachments: /uploads/attachments
+    blog_post_image: /uploads/post
+    user_avatar: /uploads/user
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -72,6 +88,10 @@ services:
         public: false
 
         bind:
+            # Website locales
+            string $locales: '%app_locales%'
+            string $defaultLocale: '%locale%'
+
             # Upload
             string $uploadsDirUser: '%uploads_dir_user%'
             string $uploadsDirPost: '%uploads_dir_post%'
@@ -87,7 +107,7 @@ services:
             bool $updatePostByOwnerOnly: '%post.update.by_owner_only%'
 
             # ResizerPictureController
-            #$projectDir: '%kernel.project_dir%'
+            $projectDir: '%kernel.project_dir%'
 
             # AdministratorVoter
             string $appEnvironment: '%kernel.environment%'
@@ -136,6 +156,7 @@ services:
             $sender: '%website_no_reply_email%'
             $container: !tagged_locator app.mailer.mailInterface
 
+    # Notification Comment
     App\EventSubscriber\NotificationCommentSubscriber:
         $sender: '%website_no_reply_email%'
 
@@ -144,10 +165,12 @@ services:
         arguments: ['%resize_picture_key%']
 
     # Vich
-    # App\Interface\Uploads\PropertyGroupedDirectoryNamer:
-        # public: true
-
-    # App\Interface\Uploads\ImageDirectoryNamer:
-        # public: true
+    App\Interface\Uploads\PropertyGroupedDirectoryNamer:
+        public: true
 
     # Searched
+
+
+    # Global Service
+    # app.services:
+        # alias: App\Service\AppServices

@@ -1,15 +1,23 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\EventSubscriber;
 
-use Twig\Environment;
-use App\Repository\TagRepository;
-use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
-use Symfony\Contracts\Cache\ItemInterface;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use App\Repository\PostRepository;
+use App\Repository\TagRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Twig\Environment;
 
 class TwigNavbarSidebarFooterSubscriber implements EventSubscriberInterface
 {

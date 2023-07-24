@@ -7,14 +7,14 @@
     <section class="{{ sectionClass is defined ? sectionClass : '' }}">
         <div class="container position-relative{{ containerClass is defined ? containerClass : '' }}" data-sticky-container>
             <div class="row">
-                <div id="main" class="col-lg-9 mb-5{{ colLg9Class is defined ? colLg9Class : '' }}">
+                <div id="content" class="col-lg-9 mb-5{{ colLg9Class is defined ? colLg9Class : '' }}">
                     {% block content %}{% endblock %}
                 </div>
                 <div id="sidebar" class="col-lg-3{{ colLg3Class is defined ? colLg3Class : '' }}">
                     {% block sidebar %}
                         <div data-sticky data-margin-top="80" data-sticky-for="{{ dataSticky is defined ? dataSticky : '991' }}">
-                            {{ render(controller(
-                                'App\\Controller\\TwigController::sidebar',
+                            {{ render_esi(controller(
+                                'App\\Controller\\Frontend\\TwigController::sidebar',
                                 { 'maxResults': 3 }
                             )) }}
                         </div>

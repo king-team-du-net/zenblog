@@ -2,12 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\EventSubscriber;
 
 use App\Entity\User;
+use App\Event\User\BadPasswordLoginEvent;
 use App\Service\LoginAttemptService;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Event\User\BadPasswordLoginEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 

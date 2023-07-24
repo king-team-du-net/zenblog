@@ -1,23 +1,31 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Administrator;
 
+use App\Controller\Controller;
 use App\Entity\Page;
 use App\Entity\User;
 use App\Form\PageType;
-use App\Controller\Controller;
 use App\Repository\PageRepository;
 use App\Twig\TwigSettingExtension;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\SubmitButton;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted(User::ADMINISTRATOR)]
 class PagesController extends Controller
@@ -53,20 +61,21 @@ class PagesController extends Controller
         TranslatorInterface $translator
     ): Response {
         if (!$slug) {
-            $page = new Page;
+            $page = new Page();
         } else {
             /** @var Page $page */
-            //$page = $pageRepository->getPages(array('slug' => $slug))->getQuery()->getOneOrNullResult();
+            // $page = $pageRepository->getPages(array('slug' => $slug))->getQuery()->getOneOrNullResult();
             $page = $services->getPages(['slug' => $slug])->getQuery()->getOneOrNullResult();
             /** @var Page $page */
             if (!$page) {
                 $this->addFlash('error', $translator->trans('page.no_pages_found'));
-                return $this->redirectToRoute("dashboard_administrator_page_index");
+
+                return $this->redirectToRoute('dashboard_administrator_page_index');
             }
         }
 
         $form = $this->createForm(
-            PageType::class, 
+            PageType::class,
             $page,
         )->add('saveAndCreateNew', SubmitType::class)->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -83,10 +92,10 @@ class PagesController extends Controller
                 if ($submit->isClicked()) {
                     return $this->redirectToRoute('dashboard_administrator_page_add');
                 }
-                return $this->redirectToRoute("dashboard_administrator_page_index");
-            } else {
-                $this->addFlash('error', $translator->trans('content.invalid_data'));
+
+                return $this->redirectToRoute('dashboard_administrator_page_index');
             }
+            $this->addFlash('error', $translator->trans('content.invalid_data'));
         }
 
         return $this->render('dashboard/administrator/pages/add-edit.html.twig', compact('page', 'form'));
@@ -105,6 +114,7 @@ class PagesController extends Controller
 
         if (!$page) {
             $this->addFlash('error', $translator->trans('page.no_pages_found'));
+
             return $this->redirectToRoute('dashboard_administrator_page_index');
         }
 

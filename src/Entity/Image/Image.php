@@ -2,12 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Image;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 
 #[ORM\Entity]
 class Image extends Media
@@ -57,7 +65,7 @@ class Image extends Media
         return $this->file;
     }
 
-    public function setFile(?UploadedFile $file): Image
+    public function setFile(?UploadedFile $file): self
     {
         $this->file = $file;
 

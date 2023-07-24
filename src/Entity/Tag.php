@@ -2,30 +2,54 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Repository\TagRepository;
-use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasTimestampTrait;
-use App\Entity\Traits\HasBackgroundAndColorTrait;
-use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
-#[ORM\Entity(repositoryClass: TagRepository::class)]
+#[ORM\Entity]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
 #[ORM\Table(name: 'blog_tag')]
-class Tag implements \Stringable
+class Tag implements \JsonSerializable
 {
     use HasIdTrait;
-    use HasBackgroundAndColorTrait;
-    use HasNameAndSlugAndAssertTrait;
+    // use HasNameAndSlugAndAssertTrait;
+    // use HasBackgroundAndColorTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
+
+    #[ORM\Column(type: Types::STRING, unique: true)]
+    private readonly string $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
 
     public function __toString(): string
     {
         return (string) $this->getName();
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function jsonSerialize(): string
+    {
+        return $this->name;
     }
 }

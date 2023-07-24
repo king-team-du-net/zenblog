@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Administrator;
 
-use App\Entity\User;
 use App\Controller\Controller;
+use App\Entity\User;
 use App\Service\Statisticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,8 +27,8 @@ class MainController extends Controller
         $user = $this->getUserOrThrow();
 
         $stats = $stats->getStats();
-        //$bestPosts = $stats->getPostsClassification('DESC');
-        //$worstPosts = $stats->getPostsClassification('ASC');
+        // $bestPosts = $stats->getPostsClassification('DESC');
+        // $worstPosts = $stats->getPostsClassification('ASC');
 
         return $this->render('dashboard/administrator/dashboard.html.twig', compact('user', 'stats'));
     }

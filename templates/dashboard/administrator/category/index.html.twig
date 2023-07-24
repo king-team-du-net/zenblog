@@ -110,6 +110,6 @@
             </div>
         </div>
     {% else %}
-        {% include "global/_message.html.twig" with { type: "info", message: ('category.no_categories_found'|trans), icon: "bi bi-exclamation-circle" } %}
+        {% include "global/_message.html.twig" with { type: "info", message: ('category.no_categories_found'|trans), icon: "fas fa-exclamation" } %}
     {% endif %}
 {% endblock %}

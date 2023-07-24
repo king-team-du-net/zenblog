@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use Doctrine\DBAL\Types\Types;
@@ -24,16 +32,16 @@ trait HasSocialLoggableTrait
     #[ORM\Column(type: Types::STRING, length: 1000, nullable: true)]
     private ?string $facebookProfilePicture = null;
 
-    #[ORM\Column(name: "facebook_id", type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(name: 'facebook_id', type: Types::STRING, length: 255, nullable: true)]
     protected ?string $facebook_id = null;
 
-    #[ORM\Column(name: "facebook_access_token", type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(name: 'facebook_access_token', type: Types::STRING, length: 255, nullable: true)]
     protected ?string $facebook_access_token = null;
 
-    #[ORM\Column(name: "google_id", type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(name: 'google_id', type: Types::STRING, length: 255, nullable: true)]
     protected ?string $google_id = null;
 
-    #[ORM\Column(name: "google_access_tokenn", type: Types::STRING, length: 255, nullable: true)]
+    #[ORM\Column(name: 'google_access_tokenn', type: Types::STRING, length: 255, nullable: true)]
     protected ?string $google_access_token = null;
 
     #[ORM\Column(type: Types::STRING, unique: true, nullable: true)]

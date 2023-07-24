@@ -2,15 +2,23 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
 use App\Entity\User;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
-use Psr\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Http\Event\LogoutEvent;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Event\LogoutEvent;
 
 /**
  * Service to simplify communication with authentication and provide a stricter type.
@@ -45,7 +53,7 @@ final class AuthService
         return $user;
     }
 
-    public function logout(?Request $request = null): void
+    public function logout(Request $request = null): void
     {
         $request = $request ?: new Request();
         $this->eventDispatcher->dispatch(new LogoutEvent($request, $this->tokenStorage->getToken()));

@@ -2,25 +2,31 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use App\Entity\Post;
-use App\Entity\User\User;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasTimestampTrait;
-use Doctrine\Common\Collections\Collection;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Entity\User\User;
 use App\Repository\HomepageHeroSettingsRepository;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-// Install Vich in progress
 #[ORM\Entity(repositoryClass: HomepageHeroSettingsRepository::class)]
-//#[Vich\Uploadable]
+#[Vich\Uploadable]
 class HomepageHeroSettings
 {
     use HasIdTrait;
@@ -36,7 +42,6 @@ class HomepageHeroSettings
     private ?string $content = null;
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
-    /*
     #[Vich\UploadableField(mapping: 'homepage_hero_custom_background', fileNameProperty: 'customBackgroundName', size: 'customBackgroundSize', mimeType: 'customBackgroundMimeType', originalName: 'customBackgroundOriginalName', dimensions: 'customBackgroundDimensions')]
     #[Assert\File(
         maxSize: '5M',
@@ -59,7 +64,6 @@ class HomepageHeroSettings
 
     #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $customBackgroundDimensions = [];
-    */
 
     #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $show_search_box = null;
@@ -122,7 +126,6 @@ class HomepageHeroSettings
         return $this;
     }
 
-    /*
     public function setCustomBackgroundFile(File|UploadedFile|null $customBackgroundFile)
     {
         $this->customBackgroundFile = $customBackgroundFile;
@@ -203,7 +206,6 @@ class HomepageHeroSettings
     {
         return 'uploads/homepage/hero/'.$this->customBackgroundName;
     }
-    */
 
     public function isShowSearchBox(): ?bool
     {

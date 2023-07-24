@@ -1,13 +1,21 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Twig;
 
 use App\Entity\Post;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Twig\Extension\AbstractExtension;
-use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TwigUrlExtension extends AbstractExtension
 {
@@ -36,7 +44,7 @@ class TwigUrlExtension extends AbstractExtension
     public function contentPath(Post $content): ?string
     {
         if ($content instanceof Post) {
-            return $this->urlGenerator->generate('blog_show', ['slug' => $content->getSlug()]);
+            return $this->urlGenerator->generate('blog_article', ['slug' => $content->getSlug()]);
         }
 
         return null;
@@ -47,7 +55,7 @@ class TwigUrlExtension extends AbstractExtension
      */
     public function pathFor($path, array $params = []): string
     {
-        if (is_string($path)) {
+        if (\is_string($path)) {
             return $this->urlGenerator->generate($path, $params);
         }
 
@@ -59,7 +67,7 @@ class TwigUrlExtension extends AbstractExtension
      */
     public function urlFor($path, array $params = []): string
     {
-        if (is_string($path)) {
+        if (\is_string($path)) {
             return $this->urlGenerator->generate(
                 $path,
                 $params,
@@ -75,7 +83,7 @@ class TwigUrlExtension extends AbstractExtension
         $regexp = '/(<a.*?>)?(https?:)?(\/\/)(\w+\.)?(\w+\.[\w\/\-_.~&=?]+)(<\/a>)?/i';
         $anchor = '<a href="%s//%s" target="_blank" rel="noopener noreferrer">%s</a>';
 
-        preg_match_all($regexp, $string, $matches, PREG_SET_ORDER);
+        preg_match_all($regexp, $string, $matches, \PREG_SET_ORDER);
 
         foreach ($matches as $match) {
             if (empty($match[1]) && empty($match[6])) {

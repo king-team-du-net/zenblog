@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\EventSubscriber;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
-use App\Entity\Comment;
-use Symfony\Component\Mime\Email;
 use App\Event\Post\CommentCreatedEvent;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class NotificationCommentSubscriber implements EventSubscriberInterface
 {
@@ -20,13 +28,6 @@ final class NotificationCommentSubscriber implements EventSubscriberInterface
         private readonly TranslatorInterface $translator,
         private readonly string $sender
     ) {
-    }
-
-    public static function getSubscribedEvents(): array
-    {
-        return [
-            CommentCreatedEvent::class => 'onCommentCreated',
-        ];
     }
 
     public function onCommentCreated(CommentCreatedEvent $event): void
@@ -62,5 +63,15 @@ final class NotificationCommentSubscriber implements EventSubscriberInterface
         ;
 
         $this->mailer->send($email);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            CommentCreatedEvent::class => 'onCommentCreated',
+        ];
     }
 }

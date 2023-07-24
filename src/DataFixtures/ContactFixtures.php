@@ -1,12 +1,19 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Contact;
-use App\DataFixtures\FakerTrait;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 
 final class ContactFixtures extends Fixture
 {
@@ -21,7 +28,7 @@ final class ContactFixtures extends Fixture
             $c = (new Contact());
             $c
                 ->setIp($this->faker()->ipv4)
-                ->setFullname($this->faker()->lastName() . ' ' . $this->faker()->firstName())
+                ->setFullname($this->faker()->lastName().' '.$this->faker()->firstName())
                 ->setEmail($this->faker()->email())
                 ->setSubject($this->faker()->words(2, true))
                 ->setMessage($this->faker()->realText(500))

@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
 use Gedmo\Sluggable\Util\Urlizer;
@@ -8,8 +16,6 @@ class Slugger
 {
     /**
      * Disable the transliterate.
-     *
-     * @return mixed
      */
     public static function transliterate(string $text, string $separator = '-')
     {
@@ -38,7 +44,7 @@ class Slugger
      *
      * @param int $length Max length of the string
      *
-     * @return string String with Unicode encoded for URI.
+     * @return string string with Unicode encoded for URI
      */
     private static function utf8_uri_encode(string $utf8_string, int $length = 0): string
     {
@@ -46,29 +52,29 @@ class Slugger
         $values = [];
         $num_octets = 1;
         $unicode_length = 0;
-        $string_length = strlen($utf8_string);
+        $string_length = \mb_strlen($utf8_string);
         for ($i = 0; $i < $string_length; ++$i) {
-            $value = ord($utf8_string[$i]);
+            $value = \ord($utf8_string[$i]);
             if ($value < 128) {
                 if ($length && ($unicode_length >= $length)) {
                     break;
                 }
-                $unicode .= chr($value);
+                $unicode .= \chr($value);
                 ++$unicode_length;
             } else {
-                if (0 == count($values)) {
+                if (0 === \count($values)) {
                     $num_octets = ($value < 224) ? 2 : 3;
                 }
                 $values[] = $value;
                 if ($length && ($unicode_length + ($num_octets * 3)) > $length) {
                     break;
                 }
-                if (count($values) == $num_octets) {
-                    if (3 == $num_octets) {
-                        $unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]) . '%' . dechex($values[2]);
+                if (\count($values) === $num_octets) {
+                    if (3 === $num_octets) {
+                        $unicode .= '%'.dechex($values[0]).'%'.dechex($values[1]).'%'.dechex($values[2]);
                         $unicode_length += 9;
                     } else {
-                        $unicode .= '%' . dechex($values[0]) . '%' . dechex($values[1]);
+                        $unicode .= '%'.dechex($values[0]).'%'.dechex($values[1]);
                         $unicode_length += 6;
                     }
                     $values = [];
@@ -90,12 +96,12 @@ class Slugger
     {
         $text = str_replace('%', '', $text);
         if (Urlizer::seemsUtf8($text)) {
-            if (function_exists('mb_strtolower')) {
+            if (\function_exists('mb_strtolower')) {
                 $text = mb_strtolower($text, 'UTF-8');
             }
             $text = self::utf8_uri_encode($text, 200);
         } else {
-            $text = strtolower($text);
+            $text = mb_strtolower($text);
         }
         $text = str_replace('.', $separator, $text);
         // Convert nbsp, ndash and mdash to hyphens

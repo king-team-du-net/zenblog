@@ -1,9 +1,16 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Utils;
 
 use Symfony\Component\Console\Exception\InvalidArgumentException;
-
 use function Symfony\Component\String\u;
 
 class Validator

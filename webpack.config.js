@@ -8,9 +8,9 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('public/build/')
+    .setOutputPath('public/assets/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('/assets/')
     // only needed for CDN's or subdirectory deploy
     //.setManifestKeyPrefix('build/')
 
@@ -20,8 +20,25 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('app', './assets/js/app.js')
-    //.addEntry('admin', './assets/js/admin.js')
+    .addEntry('app', './assets/app.js')
+
+    //.addEntry('app.style', './assets/js/styles/app.style.js')
+    //.addEntry('app.style-rtl', './assets/js/styles/app.style-rtl.js')
+    //.addEntry('admin', './assets/admin.js')
+
+    // each filename will now include a hash that changes whenever the contents of that file change
+    .enableVersioning()
+
+    .copyFiles({
+        from: './assets/img',
+
+        // optional target path, relative to the output dir
+        to: 'img/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+        to: 'img/[path][name].[hash:8].[ext]',
+
+    })
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
@@ -51,6 +68,7 @@ Encore
     //     config.plugins.push('@babel/a-babel-plugin');
     // })
 
+
     // enables and configure @babel/preset-env polyfills
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
@@ -61,7 +79,7 @@ Encore
     // .enableSassLoader()
 
     // enables PostCSS and autoprefixing
-    .enablePostCssLoader()
+    //.enablePostCssLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -79,21 +97,9 @@ Encore
     .autoProvideVariables({
         $: 'jquery',
         jQuery: 'jquery',
-        'window.jQuery': 'jquery'
-    })
-
-    // each filename will now include a hash that changes whenever the contents of that file change
-    .enableVersioning()
-
-    .copyFiles({
-        from: './assets/img',
-
-        // optional target path, relative to the output dir
-        to: 'img/[path][name].[ext]',
-
-        // if versioning is enabled, add the file hash too
-        to: 'img/[path][name].[hash:8].[ext]',
-
+        'window.jQuery': 'jquery',
+        "window.Bloodhound": require.resolve('bloodhound-js'),
+        "jQuery.tagsinput": "bootstrap-tagsinput"
     })
 ;
 
@@ -104,3 +110,5 @@ const config = Encore.getWebpackConfig();
 config.resolve.alias.jQuery = path.resolve(__dirname, "node_modules/jquery")
 
 module.exports = config;
+
+//module.exports = Encore.getWebpackConfig();

@@ -2,15 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Doctrine\Type;
 
-use BackedEnum;
-use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-
-use function enum_exists;
-use function is_int;
-use function is_string;
+use Doctrine\DBAL\Types\Type;
 
 /**
  * @see https://smaine-milianni.medium.com/use-php-enums-as-doctrine-type-in-symfony-85909aa0a19a
@@ -18,7 +21,7 @@ use function is_string;
 abstract class AbstractEnumType extends Type
 {
     /**
-     * @return class-string<BackedEnum>
+     * @return class-string<\BackedEnum>
      */
     abstract public static function getEnumsClass(): string;
 
@@ -26,19 +29,16 @@ abstract class AbstractEnumType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
-        if ($value instanceof BackedEnum) {
+        if ($value instanceof \BackedEnum) {
             return $value->value;
         }
 
         return null;
     }
 
-    /**
-     * @param mixed $value
-     */
     public function convertToPHPValue($value, AbstractPlatform $platform): mixed
     {
-        if (false === enum_exists(static::getEnumsClass(), true)) {
+        if (false === \enum_exists(static::getEnumsClass(), true)) {
             throw new \LogicException('This class should be an enum');
         }
 
@@ -46,7 +46,7 @@ abstract class AbstractEnumType extends Type
             return null;
         }
 
-        if (!(is_int($value) || is_string($value))) {
+        if (!(\is_int($value) || \is_string($value))) {
             throw new \LogicException('Value should be int or string');
         }
 

@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Shared;
 
-use App\Entity\User;
 use App\Controller\Controller;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +27,7 @@ class MainController extends Controller
         $user = $this->getUserOrThrow();
 
         return $this->render('dashboard/shared/index.html.twig', [
-            'user' => $user
+            'user' => $user,
         ]);
     }
 }

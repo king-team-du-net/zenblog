@@ -1,25 +1,31 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use App\Entity\User;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-
-use function Symfony\Component\String\u;
-
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
+use function Symfony\Component\String\u;
 
 trait HasProfileTrait
 {
-    use HasLastLoginAndBannedAtTrait;
     use HasContactAndSocialMediaTrait;
-    use HasSocialLoggableTrait;
+    use HasLastLoginAndBannedAtTrait;
     use HasReviewsAndFavoritesUsersTrait;
+    use HasSocialLoggableTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

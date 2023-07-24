@@ -1,10 +1,17 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Twig;
 
-use Parsedown;
-use Twig\TwigFilter;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 
 final class TwigContentExtension extends AbstractExtension
 {
@@ -20,10 +27,6 @@ final class TwigContentExtension extends AbstractExtension
 
     /**
      * Returns an htmlExcerpt from a text.
-     *
-     * @param string|null $content
-     * @param int $characterLimit
-     * @return string
      */
     public function htmlExcerpt(?string $content, int $characterLimit = 135): string
     {
@@ -35,19 +38,16 @@ final class TwigContentExtension extends AbstractExtension
             return $content;
         }
 
-        $lastSpace = strpos($content, ' ', $characterLimit);
-        if ($lastSpace === false) {
+        $lastSpace = mb_strpos($content, ' ', $characterLimit);
+        if (false === $lastSpace) {
             return $content;
         }
 
-        return substr($content, 0, $lastSpace) . '...';
+        return mb_substr($content, 0, $lastSpace).'...';
     }
 
     /**
      * Converts htmlMarkdown content to HTML.
-     *
-     * @param null|string $content
-     * @return string
      */
     public function htmlMarkdown(?string $content): string
     {
@@ -55,16 +55,16 @@ final class TwigContentExtension extends AbstractExtension
             return '';
         }
 
-        $content = (new Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
+        $content = (new \Parsedown())->setBreaksEnabled(true)->setSafeMode(false)->text($content);
 
         // We replace YouTube links with an embed
         $content = (string) preg_replace(
             '/<p><a href\="(http|https):\/\/www.youtube.com\/watch\?v=([^\""]+)">[^<]*<\/a><\/p>/',
-            '<iframe 
-                width="560" 
-                height="315" 
-                src="//www.youtube-nocookie.com/embed/$2" 
-                frameborder="0" 
+            '<iframe
+                width="560"
+                height="315"
+                src="//www.youtube-nocookie.com/embed/$2"
+                frameborder="0"
                 allowfullscreen=""
             ></iframe>',
             (string) $content
@@ -95,23 +95,14 @@ final class TwigContentExtension extends AbstractExtension
         return $content;
     }
 
-    /**
-     * @param null|string $content
-     * @param int $characterLimit
-     * @return string
-     */
     public function htmlMarkdownExcerpt(?string $content, int $characterLimit = 135): string
     {
         return $this->htmlExcerpt(strip_tags($this->htmlMarkdown($content)), $characterLimit);
     }
 
-    /**
-     * @param null|string $content
-     * @return string
-     */
     public function htmlMarkdownUntrusted(?string $content): string
     {
-        $content = strip_tags((new Parsedown())
+        $content = strip_tags((new \Parsedown())
             ->setSafeMode(true)
             ->setBreaksEnabled(true)
             ->text($content), '<p><pre><code><ul><ol><li><h4><h3><h5><a><strong><br><em>')

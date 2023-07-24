@@ -2,16 +2,22 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Symfony\Component\Uid\Uuid;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
-use function sprintf;
+use Symfony\Component\Uid\Uuid;
 
 final class UserFixtures extends Fixture
 {
@@ -26,10 +32,10 @@ final class UserFixtures extends Fixture
     private function createAdministrator(ObjectManager $manager): void
     {
         // User SuperAdmin
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = \sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
-            sprintf('%s/%s', $this->uploadsDirUser, $filename)
+            \sprintf('%s/default.png', $this->uploadsDirUser),
+            \sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $administrator = (new User());
@@ -69,10 +75,10 @@ final class UserFixtures extends Fixture
     private function createAdmin(ObjectManager $manager): void
     {
         // User Admin
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = \sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
-            sprintf('%s/%s', $this->uploadsDirUser, $filename)
+            \sprintf('%s/default.png', $this->uploadsDirUser),
+            \sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $admin = (new User());
@@ -112,10 +118,10 @@ final class UserFixtures extends Fixture
     private function createEditor(ObjectManager $manager): void
     {
         // User Editor
-        $filename = sprintf('/%s.png', Uuid::v4());
+        $filename = \sprintf('/%s.png', Uuid::v4());
         copy(
-            sprintf('%s/default.png', $this->uploadsDirUser),
-            sprintf('%s/%s', $this->uploadsDirUser, $filename)
+            \sprintf('%s/default.png', $this->uploadsDirUser),
+            \sprintf('%s/%s', $this->uploadsDirUser, $filename)
         );
 
         $editor = (new User());
@@ -157,22 +163,22 @@ final class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager): void
     {
-        $this->createAdministrator($manager);
-        $manager->flush();
-        $this->createAdmin($manager);
-        $manager->flush();
-        $this->createEditor($manager);
-        $manager->flush();
+        //$this->createAdministrator($manager);
+        //$manager->flush();
+        //$this->createAdmin($manager);
+        //$manager->flush();
+        //$this->createEditor($manager);
+        //$manager->flush();
 
         $users = [];
         $genres = ['male', 'female'];
         $genre = $this->faker()->randomElement($genres);
 
-        for ($usr = 1; $usr <= 15; ++$usr) {
-            $filename = sprintf('/%s.png', Uuid::v4());
+        for ($usr = 1; $usr <= 9; ++$usr) {
+            $filename = \sprintf('/%s.png', Uuid::v4());
             copy(
-                sprintf('%s/default.png', $this->uploadsDirUser),
-                sprintf('%s/%s', $this->uploadsDirUser, $filename)
+                \sprintf('%s/default.png', $this->uploadsDirUser),
+                \sprintf('%s/%s', $this->uploadsDirUser, $filename)
             );
 
             $user = (new User())
@@ -194,7 +200,7 @@ final class UserFixtures extends Fixture
                 ->setLinkedinUrl($this->faker()->url())
             ;
 
-            if ($usr > 10) {
+            if ($usr > 5) {
                 $user->setRegistrationToken(Uuid::v4());
                 $user->setIsVerified(false);
                 $user->setSuspended($this->faker()->randomElement([true, false]));

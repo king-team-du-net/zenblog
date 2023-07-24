@@ -2,29 +2,37 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Repository\PostRepository;
-use App\Entity\Traits\HasStateTrait;
-use App\Entity\Traits\HasViewsTrait;
-use App\Entity\Traits\HasHiddenTrait;
-use App\Repository\CommentRepository;
 use App\Entity\Traits\HasContentTrait;
-use App\Entity\Traits\HasExcerptTrait;
-use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
-use App\Entity\Traits\HasTimestampTrait;
-use App\Entity\Traits\HasPublishedAtTrait;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\HasExcerptTrait;
+use App\Entity\Traits\HasHiddenTrait;
+use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasLikesCollectionTrait;
 use App\Entity\Traits\HasMediaCollectionTrait;
+use App\Entity\Traits\HasPublishedAtTrait;
+use App\Entity\Traits\HasReviewsAndFavoritesPostsTrait;
+use App\Entity\Traits\HasStateTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Entity\Traits\HasViewsTrait;
+use App\Repository\CommentRepository;
+use App\Repository\PostRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Traits\HasReviewsAndFavoritesPostsTrait;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -32,14 +40,14 @@ use App\Entity\Traits\HasReviewsAndFavoritesPostsTrait;
 class Post
 {
     use HasIdTrait;
-    use HasContentTrait;
     use HasExcerptTrait;
-    use HasViewsTrait;
-    use HasStateTrait;
-    use HasHiddenTrait;
-    use HasReviewsAndFavoritesPostsTrait;
-    use HasMediaCollectionTrait;
+    use HasContentTrait;
     use HasLikesCollectionTrait;
+    use HasMediaCollectionTrait;
+    use HasReviewsAndFavoritesPostsTrait;
+    use HasViewsTrait;
+    use HasHiddenTrait;
+    use HasStateTrait;
     use HasPublishedAtTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
@@ -67,7 +75,7 @@ class Post
     /**
      * @var Collection<int, Tag>
      */
-    #[ORM\ManyToMany(targetEntity: Tag::class)]
+    #[ORM\ManyToMany(targetEntity: Tag::class, cascade: ['persist'])]
     #[ORM\JoinTable(name: 'blog_post_tag')]
     #[ORM\OrderBy(['name' => 'ASC'])]
     #[Assert\Count(max: 4, maxMessage: 'post.too_many_tags')]
@@ -77,7 +85,7 @@ class Post
      * @var Collection<int, Comment>
      */
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, orphanRemoval: true, cascade: ['persist'])]
-    #[ORM\OrderBy(['createdAt' => 'DESC'])]
+    #[ORM\OrderBy(['publishedAt' => 'DESC'])]
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
@@ -203,34 +211,38 @@ class Post
     }
 
     /**
-     * Allows to obtain the average of the votes of an article
+     * Allows to obtain the average of the votes of an article.
+     *
      * @return float|int
      */
     public function getAvgRatings()
     {
-        //Get the sum of the notes
+        // Get the sum of the notes
         $sum = array_reduce($this->comments->toArray(), function ($total, $comment) {
             return $total + $comment->getRating();
         }, 0);
 
-        //Calculate the average rating of the articles
-        if (count($this->comments) > 0) {
-            return $sum / count($this->comments);
+        // Calculate the average rating of the articles
+        if (\count($this->comments) > 0) {
+            return $sum / \count($this->comments);
         }
 
         return 0;
     }
 
     /**
-     * Returns a user's comment on an article
-     * @param User $author
+     * Returns a user's comment on an article.
+     *
      * @return mixed|null
      */
     public function getCommentFromAuthor(User $author)
     {
         foreach ($this->comments as $comment) {
-            if ($comment->getAuthor() ===  $author) return $comment;
+            if ($comment->getAuthor() === $author) {
+                return $comment;
+            }
         }
+
         return null;
     }
 

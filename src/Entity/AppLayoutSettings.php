@@ -2,24 +2,32 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
+use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Repository\AppLayoutSettingsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use App\Entity\Traits\HasIdTrait;
-use App\Entity\Traits\HasTimestampTrait;
-use App\Repository\AppLayoutSettingsRepository;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 // Install Vich in progress
 #[Entity(repositoryClass: AppLayoutSettingsRepository::class)]
 #[ORM\Table(name: 'app_layout_setting')]
-//#[Vich\Uploadable]
+// #[Vich\Uploadable]
 class AppLayoutSettings
 {
     use HasIdTrait;
@@ -101,7 +109,6 @@ class AppLayoutSettings
 
     public function __construct()
     {
-
     }
 
     /*

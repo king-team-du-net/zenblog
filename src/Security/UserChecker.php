@@ -2,17 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Security;
 
 use App\Entity\User;
-use App\Service\LoginAttemptService;
-use App\Exception\UserBannedException;
 use App\Exception\AccountSuspendedException;
 use App\Exception\TooManyInvalidCredentialsException;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use App\Exception\UserBannedException;
+use App\Service\LoginAttemptService;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
+use Symfony\Component\Security\Core\User\UserCheckerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Blocks user authentication.
@@ -37,8 +45,6 @@ final class UserChecker implements UserCheckerInterface
         if ($user instanceof User && $user->isSuspended()) {
             throw new AccountSuspendedException($user, $this->translator->trans('Your account has been suspended.'));
         }
-
-        return;
     }
 
     /**
@@ -58,7 +64,5 @@ final class UserChecker implements UserCheckerInterface
         if (!$user->isIsVerified()) {
             throw new CustomUserMessageAccountStatusException($this->translator->trans("You must validate your registration before {$user->getRegistrationTokenLifeTime()->format('d-m-Y-H-i-s')}"));
         }
-
-        return;
     }
 }

@@ -2,20 +2,28 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
-use App\Entity\Post;
 use App\Entity\Comment;
-use App\Twig\TwigSettingExtension;
+use App\Entity\Post;
 use App\Repository\CommentRepository;
+use App\Twig\TwigSettingExtension;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CommentService
@@ -31,13 +39,13 @@ final class CommentService
     ) {
     }
 
-    public function getPaginatedComments(?Post $post = null): PaginationInterface
+    public function getPaginatedComments(Post $post = null): PaginationInterface
     {
         $request = $this->stack->getMainRequest();
         $page = $request->query->getInt('page', 1);
         /** @var int $limit */
-        $limit = $this->setting->getSetting("blog_comments_per_page");
-        //$limit = Comment::COMMENT_LIMIT;
+        $limit = $this->setting->getSetting('blog_comments_per_page');
+        // $limit = Comment::COMMENT_LIMIT;
 
         $commentsQuery = $this->commentRepository->findForPagination($post);
 
@@ -52,11 +60,11 @@ final class CommentService
         $comment->setIp($this->stack->getMainRequest()?->getClientIp());
         $comment->setPost($post);
         $comment->setIsApproved(false);
-        $comment->setCreatedAt(new \DateTime('now'));
+        $comment->setPublishedAt(new \DateTime('now'));
 
-        $parentid = $form->get("parentid")->getData();
+        $parentid = $form->get('parentid')->getData();
 
-        if ($parentid != null) {
+        if (null !== $parentid) {
             $parent = $this->em->getRepository(Comment::class)->find($parentid);
         }
 
@@ -70,19 +78,19 @@ final class CommentService
     {
         if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new JsonResponse([
-                'code' => 'NOT_AUTHENTICATED'
+                'code' => 'NOT_AUTHENTICATED',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         if (!$comment) {
             return new JsonResponse([
-                'code' => 'COMMENT_NOT_FOUND'
+                'code' => 'COMMENT_NOT_FOUND',
             ], Response::HTTP_NOT_FOUND);
         }
 
         if ($this->security->getUser() !== $comment->getAuthor()) {
             return new JsonResponse([
-                'code' => 'UNAUTHORIZED'
+                'code' => 'UNAUTHORIZED',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
@@ -104,7 +112,7 @@ final class CommentService
     public function normalizeComment(Comment $comment): array
     {
         return $this->normalizer->normalize($comment, context: [
-            'groups' => 'comment'
+            'groups' => 'comment',
         ]);
     }
 }

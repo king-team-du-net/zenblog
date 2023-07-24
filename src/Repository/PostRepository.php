@@ -1,24 +1,28 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Repository;
 
-use App\Entity\Tag;
-use App\Entity\Post;
-use App\Entity\User;
-use Doctrine\ORM\Query;
 use App\Entity\Category;
-use App\Helper\Paginator;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\QueryBuilder;
-use App\Twig\TwigSettingExtension;
 use App\Entity\HomepageHeroSettings;
-use function Symfony\Component\String\u;
-use Doctrine\Persistence\ManagerRegistry;
-
-use Doctrine\Common\Collections\Collection;
-use Knp\Component\Pager\PaginatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\Entity\Post;
+use App\Entity\Tag;
+use App\Entity\User;
+use App\Helper\Paginator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use function Symfony\Component\String\u;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -58,7 +62,7 @@ class PostRepository extends ServiceEntityRepository
         }
     }
 
-    public function findForPagination(?Category $category = null, ?Tag $tag = null): Query // PostService
+    public function findForPagination(Category $category = null, Tag $tag = null): Query // PostService
     {
         $qb = $this->createQueryBuilder('p')
             ->where('p.hidden = true')
@@ -84,10 +88,6 @@ class PostRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
-    /**
-     * @param  Post $post
-     * @return Post|null
-     */
     public function findPreviousPost(Post $post): ?Post // (BlogController)
     {
         return $this->createQueryBuilder('p')
@@ -100,10 +100,6 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-    /**
-     * @param  Post $post
-     * @return Post|null
-     */
     public function findNextPost(Post $post): ?Post // (BlogController)
     {
         return $this->createQueryBuilder('p')
@@ -140,11 +136,7 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Method findMostCommented
-     *
-     * @param int $maxResults
-     *
-     * @return array
+     * Method findMostCommented.
      */
     public function findMostCommented(int $maxResults): array // (TwigController)
     {
@@ -162,8 +154,8 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Search
-     * 
+     * Search.
+     *
      * @return Post[]
      */
     public function findBySearchedQuery(string $query, int $limit = Paginator::PAGE_SIZE): array // (BlogSearchedController & BlogSearchedComponent)
@@ -211,7 +203,8 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Returns number of "Posts" per day
+     * Returns number of "Posts" per day.
+     *
      * @return void
      */
     public function countByDate()
@@ -224,14 +217,13 @@ class PostRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createQuery("
             SELECT SUBSTRING(p.publishedAt, 1, 10) as datePosts, COUNT(p) as count FROM App\Entity\Post p GROUP BY datePosts
         ");
+
         return $query->getResult();
     }
 
     /**
      * Retrieves the latest posts created by the user.
      *
-     * @param  User $user
-     * @param int $limit
      * @return Post[] Returns an array of Post objects
      */
     public function findLastByUser(User $user, int $limit): array // (UserController)
@@ -264,7 +256,6 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-
     /**
      * @return Post[] Returns an array of Post objects
      */
@@ -280,13 +271,9 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+
     /**
      * Find articles by title & content (case insensitive).
-     *
-     * @param string $searchedTerm
-     *
-     * @return array
      */
     public function searched(string $searchedTerm): array // (SearchedController)
     {
@@ -297,13 +284,6 @@ class PostRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-
-
-
-
-
-
 
     // rector
 
@@ -318,7 +298,7 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->where('LOWER(p.title) IN (:title)')
-            ->setParameter('title', array_map(fn (string $title) => strtolower($title), $titles))
+            ->setParameter('title', array_map(fn (string $title) => mb_strtolower($title), $titles))
             ->getQuery()
             ->getResult()
         ;
@@ -332,7 +312,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->where('LOWER(p.title) = :post')
             ->setMaxResults(1)
-            ->setParameter('post', strtolower($title))
+            ->setParameter('post', mb_strtolower($title))
             ->getQuery()
             ->getOneOrNullResult()
         ;
@@ -347,12 +327,11 @@ class PostRepository extends ServiceEntityRepository
             ->where('LOWER(p.title) LIKE :q')
             ->orderBy('LENGTH(p.title)', 'ASC')
             ->setMaxResults(3)
-            ->setParameter('q', strtolower($q).'%')
+            ->setParameter('q', mb_strtolower($q).'%')
             ->getQuery()
             ->getResult()
         ;
     }
-
 
     /**
      * @return Post[] Returns an array of Post objects
@@ -370,11 +349,7 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
 
-    /**
-     * @param Category|null $category
-     * @return Query
-     */
-    public function queryAllBlog(?Category $category = null): Query // (BlogController)
+    public function queryAllBlog(Category $category = null): Query // (BlogController)
     {
         $query = $this->createQueryBuilder('p')
             ->select('p')
@@ -395,15 +370,12 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Get published posts.
      *
-     * @param int $page
-     * @param null|Category $category
-     * @param null|Tag      $tag
      * @return PaginationInterface (BlogController, BlogCategoryController)
      */
     public function findRecentPublished(
         int $page,
-        ?Category $category = null,
-        ?Tag $tag = null
+        Category $category = null,
+        Tag $tag = null
     ): PaginationInterface {
         $data = $this->createQueryBuilder('p')
             ->andWhere('p.hidden = true')
@@ -439,24 +411,20 @@ class PostRepository extends ServiceEntityRepository
         return $posts;
     }
 
-
     /**
-     * Method findAllPost
-     *
-     * @param int $page
-     * @param Tag|null $tag
+     * Method findAllPost.
      *
      * @return Paginator (BlogController, BlogCategoryController)
      */
-    public function findAllPost(int $page = 1, /*Category $category = null,*/ Tag $tag = null): Paginator
+    public function findAllPost(int $page = 1, /* Category $category = null, */ Tag $tag = null): Paginator
     {
         $query = $this->createQueryBuilder('p')
             ->addSelect('p')
-            //->addSelect('c')
+            // ->addSelect('c')
             ->addSelect('a', 't')
             ->innerJoin('p.author', 'a')
             ->leftJoin('p.tags', 't')
-            //->leftJoin('p.category', 'c')
+            // ->leftJoin('p.category', 'c')
             ->andWhere('p.publishedAt <= :now')
             ->andWhere('p.hidden = true')
             ->orderBy('p.publishedAt', 'DESC')
@@ -531,69 +499,67 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Returns the blog posts after applying the specified search criterias
+     * Returns the blog posts after applying the specified search criterias.
      *
      * @param HomepageHeroSettings|null $isOnHomepageSlider
-     * @param $addedtofavoritesby
-     * @param string $state
-     * @param string $selecttags
-     * @param boolean $hidden
-     * @param string $keyword
-     * @param string $slug
-     * @param Category $category
-     * @param int $limit
-     * @param string $sort
-     * @param string $order
-     * @param string $otherthan
+     * @param string                    $state
+     * @param string                    $selecttags
+     * @param bool                      $hidden
+     * @param string                    $keyword
+     * @param string                    $slug
+     * @param Category                  $category
+     * @param int                       $limit
+     * @param string                    $sort
+     * @param string                    $order
+     * @param string                    $otherthan
      *
      * @return QueryBuilder<Post> (BlogController)
      */
     public function getPosts($isOnHomepageSlider, $addedtofavoritesby, $state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan): QueryBuilder
     {
-        $qb = $this->createQueryBuilder("p");
+        $qb = $this->createQueryBuilder('p');
 
         if (!$selecttags) {
-            $qb->select("p");
+            $qb->select('p');
 
-            if ($isOnHomepageSlider === true) {
-                $qb->andWhere("p.isonhomepageslider IS NOT NULL");
+            if (true === $isOnHomepageSlider) {
+                $qb->andWhere('p.isonhomepageslider IS NOT NULL');
             }
 
-            if ($addedtofavoritesby !== "all") {
-                $qb->andWhere(":addedtofavoritesbyuser MEMBER OF p.addedtofavoritesby")->setParameter("addedtofavoritesbyuser", $addedtofavoritesby);
+            if ('all' !== $addedtofavoritesby) {
+                $qb->andWhere(':addedtofavoritesbyuser MEMBER OF p.addedtofavoritesby')->setParameter('addedtofavoritesbyuser', $addedtofavoritesby);
             }
 
-            if ($state !== "all") {
-                $qb->andWhere("p.state LIKE :state or :state LIKE p.state")->setParameter("state", '%published%');
+            if ('all' !== $state) {
+                $qb->andWhere('p.state LIKE :state or :state LIKE p.state')->setParameter('state', '%published%');
             }
 
-            if ($hidden !== "all") {
-                $qb->andWhere("p.hidden = :hidden")->setParameter("hidden", $hidden);
+            if ('all' !== $hidden) {
+                $qb->andWhere('p.hidden = :hidden')->setParameter('hidden', $hidden);
             }
 
-            if ($keyword !== "all") {
-                $qb->andWhere("p.title LIKE :keyword or :keyword LIKE p.title or :keyword LIKE p.content or p.content LIKE :keyword or :keyword LIKE p.tags or p.tags LIKE :keyword")->setParameter("keyword", "%" . $keyword . "%");
+            if ('all' !== $keyword) {
+                $qb->andWhere('p.title LIKE :keyword or :keyword LIKE p.title or :keyword LIKE p.content or p.content LIKE :keyword or :keyword LIKE p.tags or p.tags LIKE :keyword')->setParameter('keyword', '%'.$keyword.'%');
             }
 
-            if ($slug !== "all") {
-                $qb->andWhere("p.slug = :slug")->setParameter("slug", $slug);
+            if ('all' !== $slug) {
+                $qb->andWhere('p.slug = :slug')->setParameter('slug', $slug);
             }
 
-            if ($category !== "all") {
-                $qb->leftJoin("p.category", "category");
-                $qb->andWhere("category.slug = :category")->setParameter("category", $category);
+            if ('all' !== $category) {
+                $qb->leftJoin('p.category', 'category');
+                $qb->andWhere('category.slug = :category')->setParameter('category', $category);
             }
 
-            if ($limit !== "all") {
+            if ('all' !== $limit) {
                 $qb->setMaxResults($limit);
             }
 
-            if ($otherthan !== "all") {
-                $qb->andWhere("p.id != :otherthan")->setParameter("otherthan", $otherthan);
+            if ('all' !== $otherthan) {
+                $qb->andWhere('p.id != :otherthan')->setParameter('otherthan', $otherthan);
             }
 
-            $qb->orderBy("p." . $sort, $order);
-
+            $qb->orderBy('p.'.$sort, $order);
         } else {
             $qb->select("SUBSTRING_INDEX(GROUP_CONCAT(p.tags SEPARATOR ','), ',', 8)");
         }

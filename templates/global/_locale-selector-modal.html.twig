@@ -1,0 +1,28 @@
+<!-- Locale END -->
+<div class="modal" id="locale-selector-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticLocaleLabel" aria-hidden="true">
+    <div class="modal-lg modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticLocaleLabel" lang="en">
+                    {{ "title.choose_your_language"|trans }}
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ "action.close"|trans }}"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="locales">
+                    {% for locale in locales() %}
+                        {% set is_active = app.request.locale == locale.code %}
+                        {% set is_rtl = locale.code in ['ar', 'fa', 'he'] %}
+                        <li class="{{ is_active ? 'active' }} {{ is_rtl ? 'rtl' }}" translate="no">
+                            <a class="stretched-link" lang="{{ locale.code }}" hreflang="{{ locale.code }}" href="{{ path(app.request.get('_route', 'blog_index'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                                {{ locale.name|capitalize }}
+                                <small>{{ locale.code }}</small>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Locale END -->

@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Repository;
 
 use App\Entity\Category;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Category>
@@ -98,45 +106,43 @@ class CategoryRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
         ;
     }
-    
+
     /**
-     * Returns the blog posts categories after applying the specified search criterias
+     * Returns the blog posts categories after applying the specified search criterias.
      *
-     * @param boolean $hidden
+     * @param bool   $hidden
      * @param string $keyword
      * @param string $slug
-     * @param int $limit
+     * @param int    $limit
      * @param string $order
      * @param string $sort
-     *
-     * @return QueryBuilder
      */
     public function getPostCategories($hidden, $keyword, $slug, $limit, $order, $sort): QueryBuilder
     {
-        $qb = $this->createQueryBuilder("c");
-        $qb->select("c");
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('c');
 
-        if ($hidden !== "all") {
-            $qb->andWhere("c.hidden = :hidden")->setParameter("hidden", $hidden);
+        if ('all' !== $hidden) {
+            $qb->andWhere('c.hidden = :hidden')->setParameter('hidden', $hidden);
         }
 
-        if ($keyword !== "all") {
-            $qb->andWhere("c.name LIKE :keyword or :keyword LIKE c.name")->setParameter("keyword", "%" . $keyword . "%");
+        if ('all' !== $keyword) {
+            $qb->andWhere('c.name LIKE :keyword or :keyword LIKE c.name')->setParameter('keyword', '%'.$keyword.'%');
         }
 
-        if ($slug !== "all") {
-            $qb->andWhere("c.slug = :slug")->setParameter("slug", $slug);
+        if ('all' !== $slug) {
+            $qb->andWhere('c.slug = :slug')->setParameter('slug', $slug);
         }
 
-        if ($limit !== "all") {
+        if ('all' !== $limit) {
             $qb->setMaxResults($limit);
         }
 
-        if ($order == "postscount") {
-            $qb->leftJoin("c.posts", "posts");
-            $qb->addSelect("COUNT(posts.id) AS HIDDEN postscount");
-            $qb->orderBy("postscount", "DESC");
-            $qb->groupBy("c.id");
+        if ('postscount' === $order) {
+            $qb->leftJoin('c.posts', 'posts');
+            $qb->addSelect('COUNT(posts.id) AS HIDDEN postscount');
+            $qb->orderBy('postscount', 'DESC');
+            $qb->groupBy('c.id');
         } else {
             $qb->orderBy($order, $sort);
         }

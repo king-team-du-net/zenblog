@@ -1,3 +1,3 @@
 {% if app.user and app.user.isVerified == false %}
-    {% include "global/_message.html.twig" with { type: 'warning', icon: 'bi bi-info-circle', message: ('Your account is not activated'|trans()~ '", <a href="'~ path('resend_verif') ~'">' ~ 'Resend activation link'|trans ~ '</a> ' ~ 'to return to your homepage'|trans) } %}
+    {% include "global/_message.html.twig" with { type: 'warning', icon: 'fas fa-info-circle', message: ('Your account is not activated'|trans()~ '", <a href="'~ path('resend_verif') ~'">' ~ 'Resend activation link'|trans ~ '</a> ' ~ 'to return to your homepage'|trans) } %}
 {% endif %}

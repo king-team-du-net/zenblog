@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -32,7 +40,7 @@ final class PostSharedType extends AbstractType
                     new Length(
                         [
                             'min' => 3,
-                            'message' => 'L\'image doit faire {{ max_width }} pixels de large au maximum'
+                            'message' => 'L\'image doit faire {{ max_width }} pixels de large au maximum',
                         ]
                     ),
                 ],
@@ -51,12 +59,12 @@ final class PostSharedType extends AbstractType
                 ],
             ])
             ->add('receiver_email', EmailType::class, [
-                'label' => "label.receiver_email",
+                'label' => 'label.receiver_email',
                 'required' => true,
                 'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => "placeholder.receiver_email",
+                    'placeholder' => 'placeholder.receiver_email',
                 ],
                 'constraints' => [
                     new NotBlank(),

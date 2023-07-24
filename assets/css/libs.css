@@ -1,7 +1,7 @@
 /*
- * ZenBloggy | Multipurpose Bootstrap 5 HTML Template
+ * Bloggy | Multipurpose Bootstrap 5
  * Copyright 2023 Dequidt Robert
- * Theme styles
+ * Theme libs
 */
 
 @import '~bootstrap-icons/font/bootstrap-icons.css';
@@ -9,7 +9,7 @@
 @import '~swiper/swiper-bundle.min.css';
 @import '~glightbox/dist/css/glightbox.min.css';
 @import '~aos/dist/aos.css';
-@import '~flatpickr/dist/flatpickr.min.css';
+/*@import '~flatpickr/dist/flatpickr.min.css';*/
 @import '~tiny-slider/dist/tiny-slider.css';
 
 /*@import '../vendor/tiny-slider/tiny-slider.css';*/
@@ -19,7 +19,10 @@
 
 @import "~pace-progressbar/themes/black/pace-theme-minimal.css";
 @import "~fontawesome-iconpicker/dist/css/fontawesome-iconpicker.min.css";
-@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/css/v4-shims.css";
+
 @import "../vendor/owlcarousel/assets/owl.carousel.min.css";
 @import "../vendor/owlcarousel/assets/owl.theme.default.min.css";
 @import "../vendor/jssocials/jssocials.css";

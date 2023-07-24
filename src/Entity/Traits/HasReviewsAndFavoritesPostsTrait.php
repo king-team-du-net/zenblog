@@ -1,13 +1,21 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
-use App\Entity\User;
+use App\Entity\HomepageHeroSettings;
 use App\Entity\Review;
+use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\HomepageHeroSettings;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 trait HasReviewsAndFavoritesPostsTrait
@@ -54,10 +62,11 @@ trait HasReviewsAndFavoritesPostsTrait
     public function isRatedBy(User $user): Review
     {
         foreach ($this->reviews as $review) {
-            if ($review->getUser() == $user) {
+            if ($review->getUser() === $user) {
                 return $review;
             }
         }
+
         return false;
     }
 
@@ -79,7 +88,7 @@ trait HasReviewsAndFavoritesPostsTrait
         $ratingCount = 0;
         /** @var Review $review */
         foreach ($this->reviews as $review) {
-            if ($review->getVisible() && $review->getRating() == $rating) {
+            if ($review->getVisible() && $review->getRating() === $rating) {
                 ++$ratingCount;
             }
         }

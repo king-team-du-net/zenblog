@@ -3,6 +3,7 @@
 // Theme module
 //
 
+import 'glightbox';
 import GLightbox from 'glightbox';
 
 const glightbox = GLightbox({

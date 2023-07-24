@@ -24,10 +24,19 @@ symfony check:requirements
 ### Launch Development Environment
 ### Lancer l'environnement de développement
 
-```sh
-docker-compose up -d
-symfony serve -d
-```
+Next:
+A) Run docker-compose up -d database to start your database container
+or ```sh docker-compose up -d ``` to start all of them.
+
+B) Run symfony serve -d to start your server
+```sh symfony serve -d ``` to start
+
+C) Run docker-compose stop will stop all the containers in docker-compose.yaml.
+```sh docker-compose down ``` will stop and destroy the containers.
+
+D) Run symfony serve:stop to stop your server
+```sh symfony serve:stop ``` to stop
+
 
 ## Run tests
 ## Exécuter des tests

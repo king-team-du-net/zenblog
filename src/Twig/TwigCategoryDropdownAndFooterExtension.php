@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Twig;
 
-use Twig\TwigFilter;
-use Twig\TwigFunction;
 use App\Entity\Category;
-use Twig\Extension\AbstractExtension;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Routing\RouterInterface;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 final class TwigCategoryDropdownAndFooterExtension extends AbstractExtension
 {
@@ -45,10 +53,11 @@ final class TwigCategoryDropdownAndFooterExtension extends AbstractExtension
 
     public function categoriesToString(Collection $categories): string
     {
-        $generateCategoryLink = function(Category $category) {
+        $generateCategoryLink = function (Category $category) {
             $url = $this->router->generate('category_show', [
-                'slug' => $category->getSlug()
+                'slug' => $category->getSlug(),
             ]);
+
             return "<a href='$url' class='text-decoration-none' style='color: {$category->getColor()}'>{$category->getName()}</a>";
         };
 

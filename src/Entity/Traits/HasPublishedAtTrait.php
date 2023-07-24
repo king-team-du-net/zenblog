@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use Doctrine\DBAL\Types\Types;
@@ -7,15 +15,15 @@ use Doctrine\ORM\Mapping as ORM;
 
 trait HasPublishedAtTrait
 {
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $publishedAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTime $publishedAt = null;
 
-    public function getPublishedAt(): ?\DateTimeImmutable
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(?\DateTimeImmutable $publishedAt): static
+    public function setPublishedAt(?\DateTime $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
 
@@ -24,6 +32,6 @@ trait HasPublishedAtTrait
 
     public function isPublished(): bool
     {
-        return !is_null($this->getPublishedAt()) && $this->getPublishedAt() <= new \DateTimeImmutable();
+        return null !== $this->getPublishedAt() && $this->getPublishedAt() <= new \DateTime();
     }
 }

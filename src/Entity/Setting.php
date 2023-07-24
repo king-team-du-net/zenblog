@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
+use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Repository\SettingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Repository\SettingRepository;
-use App\Entity\Traits\HasTimestampTrait;
 
 #[ORM\Entity(repositoryClass: SettingRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -16,9 +24,6 @@ class Setting
 {
     use HasIdTrait;
     use HasTimestampTrait;
-
-    //#[ORM\Column(type: Types::STRING, length: 255)]
-    //private string $label = '';
 
     #[ORM\Column(type: Types::STRING, length: 255, unique: true)]
     private string $name = '';
@@ -29,34 +34,10 @@ class Setting
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $type = null;
 
-    /*
-    public function __construct(string $label, string $name, string $value, ?string $type = null)
-    {
-        $this->label = $label;
-        $this->name = $name;
-        $this->value = $value;
-        $this->type = $type;
-    }
-    */
-
     public function __toString(): string
     {
         return $this->value ?? '';
     }
-
-    /*
-    public function getLabel(): ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel(string $label): static
-    {
-        $this->label = $label;
-
-        return $this;
-    }
-    */
 
     public function getName(): ?string
     {

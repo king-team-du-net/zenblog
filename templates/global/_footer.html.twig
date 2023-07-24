@@ -1,6 +1,3 @@
-{% set routename = app.request.get('_route') %}
-{% set routeparams = app.request.get('_route_params') %}
-
 <!-- =======================
 Footer START -->
 <footer class="bg-dark pb-0 pt-5">
@@ -11,13 +8,13 @@ Footer START -->
 		<div class="row pt-5">
 			<!-- Footer Widget -->
 			<div class="col-md-6 col-lg-7 mb-4">
-				<p class="h3">{{'footer.title_about'|trans}} {{ getSetting("website_name") }}</p>
+				<p class="h3 text-white">{{'footer.title_about'|trans}} {{ getSetting("website_name") }}</p>
 				<p class="mt-3">{{ getSetting("footer_about")|raw|nl2br }}</p>
 			</div>
 
 			<!-- Footer Widget -->
 			<div class="col-md-6 col-lg-3 mb-4">
-				<h5 class="mb-4">{{'footer.title_navigation'|trans}}</h5>
+				<h5 class="mb-4 text-white">{{'footer.title_navigation'|trans}}</h5>
 				<div class="row">
 					<div class="col-6">
 						<ul class="nav flex-column">
@@ -70,20 +67,8 @@ Footer START -->
 						</ul>
 					</div>
 					<div class="col-6">
-						{# {% if categoryFooter()|length > 0 %}
-							<ul class="nav flex-column">
-								{% for category in categoryFooter() %}
-									<li class="nav-item">
-										<a class="nav-link pt-0" href="{{ path(category) }}">
-											{{ category.name }}
-										</a>
-									</li>
-								{% endfor %}
-							</ul>
-						{% endif %} #}
-
 						{% set show_post_category_footer = getSetting("show_post_category_footer") %}
-						{% if show_post_category_footer != "1" %}
+						{% if show_post_category_footer != "yes" %}
 							<ul class="nav flex-column">
 								{% set footerpostcategories = getPostCategories({ order: "postscount", limit: 6, hidden: true }).getQuery().getResult() %}
 								{% for postcategory in footerpostcategories %}
@@ -99,31 +84,9 @@ Footer START -->
 				</div>
 			</div>
 
-			{#
-			<!-- Footer Widget -->
-			<div class="col-sm-6 col-lg-3 mb-4">
-				<h5 class="mb-4">{{'footer.title_tags'|trans}}</h5>
-				{% if widgetTag()|length > 0 %}
-					<ul class="list-inline">
-						{% for tag in widgetTag() %}
-							<li class="list-inline-item">
-								<a 
-									href="{{ path('blog', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}"
-									class="btn btn-sm btn-{{ tag.color }}-soft"
-								>
-									{{ tag.name }}
-								</a>
-							</li>
-						{% endfor %}
-					</ul>
-				{% endif %} 
-				{% include "widget/tags-widget.html.twig" with { tags: PostTags} only %}
-			</div>
-			#}
-
 			<!-- Footer Widget -->
 			<div class="col-sm-6 col-lg-2 mb-4">
-				<h5 class="mb-4">{{'footer.title_social'|trans}}</h5>
+				<h5 class="mb-4 text-white">{{'footer.title_social'|trans}}</h5>
 				{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
 					<ul class="nav flex-column">
                         {% if getSetting("facebook_url") != "" %}
@@ -248,3 +211,5 @@ Footer END -->
 {% if getSetting("show_back_to_top_button") == "yes" %}
 	<a href="#" class="back-top"><i class="bi bi-arrow-up-short"></i></a>
 {% endif %}
+
+{{ component('flash_messages') }}

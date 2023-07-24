@@ -2,10 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form\DataTransformer;
 
-use App\Form\Dto\MediaDto;
 use App\Entity\Image\Media;
+use App\Form\Dto\MediaDto;
 use Symfony\Component\Form\DataTransformerInterface;
 
 /**

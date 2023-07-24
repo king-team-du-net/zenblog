@@ -1,6 +1,6 @@
 webpack_encore:
     # The path where Encore is building the assets - i.e. Encore.setOutputPath()
-    output_path: '%kernel.project_dir%/public/build'
+    output_path: '%kernel.project_dir%/public/assets'
     # If multiple builds are defined (as shown below), you can disable the default build:
     # output_path: false
 
@@ -9,11 +9,11 @@ webpack_encore:
         defer: true
         # Uncomment (also under link_attributes) if using Turbo Drive
         # https://turbo.hotwired.dev/handbook/drive#reloading-when-assets-change
-        # 'data-turbo-track': reload
-        'id': 'style-switch'
+        'data-turbo-track': reload
+        # 'id': 'style-switch'
     link_attributes:
         # Uncomment if using Turbo Drive
-        # 'data-turbo-track': reload
+        'data-turbo-track': reload
         'id': 'style-switch'
 
     # If using Encore.enableIntegrityHashes() and need the crossorigin attribute (default: false, or use 'anonymous' or 'use-credentials')
@@ -34,7 +34,7 @@ webpack_encore:
 
 framework:
     assets:
-        json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
+        json_manifest_path: '%kernel.project_dir%/public/assets/manifest.json'
 
 #when@prod:
 #    webpack_encore:

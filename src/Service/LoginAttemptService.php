@@ -2,12 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
-use App\Entity\User;
 use App\Entity\LoginAttempt;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\User;
 use App\Repository\LoginAttemptRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 final class LoginAttemptService
 {

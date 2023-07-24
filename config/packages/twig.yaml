@@ -1,10 +1,17 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    form_themes: ['global/bootstrap_5_layout.html.twig']
+    # form_themes: ['form/bootstrap_5_layout.html.twig']
+
+    form_themes:
+        - 'form/layout.html.twig'
+        - 'form/fields.html.twig'
 
     globals:
+        # Service
+        # services: '@App\Service\AppServices'
+
         # Language
-        locales: "%locales%"
+        locales: "%app_locales%"
 
         # Google
         #google_maps_api_key: "%google_maps_api_key%"

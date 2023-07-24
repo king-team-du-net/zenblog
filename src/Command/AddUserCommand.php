@@ -2,24 +2,32 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Command;
 
 use App\Entity\User;
-use App\Utils\Validator;
 use App\Repository\UserRepository;
+use App\Utils\Validator;
 use Doctrine\ORM\EntityManagerInterface;
-use function Symfony\Component\String\u;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Console\Exception\RuntimeException;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use function Symfony\Component\String\u;
 
 #[AsCommand(
     name: 'app:add-user',
@@ -39,9 +47,6 @@ final class AddUserCommand extends Command
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -136,17 +141,17 @@ final class AddUserCommand extends Command
         /** @var string $email */
         $email = $input->getArgument('email');
 
-        /** @var null|string $firstname */
+        /** @var string|null $firstname */
         $firstname = $input->getArgument('firstname');
 
-        /** @var null|string $lastname */
+        /** @var string|null $lastname */
         $lastname = $input->getArgument('lastname');
 
         $isAdmin = $input->getOption('admin');
 
         $this->validateUserData($nickname, $plainPassword, $email, $firstname, $lastname);
 
-        $user = new User;
+        $user = new User();
         $user->setFirstname($firstname);
         $user->setLastname($lastname);
         $user->setNickname($nickname);

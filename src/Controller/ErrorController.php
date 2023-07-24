@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +27,7 @@ class ErrorController extends AbstractController
     /**
      * Simplify the display of errors in the test environment.
      */
-    public function test(?\Throwable $exception = null): Response
+    public function test(\Throwable $exception = null): Response
     {
         if (!$exception) {
             return new Response('', Response::HTTP_INTERNAL_SERVER_ERROR);

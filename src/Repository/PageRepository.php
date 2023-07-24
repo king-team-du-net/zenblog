@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Repository;
 
 use App\Entity\Page;
@@ -46,10 +54,10 @@ final class PageRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('p')
             ->select('p')
-            //->where('p.title', 'title')
+            // ->where('p.title', 'title')
         ;
 
-        if ($slug !== "all") {
+        if ('all' !== $slug) {
             $qb
                 ->andWhere('p.slug = :slug')
                 ->setParameter('slug', $slug)

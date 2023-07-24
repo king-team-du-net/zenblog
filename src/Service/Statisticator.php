@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -8,11 +16,9 @@ class Statisticator
 {
     /**
      * Statisticator constructor.
-     * @param EntityManagerInterface $em
      */
     public function __construct(private readonly EntityManagerInterface $em)
     {
-
     }
 
     public function getStats(): array
@@ -35,10 +41,10 @@ class Statisticator
                 SELECT AVG(c.rating) AS note, p.title, p.id, u.firstname, u.lastname, u.avatar
                 FROM App\Entity\Comment AS c
                 JOIN c.post AS p
-                JOIN p.author AS u 
+                JOIN p.author AS u
                 GROUP BY p
-                ORDER BY note ' . $direction
-            )
+                ORDER BY note '.$direction
+        )
             ->setMaxResults($maxResults)
             ->getResult()
         ;

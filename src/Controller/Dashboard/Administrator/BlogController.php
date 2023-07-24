@@ -1,22 +1,30 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Administrator;
 
+use App\Controller\Controller;
 use App\Entity\Post;
 use App\Entity\User;
 use App\Form\PostType;
-use App\Controller\Controller;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\SubmitButton;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted(User::ADMINISTRATOR)]
 class BlogController extends Controller
@@ -52,7 +60,7 @@ class BlogController extends Controller
         $post->setAuthor($user);
 
         $form = $this->createForm(
-            PostType::class, 
+            PostType::class,
             $post,
             ['validation_groups' => ['cover', 'image', 'Default']]
         )->add('saveAndCreateNew', SubmitType::class)->handleRequest($request);
@@ -70,10 +78,10 @@ class BlogController extends Controller
                 if ($submit->isClicked()) {
                     return $this->redirectToRoute('dashboard_administrator_blog_add');
                 }
-                return $this->redirectToRoute("dashboard_administrator_blog_index");
-            } else {
-                $this->addFlash('error', $translator->trans('content.invalid_data'));
+
+                return $this->redirectToRoute('dashboard_administrator_blog_index');
             }
+            $this->addFlash('error', $translator->trans('content.invalid_data'));
         }
 
         return $this->render('dashboard/administrator/blog/add-edit.html.twig', compact('post', 'form'));
@@ -93,10 +101,11 @@ class BlogController extends Controller
 
         if (!$post) {
             $this->addFlash('error', $translator->trans('post.no_posts_found'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_index');
         }
 
-        if ($post->getDeletedAt() !== null) {
+        if (null !== $post->getDeletedAt()) {
             $this->addFlash('error', $translator->trans('post.deleted_successfully'));
         } else {
             $this->addFlash('notice', $translator->trans('post.disabled_successfully'));
@@ -118,6 +127,7 @@ class BlogController extends Controller
     {
         if (!$post) {
             $this->addFlash('error', $translator->trans('post.no_posts_found'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_index');
         }
 
@@ -135,10 +145,11 @@ class BlogController extends Controller
     {
         if (!$post) {
             $this->addFlash('error', $translator->trans('post.no_posts_found'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_index');
         }
 
-        if ($post->getHidden() === true) {
+        if (true === $post->getHidden()) {
             $post->setHidden(false);
             $this->addFlash('success', $translator->trans('content.is_visible'));
         } else {

@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Twig\Components\Form;
 
 use App\Entity\User;
@@ -16,8 +24,8 @@ use Symfony\UX\LiveComponent\DefaultActionTrait;
 #[AsLiveComponent('registration', template: 'components/form/registration.html.twig')]
 final class RegistrationComponent extends AbstractController
 {
-    use DefaultActionTrait;
     use ComponentWithFormTrait;
+    use DefaultActionTrait;
 
     #[LiveProp(fieldName: 'data')]
     public ?User $user = null;

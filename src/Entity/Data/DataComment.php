@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Data;
 
-use App\Entity\Post;
 use App\Entity\Comment;
+use App\Entity\Post;
 
 abstract class DataComment
 {
@@ -19,11 +27,11 @@ abstract class DataComment
 
     public string $content = '';
 
-    //public ?int $target = null;
+    // public ?int $target = null;
 
     public ?Post $post = null;
 
-    public int $createdAt = 0;
+    public int $publishedAt = 0;
 
     public ?int $parent = 0;
 

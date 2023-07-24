@@ -2,19 +2,27 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form;
 
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class CommentType extends AbstractType
 {
@@ -45,9 +53,9 @@ final class CommentType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'placeholder.comment_rating',
-                    'min' => 0, 
-                    'max' => 5, 
-                    'step' => 1
+                    'min' => 0,
+                    'max' => 5,
+                    'step' => 1,
                 ],
             ])
             ->add('content', TextareaType::class, [
@@ -62,7 +70,7 @@ final class CommentType extends AbstractType
                 'help' => 'help.comment_content',
             ])
             ->add('parentid', HiddenType::class, [
-                'mapped' => false
+                'mapped' => false,
             ])
             /*->add('isRGPD', CheckboxType::class, [
                 'label' => 'Save my nickname and email',

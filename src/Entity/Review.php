@@ -1,16 +1,23 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use App\Entity\User;
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasHeadlineAndSlugTrait;
+use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Repository\ReviewRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Traits\HasDeletedAtTrait;
-use App\Entity\Traits\HasTimestampTrait;
-use App\Entity\Traits\HasHeadlineAndSlugTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]

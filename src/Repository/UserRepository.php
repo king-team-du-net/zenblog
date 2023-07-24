@@ -1,17 +1,28 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Repository;
 
 use App\Entity\User;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 /**
  * @extends ServiceEntityRepository<User>
+ * 
+ * @method User|null findOneByNickname(string $nickname)
+ * @method User|null findOneByEmail(string $email)
  *
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
  * @method User|null findOneBy(array $criteria, array $orderBy = null)
@@ -70,10 +81,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * Retrieve users according to their roles
-     *
-     * @param  string|null $roles
-     * @return array
+     * Retrieve users according to their roles.
      */
     public function findUser(?string $roles): array
     {
@@ -91,6 +99,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
                 ->setMaxResults(3)
             ;
         }
+
         return $query->getQuery()->getResult();
     }
 
@@ -140,7 +149,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     }
 
     /**
-     * List of banned users
+     * List of banned users.
      */
     public function queryBanned(): QueryBuilder
     {

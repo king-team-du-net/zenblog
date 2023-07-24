@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\EventSubscriber;
 
 use App\Entity\User;
@@ -49,8 +57,8 @@ final class UserSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            //BeforeEntityPersistedEvent::class => ['beforeUserPersisted'],
-            //BeforeEntityUpdatedEvent::class => ['beforeUserUpdated'],
+            // BeforeEntityPersistedEvent::class => ['beforeUserPersisted'],
+            // BeforeEntityUpdatedEvent::class => ['beforeUserUpdated'],
         ];
     }
 }

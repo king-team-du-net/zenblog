@@ -2,32 +2,30 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Uid\Uuid;
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Repository\UserRepository;
-use App\Entity\Traits\HasProfileTrait;
-use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasProfileTrait;
 use App\Entity\Traits\HasTimestampTrait;
-use function Symfony\Component\String\u;
-use Doctrine\Common\Collections\Collection;
-use App\Entity\Traits\HasSocialLoggableTrait;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-
-use App\Entity\Traits\HasLastLoginAndBannedAtTrait;
-use Symfony\Component\Serializer\Annotation\Groups;
-use App\Entity\Traits\HasContactAndSocialMediaTrait;
-use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Traits\HasReviewsAndFavoritesUsersTrait;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints\Image as ImageConstraint;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -48,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     public const USER_LIMIT = 10;
 
     #[ORM\Column]
-    private array $roles = [User::DEFAULT];
+    private array $roles = [self::DEFAULT];
 
     #[Assert\NotBlank(groups: ['password'])]
     #[Assert\Regex(
@@ -62,13 +60,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
      * @var string The hashed password
      */
     #[ORM\Column(type: Types::STRING)]
-    //#[Assert\NotBlank]
+    // #[Assert\NotBlank]
     private string $password = '';
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Collection $posts;
 
-    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: "users")]
+    #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users')]
     private Collection $userRoles;
 
     public function __construct()
@@ -98,7 +96,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = User::DEFAULT;
+        $roles[] = self::DEFAULT;
 
         return array_unique($roles);
     }

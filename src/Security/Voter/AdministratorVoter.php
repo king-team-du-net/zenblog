@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Security\Voter;
 
 use App\Entity\User;
-use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 final class AdministratorVoter extends Voter
 {
@@ -14,17 +22,11 @@ final class AdministratorVoter extends Voter
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function supports(string $attribute, $subject): bool
     {
-        return !in_array($attribute, ['IS_IMPERSONATOR']);
+        return !\in_array($attribute, ['IS_IMPERSONATOR'], true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $administrator = $token->getUser();

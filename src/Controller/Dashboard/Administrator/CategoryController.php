@@ -1,25 +1,28 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Administrator;
 
-use App\Entity\Post;
-use App\Entity\User;
-use App\Form\PostType;
-use App\Entity\Category;
 use App\Controller\Controller;
+use App\Entity\Category;
+use App\Entity\User;
 use App\Form\PostCategoryType;
-use App\Repository\PostRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\SubmitButton;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted(User::ADMINISTRATOR)]
 class CategoryController extends Controller
@@ -54,7 +57,7 @@ class CategoryController extends Controller
         $category = new Category();
 
         $form = $this->createForm(
-            PostCategoryType::class, 
+            PostCategoryType::class,
             $category,
         )->handleRequest($request);
         if ($form->isSubmitted()) {
@@ -66,10 +69,10 @@ class CategoryController extends Controller
                 } else {
                     $this->addFlash('success', $translator->trans('category.updated_successfully'));
                 }
-                return $this->redirectToRoute("dashboard_administrator_blog_category_index");
-            } else {
-                $this->addFlash('error', $translator->trans('content.invalid_data'));
+
+                return $this->redirectToRoute('dashboard_administrator_blog_category_index');
             }
+            $this->addFlash('error', $translator->trans('content.invalid_data'));
         }
 
         return $this->render('dashboard/administrator/category/add-edit.html.twig', compact('category', 'form'));
@@ -89,10 +92,11 @@ class CategoryController extends Controller
 
         if (!$category) {
             $this->addFlash('error', $translator->trans('category.no_categories_found'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_category_index');
         }
 
-        if ($category->getDeletedAt() !== null) {
+        if (null !== $category->getDeletedAt()) {
             $this->addFlash('error', $translator->trans('category.deleted_successfully'));
         } else {
             $this->addFlash('notice', $translator->trans('category.disabled_successfully'));
@@ -113,6 +117,7 @@ class CategoryController extends Controller
     {
         if (!$category) {
             $this->addFlash('error', $translator->trans('category.no_categories_foundd'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_category_index');
         }
 
@@ -130,10 +135,11 @@ class CategoryController extends Controller
     {
         if (!$category) {
             $this->addFlash('error', $translator->trans('category.no_categories_found'));
+
             return $this->redirectToRoute('dashboard_administrator_blog_category_index');
         }
 
-        if ($category->getHidden() === true) {
+        if (true === $category->getHidden()) {
             $category->setHidden(false);
             $this->addFlash('success', $translator->trans('content.is_visible'));
         } else {

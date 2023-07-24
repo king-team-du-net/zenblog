@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use App\Entity\Image\Media;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Doctrine\DBAL\Types\Types;
 
 trait HasMediaCollectionTrait
 {
@@ -25,7 +33,7 @@ trait HasMediaCollectionTrait
     #[Groups(['post:read'])]
     private string $cover = '';
 
-    #[Assert\Image(groups: ['cover'], maxSize: '1M', maxRatio: 4/3, minRatio: 4/3)]
+    #[Assert\Image(groups: ['cover'], maxSize: '1M', maxRatio: 4 / 3, minRatio: 4 / 3)]
     #[Assert\NotNull(groups: ['cover'])]
     private ?UploadedFile $coverFile = null;
 

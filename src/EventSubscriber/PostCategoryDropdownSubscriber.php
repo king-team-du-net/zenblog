@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\EventSubscriber;
 
 use App\Repository\CategoryRepository;
@@ -24,7 +32,7 @@ final class PostCategoryDropdownSubscriber implements EventSubscriberInterface
     {
         $route = $event->getRequest()->get('_route');
 
-        if (in_array($route, PostCategoryDropdownSubscriber::ROUTES)) {
+        if (\in_array($route, self::ROUTES, true)) {
             $categories = $this->categoryRepository->findAll();
             $this->twig->addGlobal('allCategories', $categories);
         }

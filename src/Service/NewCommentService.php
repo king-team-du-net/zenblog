@@ -2,15 +2,23 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Service;
 
-use App\Entity\Post;
 use App\Entity\Comment;
 use App\Entity\Data\DataComment;
+use App\Entity\Post;
 use App\Event\Post\CommentCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class NewCommentService
 {
@@ -25,7 +33,7 @@ class NewCommentService
     public function newComment(DataComment $data): Comment
     {
         /** @var Content $target */
-        //$target = $this->em->getRepository(Content::class)->find($data->target);
+        // $target = $this->em->getRepository(Content::class)->find($data->target);
 
         /** @var Post $post */
         $post = $this->em->getRepository(Post::class)->find($data->post);
@@ -37,12 +45,12 @@ class NewCommentService
         $comment = (new Comment())
             ->setIp($this->stack->getMainRequest()?->getClientIp())
             ->setAuthor($this->auth->getUserOrNull())
-            //->setNickname($data->nickname)
-            ->setCreatedAt(new \DateTime())
+            // ->setNickname($data->nickname)
+            ->setPublishedAt(new \DateTime())
             ->setContent($data->content)
             ->setRating($data->rating)
             ->setParent($parent)
-            //->setTarget($target)
+            // ->setTarget($target)
             ->setPost($post)
             ->setIsApproved(false)
         ;

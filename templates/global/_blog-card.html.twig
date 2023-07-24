@@ -1,10 +1,11 @@
+{% set runtimeConfig = {"thumbnail": {"size": thumbnailsize }} %}
 {% set link = path(post) %}
 <!-- Card item START -->
 <div class="card mb-4">
     <div class="row">
         <!-- Image -->
         <div class="col-md-5">
-            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.cover) }}" alt="{{ post.title }}">
+            <img class="rounded-3" src="{{ absolute_url(asset('uploads/post/' ~ post.cover)|imagine_filter('thumbnail', runtimeConfig)) }}" alt="{{ post.title }}">
         </div>
         <div class="col-md-7 mt-3 mt-md-0">
             <!-- Categories -->

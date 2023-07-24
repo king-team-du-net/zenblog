@@ -1,10 +1,18 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use App\Entity\User;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 trait HasLikesCollectionTrait
 {
@@ -49,6 +57,6 @@ trait HasLikesCollectionTrait
      */
     public function howManyLikes(): int
     {
-        return count($this->likes);
+        return \count($this->likes);
     }
 }

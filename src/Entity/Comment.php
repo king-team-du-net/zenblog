@@ -1,19 +1,27 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasIPTrait;
+use App\Entity\Traits\HasIsApprovedTrait;
 use App\Entity\Traits\HasIsRGPDTrait;
 use App\Repository\CommentRepository;
-use function Symfony\Component\String\u;
-use App\Entity\Traits\HasIsApprovedTrait;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 #[ORM\Table(name: 'blog_comment')]
@@ -21,44 +29,28 @@ class Comment
 {
     use HasIdTrait;
     use HasIPTrait;
-    //use HasIsRGPDTrait;
+    use HasIsRGPDTrait;
     use HasIsApprovedTrait;
 
     public const COMMENT_LIMIT = 3;
-
-    /*
-    #[ORM\Column(type: Types::STRING, length: 30, nullable: true)]
-    #[Assert\Length(min: 4, max: 30)]
-    private ?string $nickname = null;
-
-    #[ORM\Column(type: Types::STRING, length: 180, nullable: true)]
-    #[
-        Assert\Length(min: 5, max: 180),
-        Assert\Email
-    ]
-    private ?string $email = null;
-    */
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'comment.blank')]
     #[Assert\Length(min: 5, minMessage: 'comment.too_short', max: 10000, maxMessage: 'comment.too_long')]
     #[Groups(['comment:read'])]
-    private string $content = '';
+    private ?string $content = null;
 
     #[ORM\Column(type: Types::INTEGER)]
-    private int $rating;
+    private ?int $rating = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: true)]
+    #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false)]
     #[Groups(['comment:read'])]
     private ?User $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
-
-    //#[ORM\ManyToOne]
-    //#[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false, name: 'content_id')]
-    //private Content $target;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
@@ -72,50 +64,28 @@ class Comment
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups(['comment:read'])]
-    private \DateTimeInterface $createdAt;
+    private \DateTime $publishedAt;
 
     public function __construct()
     {
         $this->replies = new ArrayCollection();
-        $this->createdAt = new \DateTime();
+        $this->publishedAt = new \DateTime();
     }
 
-    /*
-    public function getNickname(): string
+    #[Assert\IsTrue(message: 'comment.is_spam')]
+    public function isLegitComment(): bool
     {
-        if (null !== $this->author) {
-            return $this->author->getNickname();
-        }
+        $containsInvalidCharacters = null !== u($this->content)->indexOf('@');
 
-        return $this->nickname ?: '';
+        return !$containsInvalidCharacters;
     }
 
-    public function setNickname(?string $nickname): Comment
-    {
-        $this->nickname = $nickname;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(?string $email): Comment
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-    */
-
-    public function getContent(): string
+    public function getContent(): ?string
     {
         return $this->content;
     }
 
-    public function setContent(string $content): Comment
+    public function setContent(string $content): static
     {
         $this->content = $content;
 
@@ -139,7 +109,7 @@ class Comment
         return $this->author;
     }
 
-    public function setAuthor(?User $author): Comment
+    public function setAuthor(User $author): static
     {
         $this->author = $author;
 
@@ -151,33 +121,19 @@ class Comment
         return $this->post;
     }
 
-    public function setPost(?Post $post): Comment
+    public function setPost(?Post $post): static
     {
         $this->post = $post;
 
         return $this;
     }
 
-    /*
-    public function getTarget(): ?Content
-    {
-        return $this->target;
-    }
-
-    public function setTarget(Content $target): self
-    {
-        $this->target = $target;
-
-        return $this;
-    }
-    */
-
     public function getParent(): ?self
     {
         return $this->parent;
     }
 
-    public function setParent(?self $parent): Comment
+    public function setParent(?self $parent): self
     {
         $this->parent = $parent;
 
@@ -214,23 +170,15 @@ class Comment
         return $this;
     }
 
-    public function getCreatedAt(): \DateTimeInterface
+    public function getPublishedAt(): \DateTime
     {
-        return $this->createdAt;
+        return $this->publishedAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): Comment
+    public function setPublishedAt(\DateTime $publishedAt): static
     {
-        $this->createdAt = $createdAt;
+        $this->publishedAt = $publishedAt;
 
         return $this;
-    }
-
-    #[Assert\IsTrue(message: 'comment.is_spam')]
-    public function isLegitComment(): bool
-    {
-        $containsInvalidCharacters = null !== u($this->content)->indexOf('@');
-
-        return !$containsInvalidCharacters;
     }
 }

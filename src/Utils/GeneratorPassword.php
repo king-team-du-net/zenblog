@@ -1,9 +1,17 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Utils;
 
-use Random\Randomizer;
 use App\Entity\Data\PasswordRequirementData;
+use Random\Randomizer;
 
 final class GeneratorPassword
 {
@@ -19,7 +27,7 @@ final class GeneratorPassword
         $lowercaseLettersAlphabet = range('a', 'z');
         $uppercaseLettersAlphabet = range('A', 'Z');
         $digitsAlphabet = range(0, 9);
-        $specialCharactersAlphabet = str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
+        $specialCharactersAlphabet = mb_str_split('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~');
 
         // Password alphabet defaults to all lowercase letters alphabet
         $passwordAlphabet = $lowercaseLettersAlphabet;
@@ -71,6 +79,6 @@ final class GeneratorPassword
 
     private static function randomItemFromAlphabet(array $alphabet, Randomizer $randomizer): string
     {
-        return $alphabet[$randomizer->getInt(0, count($alphabet) - 1)];
+        return $alphabet[$randomizer->getInt(0, \count($alphabet) - 1)];
     }
 }

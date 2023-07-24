@@ -1,18 +1,26 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Administrator;
 
-use App\Entity\User;
 use App\Controller\Controller;
+use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted(User::ADMINISTRATOR)]
 class UserController extends Controller
@@ -49,10 +57,11 @@ class UserController extends Controller
 
         if (!$user) {
             $this->addFlash('error', $translator->trans('user.no_users_found'));
+
             return $this->redirectToRoute('dashboard_administrator_user_index');
         }
 
-        if ($user->getDeletedAt() !== null) {
+        if (null !== $user->getDeletedAt()) {
             $this->addFlash('error', $translator->trans('user.permanently_deleted_successfully'));
         } else {
             $this->addFlash('notice', $translator->trans('user.deleted_successfully'));
@@ -69,6 +78,7 @@ class UserController extends Controller
     {
         if (!$user) {
             $this->addFlash('error', $translator->trans('user.no_users_foundd'));
+
             return $this->redirectToRoute('dashboard_administrator_user_index');
         }
 
@@ -86,6 +96,7 @@ class UserController extends Controller
     {
         if (!$user) {
             $this->addFlash('error', $translator->trans('user.no_users_foundd'));
+
             return $this->redirectToRoute('dashboard_administrator_user_index');
         }
 

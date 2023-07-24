@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form\Dto;
 
 use App\Entity\Image\Image;
 use App\Entity\Image\Media;
 use App\Entity\Image\Video;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 final class MediaDto
 {
@@ -31,12 +39,12 @@ final class MediaDto
 
     private static function create(
         string $type,
-        ?string $filename = null,
-        ?UploadedFile $file = null,
-        ?string $alt = null,
-        ?string $url = null,
-        ?Media $original = null
-    ): MediaDto {
+        string $filename = null,
+        UploadedFile $file = null,
+        string $alt = null,
+        string $url = null,
+        Media $original = null
+    ): self {
         $media = new self();
         $media->original = $original;
         $media->type = $type;

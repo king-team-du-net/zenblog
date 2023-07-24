@@ -1,0 +1,13 @@
+/*
+ * Bloggy | Multipurpose Bootstrap 5
+ * Copyright 2023 Dequidt Robert
+ * Theme admin
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap");
+
+@import "style.css";
+@import "color.css";
+@import "custom.css";
+@import "libs.css";
+

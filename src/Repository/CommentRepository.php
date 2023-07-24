@@ -1,15 +1,23 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Repository;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
-use App\Entity\Comment;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Comment>
@@ -30,7 +38,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         return Criteria::create()
             ->andWhere(Criteria::expr()->eq('isApproved', true))
-            ->orderBy(['createdAt' => 'ASC'])
+            ->orderBy(['publishedAt' => 'ASC'])
         ;
     }
 
@@ -44,7 +52,7 @@ class CommentRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('c')
-            ->andWhere('c.' . $object . ' = :val')
+            ->andWhere('c.'.$object.' = :val')
             ->andWhere('c.isApproved = true')
             ->setParameter('val', $value->getId())
             ->orderBy('c.id', 'DESC')
@@ -55,11 +63,10 @@ class CommentRepository extends ServiceEntityRepository
         ;
     }
 
-
     public function queryLatest(): Query
     {
         return $this->createQueryBuilder('c')
-            ->orderBy('c.createdAt', 'DESC')
+            ->orderBy('c.publishedAt', 'DESC')
             ->join('c.target', 't')
             ->leftJoin('c.author', 'a')
             ->addSelect('t', 'a')
@@ -75,7 +82,7 @@ class CommentRepository extends ServiceEntityRepository
         }
 
         return $this->createQueryBuilder('c')
-            ->andWhere('c.' . $object . ' = :val')
+            ->andWhere('c.'.$object.' = :val')
             ->andWhere('c.isApproved = true')
             // ->andWhere('c.state LIKE :state')
             ->setParameter('val', $value->getId())
@@ -92,8 +99,6 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * Retrieves the latest comments created by the user.
      *
-     * @param User $user
-     * @param int $limit
      * @return Comment[] Returns an array of Comment objects
      */
     public function findLastByUser(User $user, int $limit): array //  (UserController)
@@ -101,7 +106,7 @@ class CommentRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.author = :user')
             ->andWhere('c.isApproved = true')
-            ->orderBy('c.createdAt', 'DESC')
+            ->orderBy('c.publishedAt', 'DESC')
             ->setMaxResults($limit)
             ->setParameter('user', $user)
             ->getQuery()
@@ -115,7 +120,7 @@ class CommentRepository extends ServiceEntityRepository
     public function findPartial(int $id): ?Comment
     {
         return $this->createQueryBuilder('c')
-            ->select('partial c.{id, nickname, email, content, createdAt}, partial u.{id, nickname, email}')
+            ->select('partial c.{id, nickname, email, content, publishedAt}, partial u.{id, nickname, email}')
             ->where('c.id = :id')
             ->leftJoin('c.author', 'u')
             ->setParameter('id', $id)
@@ -143,7 +148,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('row')
             ->where('row.content LIKE :search')
-            ->orderBy('row.createdAt', 'DESC')
+            ->orderBy('row.publishedAt', 'DESC')
             ->setParameter('search', '%http%')
         ;
         foreach ($words as $k => $word) {
@@ -160,7 +165,7 @@ class CommentRepository extends ServiceEntityRepository
     {
         /** @var array<array-key, Comment> $posts */
         $posts = $this->createQueryBuilder('c')
-            ->orderBy('c.createdAt', 'DESC')
+            ->orderBy('c.publishedAt', 'DESC')
             ->where('c.post = :post')
             ->setParameter('post', $post)
             ->setMaxResults($maxResults)
@@ -172,10 +177,10 @@ class CommentRepository extends ServiceEntityRepository
         return $posts;
     }
 
-    public function findForPagination(?Post $post = null): Query // (CommentService)
+    public function findForPagination(Post $post = null): Query // (CommentService)
     {
         $qb = $this->createQueryBuilder('c')
-            ->orderBy('c.createdAt', 'DESC')
+            ->orderBy('c.publishedAt', 'DESC')
         ;
 
         if ($post) {

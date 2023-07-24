@@ -2,21 +2,28 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\Setting;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 final class SettingFixtures extends Fixture
 {
@@ -33,8 +40,8 @@ final class SettingFixtures extends Fixture
     {
         /** @var string $content */
         $content = $this->faker()->realText(236);
-        //$about_excerpt = $this->faker()->paragraphs();
-        //$about_content = $this->faker()->paragraphs();
+        // $about_excerpt = $this->faker()->paragraphs();
+        // $about_content = $this->faker()->paragraphs();
 
         $settings = [
             1 => [
@@ -434,7 +441,7 @@ final class SettingFixtures extends Fixture
             ],
             80 => [
                 'name' => 'website_app_version',
-                'value' => '1.04',
+                'value' => '1.08',
                 'type' => TextType::class,
             ],
             81 => [

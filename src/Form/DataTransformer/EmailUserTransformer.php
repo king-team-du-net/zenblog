@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form\DataTransformer;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @implements DataTransformerInterface<User, string>

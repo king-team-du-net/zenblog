@@ -162,6 +162,10 @@
                 <target>Rss</target>
             </trans-unit>
 
+            <trans-unit id="title.choose_your_language">
+                <source>title.choose_your_language</source>
+                <target>Choose your language</target>
+            </trans-unit>
             <trans-unit id="title.generate_password">
                 <source>title.generate_password</source>
                 <target>Generate Password</target>
@@ -851,6 +855,10 @@
             <trans-unit id="label.length">
                 <source>label.length</source>
                 <target>Password length</target>
+            </trans-unit>
+            <trans-unit id="label.digits">
+                <source>label.digits</source>
+                <target>Digits</target>
             </trans-unit>
             <trans-unit id="label.uppercase_letters">
                 <source>label.uppercase_letters</source>
@@ -2155,6 +2163,10 @@
             <trans-unit id="throw.picture_service_uploaded_file_info">
                 <source>throw.picture_service_uploaded_file_info</source>
                 <target>Wrong image format</target>
+            </trans-unit>
+            <trans-unit id="throw.authentication_entry_point">
+                <source>throw.authentication_entry_point</source>
+                <target>You do not have sufficient permissions to perform this action</target>
             </trans-unit>
         </body>
     </file>

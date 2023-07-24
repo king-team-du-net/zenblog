@@ -2,22 +2,29 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use App\Entity\Post;
+use App\Entity\Traits\HasBackgroundAndColorTrait;
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasHiddenTrait;
+use App\Entity\Traits\HasIconTrait;
+use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Entity\Traits\HasHiddenTrait;
-use App\Repository\CategoryRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Traits\HasDeletedAtTrait;
-use App\Entity\Traits\HasTimestampTrait;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Traits\HasBackgroundAndColorTrait;
-use App\Entity\Traits\HasIconTrait;
-use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -25,10 +32,10 @@ use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 class Category implements \Stringable
 {
     use HasIdTrait;
-    //use HasIsPortfolioTrait;
+    use HasNameAndSlugAndAssertTrait;
+    // use HasIsPortfolioTrait;
     use HasBackgroundAndColorTrait;
     use HasIconTrait;
-    use HasNameAndSlugAndAssertTrait;
     use HasHiddenTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;

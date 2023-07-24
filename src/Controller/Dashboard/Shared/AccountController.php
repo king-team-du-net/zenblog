@@ -1,21 +1,29 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Dashboard\Shared;
 
-use App\Entity\User;
 use App\Controller\Controller;
+use App\Entity\User;
 use App\Form\UpdateAvatarType;
-use App\Form\UpdateProfileType;
 use App\Form\UpdatePasswordType;
+use App\Form\UpdateProfileType;
+use App\Interface\UserProfile\UpdateAvatarInterface;
+use App\Interface\UserProfile\UpdatePasswordInterface;
+use App\Interface\UserProfile\UpdateProfileInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Interface\UserProfile\UpdateAvatarInterface;
-use App\Interface\UserProfile\UpdateProfileInterface;
-use App\Interface\UserProfile\UpdatePasswordInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[IsGranted(User::DEFAULT)]
 #[Route('/%website_dashboard_path%/account/settings', name: 'dashboard_user_account_settings_')]

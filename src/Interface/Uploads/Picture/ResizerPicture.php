@@ -30,14 +30,14 @@ final class ResizerPicture
         }
 
         if (null === $width && null === $height) {
-            $url = $this->urlGenerator->generate('image_jpg', ['path' => trim($url, '/')]);
+            $url = $this->urlGenerator->generate('picture_jpg', ['path' => trim($url, '/')]);
         } else {
-            $url = $this->urlGenerator->generate('image_resizer', ['path' => trim($url, '/'), 'width' => $width, 'height' => $height]);
+            $url = $this->urlGenerator->generate('picture_resizer', ['path' => trim($url, '/'), 'width' => $width, 'height' => $height]);
         }
 
         /** Key to sign URLs for resizing https://glide.thephpleague.com/2.0/config/security/ */
-        //$urlBuilder = UrlBuilderFactory::create('/', $this->signKey);
+        $urlBuilder = UrlBuilderFactory::create('/', $this->signKey);
 
-        //return $urlBuilder->getUrl($url);
+        return $urlBuilder->getUrl($url);
     }
 }

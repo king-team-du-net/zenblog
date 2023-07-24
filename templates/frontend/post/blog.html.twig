@@ -1,0 +1,23 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% set containerClass = 'pt-0' %}
+
+{% set pagetitle = 'title.blog'|trans %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+	{% set breadcrumb = [{"current": (pagetitle)}] %}
+    {% include "global/_breadcrumb.html.twig" with breadcrumb %}
+{% endblock %}
+
+{% block content %}
+	{% if posts.getTotalItemCount > 0 %}
+		{% for post in posts %}
+			{% include "global/_blog-card.html.twig" with {post: post, thumbnailsize: [397, 397], showdate: 1} only %}
+		{% endfor %}
+	{% else %}
+		{% include "global/_message.html.twig" with { type: "info", message: ('post.no_posts_found'|trans), icon: "fas fa-exclamation" } %}
+	{% endif %}
+
+	{{ knp_pagination_render(posts, null, {}, {'align': 'center'}) }}
+{% endblock %}

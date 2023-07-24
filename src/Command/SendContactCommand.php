@@ -2,19 +2,26 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Command;
 
-use App\Service\ContactService;
-use Symfony\Component\Mime\Email;
-use Symfony\Component\Mime\Address;
 use App\Repository\ContactRepository;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Console\Command\Command;
-use App\Repository\User\AdministratorRepository;
 use App\Repository\UserRepository;
+use App\Service\ContactService;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[AsCommand(
@@ -45,7 +52,7 @@ final class SendContactCommand extends Command
             $message = (new Email())
                 ->from($mail->getEmail())
                 ->to($address)
-                ->subject($this->translator->trans('command.message_subject') . $mail->getFullname())
+                ->subject($this->translator->trans('command.message_subject').$mail->getFullname())
                 ->text($mail->getMessage())
             ;
 

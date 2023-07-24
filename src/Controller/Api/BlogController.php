@@ -2,16 +2,24 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Controller\Api;
 
 use App\Entity\Post;
+use App\Interface\Post\Listing\ListCommentsInterface;
+use App\Interface\Post\Listing\ListPostsInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Interface\Post\Listing\ListPostsInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Interface\Post\Listing\ListCommentsInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/blogs', name: 'blog_')]
 final class BlogController extends AbstractController

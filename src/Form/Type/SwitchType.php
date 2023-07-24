@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -19,7 +27,7 @@ final class SwitchType extends CheckboxType
                 'class' => 'form-check-label ps-3 ps-sm-4',
             ],
             'attr' => [
-                //'is' => 'input-switch',
+                // 'is' => 'input-switch',
                 'class' => 'form-check-input flex-shrink-0',
             ],
             'row_attr' => [

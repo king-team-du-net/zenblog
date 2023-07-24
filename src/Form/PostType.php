@@ -2,23 +2,30 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form;
 
-use App\Entity\Post;
-use App\Form\MediaType;
 use App\Entity\Category;
+use App\Entity\Post;
+use App\Form\Type\DatePickerType;
 use App\Form\Type\DropzoneType;
 use App\Form\Type\TagInputType;
-use App\Form\Type\DatePickerType;
 use App\Form\Type\TextEditorType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Interface\DataTransformer\TagsTransformer;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PostType extends AbstractType
 {
@@ -35,7 +42,7 @@ final class PostType extends AbstractType
                 'attr' => [
                     'autofocus' => true,
                     'class' => 'form-control',
-                    'placeholder' => "placeholder.title",
+                    'placeholder' => 'placeholder.title',
                 ],
             ])
             ->add('category', EntityType::class, [
@@ -48,7 +55,7 @@ final class PostType extends AbstractType
             ->add('readtime', TextType::class, [
                 'required' => false,
                 'label' => 'label.readtime',
-                'attr' => ['class' => 'touchspin-integer mb-2', 'data-min' => 1, "data-max" => 1000000]
+                'attr' => ['class' => 'touchspin-integer mb-2', 'data-min' => 1, 'data-max' => 1000000],
             ])
             ->add('publishedAt', DatePickerType::class, [
                 'label' => 'label.published_at',
@@ -77,7 +84,7 @@ final class PostType extends AbstractType
                 'label' => 'label.image_file',
                 'required' => in_array('create', $options['validation_groups'] ?? [])
             ])
-            
+
             ->add('imageFile', DropzoneType::class, [
                 'label' => 'label.cover_file',
                 'required' => in_array('create', $options['validation_groups'] ?? [])
@@ -86,7 +93,7 @@ final class PostType extends AbstractType
 
             ->add('coverFile', DropzoneType::class, [
                 'label' => 'label.cover_file',
-                'required' => in_array('cover', $options['validation_groups'] ?? [])
+                'required' => \in_array('cover', $options['validation_groups'] ?? [], true),
             ])
             ->add('medias', CollectionType::class, [
                 'label' => 'label.medias',

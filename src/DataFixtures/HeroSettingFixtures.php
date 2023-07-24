@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\DataFixtures;
 
 use App\Entity\HomepageHeroSettings;
-use Doctrine\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 
 final class HeroSettingFixtures extends Fixture
 {
@@ -22,13 +30,12 @@ final class HeroSettingFixtures extends Fixture
                 'paragraph' => 'Online Post Management And Categories',
                 'content' => 'custom',
 
-                /*
                 'custom_background_name' => '5d99d60e41207545475471.jpg',
                 'custom_background_size' => 346806,
                 'custom_background_mime_type' => 'image/jpeg',
                 'custom_background_original_name' => 'post.jpg',
                 'custom_background_dimensions' => '1500,1000',
-                */
+
                 'show_search_box' => 1,
             ],
         ];
@@ -39,13 +46,11 @@ final class HeroSettingFixtures extends Fixture
             $homepage->setParagraph($value['paragraph']);
             $homepage->setContent($value['content']);
 
-            /*
             $homepage->setCustomBackgroundName($value['custom_background_name']);
             $homepage->setCustomBackgroundSize($value['custom_background_size']);
             $homepage->setCustomBackgroundMimeType($value['custom_background_mime_type']);
             $homepage->setCustomBackgroundOriginalName($value['custom_background_original_name']);
             $homepage->setCustomBackgroundDimensions([$value['custom_background_dimensions']]);
-            */
 
             $homepage->setShowSearchBox((bool) $value['show_search_box']);
             $manager->persist($homepage);

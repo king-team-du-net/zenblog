@@ -1,3 +1,12 @@
+homepage:
+    path: /{_locale}
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    requirements:
+        _locale: '%app_locales%'
+    defaults:
+        template: home/homepage.html.twig
+        _locale: '%locale%'
+
 controllers:
     resource:
         path: ../src/Controller/
@@ -5,7 +14,7 @@ controllers:
     type: attribute
     prefix: /{_locale}/
     requirements:
-        _locale: '%locales%'
+        _locale: '%app_locales%'
     defaults:
         _locale: '%locale%'
     #trailing_slash_on_root: false
@@ -15,5 +24,5 @@ api:
     type: attribute
     prefix: /{_locale}/api/
     requirements:
-        _locale: '%locales%'
+        _locale: '%app_locales%'
     name_prefix: api_

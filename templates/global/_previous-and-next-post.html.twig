@@ -1,3 +1,4 @@
+{% set runtimeConfig = {"scale": {"dim": [92, 92] }} %}
 <div class="text-center h5 mb-4">. . .</div>
 
 <div class="row g-0 my-3">
@@ -10,7 +11,7 @@
                 </div>
                 <!-- image -->
                 <div class="col-3 d-none d-md-block">
-                    <img src="{{ asset('uploads/post/' ~ previousPost.cover) }}" alt="Image">
+                    <img src="{{ absolute_url(asset('uploads/post/' ~ previousPost.cover)|imagine_filter('scale', runtimeConfig)) }}" alt="Image">
                 </div>
                 <!-- Title -->
                 <div class="ms-3">
@@ -32,7 +33,7 @@
                 </div>
                 <!-- image -->
                 <div class="col-3 d-none d-md-block">
-                    <img src="{{ asset('uploads/post/' ~ nextPost.cover) }}" alt="Image">
+                    <img src="{{ absolute_url(asset('uploads/post/' ~ nextPost.cover)|imagine_filter('thumbnail', runtimeConfig)) }}" alt="Image">
                 </div>
                 <!-- Icon -->
                 <div class="bg-primary bg-opacity-10 h-auto align-items-center d-flex align-self-stretch">

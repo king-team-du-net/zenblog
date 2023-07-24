@@ -1,15 +1,22 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasIPTrait;
-use App\Repository\ContactRepository;
 use App\Entity\Traits\HasTimestampTrait;
+use App\Repository\ContactRepository;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use function Symfony\Component\String\u;
 
 /** Saves contact requests to limit spam. */

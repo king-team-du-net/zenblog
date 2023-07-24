@@ -1,7 +1,8 @@
 Install:
     ☐ composer require illuminate/collections @critical
-    ☐ composer require league/glide vich/uploader-bundle @critical
-    ☐ composer require symfony/ux-turbo @critical
+    ✔ composer require league/glide vich/uploader-bundle @done(23-07-20 00:56)
+    ☐ composer require liip/imagine-bundle
+    ✔ composer require symfony/ux-turbo @done(23-07-20 18:24)
     ☐ composer require symfony/workflow @critical
     ☐ composer require excelwebzone/recaptcha-bundle @critical
     ☐ composer require intervention/image @critical

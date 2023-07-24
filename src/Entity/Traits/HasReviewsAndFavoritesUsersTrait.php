@@ -1,11 +1,19 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use App\Entity\Post;
 use App\Entity\Review;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 trait HasReviewsAndFavoritesUsersTrait
 {
@@ -14,7 +22,7 @@ trait HasReviewsAndFavoritesUsersTrait
      */
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, cascade: ['remove'])]
     private Collection $reviews;
-    
+
     /**
      * @var Collection<int, Post>
      */
@@ -23,7 +31,7 @@ trait HasReviewsAndFavoritesUsersTrait
 
     /**
      * @return Collection<int, Post>
-    */
+     */
     public function getFavorites(): Collection
     {
         return $this->favorites;

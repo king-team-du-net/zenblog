@@ -30,7 +30,7 @@ export default class extends Controller {
      *          },
      *          _embedded: {
      *              comments: {
-     *                createdAt: string,
+     *                publishedAt: string,
      *                content: string,
      *                user: {nickname: string}
      *              }[]
@@ -73,7 +73,7 @@ export default class extends Controller {
      */
     load() {
         this.data._embedded.comments.forEach((comment) => {
-            comment.createdAt = dayjs(comment.createdAt).fromNow();
+            comment.publishedAt = dayjs(comment.publishedAt).fromNow();
             comment.content = nl2br(comment.content);
             comment.author.avatar = comment.author.avatar !== null ?
                 `/uploads/user/${comment.author.avatar}` :

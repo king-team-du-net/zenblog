@@ -55,3 +55,14 @@ yarn-error.log
 
 # Uploads categories
 /public/uploads/categories/*
+
+.php-version
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

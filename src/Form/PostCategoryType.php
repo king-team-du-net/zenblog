@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 final class PostCategoryType extends AbstractType
 {
@@ -22,7 +30,7 @@ final class PostCategoryType extends AbstractType
                 'attr' => [
                     'autofocus' => true,
                     'class' => 'form-control mb-2',
-                    'placeholder' => "placeholder.category_name",
+                    'placeholder' => 'placeholder.category_name',
                 ],
             ])
             ->add('save', SubmitType::class, [

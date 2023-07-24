@@ -1,16 +1,24 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Form;
 
-use Symfony\Component\Form\AbstractType;
 use App\Entity\Data\PasswordRequirementData;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 final class PasswordRequirementDataType extends AbstractType
 {
@@ -27,7 +35,7 @@ final class PasswordRequirementDataType extends AbstractType
     {
         $builder
             ->add('length', ChoiceType::class, [
-                //'label' => 'label.length',
+                // 'label' => 'label.length',
                 'label' => false,
                 'choices' => range(
                     $this->params->get('generator_password_min_length'),
@@ -37,23 +45,24 @@ final class PasswordRequirementDataType extends AbstractType
             ])
             ->add('uppercase_letters', CheckboxType::class, [
                 'label' => 'label.uppercase_letters',
-                'label_attr' => ['class' => 'form-check-label',],
+                'label_attr' => ['class' => 'form-check-label'],
                 'required' => false,
-                'row_attr' => ['class' => 'form-check radio-bg-light',],
-                'attr' => ['class' => 'form-check-input',],
+                'row_attr' => ['class' => 'form-check radio-bg-light'],
+                'attr' => ['class' => 'form-check-input'],
             ])
             ->add('digits', CheckboxType::class, [
+                'label' => 'label.digits',
                 'required' => false,
-                'label_attr' => ['class' => 'form-check-label',],
-                'row_attr' => ['class' => 'form-check radio-bg-light',],
-                'attr' => ['class' => 'form-check-input',],
+                'label_attr' => ['class' => 'form-check-label'],
+                'row_attr' => ['class' => 'form-check radio-bg-light'],
+                'attr' => ['class' => 'form-check-input'],
             ])
             ->add('special_characters', CheckboxType::class, [
                 'label' => 'label.special_characters',
-                'label_attr' => ['class' => 'form-check-label',],
+                'label_attr' => ['class' => 'form-check-label'],
                 'required' => false,
-                'row_attr' => ['class' => 'form-check radio-bg-light',],
-                'attr' => ['class' => 'form-check-input',],
+                'row_attr' => ['class' => 'form-check radio-bg-light'],
+                'attr' => ['class' => 'form-check-input'],
             ])
         ;
     }

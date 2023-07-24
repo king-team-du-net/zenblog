@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Entity\Traits;
 
 use App\Entity\User;
@@ -44,11 +52,11 @@ trait HasRolesTrait
             return 'Admin';
         } elseif ($this->hasRole(User::EDITOR)) {
             return 'Editor';
-        } else if ($this->hasRole("ROLE_SUPER_ADMIN") || $this->hasRole(User::ADMINISTRATOR)) {
+        } elseif ($this->hasRole('ROLE_SUPER_ADMIN') || $this->hasRole(User::ADMINISTRATOR)) {
             return 'Administrator';
-        } else {
-            return 'N/A';
         }
+
+        return 'N/A';
     }
 
     public function getCrossRoleName(): string
@@ -61,34 +69,28 @@ trait HasRolesTrait
             return $this->getFullName();
         } elseif ($this->hasRole(User::ADMINISTRATOR)) {
             return $this->getFullName();
-        } else {
-            return 'N/A';
         }
+
+        return 'N/A';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addRole(string $role): self
     {
-        $role = strtoupper($role);
+        $role = mb_strtoupper($role);
         if (User::DEFAULT === $role) {
             return $this;
         }
 
-        if (!in_array($role, $this->roles, true)) {
+        if (!\in_array($role, $this->roles, true)) {
             $this->roles[] = $role;
         }
 
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function removeRole(string $role): self
     {
-        if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
+        if (false !== $key = array_search(mb_strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
             $this->roles = array_values($this->roles);
         }
@@ -96,25 +98,16 @@ trait HasRolesTrait
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasRole(string $role): bool
     {
-        return in_array(strtoupper($role), $this->getRoles(), true);
+        return \in_array(mb_strtoupper($role), $this->getRoles(), true);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function isSuperAdmin(): bool
     {
         return $this->hasRole(User::ADMINISTRATOR);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setSuperAdmin($boolean): self
     {
         if (true === $boolean) {

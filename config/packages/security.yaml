@@ -3,24 +3,28 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
     providers:
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+        database_users:
+            entity: { class: App\Entity\User, property: email }
+
     firewalls:
+        # image_resolver:
+            # pattern: ^/media/cache/resolve
+            # security: false
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             lazy: true
-            provider: app_user_provider
+            provider: database_users
             # entry_point: App\Security\AuthenticationEntryPoint
             # user_checker: App\Security\UserChecker
             custom_authenticator: 
                 - App\Security\Authenticator
             logout:
                 path: auth_logout
-                # target: auth_login
+                target: homepage
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 604800
@@ -40,9 +44,10 @@ security:
         # - { path: '^/(%locales%)/%website_dashboard_path%/user', roles: ROLE_USER }
 
 
-    # The role_hierarchy part contains the role hierarchy
-    # An editor will also be a user
-    # An admin will also be an editor and therefore a user
+    # The ROLE_EDITOR role inherits from the ROLE_USER role
+    # The ROLE_ADMIN role inherits from the ROLE_USER ROLE_EDITOR role
+    # The ROLE_SUPER_ADMIN role inherits from the ROLE_ADMIN role
+    # The ROLE_ADMINISTRATOR role inherits from the ROLE_SUPER_ADMIN role
     role_hierarchy:
         ROLE_EDITOR:
             - ROLE_USER

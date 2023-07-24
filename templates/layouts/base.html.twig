@@ -1,8 +1,11 @@
+{% set routename = app.request.get('_route') %}
+{% set routeparams = app.request.get('_route_params') %}
+
 <!DOCTYPE html>
-<html lang="{{ app.request.get('_locale') }}">
+<html lang="{{ app.request.locale }}">
     <head>
         <title>{% block title %}{% endblock %} | {{ getSetting("website_name") }}</title>
-        {{ include("global/_meta.html.twig") }}
+        {% include "global/_meta.html.twig" %}
 
         <!-- Dark mode -->
         <script>
@@ -68,10 +71,9 @@
 
         {% block javascripts %}{% endblock %}
     </head>
-	<body class="
-        {% block blog '' %} {% block page '' %} {% block layout 'default' %}" 
+	<body id="{% block body_id %}{% endblock %}" class="{% block blog '' %} {% block page '' %} {% block layout 'default' %}" 
         data-timezone="{{ date_timezone }}" 
-        {% if getSetting('show_cookie_policy_bar') == "yes" %} data-cookie-bar-page-link="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}" {% endif %} 
+        {% if getSetting('show_cookie_policy_bar') == "yes" %} data-cookie-bar-page-link="{{ path('page', { slug : getSetting('cookie_policy_page_slug') }) }}"{% endif %} 
         {% if getEnv('DEMO_MODE') == "1" %} data-demo-mode="1" {% endif %}
     >
         {% block top %}
@@ -83,11 +85,7 @@
         {% endblock %}
 
         {% block header %}
-            {{ include("global/_header.html.twig") }} 
-            {#{{ render(controller(
-                'App\\Controller\\TwigController::header', { 
-                    'maxResults': 6
-            })) }}#}
+            {% include "global/_header.html.twig" %}
         {% endblock %}
 
         <!-- **************** MAIN CONTENT START **************** -->
@@ -97,7 +95,7 @@
             {% block breadcrumb %}{% endblock %}
 
             {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
-                {% include "global/_message.html.twig" with { type: 'info', icon: 'bi bi-info-circle', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
+                {% include "global/_message.html.twig" with { type: 'info', icon: 'fas fa-info-circle', message: ('You are connected as "%nickname%'|trans({'%nickname%' : app.user.nickname})~ '", <a href="'~ path('dashboard_index', {'_switch_user': '_exit'}) ~'">' ~ 'Click here'|trans ~ '</a> ' ~ 'to return to your dashboard'|trans) } %}
             {% endif %}
 
             {% block body %}{% endblock %}
@@ -109,15 +107,10 @@
         <!-- **************** MAIN CONTENT END **************** -->
 
         {% block footer %}
-            {{ include("global/_footer.html.twig") }}
-
-            {# {{ render(controller(
-                'App\\Controller\\TwigController::footer',
-                { 'maxResults': 6 }
-            )) }} #}
+            {% include "global/_footer.html.twig" %}
         {% endblock %}
 
-        {{ component('flash_messages') }}
+        {% include "global/_locale-selector-modal.html.twig" %}
 
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             {% include "global/_dashboard-items-sidenav.html.twig" %}
