@@ -1,11 +1,11 @@
 {% extends "bundles/TwigBundle/Exception/error.html.twig" %}
 
-{% set pagetitle = 'Error 500 - ' ~ 'Error'|trans %}
+{% set pagetitle = 'http_error.name'|trans({ 'status_code': 500 }) %}
 {% block title pagetitle %}
+{% block body_id 'error' %}
 
 {% block body %}
-    <h1 class="display-5">{{ pagetitle }}</h1>
-    <p class="fs-lg pb-2 pb-md-0 mb-4 mb-md-5">
-        {{ "An error has occured while processing your request"|trans }}
-    </p>
+    <h1 class="display-1 text-primary">{{ pagetitle }}</h1>
+    <h2>{{ 'http_error_500.description'|trans }}</h2>
+    <p>{{ 'http_error_500.suggestion'|trans({ 'url': path('homepage') })|raw }}</p>
 {% endblock %}

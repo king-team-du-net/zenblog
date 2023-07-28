@@ -15,11 +15,10 @@ namespace App\Form;
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -29,34 +28,13 @@ final class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            /*->add('nickname', TextType::class, [
-                'label' => 'label.username',
+            ->add('rating', ChoiceType::class, [
                 'required' => true,
-                'empty_data' => '',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'placeholder.username',
-                ],
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'label.email',
-                'required' => true,
-                'empty_data' => '',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'placeholder.email',
-                ],
-            ])*/
-            ->add('rating', IntegerType::class, [
-                'label' => 'label.comment_rating',
-                'empty_data' => '',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'placeholder.comment_rating',
-                    'min' => 0,
-                    'max' => 5,
-                    'step' => 1,
-                ],
+                'multiple' => false,
+                'expanded' => true,
+                'label' => 'label.review_rating',
+                'choices' => ['label.review_rating_5' => 5, 'label.review_rating_4' => 4, 'label.review_rating_3' => 3, 'label.review_rating_2' => 2, 'label.review_rating_1' => 1],
+                'label_attr' => ['class' => 'radio-custom radio-inline'],
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'label.comment_content',
@@ -72,13 +50,21 @@ final class CommentType extends AbstractType
             ->add('parentid', HiddenType::class, [
                 'mapped' => false,
             ])
-            /*->add('isRGPD', CheckboxType::class, [
-                'label' => 'Save my nickname and email',
+            ->add('isRGPD', CheckboxType::class, [
+                'label' => 'label.comment_rgpd',
+                'data' => true, // Default checked
                 'constraints' => [
-                    new NotBlank()
-                ]
+                    new NotBlank(['message' => 'comment_rgpd.blank']),
+                    /*new IsTrue([
+                        'message' => 'comment_rgpd.isTrue',
+                    ]),*/
+                ],
             ])
-            */
+            ->add('save', SubmitType::class, [
+                'label' => 'label.publish_comment',
+                'validate' => false,
+                'attr' => ['class' => 'btn btn-primary'],
+            ])
         ;
     }
 

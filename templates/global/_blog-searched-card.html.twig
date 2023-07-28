@@ -1,3 +1,4 @@
+{% set runtimeConfig = {"thumbnail": {"size": thumbnailsize }} %}
 {% set link = path(post) %}
 <!-- Card item START -->
 <div class="card border rounded-3 up-hover p-4 mb-4">
@@ -12,8 +13,9 @@
             {% endif %}
             <!-- Title -->
             <h3 class="card-title">
-                <a href="{{ link }}" class="btn-link text-reset">{{ post.title }}</a>
+                <a href="{{ link }}" class="btn-link text-reset">{{ post.title|html_excerpt(30) }}</a>
             </h3>
+            <p>{{ post.excerpt|html_excerpt(280) }}</p>
             <!-- Card info -->
             <ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
                 <li class="nav-item">
@@ -35,7 +37,7 @@
         </div>
         <!-- Image -->
         <div class="col-sm-3">
-            <img class="rounded-3" src="{{ asset('uploads/post/' ~ post.cover) }}" alt="{{ post.title }}">
+            <img class="rounded-3" src="{{ absolute_url(asset('uploads/post/' ~ post.cover)|imagine_filter('thumbnail', runtimeConfig)) }}" alt="{{ post.title }}">
         </div>
     </div>
 </div>

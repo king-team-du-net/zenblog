@@ -10,9 +10,11 @@
 
 namespace App\Controller\Frontend;
 
+use App\Entity\Post;
 use App\Form\SearchedType;
 use App\Repository\PostRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Meilisearch\Bundle\SearchService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,7 @@ class BlogSearchedController extends AbstractController
         return $this->render('frontend/post/blog-searched.html.twig', ['query' => (string) $request->query->get('q', '')]);
     }
 
+    /*
     #[Route('/searched', name: 'blog_searched', methods: [Request::METHOD_GET])]
     public function searched(Request $request, PostRepository $postRepository): Response
     {
@@ -48,6 +51,7 @@ class BlogSearchedController extends AbstractController
 
         return $this->render('frontend/post/searched/blog-searched.html.twig', compact('searchedQuery', 'searchedForm', 'results'));
     }
+    */
 
     /*
     public function blogsearched(Request $request, PostRepository $postRepository): Response
@@ -71,7 +75,7 @@ class BlogSearchedController extends AbstractController
     }
      */
 
-    /*
+    #[Route('/searched', name: 'blog_searched', methods: [Request::METHOD_GET])]
     public function blogMeiliSearched(Request $request, SearchService $searchService): Response
     {
         $searchedForm = $this->createForm(SearchedType::class, null, [
@@ -83,21 +87,21 @@ class BlogSearchedController extends AbstractController
 
         if ($searchedForm->isSubmitted() && $searchedForm->isValid()) {
             $searchedResponse = $searchService->rawSearch(Post::class, $searchedQuery, [
-                'attributesToHighlight' => ['title', 'content', 'excerpt'],
+                'attributesToHighlight' => ['title', 'excerpt'],
                 'highlightPreTag' => '<mark>',
                 'highlightPostTag' => '</mark>',
-                'attributesToCrop' => ['content'],
-                'cropLength' => 20,
+                'attributesToCrop' => ['excerpt'],
+                'cropLength' => 280,
             ]);
             $results = $searchedResponse['hits'];
+            // dd($results);
         }
 
-        return $this->render('post/searched/blog-meili-searched.html.twig', [
+        return $this->render('frontend/post/searched/blog-meili-searched.html.twig', [
             'searchedQuery' => $searchedQuery,
             'searchedForm' => $searchedForm,
-            'tableau' => ['nom' => 'Parlons Code', 'age' => 6],
+            'table' => ['name' => 'Zenblog', 'age' => 1],
             'results' => $results ?? [],
         ]);
     }
-    */
 }

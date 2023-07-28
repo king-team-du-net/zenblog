@@ -6,13 +6,13 @@
 parameters:
     # The above parameters are declared here to be catched by the related event subscriber
     is_website_configured: '%env(IS_WEBSITE_CONFIGURED)%'
-    maintenance_mode: '%env(MAINTENANCE_MODE)%'
+    maintenance_mode:      '%env(MAINTENANCE_MODE)%'
 
     # Date and time
-    date_format: '%env(DATE_FORMAT)%'
-    date_format_simple: '%env(DATE_FORMAT_SIMPLE)%'
+    date_format:           '%env(DATE_FORMAT)%'
+    date_format_simple:    '%env(DATE_FORMAT_SIMPLE)%'
     date_format_date_only: '%env(DATE_FORMAT_DATE_ONLY)%'
-    date_timezone: '%env(DATE_TIMEZONE)%'
+    date_timezone:         '%env(DATE_TIMEZONE)%'
 
     # Language
     # locale: '%env(DEFAULT_LOCALE)%'
@@ -25,17 +25,17 @@ parameters:
     app_locales: ar|en|fr|de|es|cs|nl|ru|uk|ro|pt_BR|pl|it|ja|id|ca|sl|hr|zh_CN|bg|tr|lt|bs|sr_Cyrl|sr_Latn|eu
 
     # Website configuration
-    website_name: '%env(WEBSITE_NAME)%'
-    website_slug: '%env(WEBSITE_SLUG)%'
-    website_no_reply_email: '%env(WEBSITE_NO_REPLY_EMAIL)%'
-    website_sav: '%env(WEBSITE_SAV)%'
-    website_contact_email: '%env(WEBSITE_CONTACT_EMAIL)%'
-    website_contact_phone: '%env(WEBSITE_CONTACT_PHONE)%'
-    website_contact_fax: '%env(WEBSITE_CONTACT_FAX)%'
+    website_name:            '%env(WEBSITE_NAME)%'
+    website_slug:            '%env(WEBSITE_SLUG)%'
+    website_no_reply_email:  '%env(WEBSITE_NO_REPLY_EMAIL)%'
+    website_sav:             '%env(WEBSITE_SAV)%'
+    website_contact_email:   '%env(WEBSITE_CONTACT_EMAIL)%'
+    website_contact_phone:   '%env(WEBSITE_CONTACT_PHONE)%'
+    website_contact_fax:     '%env(WEBSITE_CONTACT_FAX)%'
     website_contact_address: '%env(WEBSITE_CONTACT_ADDRESS)%'
-    website_root_url: '%env(WEBSITE_ROOT_URL)%'
-    website_dashboard_path: '%env(WEBSITE_DASHBOARD_PATH)%'
-    website_jwt_secret: '%env(WEBSITE_JWT_SECRET)%'
+    website_root_url:        '%env(WEBSITE_ROOT_URL)%'
+    website_dashboard_path:  '%env(WEBSITE_DASHBOARD_PATH)%'
+    website_jwt_secret:      '%env(WEBSITE_JWT_SECRET)%'
 
     router.request_context.host: "%website_root_url%"
     router.request_context.scheme: 'https'
@@ -49,11 +49,10 @@ parameters:
     #google_maps_api_key: '%env(GOOGLE_MAPS_API_KEY)%'
     #google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
 
-    # Upload User
+    # Upload
     uploads_dir_user: '%kernel.project_dir%/public/uploads/user'
-
-    # Upload Post
     uploads_dir_post: '%kernel.project_dir%/public/uploads/post'
+    uploads_dir_ad:   '%kernel.project_dir%/public/uploads/ad'
 
     # All Upload
     images_directory: '%kernel.project_dir%/public/uploads/'
@@ -67,17 +66,17 @@ parameters:
 
     # Generator Password
     generator_password_default_length: '%env(GENERATOR_PASSWORD_DEFAULT_LENGTH)%'
-    generator_password_min_length: '%env(GENERATOR_PASSWORD_MIN_LENGTH)%'
-    generator_password_max_length: '%env(GENERATOR_PASSWORD_MAX_LENGTH)%'
+    generator_password_min_length:     '%env(GENERATOR_PASSWORD_MIN_LENGTH)%'
+    generator_password_max_length:     '%env(GENERATOR_PASSWORD_MAX_LENGTH)%'
 
     # Vich
-    icons: /uploads/icons
-    categories: /uploads/categories
-    homepage_hero_custom_background: /uploads/homepage/hero
-    app_layout: /uploads/layout
-    attachments: /uploads/attachments
-    blog_post_image: /uploads/post
-    user_avatar: /uploads/user
+    icons:                           /uploads/icons
+    categories:                      /uploads/categories
+    homepage_hero_custom_background: /uploads/home/hero
+    app_layout:                      /uploads/layout
+    attachments:                     /uploads/attachments
+    blog_post_image:                 /uploads/post
+    user_avatar:                     /uploads/user
 
 services:
     # default configuration for services in *this* file
@@ -95,6 +94,7 @@ services:
             # Upload
             string $uploadsDirUser: '%uploads_dir_user%'
             string $uploadsDirPost: '%uploads_dir_post%'
+            string $uploadsDirAd:   '%uploads_dir_ad%'
 
             # All Upload
             string $imagesDirectory: '%images_directory%'

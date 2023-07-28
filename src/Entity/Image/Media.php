@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Image;
 
+use App\Entity\Ad;
 use App\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +28,9 @@ abstract class Media
     protected ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'medias')]
+    protected ?Ad $ad = null;
+
+    #[ORM\ManyToOne(inversedBy: 'medias')]
     protected ?Post $post = null;
 
     abstract public function type(): string;
@@ -34,6 +38,18 @@ abstract class Media
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAd(): ?Ad
+    {
+        return $this->ad;
+    }
+
+    public function setAd(?Ad $ad): static
+    {
+        $this->ad = $ad;
+
+        return $this;
     }
 
     public function getPost(): ?Post

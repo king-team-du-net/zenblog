@@ -2,6 +2,67 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="ad.title_unique">
+                <source>ad.title_unique</source>
+                <target>Une autre annonce a déjà ce titre, merci de le modifier.</target>
+            </trans-unit>
+
+            <trans-unit id="content.blank_title">
+                <source>content.blank_title</source>
+                <target>Veuillez ne pas laisser votre titre vide!</target>
+            </trans-unit>
+            <trans-unit id="content.too_short_title">
+                <source>content.too_short_title</source>
+                <target>Votre titre est trop court ({ limit } caractères minimum)</target>
+            </trans-unit>
+            <trans-unit id="content.too_long_title">
+                <source>content.too_long_title</source>
+                <target>Votre titre est trop long ({ limit } caractères maximum)</target>
+            </trans-unit>
+
+            <trans-unit id="content.blank_name">
+                <source>content.blank_name</source>
+                <target>Veuillez ne pas laisser votre nom vide!</target>
+            </trans-unit>
+            <trans-unit id="content.too_short_name">
+                <source>content.too_short_name</source>
+                <target>Votre nom est trop court ({ limit } caractères minimum)</target>
+            </trans-unit>
+            <trans-unit id="content.too_long_name">
+                <source>content.too_long_name</source>
+                <target>Votre nom est trop long ({ limit } caractères maximum)</target>
+            </trans-unit>
+
+            <trans-unit id="booking.startDate_date">
+                <source>booking.startDate_date</source>
+                <target>Attention, la date d'arrivée doit être au bon format !</target>
+            </trans-unit>
+            <trans-unit id="booking.startDate_greater_than">
+                <source>booking.startDate_greater_than</source>
+                <target>La date d'arrivée doit être ultérieure à la date d'aujourd'hui !</target>
+            </trans-unit>
+            <trans-unit id="booking.endDate_date">
+                <source>booking.endDate_date</source>
+                <target>Attention, la date de départ doit être au bon format !</target>
+            </trans-unit>
+            <trans-unit id="booking.endDate_greater_than">
+                <source>booking.endDate_greater_than</source>
+                <target>La date de départ doit être plus éloignée que la date d'arrivée !</target>
+            </trans-unit>
+
+            <trans-unit id="user.email_unique">
+                <source>user.email_unique</source>
+                <target>Cette adresse email est déjà utilisée.</target>
+            </trans-unit>
+            <trans-unit id="user.nickname_unique">
+                <source>user.nickname_unique</source>
+                <target>Ce pseudo est déjà utilisé.</target>
+            </trans-unit>
+
+            <trans-unit id="post.slug_unique">
+                <source>post.slug_unique</source>
+                <target>Ce titre a déjà été utilisé dans un autre article de blog, mais il doit être unique.</target>
+            </trans-unit>
             <trans-unit id="post.blank_summary">
                 <source>post.blank_summary</source>
                 <target>Veuillez donner un résumé à votre post.</target>
@@ -13,6 +74,14 @@
             <trans-unit id="post.too_short_content">
                 <source>post.too_short_content</source>
                 <target>Le contenu de votre post est trop court ({ limit } caractères minimum)</target>
+            </trans-unit>
+            <trans-unit id="comment_rgpd.isTrue">
+                <source>comment_rgpd.isTrue</source>
+                <target>Vous devez respecter nos conditions!</target>
+            </trans-unit>
+            <trans-unit id="comment_rgpd.blank">
+                <source>comment_rgpd.blank</source>
+                <target>Veuillez ne pas laisser le rgpd vide!</target>
             </trans-unit>
             <trans-unit id="comment.blank">
                 <source>comment.blank</source>

@@ -1,15 +1,27 @@
 {% if not post.tags.empty %}
-	<ul class="list-inline {% if class is defined %}{{ class }}{% endif %}">
-		{% for tag in post.tags %}
-			<li class="list-inline-item">
-				<a 
-					href="{{ path('blog', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}" 
-					class="badge text-bg-{{ tag.name == app.request.query.get('tag') ? 'success' : 'secondary' }}"
-				>
-					<i class="fas fa-tags me-2 small fw-bold"></i>
-					{{ tag.name }}
-				</a>
-			</li>
-		{% endfor %}
-	</ul>
+	{% if app.request.attributes.get('_route') != 'blog' %}
+		<ul class="list-inline {% if class is defined %}{{ class }}{% endif %}">
+			{% for tag in post.tags %}
+				<li class="list-inline-item">
+					<a href="{{ path('blog', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}" class="text-body">
+						#{{ tag.name }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<ul class="list-inline {% if class is defined %}{{ class }}{% endif %}">
+			{% for tag in post.tags %}
+				<li class="list-inline-item">
+					<a 
+						href="{{ path('blog', {'tag': tag.name == app.request.query.get('tag') ? null : tag.name}) }}" 
+						class="badge text-bg-{{ tag.name == app.request.query.get('tag') ? 'success' : 'secondary' }}"
+					>
+						<i class="fas fa-tags me-2 small fw-bold"></i>
+						{{ tag.name }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endif %}

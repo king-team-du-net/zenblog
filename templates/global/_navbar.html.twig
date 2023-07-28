@@ -28,6 +28,7 @@
 						<a class="nav-link{{ routename in ['blog', 'blog_article', 'blog_article_shared'] ? ' active' : '' }}" href="{{ path('blog') }}">{{'menu.blog'|trans}}</a>
 					</li>
 
+					<!-- Nav item 2 categories -->
 					{% set show_post_category_navbar = getSetting("show_post_category_navbar") %}
 					{% if show_post_category_navbar != "yes" %}
 						<li class="nav-item dropdown">
@@ -60,6 +61,7 @@
 						<a class="nav-link{{ routename == 'contact' ? ' active' : '' }}" href="{{ path('contact') }}">{{'menu.contact'|trans}}</a>
 					</li>
 
+					{#
 					<!-- Nav item 5 locale -->
 					<li class="nav-item dropdown" data-bs-theme="light">
 						<a class="nav-link dropdown-toggle align-items-center" data-bs-toggle="modal"  href="#" data-bs-target="#locale-selector-modal" role="button" id="locales">
@@ -67,6 +69,7 @@
 							<span class="d-lg-none ms-2">{{ 'menu.choose_language'|trans }}</span>
 						</a>
 					</li>
+					#}
 				</ul>
 			</div>
 			<!-- Main navbar END -->
@@ -74,6 +77,7 @@
 			<!-- Nav right START -->
 			<div class="nav flex-nowrap align-items-center">
 				{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+					{#
 					<!-- Notification dropdown START -->
 					<div class="nav-item ms-2 ms-md-3 dropdown">
 						<!-- Notification button -->
@@ -162,6 +166,7 @@
 						<!-- Notification dropdown menu END -->
 					</div>
 					<!-- Notification dropdown END -->
+					#}
 
 					<!-- Profile dropdown START -->
 					<div class="nav-item ms-2 ms-md-3 dropdown">
@@ -265,6 +270,12 @@
 				<div class="nav-item dropdown dropdown-toggle-icon-none nav-search">
 					<a class="nav-link" role="button" href="{{ path('blog_searched') }}">
 						<i class="bi bi-search fs-4"> </i>
+					</a>
+				</div>
+				<!-- Nav Locales -->
+				<div class="nav-item dropdown dropdown-toggle-icon-none">
+					<a class="nav-link" data-bs-toggle="modal" href="javascript:void;" data-bs-target="#locale-selector-modal" role="button" id="locales">
+						<i class="fas fa-globe fs-4"> </i>
 					</a>
 				</div>
 				<!-- Offcanvas menu toggler -->

@@ -2,10 +2,9 @@
 
 {% set pagetitle = 'Error 405 - ' ~ 'Method Not Supported'|trans %}
 {% block title pagetitle %}
+{% block body_id 'error' %}
 
 {% block body %}
-    <h1 class="display-5">{{ pagetitle }}</h1>
-    <p class="fs-lg pb-2 pb-md-0 mb-4 mb-md-5">
-        {{ "The request method is known by the server but is not supported by the target resource"|trans }}
-    </p>
+    <h1 class="display-1 text-primary">{{ pagetitle }}</h1>
+    <h2>{{ "The request method is known by the server but is not supported by the target resource"|trans }}</h2>
 {% endblock %}

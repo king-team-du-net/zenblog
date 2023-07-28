@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * @package Symfony Framework
  *
@@ -12,7 +14,7 @@ namespace App\Form\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class DropzoneType extends \Symfony\UX\Dropzone\Form\DropzoneType
+final class DropzoneType extends \Symfony\UX\Dropzone\Form\DropzoneType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {

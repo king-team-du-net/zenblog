@@ -29,14 +29,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
-#[UniqueEntity(fields: ['email'], message: 'This email address is already in use.')]
-#[UniqueEntity(fields: ['nickname'], message: 'This nickname is already used.')]
+#[UniqueEntity(fields: ['email'], message: 'user.email_unique')]
+#[UniqueEntity(fields: ['nickname'], message: 'user.nickname_unique')]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, \Stringable
 {
+    use HasDeletedAtTrait;
     use HasProfileTrait;
     use HasTimestampTrait;
-    use HasDeletedAtTrait;
 
     final public const DEFAULT = 'ROLE_USER';
     final public const ADMINISTRATOR = 'ROLE_ADMINISTRATOR';
@@ -45,7 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
     public const USER_LIMIT = 10;
 
-    #[ORM\Column]
+    /**
+     * @var string[]
+     */
+    #[ORM\Column(type: Types::JSON)]
     private array $roles = [self::DEFAULT];
 
     #[Assert\NotBlank(groups: ['password'])]
@@ -63,20 +66,50 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     // #[Assert\NotBlank]
     private string $password = '';
 
+    /**
+     * @var Collection<int, Post>
+     */
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Post::class)]
     private Collection $posts;
 
+    /**
+     * @var Collection<int, Role>
+     */
     #[ORM\ManyToMany(targetEntity: Role::class, mappedBy: 'users')]
     private Collection $userRoles;
+
+    /**
+     * @var Collection<int, Booking>
+     */
+    #[ORM\OneToMany(mappedBy: 'booker', targetEntity: Booking::class)]
+    private Collection $bookings;
+
+    //#[ORM\OneToMany(mappedBy: 'author', targetEntity: Ad::class)]
+    //private Collection $ads;
+
+    /**
+     * @var Collection<int, Ad>
+     */
+    #[ORM\ManyToMany(targetEntity: Ad::class, mappedBy: 'addedtofavoritesby', fetch: 'LAZY', cascade: ['remove'])]
+    private Collection $favorites;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Review::class, cascade: ['remove'])]
+    private Collection $reviews;
 
     public function __construct()
     {
         $this->is_verified = false;
         $this->registrationTokenLifeTime = (new \DateTime('now'))->add(new \DateInterval('P1D'));
+
         $this->posts = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
+        //$this->ads = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     /**
@@ -266,6 +299,122 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         if ($this->userRoles->contains($userRole)) {
             $this->userRoles->removeElement($userRole);
             $userRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Booking>
+     */
+    public function getBookings(): Collection
+    {
+        return $this->bookings;
+    }
+
+    public function addBooking(Booking $booking): static
+    {
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setBooker($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBooking(Booking $booking): static
+    {
+        if ($this->bookings->removeElement($booking)) {
+            // set the owning side to null (unless already changed)
+            if ($booking->getBooker() === $this) {
+                $booking->setBooker(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /*
+    public function getAds(): Collection
+    {
+        return $this->ads;
+    }
+
+    public function addAd(Ad $ad): static
+    {
+        if (!$this->ads->contains($ad)) {
+            $this->ads->add($ad);
+            $ad->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAd(Ad $ad): static
+    {
+        if ($this->ads->removeElement($ad)) {
+            // set the owning side to null (unless already changed)
+            if ($ad->getAuthor() === $this) {
+                $ad->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    */
+
+    /**
+     * @return Collection<int, Ad>
+     */
+    public function getFavorites(): Collection
+    {
+        return $this->favorites;
+    }
+
+    public function addFavorite(Ad $favorite): self
+    {
+        if (!$this->favorites->contains($favorite)) {
+            $this->favorites->add($favorite);
+            $favorite->addAddedtofavoritesby($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavorite(Ad $favorite): self
+    {
+        if ($this->favorites->removeElement($favorite)) {
+            $favorite->removeAddedtofavoritesby($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUser() === $this) {
+                $review->setUser(null);
+            }
         }
 
         return $this;

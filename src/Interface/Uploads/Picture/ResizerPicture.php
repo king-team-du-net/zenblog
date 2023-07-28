@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Uploads\Picture;
 
 use League\Glide\Urls\UrlBuilderFactory;
@@ -17,13 +25,8 @@ final class ResizerPicture
 
     /**
      * Returns a resized URL for a given image.
-     * 
-     * @param null|string $url
-     * @param null|int $width
-     * @param null|int $height
-     * @return string
      */
-    public function resize(?string $url, ?int $width = null, ?int $height = null): string
+    public function resize(?string $url, int $width = null, int $height = null): string
     {
         if (null === $url || empty($url)) {
             return '';

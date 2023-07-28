@@ -32,17 +32,25 @@
 	<!-- Previous & Next Post -->
 	{% include "global/_previous-and-next-post.html.twig" with { previousPost: previousPost, nextPost: nextPost } only %}
 
+	<div class="text-center my-3">
+		<!-- Tag -->
+		{% include "widget/post-tags-widget.html.twig" with { post: post, class: 'text-primary-hover mt-0 mt-lg-3'} only %}
+	</div>
+
 	<!-- Author -->
 	{% include "global/_author.html.twig" with { post: post} only %}
 
 	<div class="d-md-flex justify-content-between text-center text-md-start my-4">
-		<!-- Tag -->
-		{% include "widget/post-tags-widget.html.twig" with { post: post, class: 'mb-0'} only %}
+		<!-- Info -->
+		<ul class="list-inline mb-0">
+			<li class="list-inline-item">
+				<a class="btn btn-outline-light btn-sm" href="{{ path('blog_article_revision', {slug: post.slug}) }}">{{ 'action.fix'|trans }}</a>
+			</li>
+		</ul>
 		<!-- Info -->
 		<ul class="nav nav-divider align-items-center justify-content-center justify-content-md-end">
-			<li class="nav-item"><a href="javascript:void(0);" class="btn-link"><i class="far fa-comment-alt me-1"></i> {{ 'post.num_comments'|trans({ 'count': post.comments|length }) }}</a></li>
+			<li class="nav-item"><a href="javascript:void(0);" class="btn-link"><i class="far fa-comment-alt me-1"></i> {{ 'post.num_comments'|trans({ 'count': comments|length }) }}</a></li>
 			<li class="nav-item"><i class="far fa-eye me-1"></i> {{ post.views }} {{ "post.views"|trans }}</li>
-			<li class="nav-item"><a href="#"><i class="fas fa-heart me-1 text-danger"></i></a> 266</li>
 		</ul>
 	</div>
 
@@ -97,7 +105,9 @@
 
 	<!-- Form Comment -->
 	{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-		{{ render(controller('App\\Controller\\Frontend\\BlogCommentController::blogCommentForm', {'id': post.id})) }}
+		<turbo-frame id="new-comment-form">
+			{{ render(controller('App\\Controller\\Frontend\\BlogCommentController::blogCommentForm', {'id': post.id})) }}
+		</turbo-frame>
 	{% else %}
 		<div>
 			<div class="mt-5">
@@ -111,36 +121,55 @@
 
 	<!-- List Comments -->
 	{# {% include "comment/comments.html.twig" with { comments: comments } only %} #}
-	<div class="my-4" data-controller="comments" data-post-id="{{ post.id }}">
-		<h3>{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h3>
-		<template data-comments-target="template">
-			<div class="my-4 d-flex" id="c{{ post.id }}">
-				<img src="${author.avatar}" class="avatar avatar-md rounded-circle float-start me-3" alt="${author.nickname}">
-				<div>
-					<div class="mb-2">
-						<h5 class="m-0">${author.nickname}</h5>
-						<span class="me-3 small">
-							${publishedAt}
-						</span>
-						{% if is_granted('ROLE_USER') %}
-							<a href="#add-comment" class="text-body fw-normal" data-reply data-post-id="{{ post.id }}">{{ 'post.comment_reply'|trans }}</a>
-						{% endif %}
-					</div>
-					<p>${content}</p>
-				</div>
-			</div>
-		</template>
-		<div data-comments-target="list"></div>
-		<!-- Load more START -->
-		<div class="d-flex justify-content-center mt-3">
-			<button type="submit" class="btn btn-primary-soft" data-action="comments#next" data-comments-target="loadMore">
-				{{ "action.load_more"|trans }}
-				<i class="bi bi-arrow-down-circle ms-2 align-middle"></i>
-			</button>
-		</div>
-		<!-- Load more END -->
-	</div>
+	{# <turbo-stream action="append" target="comment-list">
+		{# <template> #}
+			<div class="my-4" data-controller="comments" data-post-id="{{ post.id }}">
+				<h3>{{ 'post.num_comments'|trans({ 'count': comments|length }) }}</h3>
 
+				{# Display of the average of the given marks #}
+				<div class="bg-light border p-3 rounded text-center my-4">
+					<h5 class="m-0">
+						<div class="row align-items-center justify-content-between">
+							<div class="col-md-8">
+								{{ "comment.overall_rating"|trans }}
+							</div>
+							<div class="col-md-4">
+								{% include 'global/_rating.html.twig' with {'rating' : post.avgRatings, class: 'py-2 d-block'} %}
+								<small class="my-2 d-block">{{ 'comment.num_comments'|trans({ 'count': comments|length})|raw  }}</small>
+							</div>
+						</div>
+					</h5>
+				</div>
+
+				<template data-comments-target="template">
+					<div class="my-4 d-flex" id="c{{ post.id }}">
+						<img src="${author.avatar}" class="avatar avatar-md rounded-circle float-start me-3" alt="${author.nickname}">
+						<div>
+							<div class="mb-2">
+								<h5 class="m-0">${author.nickname}</h5>
+								<span class="me-3 small">
+									${publishedAt}
+								</span>
+								{% if is_granted('ROLE_USER') %}
+									<a href="#add-comment" class="text-body fw-normal" data-reply data-post-id="{{ post.id }}">{{ 'post.comment_reply'|trans }}</a>
+								{% endif %}
+							</div>
+							<p>${content}</p>
+						</div>
+					</div>
+				</template>
+				<div data-comments-target="list"></div>
+				<!-- Load more START -->
+				<div class="d-flex justify-content-center mt-3">
+					<button type="submit" class="btn btn-primary-soft" data-action="comments#next" data-comments-target="loadMore">
+						{{ "action.load_more"|trans }}
+						<i class="bi bi-arrow-down-circle ms-2 align-middle"></i>
+					</button>
+				</div>
+				<!-- Load more END -->
+			</div>
+		{# </template> #}
+	{# </turbo-stream> #}
 {% endblock %}
 
 {% block similarposts %}

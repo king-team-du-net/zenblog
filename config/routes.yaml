@@ -4,7 +4,7 @@ homepage:
     requirements:
         _locale: '%app_locales%'
     defaults:
-        template: home/homepage.html.twig
+        template: frontend/home/homepage.html.twig
         _locale: '%locale%'
 
 controllers:
@@ -17,7 +17,7 @@ controllers:
         _locale: '%app_locales%'
     defaults:
         _locale: '%locale%'
-    #trailing_slash_on_root: false
+    trailing_slash_on_root: false
 
 api:
     resource: ../src/Controller/Api
@@ -26,3 +26,4 @@ api:
     requirements:
         _locale: '%app_locales%'
     name_prefix: api_
+    trailing_slash_on_root: false

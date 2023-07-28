@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace App\Event\Post;
 
-use App\Entity\Post;
+use App\Entity\Content;
 use App\Event\Content\ContentCreatedEvent;
 
 final class PostCreatedEvent extends ContentCreatedEvent
 {
-    public function __construct(Post $content)
+    public function __construct(Content $content)
     {
         parent::__construct($content);
     }

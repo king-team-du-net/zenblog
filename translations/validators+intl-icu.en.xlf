@@ -2,6 +2,63 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
+            <trans-unit id="ad.title_unique">
+                <source>ad.title_unique</source>
+                <target>Another advert already has this title, please change it.</target>
+            </trans-unit>
+
+            <trans-unit id="content.blank_title">
+                <source>content.blank_title</source>
+                <target>Please don't leave your title blank!</target>
+            </trans-unit>
+            <trans-unit id="content.too_short_title">
+                <source>content.too_short_title</source>
+                <target>The title is too short ({{ limit }} characters minimum)</target>
+            </trans-unit>
+            <trans-unit id="content.too_long_title">
+                <source>content.too_long_title</source>
+                <target>The title is too long ({ limit } characters maximum)</target>
+            </trans-unit>
+
+            <trans-unit id="content.blank_name">
+                <source>content.blank_name</source>
+                <target>Please don't leave your name blank!</target>
+            </trans-unit>
+            <trans-unit id="content.too_short_name">
+                <source>content.too_short_name</source>
+                <target>The name is too short ({{ limit }} characters minimum)</target>
+            </trans-unit>
+            <trans-unit id="content.too_long_name">
+                <source>content.too_long_name</source>
+                <target>The name is too long ({ limit } characters maximum)</target>
+            </trans-unit>
+
+            <trans-unit id="booking.startDate_date">
+                <source>booking.startDate_date</source>
+                <target>Please note that the arrival date must be in the correct format !</target>
+            </trans-unit>
+            <trans-unit id="booking.startDate_greater_than">
+                <source>booking.startDate_greater_than</source>
+                <target>Arrival date must be before today's date !</target>
+            </trans-unit>
+            <trans-unit id="booking.endDate_date">
+                <source>booking.endDate_date</source>
+                <target>Please note that the departure date must be in the correct format !</target>
+            </trans-unit>
+            <trans-unit id="booking.endDate_greater_than">
+                <source>booking.endDate_greater_than</source>
+                <target>The departure date must be later than the arrival date !</target>
+            </trans-unit>
+
+            <trans-unit id="user.email_unique">
+                <source>user.email_unique</source>
+                <target>This email address is already in use.</target>
+            </trans-unit>
+            <trans-unit id="user.nickname_unique">
+                <source>user.nickname_unique</source>
+                <target>This nickname is already used.</target>
+            </trans-unit>
+
             <trans-unit id="post.slug_unique">
                 <source>post.slug_unique</source>
                 <target>This title was already used in another blog post, but they must be unique.</target>
@@ -21,6 +78,14 @@
             <trans-unit id="post.too_many_tags">
                 <source>post.too_many_tags</source>
                 <target>Too many tags (add { limit } tags or less)</target>
+            </trans-unit>
+            <trans-unit id="comment_rgpd.isTrue">
+                <source>comment_rgpd.isTrue</source>
+                <target>You should rgpd to our terms!</target>
+            </trans-unit>
+            <trans-unit id="comment_rgpd.blank">
+                <source>comment_rgpd.blank</source>
+                <target>Please don't leave the rgpd blank!</target>
             </trans-unit>
             <trans-unit id="comment.blank">
                 <source>comment.blank</source>

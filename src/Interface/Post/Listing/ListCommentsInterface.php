@@ -2,10 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Post\Listing;
 
-use App\Entity\Post;
 use App\Entity\Comment;
+use App\Entity\Post;
 
 interface ListCommentsInterface
 {

@@ -14,7 +14,6 @@ namespace App\Entity;
 
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasTimestampTrait;
-use App\Entity\User\User;
 use App\Repository\HomepageHeroSettingsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -69,25 +68,19 @@ class HomepageHeroSettings
     private ?bool $show_search_box = null;
 
     /**
-     * @var Collection<int, Post>
+     * @var Collection<int, Ad>
      */
-    #[ORM\OneToMany(mappedBy: 'isonhomepageslider', targetEntity: Post::class, cascade: ['persist'])]
-    private Collection $posts;
-
-    /*
-    #[ORM\OneToMany(mappedBy: 'isuseronhomepageslider', targetEntity: User::class)]
-    private Collection $users;
-    */
+    #[ORM\OneToMany(mappedBy: 'isonhomepageslider', targetEntity: Ad::class, cascade: ['persist'])]
+    private Collection $ads;
 
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
-        // $this->users = new ArrayCollection();
+        $this->ads = new ArrayCollection();
     }
 
     public function clearPosts(): void
     {
-        $this->posts->clear();
+        $this->ads->clear();
     }
 
     public function getTitle(): ?string
@@ -204,7 +197,7 @@ class HomepageHeroSettings
 
     public function getCustomBackgroundPath(): string
     {
-        return 'uploads/homepage/hero/'.$this->customBackgroundName;
+        return '/uploads/home/hero/'.$this->customBackgroundName;
     }
 
     public function isShowSearchBox(): ?bool
@@ -225,29 +218,29 @@ class HomepageHeroSettings
     }
 
     /**
-     * @return Collection<int, Post>
+     * @return Collection<int, Ad>
      */
-    public function getPosts(): Collection
+    public function getAds(): Collection
     {
-        return $this->posts;
+        return $this->ads;
     }
 
-    public function addPost(Post $post): static
+    public function addPost(Ad $ad): static
     {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
-            $post->setIsonhomepageslider($this);
+        if (!$this->ads->contains($ad)) {
+            $this->ads->add($ad);
+            $ad->setIsonhomepageslider($this);
         }
 
         return $this;
     }
 
-    public function removePost(Post $post): static
+    public function removeAd(Ad $ad): static
     {
-        if ($this->posts->removeElement($post)) {
+        if ($this->ads->removeElement($ad)) {
             // set the owning side to null (unless already changed)
-            if ($post->getIsonhomepageslider() === $this) {
-                $post->setIsonhomepageslider(null);
+            if ($ad->getIsonhomepageslider() === $this) {
+                $ad->setIsonhomepageslider(null);
             }
         }
 

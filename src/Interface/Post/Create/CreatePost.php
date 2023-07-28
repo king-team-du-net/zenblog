@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Post\Create;
 
-use App\Entity\Post;
 use App\Entity\Image\Image;
-use Symfony\Component\Uid\Uuid;
+use App\Entity\Post;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class CreatePost implements CreatePostInterface
 {

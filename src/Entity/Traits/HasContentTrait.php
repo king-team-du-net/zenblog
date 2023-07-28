@@ -17,10 +17,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait HasContentTrait
 {
     #[ORM\Column(type: Types::TEXT)]
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 10)
-    ]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
     private ?string $content = null;
 
     public function getContent(): ?string

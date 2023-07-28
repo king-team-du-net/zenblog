@@ -254,7 +254,6 @@ final class PostsTagsCategoryCommentAdminFixtures extends Fixture
                 $post->setSlug($slug);
                 $post->setExcerpt($excerpt);
                 $post->setContent($content);
-                //$post->setPublishedAt($publishedAt);
                 $post->setAuthor($author);
                 $post->addTag(...$tags);
 
@@ -264,7 +263,6 @@ final class PostsTagsCategoryCommentAdminFixtures extends Fixture
                     $post->setPublishedAt($publishedAt);
                     $post->setHidden(true);
                     $post->setViews(rand(10, 160));
-                    $post->setEnablereviews(true);
                 }
                 $post->setCategory($category);
 
@@ -312,9 +310,12 @@ final class PostsTagsCategoryCommentAdminFixtures extends Fixture
                     $comment->setRating(random_int(1, 5));
                     $comment->setIp($this->faker()->ipv4);
                     $comment->setIsRGPD(['john-doe', 'bob-doe', 'jane-doe'][0 === $i ? 0 : random_int(0, 1)]);
-                    $comment->setIsApproved($this->faker()->randomElement([true, false]));
+                    $comment->setIsApproved($this->faker()->boolean(0.1));
+                    $comment->setPost($post);
 
-                    $post->addComment($comment);
+                    //$post->addComment($comment);
+
+                    $manager->persist($comment);
                 }
 
                 $manager->persist($post);

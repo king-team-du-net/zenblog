@@ -2,13 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Mailer\Mail;
 
 use App\Entity\Post;
-use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class PostSharedMail implements MailInterface
 {
@@ -21,7 +29,7 @@ final class PostSharedMail implements MailInterface
     {
         $options = [];
         /** @var Post $post */
-        $post = new Post;
+        $post = new Post();
         $subject = sprintf('%s recommends you to read "%s"', $options['sender_name'], $post->getTitle());
 
         $email

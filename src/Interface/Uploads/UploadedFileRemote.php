@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Uploads;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -13,16 +21,12 @@ final class UploadedFileRemote extends UploadedFile
 {
     public function __construct(string $url)
     {
-        $originalName = pathinfo($url, PATHINFO_BASENAME);
-        parent::__construct($url, $originalName, null, UPLOAD_ERR_CANT_WRITE, false);
+        $originalName = pathinfo($url, \PATHINFO_BASENAME);
+        parent::__construct($url, $originalName, null, \UPLOAD_ERR_CANT_WRITE, false);
     }
 
     /**
-     * move
-     *
-     * @param  string $directory
-     * @param  null|string $name
-     * @return File
+     * move.
      */
     public function move(string $directory, string $name = null): File
     {
@@ -32,12 +36,12 @@ final class UploadedFileRemote extends UploadedFile
             // We copy the source to the output
             $source = fopen($this->getPathname(), 'r');
             if (false === $source) {
-                throw new FileException(sprintf("Unable to open file %s for reading", $this->getPathname()));
+                throw new FileException(sprintf('Unable to open file %s for reading', $this->getPathname()));
             }
 
             $target = fopen($targetFile->getPathname(), 'w+');
             if (false === $target) {
-                throw new FileException(sprintf("Unable to open file %s for writing", $targetFile->getPathname()));
+                throw new FileException(sprintf('Unable to open file %s for writing', $targetFile->getPathname()));
             }
 
             $copied = stream_copy_to_stream($source, $target);
@@ -63,7 +67,7 @@ final class UploadedFileRemote extends UploadedFile
 
     public function getMimeType(): string
     {
-        $ext = pathinfo($this->getPathname(), PATHINFO_EXTENSION);
+        $ext = pathinfo($this->getPathname(), \PATHINFO_EXTENSION);
 
         return MimeTypes::getDefault()->getMimeTypes($ext)[0];
     }

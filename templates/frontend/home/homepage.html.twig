@@ -8,18 +8,13 @@
 {% block content %}
 
 	{% if herosettings.content == "posts" and herosettings.posts|length %}
-		HERO SETTINGS POSTS
-	{% endif %}
-
-	{% if herosettings.content == "custom" %}
-
-		<section class="pt-4">
+		<section class="py-5">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<!-- Title -->
 						<div class="mb-4 d-md-flex justify-content-between align-items-center">
-							<h2 class="m-0"><i class="bi bi-megaphone"></i> Sponsored news</h2>
+							<h2 class="m-0"><i class="bi bi-megaphone"></i> {{ "label.related_posts"|trans }}</h2>
 							<a href="#" class="text-body small"><u>Content by: Bootstrap</u></a>
 						</div>
 						<div class="tiny-slider arrow-hover arrow-blur arrow-dark arrow-round">
@@ -34,248 +29,89 @@
 								data-items-sm="2" 
 								data-items-xs="1">
 
-								<!-- Card item START -->
-								<div class="card">
-									<!-- Card img -->
-									<div class="position-relative">
-										<img class="card-img" src="assets/images/blog/4by3/07.jpg" alt="Card image">
-										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
-											<!-- Card overlay Top -->
-											<div class="w-100 mb-auto d-flex justify-content-end">
-												<div class="text-end ms-auto">
-													<!-- Card format icon -->
-													<div class="icon-md bg-white bg-opacity-10 bg-blur text-white fw-bold rounded-circle" title="8.5 rating">8.5</div>
-												</div>
-											</div>
-											<!-- Card overlay bottom -->
-											<div class="w-100 mt-auto">
-												<a href="#" class="badge text-bg-info mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Marketing</a>
-											</div>
-										</div>
-									</div>
-									<div class="card-body px-0 pt-3">
-										<h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset fw-bold">7 common mistakes everyone makes while traveling</a></h5>
-										<!-- Card info -->
-										<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
-											<li class="nav-item">
-												<div class="nav-link">
-													<div class="d-flex align-items-center position-relative">
-														<div class="avatar avatar-xs">
-															<img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt="avatar">
-														</div>
-														<span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Lori</a></span>
-													</div>
-												</div>
-											</li>
-											<li class="nav-item">Mar 07, 2022</li>
-										</ul>
-									</div>
-								</div>
-								<!-- Card item END -->
-								<!-- Card item START -->
-								<div class="card">
-									<!-- Card img -->
-									<div class="position-relative">
-										<img class="card-img" src="assets/images/blog/4by3/08.jpg" alt="Card image">
-										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
-											<!-- Card overlay bottom -->
-											<div class="w-100 mt-auto">
-												<a href="#" class="badge text-bg-danger mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Sports</a>
-											</div>
-										</div>
-									</div>
-									<div class="card-body px-0 pt-3">
-										<h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset fw-bold">Skills that you can learn from business</a></h5>
-										<!-- Card info -->
-										<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
-											<li class="nav-item">
-												<div class="nav-link">
-													<div class="d-flex align-items-center position-relative">
-														<div class="avatar avatar-xs">
-															<div class="avatar-img rounded-circle bg-warning">
-																<span class="text-dark position-absolute top-50 start-50 translate-middle fw-bold small">MK</span>
-															</div>
-														</div>
-														<span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Joan</a></span>
-													</div>
-												</div>
-											</li>
-											<li class="nav-item">Aug 15, 2022</li>
-										</ul>
-									</div>
-								</div>
-								<!-- Card item END -->
-								<!-- Card item START -->
-								<div class="card">
-									<!-- Card img -->
-									<div class="position-relative">
-										<img class="card-img" src="assets/images/blog/4by3/09.jpg" alt="Card image">
-										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
-											<!-- Card overlay bottom -->
-											<div class="w-100 mt-auto">
-												<a href="#" class="badge text-bg-success mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Marketing</a>
-											</div>
-										</div>
-									</div>
-									<div class="card-body px-0 pt-3">
-										<h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset fw-bold">10 tell-tale signs you need to get a new business</a></h5>
-										<!-- Card info -->
-										<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
-											<li class="nav-item">
-												<div class="nav-link">
-													<div class="d-flex align-items-center position-relative">
-														<div class="avatar avatar-xs">
-															<img class="avatar-img rounded-circle" src="assets/images/avatar/09.jpg" alt="avatar">
-														</div>
-														<span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Bryan</a></span>
-													</div>
-												</div>
-											</li>
-											<li class="nav-item">Jun 01, 2022</li>
-										</ul>
-									</div>
-								</div>
-								<!-- Card item END -->
-								<!-- Card item START -->
-								<div class="card">
-									<!-- Card img -->
-									<div class="position-relative">
-										<img class="card-img" src="assets/images/blog/4by3/10.jpg" alt="Card image">
-										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
-											<!-- Card overlay Top -->
-											<div class="w-100 mb-auto d-flex justify-content-end">
-												<div class="text-end ms-auto">
-													<!-- Card format icon -->
-													<div class="icon-md bg-white-soft bg-blur text-white rounded-circle" title="This post has images"><i class="fas fa-image"></i></div>
-												</div>
-											</div>
-											<!-- Card overlay bottom -->
-											<div class="w-100 mt-auto">
-												<a href="#" class="badge bg-primary mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Photography</a>
-											</div>
-										</div>
-									</div>
-									<div class="card-body px-0 pt-3">
-										<h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset fw-bold">This is why this year will be the year of startups</a></h5>
-										<!-- Card info -->
-										<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
-											<li class="nav-item">
-												<div class="nav-link">
-													<div class="d-flex align-items-center position-relative">
-														<div class="avatar avatar-xs">
-															<img class="avatar-img rounded-circle" src="assets/images/avatar/10.jpg" alt="avatar">
-														</div>
-														<span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Samuel</a></span>
-													</div>
-												</div>
-											</li>
-											<li class="nav-item">Dec 07, 2022</li>
-										</ul>
-									</div>
-								</div>
-								<!-- Card item END -->
-								<!-- Card item START -->
-								<div class="card">
-									<!-- Card img -->
-									<div class="position-relative">
-										<img class="card-img" src="assets/images/blog/4by3/11.jpg" alt="Card image">
-										<div class="card-img-overlay d-flex align-items-start flex-column p-3">
-											<!-- Card overlay bottom -->
-											<div class="w-100 mt-auto">
-												<a href="#" class="badge text-bg-warning mb-2"><i class="fas fa-circle me-2 small fw-bold"></i>Technology</a>
-											</div>
-										</div>
-									</div>
-									<div class="card-body px-0 pt-3">
-										<h5 class="card-title"><a href="post-single-3.html" class="btn-link text-reset fw-bold">Best Pinterest Boards for learning about business</a></h5>
-										<!-- Card info -->
-										<ul class="nav nav-divider align-items-center d-none d-sm-inline-block">
-											<li class="nav-item">
-												<div class="nav-link">
-													<div class="d-flex align-items-center position-relative">
-														<div class="avatar avatar-xs">
-															<img class="avatar-img rounded-circle" src="assets/images/avatar/12.jpg" alt="avatar">
-														</div>
-														<span class="ms-3">by <a href="#" class="stretched-link text-reset btn-link">Dennis</a></span>
-													</div>
-												</div>
-											</li>
-											<li class="nav-item">Sep 07, 2022</li>
-										</ul>
-									</div>
-								</div>
-								<!-- Card item END -->
+								{% for herosetting in herosettings %}
+									{% include "global/_blog-similar-card.html.twig" with { post: herosetting, showdate: 1 } %}
+								{% endfor %}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+	{% endif %}
 
-		<section class="section-intro bg-dark text-white text-center">
-			<div class="homepage-custom-hero-background d-flex flex-column img-lazy-load" >
-				<div class="{{ getSetting("app_layout") }} my-auto">
-
-					<div class="row">
-						<div class="col-lg-8 col-sm-12 text-center mx-auto">
-							{% if herosettings.title %}
-								<h2 class="display-4 mt-3 mb-3">{{ herosettings.title }}</h2>
-							{% endif %}
-							{% if herosettings.paragraph %}
-								<h3 class="mb-5 font-weight-lighter">{{ herosettings.paragraph }}</h3>
-							{% endif %}
-						</div>
+	{% if herosettings.content == "custom" %}
+		<section class="py-0 py-md-5 overflow-hidden position-relative" {% if herosettings.customBackgroundName %}style="background-image: url({{ absolute_url(herosettings.getCustomBackgroundPath) }}); background-position: center center; background-repeat: no-repeat;"{% endif %}>
+			<div class="container">
+				<div class="row">
+					<!-- Hero title -->
+					<div class="col-lg-6 mx-auto text-center pt-5 position-relative">
+						{% if herosettings.title %}
+							<h1 class="fw-bolder display-2">{{ herosettings.title }}</h1>
+						{% endif %}
+						{% if herosettings.paragraph %}
+							<p class="lead mb-0">{{ herosettings.paragraph }}</p>
+						{% endif %}
 					</div>
-					{% if herosettings.showSearchBox %}
-						<div class="row">
-							<div class="col-lg-9 col-md-8 col-sm-12 mx-auto">
-								<div class="card">
-									<div class="card-body p30">
-										<form action="{{ path('blog') }}">
-											<div class="form-row text-left">
-												<div class="col-lg-3 col-sm-12">
-													<label for="hero-search-category" class="form-label text-dark">{{ "Looking for"|trans }}</label>
-													<select id="hero-search-category" class="select2" name="category" data-sort-options="1">
-														<option value>{{ "Anything"|trans }}</option>
-														{#{% for category in getPostCategories({}).getQuery().getResult() %}
-															<option value="{{ category.slug }}">{{ category.name }}</option>
-														{% endfor %} #}
-													</select>
-												</div>
-												<div class="col-lg-3 col-sm-12">
-													<label for="hero-search-country" class="form-label text-dark">{{ "In"|trans }}</label>
-													<select id="hero-search-country" class="select2" name="country" data-sort-options="1">
-														<option value>{{ "Anywhere"|trans }}</option>
-														Countries
-													</select>
-												</div>
-												<div class="col-lg-3 col-sm-12">
-													<label for="hero-search-stardate" class="form-label text-dark">{{ "When"|trans }}</label>
-													<select id="hero-search-stardate" class="select2" name="startdate">
-														<option value>{{ "Anytime"|trans }}</option>
-														<option value="today">{{ "Today"|trans }}</option>
-														<option value="tomorrow">{{ "Tomorrow"|trans }}</option>
-														<option value="thisweekend">{{ "This weekend"|trans }}</option>
-														<option value="thisweek">{{ "This week"|trans }}</option>
-														<option value="nextweek">{{ "Next week"|trans }}</option>
-														<option value="thismonth">{{ "This month"|trans }}</option>
-														<option value="nextmonth">{{ "Next month"|trans }}</option>
-													</select>
-												</div>
-
-												<div class="col-lg-3 col-sm-12 my-auto">
-													<button class="btn btn-light btn-block" type="submit"><i class="fas fa-search"></i> {{ "Search"|trans }}</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					{% endif %}
 				</div>
 			</div>
+			<!-- SVG decoration left -->
+			<div class="position-absolute top-50 start-100 translate-middle opacity-1 d-none d-md-block">
+				<svg viewBox="0 0 200 200" width="500px" height="500px" xmlns="http://www.w3.org/2000/svg">
+				<path fill="#2163E8" d="M70.6,-22.1C78.7,2,63.7,34.5,38.8,52.3C13.9,70.2,-20.9,73.4,-37.9,59.4C-54.9,45.3,-54,14,-44.7,-11.7C-35.5,-37.5,-17.7,-57.7,6.8,-59.9C31.3,-62.1,62.5,-46.3,70.6,-22.1Z" transform="translate(100 100)" />
+				</svg>
+			</div>
 		</section>
+
+		{#
+		{% if herosettings.showSearchBox %}
+			<div class="row">
+				<div class="col-lg-9 col-md-8 col-sm-12 mx-auto">
+					<div class="card">
+						<div class="card-body p30">
+							<form action="{{ path('blog') }}">
+								<div class="form-row text-left">
+									<div class="col-lg-3 col-sm-12">
+										<label for="hero-search-category" class="form-label text-dark">{{ "Looking for"|trans }}</label>
+										<select id="hero-search-category" class="select2" name="category" data-sort-options="1">
+											<option value>{{ "Anything"|trans }}</option>
+											{#{% for category in getPostCategories({}).getQuery().getResult() %}
+												<option value="{{ category.slug }}">{{ category.name }}</option>
+											{% endfor %} }
+										</select>
+									</div>
+									<div class="col-lg-3 col-sm-12">
+										<label for="hero-search-country" class="form-label text-dark">{{ "In"|trans }}</label>
+										<select id="hero-search-country" class="select2" name="country" data-sort-options="1">
+											<option value>{{ "Anywhere"|trans }}</option>
+											Countries
+										</select>
+									</div>
+									<div class="col-lg-3 col-sm-12">
+										<label for="hero-search-stardate" class="form-label text-dark">{{ "When"|trans }}</label>
+										<select id="hero-search-stardate" class="select2" name="startdate">
+											<option value>{{ "Anytime"|trans }}</option>
+											<option value="today">{{ "Today"|trans }}</option>
+											<option value="tomorrow">{{ "Tomorrow"|trans }}</option>
+											<option value="thisweekend">{{ "This weekend"|trans }}</option>
+											<option value="thisweek">{{ "This week"|trans }}</option>
+											<option value="nextweek">{{ "Next week"|trans }}</option>
+											<option value="thismonth">{{ "This month"|trans }}</option>
+											<option value="nextmonth">{{ "Next month"|trans }}</option>
+										</select>
+									</div>
+
+									<div class="col-lg-3 col-sm-12 my-auto">
+										<button class="btn btn-light btn-block" type="submit"><i class="fas fa-search"></i> {{ "Search"|trans }}</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+		#}
 	{% endif %}
 
 	{% if getSetting('homepage_show_search_box') == "yes" %}

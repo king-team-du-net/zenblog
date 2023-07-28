@@ -41,7 +41,10 @@ final class SearchedType extends AbstractType
         ]);
     }
 
-    public function getBlockPrefix()
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix(): string
     {
         return '';
     }

@@ -18,10 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 trait HasTitleAndSlugAndAssertTrait
 {
     #[ORM\Column(type: Types::STRING, length: 128)]
-    #[
-        Assert\NotBlank,
-        Assert\Length(min: 1, max: 128)
-    ]
+    #[Assert\NotBlank(message: 'content.blank_title')]
+    #[Assert\Length(
+        min: 8, 
+        max: 128,
+        minMessage: 'content.too_short_title',
+        maxMessage: 'content.too_long_title'
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::STRING, length: 128, unique: true)]

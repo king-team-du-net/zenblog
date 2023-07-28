@@ -6,8 +6,10 @@
 {% block title pagetitle %}
 
 {% block content %}
-	<h1 class="text-danger">{{ pagetitle }}</h1>
-	<!-- ======= Comments Form ======= -->
-	{{ include('frontend/comment/form.html.twig', { commentForm }) }}
-	<!-- End Comments Form -->
+	{# <turbo-stream action="update" target="new-comment-form"> #}
+		{# <template> #}
+			<h1 class="text-danger">{{ pagetitle }}</h1>
+			{{ include('frontend/comment/form.html.twig', { commentForm }) }}
+		{# </template> #}
+	{# </turbo-stream> #}
 {% endblock %}

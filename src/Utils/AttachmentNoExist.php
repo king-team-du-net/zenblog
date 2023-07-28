@@ -10,7 +10,7 @@
 
 namespace App\Utils;
 
-use App\Entity\Attachment;
+use App\Entity\Image\Attachment;
 
 class AttachmentNoExist extends Attachment
 {

@@ -1,0 +1,43 @@
+{% extends 'layouts/page.html.twig' %}
+
+{% set pagetitle = revision.target.name %}
+{% block title pagetitle %}
+
+{% block breadcrumb %}
+    {{ include("global/breadcrumb.html.twig", {navigations: [
+        {routename: "blog", label: "Blog"|trans},
+        {routename: "blog_article", routeParams: {slug: revision.target.slug}, label: revision.target.name|raw|striptags|slice(0, 10)|raw},
+        {label: pagetitle}
+    ]}) }}
+{% endblock %}
+
+{% block content %}
+    <section class="container pt-xl-2 pb-5 mb-md-2 mb-lg-4 mb-xl-5" id="form-revision">
+        <div class="card border-0 bg-secondary pt-2 p-md-2 p-xl-3 p-xxl-4 mt-n3 mt-md-0">
+            <div class="card-body">
+                <h2 class="pb-2 pb-lg-3 pb-xl-4">
+                    {{ 'Suggest a change'|trans }}
+                </h2>
+                {{ form_start(form, {'method': 'post', 'attr': {'class': 'row needs-validation g-4'}}) }}
+                    {{ form_errors(form) }}
+                    <div class="col-sm-12">
+                        <p>
+                            {{ 'Here you can propose your modifications on the article'|trans }}
+                            "<a href="{{ path(revision.target) }}">{{ revision.target.name }}</a>" {{'to correct a mistake
+                            spelling or add additional details.|trans'}}
+                            {{ 'Your changes will then be validated by an administrator.'|trans }}
+                        </p>
+                    </div>
+                    <div class="col-12">
+                        <div id="page-editor">
+                            {{ form_row(form.content, {label: false}) }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary" formnovalidate>{{ "Validate the changes"|trans }}</button>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}

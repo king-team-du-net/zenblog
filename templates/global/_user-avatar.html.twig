@@ -3,3 +3,33 @@
 {% else %}
     <img src="{{ asset('uploads/user/' ~ app.user.avatar) }}" class="avatar-img rounded-circle" alt="{{ app.user.nickname }}">
 {% endif %}
+
+{#
+
+{% if is_granted('ROLE_USER') %}
+    <span class="avatar"{% if app.user.avatar %}  style="background: url('{{ asset('uploads/user/' ~ app.user.avatar)) }}');"{% elseif user.facebookProfilePicture %} style="background: url('{{ user.facebookProfilePicture }}');"{% endif %} {% if showusernametooltip is defined %}data-toggle="tooltip" title="{{ app.user.nickname }}" data-container="body"{% endif %} >
+        {% if not app.user.avatar and not user.facebookProfilePicture %}
+            <i class="bi bi-person-circle fs-4 me-2"></i>
+        {% endif %}
+    </span>
+{% elseif is_granted('ROLE_ADMIN') %}
+    <span class="avatar"{% if app.user.avatar %}  style="background: url('{{ asset('uploads/user/' ~ app.user.avatar)) }}');"{% elseif user.facebookProfilePicture %} style="background: url('{{ user.facebookProfilePicture }}');"{% endif %} {% if showusernametooltip is defined %}data-toggle="tooltip" title="{{ app.user.nickname }}" data-container="body"{% endif %} >
+        {% if not app.user.avatar and not user.facebookProfilePicture %}
+            <i class="bi bi-person-circle fs-4 me-2"></i>
+        {% endif %}
+    </span>
+{% elseif is_granted('ROLE_ADMINISTRATOR') %}
+    <span class="avatar"{% if app.user.avatar %}  style="background: url('{{ asset('uploads/user/' ~ app.user.avatar)) }}');"{% elseif user.facebookProfilePicture %} style="background: url('{{ user.facebookProfilePicture }}');"{% endif %} {% if showusernametooltip is defined %}data-toggle="tooltip" title="{{ app.user.nickname }}" data-container="body"{% endif %} >
+        {% if not app.user.avatar and not user.facebookProfilePicture %}
+            <i class="bi bi-person-circle fs-4 me-2"></i>
+        {% endif %}
+    </span>
+{% elseif is_granted('ROLE_EDITOR') %}
+    <span class="avatar"{% if app.user.avatar %}  style="background: url('{{ asset('uploads/user/' ~ app.user.avatar)) }}');"{% elseif user.facebookProfilePicture %} style="background: url('{{ user.facebookProfilePicture }}');"{% endif %} {% if showusernametooltip is defined %}data-toggle="tooltip" title="{{ uapp.user.nickname }}" data-container="body"{% endif %} >
+        {% if not app.user.avatar and not user.facebookProfilePicture %}
+            <i class="bi bi-person-circle fs-4 me-2"></i>
+        {% endif %}
+    </span>
+{% endif %}
+
+#}

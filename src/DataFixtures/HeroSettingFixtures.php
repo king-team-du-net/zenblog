@@ -26,15 +26,15 @@ final class HeroSettingFixtures extends Fixture
     {
         $homepages = [
             1 => [
-                'title' => 'Post',
-                'paragraph' => 'Online Post Management And Categories',
+                'title' => 'Tech. Ad. Science.',
+                'paragraph' => 'The latest technology news and daily updates',
                 'content' => 'custom',
 
-                'custom_background_name' => '5d99d60e41207545475471.jpg',
+                'custom_background_name' => '5d99d60e41207545475471.png',
                 'custom_background_size' => 346806,
-                'custom_background_mime_type' => 'image/jpeg',
-                'custom_background_original_name' => 'post.jpg',
-                'custom_background_dimensions' => '1500,1000',
+                'custom_background_mime_type' => 'image/png',
+                'custom_background_original_name' => 'bg.png',
+                'custom_background_dimensions' => '1278,325',
 
                 'show_search_box' => 1,
             ],

@@ -10,7 +10,7 @@
 
 namespace App\Form\Type;
 
-use App\Interface\DataTransformer\TagArrayToStringTransformer;
+use App\Form\DataTransformer\ArrayTagToStringTransformer;
 use App\Repository\TagRepository;
 use Symfony\Bridge\Doctrine\Form\DataTransformer\CollectionToArrayTransformer;
 use Symfony\Component\Form\AbstractType;
@@ -30,7 +30,7 @@ final class TagsInputType extends AbstractType
     {
         $builder
             ->addModelTransformer(new CollectionToArrayTransformer(), true)
-            ->addModelTransformer(new TagArrayToStringTransformer($this->tags), true)
+            ->addModelTransformer(new ArrayTagToStringTransformer($this->tags), true)
         ;
     }
 

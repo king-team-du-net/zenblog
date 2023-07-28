@@ -23,7 +23,7 @@ final class PostSubscriber implements EventSubscriberInterface
     {
         /** @var Post $post */
         $post = $event->getSubject();
-        $post->setPublishedAt(new \DateTimeImmutable());
+        $post->setPublishedAt(new \DateTime());
     }
 
     /**

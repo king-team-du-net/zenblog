@@ -42,8 +42,11 @@ class Review
     #[Assert\NotNull]
     private ?bool $visible = true;
 
+    //#[ORM\ManyToOne(inversedBy: 'reviews')]
+    //private ?Post $post = null;
+
     #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?Post $post = null;
+    private ?Ad $ad = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
     private ?User $user = null;
@@ -99,6 +102,7 @@ class Review
         return $this;
     }
 
+    /*
     public function getPost(): ?Post
     {
         return $this->post;
@@ -107,6 +111,19 @@ class Review
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+    */
+
+    public function getAd(): ?Ad
+    {
+        return $this->ad;
+    }
+
+    public function setAd(?Ad $ad): static
+    {
+        $this->ad = $ad;
 
         return $this;
     }

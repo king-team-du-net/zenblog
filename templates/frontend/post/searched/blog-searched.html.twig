@@ -26,7 +26,7 @@
                     <!-- Main Post START -->
                     <div class="col-lg-9 mx-auto">
                         {% for post in results %}
-                            {% include "global/_blog-searched-card.html.twig" with {post: post, showdate: 1} only %}
+                            {% include "global/_blog-searched-card.html.twig" with {post: post, thumbnailsize: [189, 189], showdate: 1} only %}
                         {% else %}
                             <p class="lead">{{'searched.no_results_for_your_query'|trans}}</p>
                         {% endfor %}

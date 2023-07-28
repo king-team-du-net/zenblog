@@ -6,16 +6,17 @@ Footer START -->
 		<hr>
 		<!-- Widgets START -->
 		<div class="row pt-5">
-			<!-- Footer Widget -->
-			<div class="col-md-6 col-lg-7 mb-4">
+			<!-- Footer Widget About -->
+			<div class="col-md-6 col-lg-6 mb-4">
 				<p class="h3 text-white">{{'footer.title_about'|trans}} {{ getSetting("website_name") }}</p>
 				<p class="mt-3">{{ getSetting("footer_about")|raw|nl2br }}</p>
 			</div>
 
-			<!-- Footer Widget -->
-			<div class="col-md-6 col-lg-3 mb-4">
+			<!-- Footer Widget Navigation -->
+			<div class="col-md-6 col-lg-4 mb-4">
 				<h5 class="mb-4 text-white">{{'footer.title_navigation'|trans}}</h5>
 				<div class="row">
+					<!-- Navigation -->
 					<div class="col-6">
 						<ul class="nav flex-column">
 							<li class="nav-item">
@@ -26,6 +27,11 @@ Footer START -->
 							<li class="nav-item">
 								<a class="nav-link pt-0" href="{{ path('blog') }}">
 									{{ "menu.blog"|trans }}
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pt-0" href="{{ path('generator_tool') }}">
+									{{ "menu.generator"|trans }}
 								</a>
 							</li>
 							<li class="nav-item">
@@ -66,6 +72,7 @@ Footer START -->
 							</li>
 						</ul>
 					</div>
+					<!-- Categories -->
 					<div class="col-6">
 						{% set show_post_category_footer = getSetting("show_post_category_footer") %}
 						{% if show_post_category_footer != "yes" %}
@@ -84,7 +91,7 @@ Footer START -->
 				</div>
 			</div>
 
-			<!-- Footer Widget -->
+			<!-- Footer Widget Social -->
 			<div class="col-sm-6 col-lg-2 mb-4">
 				<h5 class="mb-4 text-white">{{'footer.title_social'|trans}}</h5>
 				{% if getSetting("facebook_url") != "" or getSetting("instagram_url") != "" or getSetting("youtube_url") != "" or getSetting("twitter_url") != "" %}
@@ -146,28 +153,7 @@ Footer START -->
 					</div>
 				</div>
 				<div class="col-md-6 d-sm-flex align-items-center justify-content-center justify-content-md-end">
-					<!-- Language switcher -->
-					{% if routename and locales|split('|')|length > 2 %}
-						<div class="dropup me-0 me-sm-3 mt-3 mt-md-0 text-center text-sm-end">
-							<a class="dropdown-toggle text-primary-hover" href="#" role="button" id="languageSwitcher" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="flag flag-{{ app.request.locale|getLangFlag }} me-2"></i>
-								{{ app.request.locale|getLangName }}
-							</a>
-							<ul class="dropdown-menu min-w-auto" aria-labelledby="languageSwitcher">
-								{% for locale in locales|split('|') %}
-									{% if locale != "" and locale != app.request.locale %}
-										<li>
-											<a class="dropdown-item" href="{{ path(routename, routeparams|merge({'_locale' : locale})) }}">
-												<i class="flag flag-{{ locale|getLangFlag }} me-2"></i>
-												{{ locale|getLangName }}
-											</a>
-										</li>
-									{% endif %}
-								{% endfor %}
-							</ul>
-						</div>
-					{% endif %}
-					<!-- Links -->
+					<!-- Pages -->
 					<ul class="nav text-primary-hover text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
 						{% if getSetting('show_terms_of_service_page') == "yes" %}
 							<li class="nav-item">

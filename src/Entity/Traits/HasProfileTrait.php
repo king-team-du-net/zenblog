@@ -24,7 +24,6 @@ trait HasProfileTrait
 {
     use HasContactAndSocialMediaTrait;
     use HasLastLoginAndBannedAtTrait;
-    use HasReviewsAndFavoritesUsersTrait;
     use HasSocialLoggableTrait;
 
     #[ORM\Id]

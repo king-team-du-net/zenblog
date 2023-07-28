@@ -2,14 +2,22 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Auth;
 
 use App\Entity\User;
-use Symfony\Component\Uid\Uuid;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Interface\Mailer\MailSenderInterface;
 use App\Interface\Mailer\Mail\RegistrationMail;
+use App\Interface\Mailer\MailSenderInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Uid\Uuid;
 
 final class Registration implements RegistrationInterface
 {

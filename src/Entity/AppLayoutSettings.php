@@ -24,16 +24,14 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-// Install Vich in progress
 #[Entity(repositoryClass: AppLayoutSettingsRepository::class)]
 #[ORM\Table(name: 'app_layout_setting')]
-// #[Vich\Uploadable]
+#[Vich\Uploadable]
 class AppLayoutSettings
 {
     use HasIdTrait;
     use HasTimestampTrait;
 
-    /*
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'app_layout', fileNameProperty: 'logoName', size: 'logoSize', mimeType: 'logoMimeType', originalName: 'logoOriginalName', dimensions: 'logoDimensions')]
     #[Assert\File(
@@ -105,13 +103,11 @@ class AppLayoutSettings
 
     #[Column(type: Types::SIMPLE_ARRAY, nullable: true)]
     private array $ogImageDimensions = [];
-    */
 
     public function __construct()
     {
     }
 
-    /*
     public function setLogoFile(File|UploadedFile|null $logoFile)
     {
         $this->logoFile = $logoFile;
@@ -354,5 +350,4 @@ class AppLayoutSettings
     {
         return 'uploads/layout/'.$this->ogImageName;
     }
-    */
 }

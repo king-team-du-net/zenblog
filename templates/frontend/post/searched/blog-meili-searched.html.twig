@@ -1,0 +1,71 @@
+{% extends 'layouts/default.html.twig' %}
+
+{% if searchedQuery %}
+    {% set pagetitle = 'title.searched_result'|trans %}
+{% else %}
+    {% set pagetitle = 'title.searched_do_another_search'|trans %}
+{% endif %}
+{% block title pagetitle %}
+
+{% block content %}
+
+	<!-- =======================
+	Searched START -->
+	<section class="pt-4">
+		<div class="container">
+            <div class="row">
+                {% if searchedQuery %}
+                    <div class="col-lg-9 mx-auto text-center py-5">
+                        <span>{{'searched.results_for'|trans}}</span>
+                        <h2 class="display-5">{{ searchedQuery }}</h2>
+                        <span class="lead">🔍 {{ results|length }} {{'searched.results_found'|trans}}</span>
+                        <p class="text-center text-primary-hover text-muted">
+                            <a class="text-reset btn-link" href="{{ path('blog_searched', {'fetch_last_query': true}) }}">{{'searched.action_do_another_search'|trans}}</a>
+                        </p>
+                    </div>
+                    <!-- Main Post START -->
+                    <div class="col-lg-9 mx-auto">
+                        {% for post in results %}
+                            {% set link = path('blog_article', {slug: post.slug}) %}
+                            <!-- Card item START -->
+                            <div class="card border rounded-3 up-hover p-4 mb-2">
+                                <div class="row g-3">
+                                    <div class="col-sm-12">
+                                        <!-- Title -->
+                                        <h3 class="card-title">
+                                            <a href="{{ link }}" class="btn-link text-reset">{{ post._formatted.title|html_excerpt(30)|raw }}</a>
+                                        </h3>
+                                        <p>{{ post._formatted.excerpt|html_excerpt()|raw }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Card item END -->
+                        {% else %}
+                            <p class="lead">{{'searched.no_results_for_your_query'|trans}}</p>
+                        {% endfor %}
+                    </div>
+                    <!-- Main Post END -->
+                {% else %}
+                    <div class="col-lg-9 mx-auto text-center py-5">
+                        <h2 class="display-5">{{'searched.action_do_another_search'|trans}}</h2>
+                        <!-- Search -->
+                        <div class="row">
+                            <div class="col-sm-8 col-md-6 col-lg-5 mx-auto">
+                                {{ form_start(searchedForm, {'attr': {'class': 'input-group mt-4'}}) }}
+                                    {{ form_widget(searchedForm.q, {'attr': {'class': 'form-control form-control-lg border-success'}}) }}
+                                    <button type="submit" class="btn btn-success btn-lg m-0" formnovalidate>
+                                        <span class="d-none d-md-block">{{'searched.action_search'|trans}}</span>
+                                        <i class="d-block d-md-none fas fa-search"></i>
+                                    </button>
+                                {{ form_end(searchedForm) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+		</div>
+	</section>
+	<!-- =======================
+	Searched END -->
+
+{% endblock %}

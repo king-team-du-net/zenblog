@@ -12,20 +12,22 @@ declare(strict_types=1);
 
 namespace App\Form;
 
-use App\Entity\Category;
 use App\Entity\Post;
-use App\Form\Type\DatePickerType;
+use App\Entity\Category;
 use App\Form\Type\DropzoneType;
 use App\Form\Type\TagInputType;
+use App\Form\Type\TagsInputType;
+use App\Form\Type\DatePickerType;
 use App\Form\Type\TextEditorType;
-use App\Interface\DataTransformer\TagsTransformer;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\Type\DateTimePickerType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Interface\DataTransformer\TagsTransformer;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 final class PostType extends AbstractType
 {
@@ -57,11 +59,11 @@ final class PostType extends AbstractType
                 'label' => 'label.readtime',
                 'attr' => ['class' => 'touchspin-integer mb-2', 'data-min' => 1, 'data-max' => 1000000],
             ])
-            ->add('publishedAt', DatePickerType::class, [
+            ->add('publishedAt', DateTimePickerType::class, [
                 'label' => 'label.published_at',
                 'help' => 'help.post_publication',
             ])
-            ->add('tags', TagInputType::class, [
+            ->add('tags', TagsInputType::class, [
                 'required' => false,
             ])
             ->add('content', TextEditorType::class, [

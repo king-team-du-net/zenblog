@@ -14,6 +14,7 @@ use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasIPTrait;
 use App\Entity\Traits\HasIsApprovedTrait;
 use App\Entity\Traits\HasIsRGPDTrait;
+use App\Entity\Traits\HasRatingTrait;
 use App\Repository\CommentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -24,13 +25,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
-#[ORM\Table(name: 'blog_comment')]
 class Comment
 {
     use HasIdTrait;
     use HasIPTrait;
-    use HasIsRGPDTrait;
     use HasIsApprovedTrait;
+    use HasIsRGPDTrait;
+    use HasRatingTrait;
 
     public const COMMENT_LIMIT = 3;
 
@@ -40,17 +41,18 @@ class Comment
     #[Groups(['comment:read'])]
     private ?string $content = null;
 
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $rating = null;
-
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false)]
     #[Groups(['comment:read'])]
     private ?User $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
+    //#[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    //#[ORM\JoinColumn(nullable: false)]
+    private ?Ad $ad = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
     #[ORM\JoinColumn(onDelete: 'CASCADE')]
@@ -92,18 +94,6 @@ class Comment
         return $this;
     }
 
-    public function getRating(): ?int
-    {
-        return $this->rating;
-    }
-
-    public function setRating(int $rating): static
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -124,6 +114,18 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getAd(): ?Ad
+    {
+        return $this->ad;
+    }
+
+    public function setAd(?Ad $ad): static
+    {
+        $this->ad = $ad;
 
         return $this;
     }

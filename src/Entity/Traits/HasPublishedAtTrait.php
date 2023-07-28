@@ -12,10 +12,13 @@ namespace App\Entity\Traits;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Meilisearch\Bundle\Searchable;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 trait HasPublishedAtTrait
 {
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(Searchable::NORMALIZATION_GROUP)]
     private ?\DateTime $publishedAt = null;
 
     public function getPublishedAt(): ?\DateTime

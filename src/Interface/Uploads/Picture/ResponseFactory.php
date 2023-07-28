@@ -2,11 +2,19 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Uploads\Picture;
 
 use League\Flysystem\FilesystemOperator;
-use Symfony\Component\HttpFoundation\Request;
 use League\Glide\Responses\ResponseFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 final class ResponseFactory implements ResponseFactoryInterface

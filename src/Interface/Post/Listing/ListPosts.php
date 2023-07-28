@@ -2,13 +2,18 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Post\Listing;
 
 use App\Repository\PostRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-use function ceil;
-use function count;
 
 final class ListPosts implements ListPostsInterface
 {
@@ -26,7 +31,7 @@ final class ListPosts implements ListPostsInterface
 
         $limit = 10;
 
-        $pages = (int) ceil($total / $limit);
+        $pages = (int) \ceil($total / $limit);
 
         $links = [
             'self' => [
@@ -45,7 +50,7 @@ final class ListPosts implements ListPostsInterface
             'limit' => $limit,
             'pages' => $pages,
             'total' => $total,
-            'count' => count($posts),
+            'count' => \count($posts),
             '_links' => $links,
             '_embedded' => ['posts' => $posts],
         ];

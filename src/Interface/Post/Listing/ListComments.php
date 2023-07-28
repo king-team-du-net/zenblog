@@ -2,15 +2,19 @@
 
 declare(strict_types=1);
 
+/*
+ * @package Symfony Framework
+ *
+ * @author App bloggy <robertdequidt@gmail.com>
+ *
+ * @copyright 2022-2023
+ */
+
 namespace App\Interface\Post\Listing;
 
 use App\Entity\Post;
 use App\Repository\CommentRepository;
-
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-use function ceil;
-use function count;
 
 final class ListComments implements ListCommentsInterface
 {
@@ -28,7 +32,7 @@ final class ListComments implements ListCommentsInterface
 
         $limit = 5;
 
-        $pages = (int) ceil($total / $limit);
+        $pages = (int) \ceil($total / $limit);
 
         $links = [
             'self' => [
@@ -53,7 +57,7 @@ final class ListComments implements ListCommentsInterface
             'limit' => $limit,
             'pages' => $pages,
             'total' => $total,
-            'count' => count($comments),
+            'count' => \count($comments),
             '_links' => $links,
             '_embedded' => ['comments' => $comments],
         ];

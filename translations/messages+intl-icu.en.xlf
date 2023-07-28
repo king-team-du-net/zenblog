@@ -417,6 +417,14 @@
                 <target>Received a new email</target>
             </trans-unit>
 
+            <trans-unit id="message.revision_constraint">
+                <source>message.revision_constraint</source>
+                <target>The revision must have at least one change from the original article.</target>
+            </trans-unit>
+            <trans-unit id="message.comment_rgpd">
+                <source>message.comment_rgpd</source>
+                <target>You should rgpd to our terms.</target>
+            </trans-unit>
             <trans-unit id="message.access_denied">
                 <source>message.access_denied</source>
                 <target>Access is denied. You may not have the appropriate permissions to access this resource.</target>
@@ -458,6 +466,18 @@
                 <target><![CDATA[Your account is not activated <a href="{link}" class="btn btn-xs btn-dark ms-3 mb-0">Resend activation link</a> to return to your homepage]]></target>
             </trans-unit>
 
+            <trans-unit id="action.fix">
+                <source>action.fix</source>
+                <target>Suggest a fix</target>
+            </trans-unit>
+            <trans-unit id="action.go_back">
+                <source>action.go_back</source>
+                <target>Go back</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_home_page">
+                <source>action.back_to_home_page</source>
+                <target>Back to home page</target>
+            </trans-unit>
             <trans-unit id="action.generate_password">
                 <source>action.generate_password</source>
                 <target>Generate Password</target>
@@ -821,7 +841,7 @@
             </trans-unit>
             <trans-unit id="rating.out-of-5-stars">
                 <source>rating.out-of-5-stars</source>
-                <target>out of 5 stars</target>
+                <target>out of 5 stars *</target>
             </trans-unit>
             <trans-unit id="rating.reviews-count">
                 <source>rating.reviews-count</source>
@@ -848,6 +868,10 @@
                 <target>5 stars</target>
             </trans-unit>
 
+            <trans-unit id="label.publish_comment">
+                <source>label.publish_comment</source>
+                <target>Post comment</target>
+            </trans-unit>
             <trans-unit id="label.select_password_options">
                 <source>label.select_password_options</source>
                 <target>Select password options *</target>
@@ -1292,9 +1316,45 @@
                 <source>label.role</source>
                 <target>Role</target>
             </trans-unit>
+            <trans-unit id="label.review_rating">
+                <source>label.review_rating</source>
+                <target>Your rating (out of 5 stars) *</target>
+            </trans-unit>
+            <trans-unit id="label.review_rating_5">
+                <source>label.review_rating_5</source>
+                <target>5 stars</target>
+            </trans-unit>
+            <trans-unit id="label.review_rating_4">
+                <source>label.review_rating_4</source>
+                <target>4 stars</target>
+            </trans-unit>
+            <trans-unit id="label.review_rating_3">
+                <source>label.review_rating_3</source>
+                <target>3 stars</target>
+            </trans-unit>
+            <trans-unit id="label.review_rating_2">
+                <source>label.review_rating_2</source>
+                <target>2 stars</target>
+            </trans-unit>
+            <trans-unit id="label.review_rating_1">
+                <source>label.review_rating_1</source>
+                <target>1 star</target>
+            </trans-unit>
+            <trans-unit id="label.review_headline">
+                <source>label.review_headline</source>
+                <target>Your review headline</target>
+            </trans-unit>
+            <trans-unit id="label.review_details">
+                <source>label.review_details</source>
+                <target>Let the other attendee know more details about your experience</target>
+            </trans-unit>
+            <trans-unit id="label.comment_rgpd">
+                <source>label.comment_rgpd</source>
+                <target>Yes, I agree to privacy policy</target>
+            </trans-unit>
             <trans-unit id="label.comment_content">
                 <source>label.comment_content</source>
-                <target>Comment or opinion</target>
+                <target>Comment or opinion *</target>
             </trans-unit>
             <trans-unit id="label.comment_rating">
                 <source>label.comment_rating</source>
@@ -1519,6 +1579,10 @@
             <trans-unit id="menu.blog">
                 <source>menu.blog</source>
                 <target>Blog</target>
+            </trans-unit>
+            <trans-unit id="menu.generator">
+                <source>menu.generator</source>
+                <target>Password generation tool</target>
             </trans-unit>
             <trans-unit id="menu.categories">
                 <source>menu.categories</source>
@@ -2113,6 +2177,10 @@
                 <target>This user is already activated.</target>
             </trans-unit>
 
+            <trans-unit id="flash_success.revision_successfully">
+                <source>flash_success.revision_successfully</source>
+                <target>Your change has been saved, you can go back to your changes as long as they have not been validated.</target>
+            </trans-unit>
             <trans-unit id="flash_success.resend_verif_successfully">
                 <source>flash_success.resend_verif_successfully</source>
                 <target>Verification email sent successfully.</target>
