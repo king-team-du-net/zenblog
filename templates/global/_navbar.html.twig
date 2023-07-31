@@ -34,7 +34,7 @@
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle{{ routename == 'blog_categories' ? ' active' : '' }}" href="#" id="homeMenu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{'menu.categories'|trans}}</a>
 							<ul class="dropdown-menu" aria-labelledby="homeMenu">
-								{% set navbarpostcategories = getPostCategories({ order: "postscount", limit: 8, hidden: true }).getQuery().getResult() %}
+								{% set navbarpostcategories = getPostCategories({ order: "postscount", limit: 8, hidden: false }).getQuery().getResult() %}
 								{% for postcategory in navbarpostcategories %}
 									<li>
 										<a class="dropdown-item{{ routename == 'blog_categories' ? ' active' : '' }} text-{{ postcategory.color }}" href="{{ path('blog', { category: postcategory.slug }) }}">
@@ -44,7 +44,7 @@
 								{% endfor %}
 								<li>
 									<a href="{{ path('blog_categories') }}" class="dropdown-item">
-										<i class="fas fa-folder-open fa-fw"></i> {{ "menu.all_categories"|trans }}
+										<i class="fas fa-folder-open fa-fw"></i> {{ "menu.categories"|trans }}
 									</a>
 								</li>
 							</ul>

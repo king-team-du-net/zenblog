@@ -164,7 +164,7 @@
 	{% endif %}
 
 	{% if getSetting('homepage_categories_number') > 0 %}
-		CATEGORIES
+		CATEGORIES ADS
 	{% endif %}
 
 	{% if getSetting('homepage_posts_number') > 0 %}
@@ -177,11 +177,15 @@
 				<div class="row">
 					<div class="col-md-10 text-center">
 						<article class="text-dark text-center text-lg-left mb-3">
-							<h3>{{ "Are you ready to take your"|trans }} <b class="rotate-words">{% for category in getPostCategories({ order: "postscount", limit: 9, hidden: true }).getQuery().getResult() %}{{ category.name|lower }}{% if not loop.last %}|{% endif %}{% endfor %}</b> {{ "event to the next level ?"|trans }}</h3>
+							<h3>{{ "label.are_you_ready_to_take_your"|trans }} <b class="rotate-words">{% for adCategory in getAdCategories({ isFeatured: true, order: "adscount", limit: 9, isHidden: false }).getQuery().getResult() %}{{ adCategory.name|lower }}{% if not loop.last %}|{% endif %}{% endfor %}</b> {{ "label.ad_to_the_next_level"|trans }}</h3>
 						</article>
 					</div>
 					<div class="col-md-2 text-center text-lg-right">
-						<a href="" class="btn btn-light"><i class="fas fa-calendar-plus"></i> {{ "Create my event"|trans }}</a>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<a href="{{ path('ads_create') }}" class="btn btn-light"><i class="fas fa-calendar-plus"></i> {{ "menu.ad"|trans }}</a>
+						{% else %}
+							<a href="{{ path('auth_login') }}" class="btn btn-light"><i class="fas fa-calendar-plus"></i> {{ 'menu.auth'|trans }}!</a>
+						{% endif %}
 					</div>
 				</div>
 			</div>

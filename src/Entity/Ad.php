@@ -11,10 +11,18 @@
 namespace App\Entity;
 
 use App\Entity\Image\Media;
+use App\Entity\Traits\HasContactAndSocialMediaTrait;
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasIsFeaturedTrait;
 use App\Entity\Traits\HasIsPortfolioTrait;
+use App\Entity\Traits\HasIsPublishedTrait;
+use App\Entity\Traits\HasPublishedAtTrait;
 use App\Entity\Traits\HasReferenceTrait;
 use App\Entity\Traits\HasStateTrait;
+use App\Entity\Traits\HasTagTrait;
+use App\Entity\Traits\HasTimestampTrait;
+use App\Entity\Traits\HasTitleAndSlugAndAssertTrait;
 use App\Entity\Traits\HasViewsTrait;
 use App\Repository\AdRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -29,13 +37,33 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: AdRepository::class)]
 #[UniqueEntity(fields: ['title'], message: 'ad.title_unique')]
 // #[ORM\Table(name: 'ad')]
-class Ad extends Content
+class Ad
 {
+    use HasIdTrait;
+    use HasTitleAndSlugAndAssertTrait;
     use HasIsFeaturedTrait;
     use HasIsPortfolioTrait;
+    use HasIsPublishedTrait;
     use HasReferenceTrait;
-    use HasStateTrait;
     use HasViewsTrait;
+    use HasTagTrait;
+    use HasContactAndSocialMediaTrait;
+    //use HasStateTrait;
+    //use HasPublishedAtTrait;
+    use HasTimestampTrait;
+    use HasDeletedAtTrait;
+
+    public const AD_LIMIT = 4;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
+    private ?string $content = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 10)]
+    private ?string $excerpt = null;
 
     #[ORM\Column(type: Types::FLOAT)]
     private ?float $price = null;
@@ -43,9 +71,9 @@ class Ad extends Content
     #[ORM\Column(type: Types::INTEGER)]
     private ?int $rooms = null;
 
-    //#[ORM\ManyToOne(inversedBy: 'ads')]
-    //#[ORM\JoinColumn(nullable: false)]
-    //private ?User $author = null;
+    #[ORM\ManyToOne(inversedBy: 'ads')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
 
     #[ORM\ManyToOne(inversedBy: 'ads', cascade: ['persist'])]
     private ?HomepageHeroSettings $isonhomepageslider = null;
@@ -100,7 +128,8 @@ class Ad extends Content
 
     #[ORM\ManyToOne(inversedBy: 'ads')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?AdCategory $categories = null;
+    #[Assert\NotNull(groups: ['create', 'update'])]
+    private ?AdCategory $adCategory = null;
 
     public function __construct()
     {
@@ -111,6 +140,35 @@ class Ad extends Content
         $this->addedtofavoritesby = new ArrayCollection();
         $this->reference = $this->generateReference(10);
         $this->views = 0;
+    }
+
+    public function __toString(): string
+    {
+        return sprintf('#%d %s', $this->getId(), $this->getTitle());
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): static
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(string $excerpt): static
+    {
+        $this->excerpt = $excerpt;
+
+        return $this;
     }
 
     public function getPrice(): ?float
@@ -137,7 +195,6 @@ class Ad extends Content
         return $this;
     }
 
-    /*
     public function getAuthor(): ?User
     {
         return $this->author;
@@ -149,7 +206,6 @@ class Ad extends Content
 
         return $this;
     }
-    */
 
     public function getIsonhomepageslider(): ?HomepageHeroSettings
     {
@@ -493,14 +549,14 @@ class Ad extends Content
         return $this;
     }
 
-    public function getCategories(): ?AdCategory
+    public function getAdCategory(): ?AdCategory
     {
-        return $this->categories;
+        return $this->adCategory;
     }
 
-    public function setCategories(?AdCategory $categories): static
+    public function setAdCategory(?AdCategory $adCategory): static
     {
-        $this->categories = $categories;
+        $this->adCategory = $adCategory;
 
         return $this;
     }

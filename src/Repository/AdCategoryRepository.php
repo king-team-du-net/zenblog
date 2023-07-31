@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\AdCategory;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<AdCategory>
@@ -21,28 +22,54 @@ class AdCategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, AdCategory::class);
     }
 
-//    /**
-//     * @return AdCategory[] Returns an array of AdCategory objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Returns the ads categories after applying the specified search criterias.
+     *
+     * @param bool   $isHidden
+     * @param string $keyword
+     * @param string $slug
+     * @param bool   $isFeatured
+     * @param int    $limit
+     * @param string $order
+     * @param string $sort
+     */
+    public function getAdCategories($isHidden, $keyword, $slug, $isFeatured, $limit, $order, $sort): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select("DISTINCT c");
 
-//    public function findOneBySomeField($value): ?AdCategory
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ('all' !== $isHidden) {
+            $qb->andWhere('c.isHidden = :isHidden')->setParameter('isHidden', $isHidden);
+        }
+
+        if ('all' !== $keyword) {
+            $qb->andWhere('c.name LIKE :keyword or :keyword LIKE c.name')->setParameter('keyword', '%'.$keyword.'%');
+        }
+
+        if ('all' !== $slug) {
+            $qb->andWhere('c.slug = :slug')->setParameter('slug', $slug);
+        }
+
+        if ("all" !== $isFeatured) {
+            $qb->andWhere("c.isFeatured = :isFeatured")->setParameter("isFeatured", $isFeatured);
+            if ($isFeatured === true) {
+                $qb->orderBy("c.featuredorder", "ASC");
+            }
+        }
+
+        if ('all' !== $limit) {
+            $qb->setMaxResults($limit);
+        }
+
+        if ('adscount' === $order) {
+            $qb->leftJoin('c.ads', 'ads');
+            $qb->addSelect('COUNT(ads.id) AS HIDDEN adscount');
+            $qb->orderBy('adscount', 'DESC');
+            $qb->groupBy('c.id');
+        } else {
+            $qb->orderBy($order, $sort);
+        }
+
+        return $qb;
+    }
 }

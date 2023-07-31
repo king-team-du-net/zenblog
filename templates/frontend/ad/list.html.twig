@@ -1,0 +1,43 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div data-controller="ads"
+            data-user-id="{{ is_granted('ROLE_USER') ? app.user.id : null }}"
+            data-delete-ad-by-owner-only="{{ delete_ad_by_owner_only }}"
+            data-update-ad-by-owner-only="{{ update_ad_by_owner_only }}">
+            <template data-ads-target="template">
+                <div class="col-12 col-sm-6 col-xl-4 mb-3 position-relative">
+                    <a href="/${slug}" class="card">
+                        <img src="/uploads/ad/${cover}" alt="${title}" class="card-img-top">
+                        <div class="card-body">
+                            <h2 class="h5 card-title">${title}</h2>
+                            <div class="d-flex flex-column flex-xl-row gap-1 gap-xl-3 text-muted">
+                                <div>
+                                    <span class="fas fa-user"></span> ${author.nickname}
+                                </div>
+                                <div>
+                                    <span class="fas fa-calendar"></span> ${createdAt}
+                                </div>
+                                <div>
+                                    <span class="fas fa-tag"></span> ${adCategory.name}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="card-options">
+                        ${canBeUpdated ? '<a href="/' + slug + '/update" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>' : ''}
+                        ${canBeDeleted ? '<a href="/' + slug + '/delete" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>' : ''}
+                    </div>
+                </div>
+            </template>
+            <div class="row" data-ads-target="list"></div>
+            <div class="d-flex justify-content-center mt-3">
+                <button type="submit" class="btn btn-primary" data-action="ads#next" data-ads-target="loadMore">
+                    <i class="fa-solid fa-plus me-2"></i>
+                    Charger plus
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

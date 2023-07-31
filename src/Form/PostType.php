@@ -52,7 +52,7 @@ final class PostType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'required' => true,
-                'help' => 'help.post_category',
+                'help' => 'help.entity_category',
             ])
             ->add('readtime', TextType::class, [
                 'required' => false,

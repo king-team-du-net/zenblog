@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+
+/drivers/*
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
@@ -42,6 +44,10 @@ yarn-error.log
 # Uploads post
 /public/uploads/post/*
 !/public/uploads/post/image.png
+
+# Uploads ad
+/public/uploads/ad/*
+!/public/uploads/ad/image.png
 
 # Uploads homepage
 /public/uploads/home/hero/*

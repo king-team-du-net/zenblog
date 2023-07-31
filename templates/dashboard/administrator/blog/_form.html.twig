@@ -43,7 +43,7 @@
                         {% else %}
                             {% component alert with {type: 'info', class: 'mb-0 h-100 d-flex align-items-center text-center'} %}
                                 {% block content %}
-                                    {{ 'message.post_no_covers'|trans }}
+                                    {{ 'message.dropzone_no_covers'|trans }}
                                 {% endblock %}
                             {% endcomponent %}
                         {% endif %}
@@ -62,7 +62,7 @@
             {{ form_label(form.medias) }}
             {% component dropdown with {toggleClass: 'btn btn-sm btn-outline-primary'} %}
                 {% block toggle %}
-                    <span class="bi bi-plus" aria-label="{{ 'action.post_add'|trans }}"></span>
+                    <span class="fas fa-plus" aria-label="{{ 'action.post_add'|trans }}"></span>
                 {% endblock %}
 
                 {% block items %}
@@ -79,7 +79,7 @@
             {% else %}
                 <div class="col-12">
                     {% component alert with {type: 'info'} %}
-                        {% block content %} {{ 'post.add_medias'|trans }} {% endblock %}
+                        {% block content %} {{ 'dropzone.add_medias'|trans }} {% endblock %}
                     {% endcomponent %}
                 </div>
             {% endfor %}
@@ -87,7 +87,7 @@
     </div>
     <div class="col-md-12 text-start">
         <button type="submit" class="btn btn-primary btn-lg mb-3">
-            <i class="bi bi-save me-2"></i>
+            <i class="fa-solid fa-edit me-2"></i>
             {{ 'action.create'|trans }}
         </button>
         {{ form_widget(form.saveAndCreateNew, {label: 'action.save_and_create_new', attr: {class: 'btn btn-primary btn-lg mb-3'}}) }}

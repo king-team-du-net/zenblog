@@ -115,7 +115,7 @@
             </trans-unit>
             <trans-unit id="footer.title_social">
                 <source>footer.title_social</source>
-                <target>Nos poignées sociales</target>
+                <target>Sociales</target>
             </trans-unit>
             <trans-unit id="footer.title_about">
                 <source>footer.title_about</source>
@@ -433,8 +433,8 @@
                 <source>message.update_avatar</source>
                 <target>Vous n'avez pas encore d'avatar.</target>
             </trans-unit>
-            <trans-unit id="message.post_no_covers">
-                <source>message.post_no_covers</source>
+            <trans-unit id="message.dropzone_no_covers">
+                <source>message.dropzone_no_covers</source>
                 <target>Vous n'avez pas encore ajouté d'image de couverture.</target>
             </trans-unit>
             <trans-unit id="message.change_password">
@@ -714,6 +714,10 @@
                 <source>action.post_add</source>
                 <target>Ajouter un article</target>
             </trans-unit>
+            <trans-unit id="action.new_add">
+                <source>action.new_add</source>
+                <target>Ajouter un contenu</target>
+            </trans-unit>
             <trans-unit id="action.signin_facebook">
                 <source>action.signin_facebook</source>
                 <target>Connectez-vous avec Facebook</target>
@@ -742,6 +746,41 @@
                 <source>aria-label.searched</source>
                 <target>Recherche</target>
             </trans-unit>
+
+            <trans-unit id="placeholder.startDate">
+                <source>placeholder.startDate</source>
+                <target>La date à laquelle vous comptez arriver</target>
+            </trans-unit>
+            <trans-unit id="placeholder.endDate">
+                <source>placeholder.endDate</source>
+                <target>La date à laquelle vous quittez les lieux</target>
+            </trans-unit>
+            <trans-unit id="placeholder.comment">
+                <source>placeholder.comment</source>
+                <target>Si vous avez un commentaire, n'hésitez pas à en faire part !</target>
+            </trans-unit>
+            <trans-unit id="placeholder.ad_title">
+                <source>placeholder.ad_title</source>
+                <target>Tapez un super titre pour votre annonce</target>
+            </trans-unit>
+            <trans-unit id="placeholder.ad_excerpt">
+                <source>placeholder.ad_excerpt</source>
+                <target>Donnez une description globale de l'annonce</target>
+            </trans-unit>
+            <trans-unit id="placeholder.ad_content">
+                <source>placeholder.ad_content</source>
+                <target>Tapez une description qui donne vraiment envie de venir chez vous !</target>
+            </trans-unit>
+            <trans-unit id="placeholder.ad_rooms">
+                <source>placeholder.ad_rooms</source>
+                <target>Le nombre de chambres disponibles</target>
+            </trans-unit>
+            <trans-unit id="placeholder.ad_price">
+                <source>placeholder.ad_price</source>
+                <target>Indiquez le prix que vous voulez pour une nuit</target>
+            </trans-unit>
+
+
 
             <trans-unit id="placeholder.searched">
                 <source>placeholder.searched</source>
@@ -860,6 +899,45 @@
                 <source>rating.5-stars</source>
                 <target>5 étoiles</target>
             </trans-unit>
+
+
+            <trans-unit id="label.startDate">
+                <source>label.startDate</source>
+                <target>Date d'arrivée</target>
+            </trans-unit>
+            <trans-unit id="label.endDate">
+                <source>label.endDate</source>
+                <target>Date de départ</target>
+            </trans-unit>
+            <trans-unit id="label.ad_title">
+                <source>label.ad_title</source>
+                <target>Titre</target>
+            </trans-unit>
+            <trans-unit id="label.ad_excerpt">
+                <source>label.ad_excerpt</source>
+                <target>Introduction</target>
+            </trans-unit>
+            <trans-unit id="label.ad_content">
+                <source>label.ad_content</source>
+                <target>Description détaillée</target>
+            </trans-unit>
+            <trans-unit id="label.ad_rooms">
+                <source>label.ad_rooms</source>
+                <target>Nombre de chambres</target>
+            </trans-unit>
+            <trans-unit id="label.ad_price">
+                <source>label.ad_price</source>
+                <target>Prix par nuit</target>
+            </trans-unit>
+            <trans-unit id="label.are_you_ready_to_take_your">
+                <source>label.are_you_ready_to_take_your</source>
+                <target>Êtes-vous prêt à prendre votre</target>
+            </trans-unit>
+            <trans-unit id="label.ad_to_the_next_level">
+                <source>label.ad_to_the_next_level</source>
+                <target>annonce au niveau suivant ?</target>
+            </trans-unit>
+
 
             <trans-unit id="label.publish_comment">
                 <source>label.publish_comment</source>
@@ -1417,10 +1495,6 @@
                 <target>Activation de votre compte sur le site</target>
             </trans-unit>
 
-            <trans-unit id="menu.all_categories">
-                <source>menu.all_categories</source>
-                <target>Toutes les catégories</target>
-            </trans-unit>
             <trans-unit id="menu.terms_of_service_page">
                 <source>menu.terms_of_service_page</source>
                 <target>Termes</target>
@@ -1556,6 +1630,10 @@
             <trans-unit id="menu.impersonation_exit_path">
                 <source>menu.impersonation_exit_path</source>
                 <target>Revenir à mon accès</target>
+            </trans-unit>
+            <trans-unit id="menu.ad">
+                <source>menu.ad</source>
+                <target>Créer mon annonce</target>
             </trans-unit>
             <trans-unit id="menu.auth">
                 <source>menu.auth</source>
@@ -1708,6 +1786,11 @@
                 <target>Bienvenu</target>
             </trans-unit>
 
+            <trans-unit id="dropzone.add_medias">
+                <source>dropzone.add_medias</source>
+                <target>Ajouter un ou plusieurs médias à votre contenu.</target>
+            </trans-unit>
+
             <trans-unit id="post.resultsCount">
                 <source>post.resultsCount</source>
                 <target>{count, plural, one {# résultat trouvé} other {# résultats trouvé}}</target>
@@ -1731,10 +1814,6 @@
             <trans-unit id="post.no_comments">
                 <source>post.no_comments</source>
                 <target>Soyez le premier à commenter cet article.</target>
-            </trans-unit>
-            <trans-unit id="post.add_medias">
-                <source>post.add_medias</source>
-                <target>Ajouter un ou plusieurs médias à votre article.</target>
             </trans-unit>
             <trans-unit id="post.comment_reply">
                 <source>post.comment_reply</source>
@@ -1855,6 +1934,11 @@
             <trans-unit id="user.no_users_found">
                 <source>user.no_users_found</source>
                 <target>L'utilisateur est introuvable</target>
+            </trans-unit>
+
+            <trans-unit id="ad.no_ads_found">
+                <source>ad.no_ads_found</source>
+                <target>L'annonce est introuvable</target>
             </trans-unit>
 
             <trans-unit id="page.created_successfully">
@@ -2059,8 +2143,8 @@
                 <source>help.sender_comments</source>
                 <target>Laissez-le vide si vous le souhaitez (facultatif).</target>
             </trans-unit>
-            <trans-unit id="help.post_category">
-                <source>help.post_category</source>
+            <trans-unit id="help.entity_category">
+                <source>help.entity_category</source>
                 <target>Assurez-vous de sélectionner la bonne catégorie pour permettre aux utilisateurs de la trouver rapidement</target>
             </trans-unit>
             <trans-unit id="help.post_tags">
@@ -2165,6 +2249,24 @@
                 <source>flash_warning.resend_verif</source>
                 <target>Cet utilisateur est déjà activé.</target>
             </trans-unit>
+            <trans-unit id="flash_warning.booking_dates">
+                <source>flash_warning.booking_dates</source>
+                <target>Les dates que vous avez choisi ne peuvent être réservées : elles sont déjà prises.</target>
+            </trans-unit>
+
+
+            <trans-unit id="flash_success.ad_create_successfully">
+                <source>flash_success.ad_create_successfully</source>
+                <target>L'annonce a été créée avec succès.</target>
+            </trans-unit>
+            <trans-unit id="flash_success.ad_edit_successfully">
+                <source>flash_success.ad_edit_successfully</source>
+                <target>L'annonce a bien été modifiée avec succès.</target>
+            </trans-unit>
+            <trans-unit id="flash_success.ad_delete_successfully">
+                <source>flash_success.ad_delete_successfully</source>
+                <target>L'annonce a été supprimée avec succès.</target>
+            </trans-unit>
 
             <trans-unit id="flash_success.revision_successfully">
                 <source>flash_success.revision_successfully</source>
@@ -2222,6 +2324,14 @@
             <trans-unit id="throw.authentication_entry_point">
                 <source>throw.authentication_entry_point</source>
                 <target>Vous ne disposez pas des autorisations suffisantes pour effectuer cette action</target>
+            </trans-unit>
+            <trans-unit id="throw.transform_date">
+                <source>throw.transform_date</source>
+                <target>Le format de la date n'est pas le bon !</target>
+            </trans-unit>
+            <trans-unit id="throw.transform_french_date">
+                <source>throw.transform_french_date</source>
+                <target>Vous devez fournir une date !</target>
             </trans-unit>
         </body>
     </file>

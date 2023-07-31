@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace App\Service;
 
+use App\Entity\Ad;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Repository\CommentRepository;
@@ -52,14 +53,17 @@ final class CommentService
         return $this->paginator->paginate($commentsQuery, $page, $limit);
     }
 
-    public function createComment(
+    public function addComment(
         Comment $comment,
         FormInterface $form,
-        Post $post = null
+        Post $post = null,
+        Ad $ad = null
     ): void {
         $comment->setIp($this->stack->getMainRequest()?->getClientIp());
         $comment->setPost($post);
+        $comment->setAd($ad);
         $comment->setIsApproved(false);
+        $comment->setIsRGPD(true);
         $comment->setPublishedAt(new \DateTime('now'));
 
         $parentid = $form->get('parentid')->getData();

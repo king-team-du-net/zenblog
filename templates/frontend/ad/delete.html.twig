@@ -1,0 +1,32 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% block body %}
+    <div class="container flex-grow-1">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-9 col-lg-6 col-xl-5">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-5">
+                        <h1 class="h3 mb-5 fw-bold">{{ ad.title }}</h1>
+                        {{ form_start(form) }}
+                        <div class="alert alert-warning fw-bold">Êtes-vous sûr de vouloir supprimer cette ad ?</div>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <a href="{{ path('ad_list') }}" class="w-100 order-1 order-sm-0 btn btn-light mb-3">
+                                    <i class="fa-solid fa-right-from-bracket me-2"></i>
+                                    Retour
+                                </a>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <button type="submit" class="w-100 order-0 order-sm-1 btn btn-danger mb-3">
+                                    <i class="fa-solid fa-trash me-2"></i>
+                                    Supprimer
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

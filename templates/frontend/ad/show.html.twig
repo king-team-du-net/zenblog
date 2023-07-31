@@ -1,0 +1,87 @@
+{% extends 'layouts/blog.html.twig' %}
+
+{% block body_class %}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="carousel-medias" class="carousel slide">
+                    <div class="carousel-inner">
+                        {% for media in ad.medias %}
+                            <div class="carousel-item {{ loop.first ? 'active'}} ratio-16x9">
+                                {% if media.type == 'image' %}
+                                    <img src="{{ asset('uploads/ad/' ~ media.filename) }}" class="d-block object-fit-cover h-100 w-100" alt="{{ media.alt }}">
+                                {% else %}
+                                    {{ component('video', {video: media}) }}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel-medias" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Précédent</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel-medias" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Suivant</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="card border-0 shadow">
+                    <div class="card-body p-5">
+                        <h1 class="h3 fw-bold text-uppercase mb-3">{{ ad.title }}</h1>
+                        <div class="d-flex gap-3 text-muted mb-4">
+                            <div>
+                                <span class="fas fa-user"></span> {{ ad.author.nickname }}
+                            </div>
+                            <div>
+                                <span class="fas fa-calendar"></span> {{ ad.createdAt|ago }}
+                            </div>
+                            <div>
+                                <span class="fas fa-tag"></span> {{ ad.adCategory.name }}
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            {{ ad.content|nl2br }}
+                        </p>
+                    </div>
+                </div>
+                {% if is_granted('ROLE_USER') %}
+                    <div class="card border-0 shadow mt-4">
+                        <div class="card-body px-5 py-4">
+                            {{ component('comment_trick', {comment: comment.id is null ? null : comment, form: form}) }}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="my-4" data-controller="comments" data-ad-id="{{ ad.id }}">
+                    <template data-comments-target="template">
+                        <div class="list-group-item d-flex">
+                            <div class="flex-shrink-0">
+                                <img src="${author.avatar}" class="rounded-circle object-fit-cover" width="50" height="50" alt="${author.nickname}">
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="d-flex justify-content-between">
+                                    <span class="mb-0 fw-bold">${author.nickname}</span>
+                                    <small class="text-muted">${createdAt}</small>
+                                </div>
+                                ${content}
+                            </div>
+                        </div>
+                    </template>
+                    <div data-comments-target="list" class="list-group"></div>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-primary" data-action="comments#next" data-comments-target="loadMore">
+                            <i class="fa-solid fa-plus me-2"></i>
+                            Charger plus
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

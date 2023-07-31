@@ -54,6 +54,10 @@ trait HasContactAndSocialMediaTrait
     #[Assert\Length(max: 255)]
     private ?string $linkedinurl = null;
 
+    #[ORM\Column(type: Types::STRING, length: 500, nullable: true)]
+    #[Assert\Length(max: 500)]
+    private ?string $artists = null;
+
     public function hasContactAndSocialMedia(): bool
     {
         return $this->externallink || $this->phonenumber || $this->youtubeurl || $this->twitterurl || $this->instagramurl || $this->email || $this->facebookurl || $this->googleplusurl || $this->linkedinurl;
@@ -163,6 +167,18 @@ trait HasContactAndSocialMediaTrait
     public function setLinkedinUrl(?string $linkedinurl): static
     {
         $this->linkedinurl = $linkedinurl;
+
+        return $this;
+    }
+
+    public function getArtists(): ?string
+    {
+        return $this->artists;
+    }
+
+    public function setArtists(?string $artists): static
+    {
+        $this->artists = $artists;
 
         return $this;
     }

@@ -10,7 +10,6 @@
 
 namespace App\Entity\Traits;
 
-use App\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 

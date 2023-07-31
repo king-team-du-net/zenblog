@@ -25,7 +25,6 @@ final class PageFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         /** @var string $content */
-        //$content = $this->faker()->paragraphs(8, true);
         $content = $this->getContentMarkdown();
 
         $pages = [

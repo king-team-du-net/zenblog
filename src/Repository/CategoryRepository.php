@@ -110,20 +110,20 @@ class CategoryRepository extends ServiceEntityRepository
     /**
      * Returns the blog posts categories after applying the specified search criterias.
      *
-     * @param bool   $hidden
+     * @param bool   $isHidden
      * @param string $keyword
      * @param string $slug
      * @param int    $limit
      * @param string $order
      * @param string $sort
      */
-    public function getPostCategories($hidden, $keyword, $slug, $limit, $order, $sort): QueryBuilder
+    public function getPostCategories($isHidden, $keyword, $slug, $limit, $order, $sort): QueryBuilder
     {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c');
 
-        if ('all' !== $hidden) {
-            $qb->andWhere('c.hidden = :hidden')->setParameter('hidden', $hidden);
+        if ('all' !== $isHidden) {
+            $qb->andWhere('c.isHidden = :isHidden')->setParameter('isHidden', $isHidden);
         }
 
         if ('all' !== $keyword) {

@@ -40,8 +40,6 @@ final class SettingFixtures extends Fixture
     {
         /** @var string $content */
         $content = $this->faker()->realText(236);
-        // $about_excerpt = $this->faker()->paragraphs();
-        // $about_content = $this->faker()->paragraphs();
 
         $settings = [
             1 => [

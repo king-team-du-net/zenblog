@@ -16,7 +16,7 @@ use App\Entity\Image\Media;
 use App\Entity\Traits\HasContentTrait;
 use App\Entity\Traits\HasDeletedAtTrait;
 use App\Entity\Traits\HasExcerptTrait;
-use App\Entity\Traits\HasHiddenTrait;
+use App\Entity\Traits\HasIsHiddenTrait;
 use App\Entity\Traits\HasPublishedAtTrait;
 use App\Entity\Traits\HasStateTrait;
 use App\Entity\Traits\HasTimestampTrait;
@@ -39,13 +39,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Post
 {
     use HasContentTrait;
-    use HasDeletedAtTrait;
     use HasExcerptTrait;
-    use HasHiddenTrait;
-    use HasPublishedAtTrait;
+    use HasIsHiddenTrait;
     use HasStateTrait;
-    use HasTimestampTrait;
     use HasViewsTrait;
+    use HasPublishedAtTrait;
+    use HasTimestampTrait;
+    use HasDeletedAtTrait;
 
     public const POST_LIMIT = 4;
 

@@ -21,9 +21,12 @@ twig:
         date_format_date_only: "%date_format_date_only%"
         date_timezone: "%date_timezone%"
 
-        # Delete & Update Post
+        # Delete & Update Post\Ad
         delete_post_by_owner_only: '%post.delete.by_owner_only%'
         update_post_by_owner_only: '%post.update.by_owner_only%'
+
+        delete_ad_by_owner_only: '%ad.delete.by_owner_only%'
+        update_ad_by_owner_only: '%ad.update.by_owner_only%'
 
     date:
         format: "%date_format%"

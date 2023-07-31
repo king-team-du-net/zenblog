@@ -84,8 +84,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
     #[ORM\OneToMany(mappedBy: 'booker', targetEntity: Booking::class)]
     private Collection $bookings;
 
-    //#[ORM\OneToMany(mappedBy: 'author', targetEntity: Ad::class)]
-    //private Collection $ads;
+    /**
+     * @var Collection<int, Ad>
+     */
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ad::class)]
+    private Collection $ads;
 
     /**
      * @var Collection<int, Ad>
@@ -107,7 +110,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         $this->posts = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->bookings = new ArrayCollection();
-        //$this->ads = new ArrayCollection();
+        $this->ads = new ArrayCollection();
         $this->favorites = new ArrayCollection();
         $this->reviews = new ArrayCollection();
     }
@@ -334,7 +337,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
         return $this;
     }
 
-    /*
+    /**
+     * @return Collection<int, Ad>
+     */
     public function getAds(): Collection
     {
         return $this->ads;
@@ -361,7 +366,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \String
 
         return $this;
     }
-    */
 
     /**
      * @return Collection<int, Ad>

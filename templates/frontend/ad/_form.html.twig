@@ -1,0 +1,101 @@
+<div class="container flex-grow-1">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12">
+            <div class="card border-0 shadow">
+                <div class="card-body p-5">
+                    <h1 class="h3 fw-bold">{{ action }} une figure</h1>
+                    {{ form_start(form, {attr: {class: 'mt-5'}}) }}
+                    {{ form_widget(form._token) }}
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            {{ form_row(form.title) }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            {{ form_row(form.adCategory) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            {{ form_row(form.rooms) }}
+                        </div>
+                        <div class="col-12 col-md-6">
+                            {{ form_row(form.price) }}
+                        </div>
+                    </div>
+                    <div class="row align-items-stretch mb-3">
+                        <div class="col-12 mb-3 col-lg-12 mb-lg-0">
+                            <div class="mb-3 d-flex flex-column h-100">
+                                {{ form_label(form.content) }}
+                                {{ form_widget(form.content, {attr: {class: 'flex-grow-1'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-lg-6 mb-lg-0 mt-3">
+                            <div class="mb-3 d-flex flex-column h-100">
+                                {{ form_label(form.excerpt) }}
+                                {{ form_widget(form.excerpt, {attr: {class: 'flex-grow-1'}}) }}
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3 col-lg-6 mb-lg-0 mt-3">
+                            {{ form_label(form.coverFile) }}
+                            <div class="row align-items-stretch">
+                                <div class="col-12 mb-3 col-sm-6 mb-sm-0">
+                                    <div class="ratio-1x1">
+                                        {% if ad.cover is not empty %}
+                                            <img src="{{ asset('uploads/ad/' ~ ad.cover) }}" width="100%" class="ratio-1x1 rounded border" alt="{{ ad.title }}">
+                                        {% else %}
+                                            {% component alert with {type: 'info', class: 'mb-0 h-100 d-flex align-items-center text-center'} %}
+                                                {% block content %}
+                                                    {{ 'message.dropzone_no_covers'|trans }}
+                                                {% endblock %}
+                                            {% endcomponent %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="ratio-1x1">
+                                        {{ form_widget(form.coverFile) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3" data-controller="collection" data-prototype="{{ include('components/image/media.html.twig', {form: form.medias.vars.prototype})|e('html') }}">
+                        <div class="mb-1 d-flex justify-content-between align-items-center">
+                            {{ form_label(form.medias) }}
+                            {% component dropdown with {toggleClass: 'btn btn-sm btn-outline-primary'} %}
+                                {% block toggle %}
+                                    <span class="fas fa-plus" aria-label="{{ 'action.new_add'|trans }}"></span>
+                                {% endblock %}
+
+                                {% block items %}
+                                    {{ component('dropdown_item', {label: 'action.addImage'|trans, 'data-action': 'collection#addImage'}) }}
+                                    {{ component('dropdown_item', {label: 'action.addVideo'|trans, 'data-action': 'collection#addVideo'}) }}
+                                {% endblock %}
+                            {% endcomponent %}
+                        </div>
+                        <div data-collection-target="items" class="row align-items-stretch">
+                            {% for media in form.medias %}
+                                <div class="col-12 col-sm-6 col-lg-4 media">
+                                    {% include 'components/image/media.html.twig' with {form: media} %}
+                                </div>
+                            {% else %}
+                                <div class="col-12">
+                                    {% component alert with {type: 'info'} %}
+                                        {% block content %} {{ 'dropzone.add_medias'|trans }} {% endblock %}
+                                    {% endcomponent %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column gap-2 align-items-center">
+                        <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                            <i class="fa-solid fa-edit me-2"></i>
+                            {{ action }}
+                        </button>
+                    </div>
+                    {{ form_end(form, {render_rest: false}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

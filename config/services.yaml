@@ -57,9 +57,12 @@ parameters:
     # All Upload
     images_directory: '%kernel.project_dir%/public/uploads/'
 
-    # Delete & Update Post
+    # Delete & Update Post\Ad
     post.delete.by_owner_only: true
     post.update.by_owner_only: false
+
+    ad.delete.by_owner_only: true
+    ad.update.by_owner_only: false
 
     # Resize Picture
     resize_picture_key: '%env(RESIZE_PICTURE_KEY)%'
@@ -102,9 +105,12 @@ services:
             # Website email
             string $emailSender: '%website_no_reply_email%'
 
-            # Delete & Update Post
+            # Delete & Update Post\Ad
             bool $deletePostByOwnerOnly: '%post.delete.by_owner_only%'
             bool $updatePostByOwnerOnly: '%post.update.by_owner_only%'
+
+            bool $deleteAdByOwnerOnly: '%ad.delete.by_owner_only%'
+            bool $updateAdByOwnerOnly: '%ad.update.by_owner_only%'
 
             # ResizerPictureController
             $projectDir: '%kernel.project_dir%'

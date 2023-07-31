@@ -27,6 +27,8 @@ use function Symfony\Component\String\u;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
+    const STATES = ['draft', 'reviewed', 'rejected', 'published'];
+
     use HasIdTrait;
     use HasIPTrait;
     use HasIsApprovedTrait;
@@ -34,6 +36,9 @@ class Comment
     use HasRatingTrait;
 
     public const COMMENT_LIMIT = 3;
+
+    #[ORM\Column(type: Types::STRING)]
+    private string $state = Comment::STATES[0];
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'comment.blank')]
@@ -80,6 +85,16 @@ class Comment
         $containsInvalidCharacters = null !== u($this->content)->indexOf('@');
 
         return !$containsInvalidCharacters;
+    }
+
+    public function getState(): string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): void
+    {
+        $this->state = $state;
     }
 
     public function getContent(): ?string

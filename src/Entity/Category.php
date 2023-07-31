@@ -14,7 +14,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\HasBackgroundAndColorTrait;
 use App\Entity\Traits\HasDeletedAtTrait;
-use App\Entity\Traits\HasHiddenTrait;
+use App\Entity\Traits\HasIsHiddenTrait;
 use App\Entity\Traits\HasIconTrait;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
@@ -33,10 +33,9 @@ class Category implements \Stringable
 {
     use HasIdTrait;
     use HasNameAndSlugAndAssertTrait;
-    // use HasIsPortfolioTrait;
     use HasBackgroundAndColorTrait;
     use HasIconTrait;
-    use HasHiddenTrait;
+    use HasIsHiddenTrait;
     use HasTimestampTrait;
     use HasDeletedAtTrait;
 

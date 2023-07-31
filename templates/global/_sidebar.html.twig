@@ -3,7 +3,7 @@
 	<!-- Categories -->
 	<div class="row g-2">
 		<h5>{{'sidebar.title_categories'|trans}}</h5>
-		{% set sidebarpostcategories = getPostCategories({ order: "postscount", limit: 4, hidden: true }).getQuery().getResult() %}
+		{% set sidebarpostcategories = getPostCategories({ order: "postscount", limit: 4, hidden: false }).getQuery().getResult() %}
 		{% for postcategory in sidebarpostcategories %}
 			<div class="d-flex justify-content-between align-items-center bg-{{ postcategory.color }} bg-opacity-15 rounded p-2 position-relative">
 				<h6 class="m-0 text-{{ postcategory.color }}">{{ postcategory.name }}</h6>

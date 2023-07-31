@@ -12,10 +12,12 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Ad;
+use App\Entity\User;
 use App\Entity\Review;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Review>
@@ -50,7 +52,23 @@ final class ReviewRepository extends ServiceEntityRepository
         }
     }
 
-    public function getReviews($keyword, $slug, $user, $post, $visible, $rating, $minrating, $maxrating, $limit, $count, $sort, $order): QueryBuilder
+    /**
+     * Returns the reviews after applying the specified search criterias
+     *
+     * @param string    $keyword
+     * @param string    $slug
+     * @param User|null $user
+     * @param Ad|null   $ad
+     * @param bool|null $visible
+     * @param int|null  $rating
+     * @param int       $minrating
+     * @param int       $maxrating
+     * @param int       $limit
+     * @param int       $count
+     * @param string    $sort
+     * @param string    $order
+     */
+    public function getReviews($keyword, $slug, $user, $ad, $visible, $rating, $minrating, $maxrating, $limit, $count, $sort, $order): QueryBuilder
     {
         $qb = $this->createQueryBuilder('r');
 
@@ -73,14 +91,9 @@ final class ReviewRepository extends ServiceEntityRepository
             $qb->andWhere('user.slug = :user')->setParameter('user', $user);
         }
 
-        if ('all' !== $post || 'all' !== $user) {
-            $qb->leftJoin('r.post', 'post');
+        if ('all' !== $ad || 'all' !== $user) {
+            $qb->leftJoin('r.ad', 'ad');
         }
-
-        /*if ($post !== "all") {
-            $qb->leftJoin("post.translations", "recipetranslations");
-            $qb->andWhere("posttranslations.slug = :post")->setParameter("post", $post);
-        }*/
 
         if ('all' !== $visible) {
             $qb->andWhere('r.visible = :visible')->setParameter('visible', $visible);

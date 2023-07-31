@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 trait HasIsApprovedTrait
 {
-    #[ORM\Column(type: Types::BOOLEAN)]
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => 0])]
     #[Assert\NotNull]
     private bool $isApproved = false;
 

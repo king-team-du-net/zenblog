@@ -10,21 +10,22 @@
 
 namespace App\Twig;
 
-use App\Entity\Setting;
+use App\Entity\Post;
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use Twig\TwigFunction;
+use App\Entity\Setting;
 use Doctrine\ORM\QueryBuilder;
 use Psr\Cache\CacheItemPoolInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 final class TwigSettingExtension extends AbstractExtension
 {
@@ -53,13 +54,17 @@ final class TwigSettingExtension extends AbstractExtension
             new TwigFunction('changeLinkLocale', [$this, 'changeLinkLocale']),
             new TwigFunction('disableSofDeleteFilterForAdmin', [$this, 'disableSofDeleteFilterForAdmin']),
             new TwigFunction('redirectToReferer', [$this, 'redirectToReferer']),
-            // new TwigFunction('getAppLayoutSettings', [$this, 'getAppLayoutSettings']),
+            new TwigFunction('getAppLayoutSettings', [$this, 'getAppLayoutSettings']),
             new TwigFunction('getRouteName', [$this, 'getRouteName']),
             new TwigFunction('getPages', [$this, 'getPages']),
             new TwigFunction('getReviews', [$this, 'getReviews']),
             new TwigFunction('getPostCategories', [$this, 'getPostCategories']),
             new TwigFunction('getPosts', [$this, 'getPosts']),
             new TwigFunction('getUsers', [$this, 'getUsers']),
+            new TwigFunction('getAds', [$this, 'getAds']),
+            new TwigFunction('getAdCategories', [$this, 'getAdCategories']),
+            new TwigFunction('getMenus', [$this, 'getMenus']),
+            new TwigFunction('getLinks', [$this, 'getLinks']),
         ];
     }
 
@@ -245,11 +250,11 @@ final class TwigSettingExtension extends AbstractExtension
     }
 
     // Returns the layout settings entity to be used in the twig templates
-    /*public function getAppLayoutSettings()
+    public function getAppLayoutSettings()
     {
         $appLayoutSettings = $this->entityManager->getRepository("App\Entity\AppLayoutSettings")->find(1);
         return $appLayoutSettings;
-    }*/
+    }
 
     // Get route name from path
     public function getRouteName($path = null)
@@ -281,7 +286,7 @@ final class TwigSettingExtension extends AbstractExtension
         $keyword = \array_key_exists('keyword', $criterias) ? $criterias['keyword'] : 'all';
         $slug = \array_key_exists('slug', $criterias) ? $criterias['slug'] : 'all';
         $user = \array_key_exists('user', $criterias) ? $criterias['user'] : 'all';
-        $post = \array_key_exists('post', $criterias) ? $criterias['post'] : 'all';
+        $ad = \array_key_exists('ad', $criterias) ? $criterias['ad'] : 'all';
         $visible = \array_key_exists('visible', $criterias) ? $criterias['visible'] : true;
         $rating = \array_key_exists('rating', $criterias) ? $criterias['rating'] : 'all';
         $minrating = \array_key_exists('minrating', $criterias) ? $criterias['minrating'] : 'all';
@@ -291,32 +296,30 @@ final class TwigSettingExtension extends AbstractExtension
         $sort = \array_key_exists('sort', $criterias) ? $criterias['sort'] : 'createdAt';
         $order = \array_key_exists('order', $criterias) ? $criterias['order'] : 'DESC';
 
-        return $this->entityManager->getRepository("App\Entity\Review")->getReviews($keyword, $slug, $user, $post, $visible, $rating, $minrating, $maxrating, $limit, $count, $sort, $order);
+        return $this->entityManager->getRepository("App\Entity\Review")->getReviews($keyword, $slug, $user, $ad, $visible, $rating, $minrating, $maxrating, $limit, $count, $sort, $order);
     }
 
     // Returns the blog posts categories after applying the specified search criterias
     public function getPostCategories($criterias): QueryBuilder
     {
         $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
-        $hidden = \array_key_exists('hidden', $criterias) ? $criterias['hidden'] : false;
+        $isHidden = \array_key_exists('isHidden', $criterias) ? $criterias['isHidden'] : false;
         $keyword = \array_key_exists('keyword', $criterias) ? $criterias['keyword'] : 'all';
         $slug = \array_key_exists('slug', $criterias) ? $criterias['slug'] : 'all';
         $limit = \array_key_exists('limit', $criterias) ? $criterias['limit'] : 'all';
         $order = \array_key_exists('order', $criterias) ? $criterias['order'] : 'ASC';
         $sort = \array_key_exists('sort', $criterias) ? $criterias['sort'] : 'createdAt';
 
-        return $this->entityManager->getRepository("App\Entity\Category")->getPostCategories($hidden, $keyword, $slug, $limit, $order, $sort);
+        return $this->entityManager->getRepository("App\Entity\Category")->getPostCategories($isHidden, $keyword, $slug, $limit, $order, $sort);
     }
 
     // Returns the blog posts after applying the specified search criterias
     public function getPosts($criterias): QueryBuilder
     {
         $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
-        $isOnHomepageSlider = \array_key_exists('isOnHomepageSlider', $criterias) ? $criterias['isOnHomepageSlider'] : 'all';
-        $addedtofavoritesby = \array_key_exists('addedtofavoritesby', $criterias) ? $criterias['addedtofavoritesby'] : 'all';
         $state = \array_key_exists('state', $criterias) ? $criterias['state'] : 'all';
         $selecttags = \array_key_exists('selecttags', $criterias) ? $criterias['selecttags'] : false;
-        $hidden = \array_key_exists('hidden', $criterias) ? $criterias['hidden'] : true;
+        $isHidden = \array_key_exists('isHidden', $criterias) ? $criterias['isHidden'] : true;
         $keyword = \array_key_exists('keyword', $criterias) ? $criterias['keyword'] : 'all';
         $slug = \array_key_exists('slug', $criterias) ? $criterias['slug'] : 'all';
         $category = \array_key_exists('category', $criterias) ? $criterias['category'] : 'all';
@@ -325,7 +328,7 @@ final class TwigSettingExtension extends AbstractExtension
         $sort = \array_key_exists('order', $criterias) ? $criterias['order'] : 'publishedAt';
         $order = \array_key_exists('order', $criterias) ? $criterias['order'] : 'DESC';
 
-        return $this->entityManager->getRepository("App\Entity\Post")->getPosts($isOnHomepageSlider, $addedtofavoritesby, $state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan);
+        return $this->entityManager->getRepository("App\Entity\Post")->getPosts($state, $selecttags, $isHidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan);
     }
 
     // Returns the users after applying the specified search criterias
@@ -349,5 +352,92 @@ final class TwigSettingExtension extends AbstractExtension
         $count = \array_key_exists('count', $criterias) ? $criterias['count'] : false;
 
         return $this->entityManager->getRepository("App\Entity\User")->getUsers($roles, $keyword, $nickname, $slug, $email, $firstname, $lastname, $about, $designation, $is_verified, $apiKey, $limit, $sort, $order, $count);
+    }
+
+    // Returns the ads after applying the specified search criterias
+    public function getAds($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $isOnHomepageSlider = \array_key_exists('isOnHomepageSlider', $criterias) ? $criterias['isOnHomepageSlider'] : 'all';
+        $addedtofavoritesby = \array_key_exists('addedtofavoritesby', $criterias) ? $criterias['addedtofavoritesby'] : 'all';
+        $isPublished = array_key_exists('isPublished', $criterias) ? $criterias['isPublished'] : true;
+        $keyword = \array_key_exists('keyword', $criterias) ? $criterias['keyword'] : 'all';
+        $slug = \array_key_exists('slug', $criterias) ? $criterias['slug'] : 'all';
+        $category = \array_key_exists('category', $criterias) ? $criterias['category'] : 'all';
+        $limit = \array_key_exists('limit', $criterias) ? $criterias['limit'] : 'all';
+        $otherthan = \array_key_exists('otherthan', $criterias) ? $criterias['otherthan'] : 'all';
+        $sort = \array_key_exists('sort', $criterias) ? $criterias['sort'] : 'createdAt';
+        $order = \array_key_exists('order', $criterias) ? $criterias['order'] : 'ASC';
+        $count = array_key_exists('count', $criterias) ? $criterias['count'] : false;
+
+        return $this->entityManager->getRepository("App\Entity\Ad")->getPosts($isOnHomepageSlider, $addedtofavoritesby, $isPublished, $keyword, $slug, $category, $limit, $sort, $order, $otherthan, $count);
+    }
+
+    // Returns the ads categories after applying the specified search criterias
+    public function getAdCategories($criterias): QueryBuilder
+    {
+        $this->disableSofDeleteFilterForAdmin($this->entityManager, $this->authChecker);
+        $isHidden = \array_key_exists('isHidden', $criterias) ? $criterias['isHidden'] : false;
+        $keyword = \array_key_exists('keyword', $criterias) ? $criterias['keyword'] : 'all';
+        $slug = \array_key_exists('slug', $criterias) ? $criterias['slug'] : 'all';
+        $isFeatured = array_key_exists('isFeatured', $criterias) ? $criterias['isFeatured'] : "all";
+        $limit = \array_key_exists('limit', $criterias) ? $criterias['limit'] : 'all';
+        $order = \array_key_exists('order', $criterias) ? $criterias['order'] : 'ASC';
+        $sort = \array_key_exists('sort', $criterias) ? $criterias['sort'] : 'createdAt';
+
+        return $this->entityManager->getRepository("App\Entity\AdCategory")->getAdCategories($isHidden, $keyword, $slug, $isFeatured, $limit, $order, $sort);
+    }
+
+    // Returns the menus (header and footer)
+    public function getMenus($criterias): QueryBuilder
+    {
+        $slug = array_key_exists('slug', $criterias) ? $criterias['slug'] : "all";
+        $menus = $this->entityManager->getRepository("App\Entity\Menu")->getMenus($slug);
+
+        return $menus;
+    }
+
+    // Generates a list of pages to be chosen in a menu element
+    public function getLinks(): array
+    {
+        $linksArray = array();
+
+        // Add static pages urls
+        $staticPages = $this->getPages(array())->getQuery()->getResult();
+        $staticPagesArray = array();
+        $staticPagesArray[$this->translator->trans('Homepage')] = $this->router->generate('homepage', ['_locale' => 'en']);
+        foreach ($staticPages as $staticPage) {
+            $staticPagesArray[$staticPage->getTitle()] = $this->router->generate('page', ['slug' => $staticPage->getSlug(), '_locale' => 'en']);
+        }
+        $staticPagesArray[$this->translator->trans('Contact')] = $this->router->generate('contact', ['_locale' => 'en']);
+        $linksArray[$this->translator->trans("Static Pages")] = $staticPagesArray;
+
+        // Add authentification pages urls
+        $authentificationPagesArray = array();
+        $authentificationPagesArray[$this->translator->trans('Login')] = $this->router->generate('auth_login', ['_locale' => 'en']);
+        $authentificationPagesArray[$this->translator->trans('Request Reset Password')] = $this->router->generate('auth_reset_password_request', ['_locale' => 'en']);
+        $authentificationPagesArray[$this->translator->trans('Registration')] = $this->router->generate('auth_registration', ['_locale' => 'en']);
+        $linksArray[$this->translator->trans("Authentification Pages")] = $authentificationPagesArray;
+
+        // Add Blog post pages urls
+        $blogPagesArray = array();
+        $blogPagesArray[$this->translator->trans('Blog page')] = $this->router->generate('blog', ['_locale' => 'en']);
+        /** @var Post $posts */
+        $posts = $this->getPosts(array())->getQuery()->getResult();
+        foreach ($posts as $post) {
+            $blogPagesArray[$this->translator->trans('Blog post') . ' - ' . $post->getTitle()] = $this->router->generate('blog_article', ['slug' => $post->getSlug(), '_locale' => 'en']);
+        }
+        $linksArray[$this->translator->trans("Blog Pages")] = $blogPagesArray;
+
+        // Add ad pages urls
+        $adPagesArray = array();
+        $adPagesArray[$this->translator->trans('Ads page')] = $this->router->generate('ads_list', ['_locale' => 'en']);
+        $ads = $this->getAds(array())->getQuery()->getResult();
+        foreach ($ads as $ad) {
+            $adPagesArray[$this->translator->trans('Ad') . ' - ' . $ad->getTitle()] = $this->router->generate('ads_show', ['slug' => $ad->getSlug(), '_locale' => 'en']);
+        }
+        $linksArray[$this->translator->trans("Ads Pages")] = $adPagesArray;
+
+        return $linksArray;
     }
 }

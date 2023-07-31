@@ -501,10 +501,9 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Returns the blog posts after applying the specified search criterias.
      *
-     * @param HomepageHeroSettings|null $isOnHomepageSlider
      * @param string                    $state
      * @param string                    $selecttags
-     * @param bool                      $hidden
+     * @param bool                      $isHidden
      * @param string                    $keyword
      * @param string                    $slug
      * @param Category                  $category
@@ -515,27 +514,19 @@ class PostRepository extends ServiceEntityRepository
      *
      * @return QueryBuilder<Post> (BlogController)
      */
-    public function getPosts($isOnHomepageSlider, $addedtofavoritesby, $state, $selecttags, $hidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan): QueryBuilder
+    public function getPosts($state, $selecttags, $isHidden, $keyword, $slug, $category, $limit, $sort, $order, $otherthan): QueryBuilder
     {
         $qb = $this->createQueryBuilder('p');
 
         if (!$selecttags) {
             $qb->select('p');
 
-            if (true === $isOnHomepageSlider) {
-                $qb->andWhere('p.isonhomepageslider IS NOT NULL');
-            }
-
-            if ('all' !== $addedtofavoritesby) {
-                $qb->andWhere(':addedtofavoritesbyuser MEMBER OF p.addedtofavoritesby')->setParameter('addedtofavoritesbyuser', $addedtofavoritesby);
-            }
-
             if ('all' !== $state) {
                 $qb->andWhere('p.state LIKE :state or :state LIKE p.state')->setParameter('state', '%published%');
             }
 
-            if ('all' !== $hidden) {
-                $qb->andWhere('p.hidden = :hidden')->setParameter('hidden', $hidden);
+            if ('all' !== $isHidden) {
+                $qb->andWhere('p.isHidden = :isHidden')->setParameter('isHidden', $isHidden);
             }
 
             if ('all' !== $keyword) {

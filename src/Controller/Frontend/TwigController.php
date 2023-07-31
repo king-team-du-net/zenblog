@@ -24,7 +24,7 @@ class TwigController extends AbstractController
     public function header(Request $request, CategoryRepository $category, int $maxResults = 6): Response
     {
         // Category
-        $navbarCategories = $category->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
+        $navbarCategories = $category->findBy(['isHidden' => true], ['createdAt' => 'DESC'], $maxResults);
 
         /** @var Request $request */
         $request = $this->container->get('request');
@@ -48,7 +48,7 @@ class TwigController extends AbstractController
         $mostCommentedPosts = $post->findMostCommented($maxResults);
 
         // Category
-        $sidebarCategories = $category->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
+        $sidebarCategories = $category->findBy(['isHidden' => true], ['createdAt' => 'DESC'], $maxResults);
 
         return $this->render(
             'global/_sidebar.html.twig',

@@ -10,15 +10,23 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasStartAndEndDateTrait;
+use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\BookingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: BookingRepository::class)]
-class Booking extends Content
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
+class Booking
 {
+    use HasIdTrait;
     use HasStartAndEndDateTrait;
+    use HasTimestampTrait;
+    use HasDeletedAtTrait;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comment = null;

@@ -43,12 +43,12 @@ final class TwigCategoryDropdownAndFooterExtension extends AbstractExtension
 
     public function categoryDropdown(int $maxResults = 8): array
     {
-        return $this->repository->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
+        return $this->repository->findBy(['isHidden' => true], ['createdAt' => 'DESC'], $maxResults);
     }
 
     public function categoryFooter(int $maxResults = 4): array
     {
-        return $this->repository->findBy(['hidden' => true], ['createdAt' => 'DESC'], $maxResults);
+        return $this->repository->findBy(['isHidden' => true], ['createdAt' => 'DESC'], $maxResults);
     }
 
     public function categoriesToString(Collection $categories): string

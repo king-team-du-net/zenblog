@@ -10,25 +10,25 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Traits\HasIdTrait;
-use App\Entity\Traits\HasIconTrait;
-use App\Entity\Traits\HasHiddenTrait;
-use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Traits\HasBackgroundAndColorTrait;
 use App\Entity\Traits\HasDeletedAtTrait;
+use App\Entity\Traits\HasFeaturedOrderTrait;
+use App\Entity\Traits\HasIsHiddenTrait;
+use App\Entity\Traits\HasIconTrait;
+use App\Entity\Traits\HasIdTrait;
+use App\Entity\Traits\HasIsFeaturedTrait;
+use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
 use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\AdCategoryRepository;
-use App\Entity\Traits\HasIsFeaturedTrait;
-use Doctrine\Common\Collections\Collection;
-use App\Entity\Traits\HasFeaturedOrderTrait;
-use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Entity\Traits\HasBackgroundAndColorTrait;
-use App\Entity\Traits\HasNameAndSlugAndAssertTrait;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AdCategoryRepository::class)]
 #[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false, hardDelete: true)]
@@ -40,7 +40,7 @@ class AdCategory implements \Stringable
     use HasNameAndSlugAndAssertTrait;
     use HasBackgroundAndColorTrait;
     use HasIconTrait;
-    use HasHiddenTrait;
+    use HasIsHiddenTrait;
     use HasIsFeaturedTrait;
     use HasFeaturedOrderTrait;
     use HasTimestampTrait;
@@ -83,7 +83,7 @@ class AdCategory implements \Stringable
     /**
      * @var Collection<int, Ad>
      */
-    #[ORM\OneToMany(mappedBy: 'categories', targetEntity: Ad::class)]
+    #[ORM\OneToMany(mappedBy: 'adCategory', targetEntity: Ad::class)]
     private Collection $ads;
 
     public function __toString(): string
@@ -248,7 +248,7 @@ class AdCategory implements \Stringable
     {
         if (!$this->ads->contains($ad)) {
             $this->ads->add($ad);
-            $ad->setCategories($this);
+            $ad->setAdCategory($this);
         }
 
         return $this;
@@ -258,8 +258,8 @@ class AdCategory implements \Stringable
     {
         if ($this->ads->removeElement($ad)) {
             // set the owning side to null (unless already changed)
-            if ($ad->getCategories() === $this) {
-                $ad->setCategories(null);
+            if ($ad->getAdCategory() === $this) {
+                $ad->setAdCategory(null);
             }
         }
 
